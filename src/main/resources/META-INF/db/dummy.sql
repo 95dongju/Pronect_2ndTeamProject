@@ -65,7 +65,7 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     'N','Y');
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     MANAGER, MSTATE, MIMAGE, MROLE)
-            VALUES('test2-5','test2-%nick','1','멤버테스트2-%','zool212@naver.com',0,0,
+            VALUES('test2-5','test2-5nick','1','멤버테스트2-%','zool212@naver.com',0,0,
                     'N','N','test.jpg','프론트엔드 개발자');
                     
 --MEMBER_TEST_디자이너(IMG O, ROLE O / IMG O, ROLE X /IMG X, ROLE O / IMG X, ROLE X / STATE X) 
