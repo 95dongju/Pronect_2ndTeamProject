@@ -65,7 +65,7 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     'N','Y');
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     MANAGER, MSTATE, MIMAGE, MROLE)
-            VALUES('test2-%','test2-%nick','1','멤버테스트2-%','zool212@naver.com',0,0,
+            VALUES('test2-5','test2-%nick','1','멤버테스트2-%','zool212@naver.com',0,0,
                     'N','N','test.jpg','프론트엔드 개발자');
                     
 --MEMBER_TEST_디자이너(IMG O, ROLE O / IMG O, ROLE X /IMG X, ROLE O / IMG X, ROLE X / STATE X) 
@@ -202,6 +202,10 @@ INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
             VALUES (12, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
                     12,0,0,'192.0.0.3');  
+SELECT * FROM 
+    (SELECT ROWNUM RN, A.* FROM 
+        (SELECT * FROM FBOARD ORDER BY FGROUP DESC, FINDENT)A) 
+WHERE RN BETWEEN 1 AND 20;
 -------------------------------------------------------------------------------
 ------------------------------------FCOMMENT DUMMY-----------------------------
 -------------------------------------------------------------------------------
@@ -213,7 +217,7 @@ INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
             VALUES (3,'zol212','ㄹㅇㅋㅋ','191.0.0.2',3);            
 INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
             VALUES (4,'sososo','거기 맛있는데 점심에 1인 입장 안돼서 친구 없으면 못먹음','191.0.0.2',2); 
-
+SELECT * FROM FCOMMENT;
 -------------------------------------------------------------------------------
 ------------------------------------QBOARD DUMMY----------------------------------
 -------------------------------------------------------------------------------
@@ -264,9 +268,13 @@ INSERT INTO QBOARD (QID, MID, QTITLE, QCONTENT,
 INSERT INTO QBOARD (QID, MID, QTITLE, QCONTENT,
                  QGROUP, QSTEP, QINDENT)
          VALUES(12, 'pronect2','스터디 그룹은 여러개 가입할 수 있나요?','여러 그룹에 가입 가능합니다.',
-                 11, 1, 1);                
+                 11, 1, 1); 
+SELECT * FROM 
+    (SELECT ROWNUM RN, A.* FROM 
+        (SELECT * FROM QBOARD ORDER BY QGROUP DESC, QINDENT)A) 
+WHERE RN BETWEEN 1 AND 20;
 -------------------------------------------------------------------------------
-------------------------------------NBOARD DUMMY--------------------------
+------------------------------------NBOARD DUMMY-------------------------------
 -------------------------------------------------------------------------------
 INSERT INTO NBOARD (NID, MID, NTITLE, NCONTENT)
                 VALUES(1, 'pronect2','일정 게시판 이용시 주의사항','내용에는 상세 내용을 입력하면 팀원 모집 및 운영에 큰 도움이 됩니다. 이 점 참고하여 글 작성 부탁드립니다.');
@@ -315,4 +323,74 @@ INSERT INTO NBOARD (NID, MID, NTITLE, NCONTENT)
 INSERT INTO NBOARD (NID, MID, NTITLE, NCONTENT)
                 VALUES(23, 'pronect3','아이디와 닉네임 설정시 비속어 사용은 다른 이들을 불쾌하게 만들 수 있습니다.','최근 닉네임에 불쾌감을 유발하는 단어를 사용한 사례가 있었습니다. 자신의 닉네임을 체크해주시고 해당 사항이 있다면 수정 부탁드립니다.');
 INSERT INTO NBOARD (NID, MID, NTITLE, NCONTENT)
-                VALUES(24, 'pronect1','웹사이트 이용중 문의사항 관련','문의사항은 자유게시판이 아닌 문의 게시판에 올려주시면 조속한 조치 취해드리고 있습니다. 자유게시판은 모든 글 확인이 어려운 관계로 꼭 문의 게시판에 문의 부탁드립니다.');   
+                VALUES(24, 'pronect1','웹사이트 이용중 문의사항 관련','문의사항은 자유게시판이 아닌 문의 게시판에 올려주시면 조속한 조치 취해드리고 있습니다. 자유게시판은 모든 글 확인이 어려운 관계로 꼭 문의 게시판에 문의 부탁드립니다.');  
+SELECT * FROM NBOARD;
+-------------------------------------------------------------------------------
+------------------------------------STUDY DUMMY--------------------------------
+-------------------------------------------------------------------------------               
+SELECT * FROM STUDY;
+
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(1, 'test1-1','스터디모집','모집합니다',5,
+                    'Java','JavaScript',null,'23/05/01','23/06/04','서울');
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(2, 'test2-3','스터디원 모집','모집합니다',5,
+                    null,null,null,'23/05/01','23/06/04',null);
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(3, 'test3-4','모각코 하실분 모집합니다','경기권 4명 모집합니다',5,
+                    null,null,null,'23/05/20','23/07/30','경기');
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(4, 'test4-1','같이 공부하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,
+                    null,null,null,'23/04/20','23/05/20','서울');
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(5, 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,
+                    'Spring','Java','JavaScript','23/05/01','23/05/26','서울');
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(6, 'test3-3','같이 리액트 공부하실 분','같이 리액트 공부하실 분',3,
+                    'React','Node',null,'23/05/01','23/05/16',null);
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(7, 'test4-2','6월부터 같이 공부하실분 있나요','6월부터 같이 공부하실 분 찾습니다',6,
+                    'Spring',null,null,'23/06/05','23/07/14',null);
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC, SCOMPLETE)
+            VALUES(8, 'test1-1','스터디모집','모집합니다',5,
+                    'Java','JavaScript',null,'23/02/01','23/04/04','서울','Y');
+SELECT * FROM STUDY;
+-------------------------------------------------------------------------------
+-------------------------  STUDYCOMMENT DUMMY ---------------------------------
+-------------------------------------------------------------------------------
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(1, 'test1-2','지역이 어떻게 되시나요?','193.0.0.1',5);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(2, 'test1-3','경기, 서울 다 가능합니다','192.0.0.2',5);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(3, 'teemo','마침 6월에 시작하는 그룹 찾고있었는데','191.0.0.2',7);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(4, 'johnwick','1등','183.0.0.3',3);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(5, 'abc123','유치하네요 난 2등','188.0.0.1',3);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(6, 'king99','모각코가 뭔가요?','193.0.0.1',3);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(7, 'lolo112','모여서 각자 코딩입니다','187.0.0.1',3);
+INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
+            VALUES(8, 'zol212','ㄹㅇㅋㅋ','191.0.0.2',3);
+SELECT * FROM SCOMMENT;
+-------------------------------------------------------------------------------
+-------------------------  SSTATUS DUMMY  -------------------------------------
+-------------------------------------------------------------------------------
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (1, 'test1-1',1,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (2, 'test2-3',2,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (3, 'test3-4',3,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (4, 'test4-1',4,2);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (5, 'test1-3',5,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (6, 'test3-3',6,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (7, 'test4-2',7,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (8, 'test1-1',8,3);
