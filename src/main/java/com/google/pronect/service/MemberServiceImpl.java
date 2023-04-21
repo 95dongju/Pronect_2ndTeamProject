@@ -1,5 +1,12 @@
 package com.google.pronect.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.mail.Message;
@@ -11,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.pronect.dao.MemberDao;
+import com.google.pronect.util.Paging;
 import com.google.pronect.vo.Member;
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -20,6 +30,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 	@Autowired
 	private JavaMailSenderImpl mailSender;
+	String backupPath = "D:\\YeosongYoon\\WebProgramming\\Source\\10_2ndTeamProject\\pronect\\src\\main\\webapp\\memberFile\\";
 	
 	@Override
 	public int idConfirm(String mid) {
@@ -34,8 +45,29 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int joinMember(final Member member, HttpSession httpSession) {
+	public int joinMember(final Member member, HttpSession httpSession, MultipartHttpServletRequest mRequest) {
 		// TODO Auto-generated method stub
+		String uploadPath = mRequest.getRealPath("memberFile/");
+		Iterator<String> params = mRequest.getFileNames();
+		String mimage = "";
+		String param = params.next();
+		MultipartFile mFile = mRequest.getFile(param); // 파라미터에 첨부된 파일 객체
+		mimage = mFile.getOriginalFilename();
+		if(mimage!=null && !mimage.equals("")) { // 첨부함
+			if(new File(uploadPath + mimage).exists()) {
+				// 서버에 같은 파일이름이 있을 경우(첨부파일과)
+				mimage = System.currentTimeMillis() + "_" + mimage;
+			}//if
+			try {
+				mFile.transferTo(new File(uploadPath + mimage)); // 서버에 저장
+				System.out.println("서버파일 : " + uploadPath + mimage);
+				System.out.println("백업파일 : " + backupPath + mimage);
+				boolean result = fileCopy(uploadPath + mimage, backupPath + mimage);
+				System.out.println(result ?"백업성공":"백업실패");
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		} // if
 		MimeMessagePreparator message = new MimeMessagePreparator() {
 			String content = "<div style=\"width:550px; margin: 0 auto;\">\n" + 
 					"		<h1>" + member.getMname() + "님의 회원가입 감사합니다</h1>\n" + 
@@ -62,7 +94,35 @@ public class MemberServiceImpl implements MemberService {
 		}; // message 객체 생성
 		mailSender.send(message); // 메일 전송
 		httpSession.setAttribute("mid", member.getMid());
+		member.setMimage(mimage);
 		return memberDao.joinMember(member);
+	}
+	private boolean fileCopy(String serverFile, String backupFile) {
+		boolean isCopy = false;
+		InputStream is = null; 
+		OutputStream os = null;
+		try {
+			File file = new File(serverFile);
+			is = new FileInputStream(file);
+			os = new FileOutputStream(backupFile);
+			byte[] buff = new byte[(int) file.length()];
+			while(true) {
+				int nReadByte = is.read(buff);
+				if(nReadByte == -1) break;
+				os.write(buff, 0, nReadByte);
+			}
+			isCopy = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(os!=null) os.close();
+				if(is!=null) is.close();
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return isCopy;
 	}
 
 	@Override
@@ -99,15 +159,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Member> memberList(Member member) {
+	public List<Member> memberList(String pageNum, Member member) {
 		// TODO Auto-generated method stub
-		return null;
+		Paging paging = new Paging(memberDao.totCntMember(member), pageNum);
+		member.setStartRow(paging.getStartRow());
+		member.setEndRow(paging.getEndRow());
+		return memberDao.memberList(member);
 	}
 
 	@Override
 	public int totCntMember(Member member) {
 		// TODO Auto-generated method stub
-		return 0;
+		return memberDao.totCntMember(member);
 	}
 
 }
