@@ -2,9 +2,9 @@
 -----------------------------  MEMBER_DAO  ---------------------------
 ----------------------------------------------------------------------
 -- (1) 회원id 중복체크
-SELECT * FROM MEMBER WHERE MID='hong';
+SELECT COUNT(*) FROM MEMBER WHERE MID='hong';
 -- (2) 회원 닉네임 중복체크
-SELECT * FROM MEMBER WHERE MNICKNAME='홍씨성을가진서자';
+SELECT COUNT(*) FROM MEMBER WHERE MNICKNAME='홍씨성을가진서자';
 -- (3) 회원가입
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MIMAGE, MROLE)
             VALUES('hong', '홍씨성을가진서자', '1', '홍길동', 'hong@chosun.com', null, '백엔드 개발자');
@@ -21,13 +21,32 @@ UPDATE MEMBER
         MIMAGE='hong.jpg',
         MROLE='백엔드 개발자'
     WHERE MID='hong';
--- (7) 회원 리스트(top-n)
-SELECT *
-  FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM MEMBER ORDER BY MDATE DESC) A)
-  WHERE RN BETWEEN 1 AND 10;
--- (8) 전체 등록된 회원수
+-- (7) 회원정보 수정(관리자 모드)
+UPDATE MEMBER
+    SET MANAGER='Y',
+        MSTATE='Y'
+    WHERE MID='hong';
+-- (8) 회원 리스트(top-n)
+    -- 검색어 없을 때
+SELECT * FROM (SELECT ROWNUM RN, A.* 
+    FROM (SELECT * FROM MEMBER ORDER BY MDATE DESC) A)
+    WHERE RN BETWEEN 1 AND 10;
+    -- 검색어 mid
+SELECT * FROM (SELECT ROWNUM RN, A.* 
+    FROM (SELECT * FROM MEMBER WHERE MID LIKE '%'||'te'||'%' ORDER BY MDATE DESC) A)
+    WHERE RN BETWEEN 1 AND 10;
+    -- 검색어 MANAGER
+SELECT * FROM (SELECT ROWNUM RN, A.* 
+    FROM (SELECT * FROM MEMBER WHERE MANAGER='Y' ORDER BY MDATE DESC) A)
+    WHERE RN BETWEEN 1 AND 10;
+-- (9) 전체 등록된 회원수
+    -- 검색어 없을 때
 SELECT COUNT(*) FROM MEMBER;
--- (9) 회원탈퇴처리
+    -- 검색어 mid
+SELECT COUNT(*) FROM MEMBER WHERE MID LIKE '%'||'te'||'%';
+    -- 검색어 MANAGER
+SELECT COUNT(*) FROM MEMBER WHERE MANAGER='Y';
+-- (10) 회원탈퇴처리
 UPDATE MEMBER
     SET MSTATE='N' WHERE MID='hong';
 COMMIT;
