@@ -65,9 +65,9 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     'N','Y');
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     MANAGER, MSTATE, MIMAGE, MROLE)
-            VALUES('test2-5','test2-5nick','1','멤버테스트2-%','zool212@naver.com',0,0,
+            VALUES('test2-5','test2-5nick','1','멤버테스트2-5','zool212@naver.com',0,0,
                     'N','N','test.jpg','프론트엔드 개발자');
-                    
+
 --MEMBER_TEST_디자이너(IMG O, ROLE O / IMG O, ROLE X /IMG X, ROLE O / IMG X, ROLE X / STATE X) 
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     MANAGER, MSTATE, MIMAGE, MROLE)
@@ -386,11 +386,12 @@ SELECT * FROM SCOMMENT;
 -------------------------------------------------------------------------------
 -------------------------  SSTATUS DUMMY  -------------------------------------
 -------------------------------------------------------------------------------
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (1, 'test1-1',1,1);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (2, 'test2-3',2,1);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (3, 'test3-4',3,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (1, 'test1-1',1,2);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (2, 'test2-3',2,2);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (3, 'test3-4',3,2);
 INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (4, 'test4-1',4,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (5, 'test1-3',5,1);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (6, 'test3-3',6,1);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (7, 'test4-2',7,1);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (5, 'test1-3',5,2);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (6, 'test3-3',6,2);
+INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (7, 'test4-2',7,2);
 INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (8, 'test1-1',8,3);
+COMMIT;
