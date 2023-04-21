@@ -11,6 +11,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	<jsp:forward page="home.do"/>
+	<jsp:forward page="main.do"/>
 </body>
 </html>
