@@ -45,14 +45,8 @@
 	</update>
 	<update id="modifyManager" parameterType="Member">
 		UPDATE MEMBER
-		    SET MNICKNAME=#{mnickname},
-		        MPW=#{mpw},
-		        MNAME=#{mname},
-		        MMAIL=#{mmail},
-		        MANAGER=#{manager},
-        		MSTATE=#{mstate},
-		        MIMAGE=#{mimage},
-		        MROLE=#{mrole}
+		    SET MANAGER=#{manager},
+		        MSTATE=#{mstate}
 		    WHERE MID=#{mid}
 	</update>
 	<!-- 멤버출력 startRow~endRow -->
