@@ -48,8 +48,12 @@ SELECT COUNT(*) FROM MEMBER WHERE MID LIKE '%'||'te'||'%';
 SELECT COUNT(*) FROM MEMBER WHERE MANAGER='Y';
 -- (10) 회원탈퇴처리
 UPDATE MEMBER
-    SET MSTATE='N' WHERE MID='hong';
+    SET MSTATE='N' WHERE MID='kim';
 COMMIT;
+-- (11) 이름과 이메일로 아이디 찾기
+SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com';
+-- (12) 이름과 이메일과 아이디로 비밀번호 찾기
+SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com' AND MID='kim';
 ----------------------------------------------------------------------
 ----------------------------  FREEBOARD  -----------------------------
 ----------------------------------------------------------------------

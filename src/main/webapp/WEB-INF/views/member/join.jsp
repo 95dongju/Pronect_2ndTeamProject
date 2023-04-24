@@ -11,8 +11,6 @@
 <style>
 	#content {width: 800px; height:350px;margin: 50px auto;}
 </style>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="${conPath }/js/address.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	$(document).ready(function(){
@@ -26,6 +24,7 @@
 				}
 			});
 		});
+		
 		$('.nicknameconfirm').click(function(){
 			$.ajax({
 				url : '${conPath}/member/nicknameConfirm.do',
@@ -36,7 +35,8 @@
 				}
 			});
 		});
-		$('#mid').keyup(function(){
+		
+		$('#mid').click(function(){
 			var mid = $(this).val();
 			var patternMid = /^[a-zA-Z0-9_]+$/; // macth함수 사용
 			if(mid.length<2){
@@ -45,18 +45,30 @@
 				$('#idConfirmMsg').text('아이디는 영문자와 숫자 만 들어갈 수 있음');
 			}else {
 				$.ajax({
-					url : '${conPath}/member.do',
+					url : '${conPath}/member/idConfirm.do',
 					datatype : 'html',
-					data : "method=idConfirm&mid="+$('#mid').val(),
+					data : "mid="+$('#mid').val(),
 					success : function(data, status){
 						$('#idConfirmMsg').html(data);
 					}
 				});
 			}
 		});
+
+		$('input[name="mpw"], input[name="mpwChk"]').keyup(function(){
+  			var pw = $('input[name="mpw"]').val();
+  			var pwChk = $('input[name="mpwChk"]').val();
+  			if(pw == pwChk){
+  				$('#mpwChkResult').text('비밀번호 일치');
+  			}else{
+  				$('#mpwChkResult').text('비밀번호 불일치');
+  			}
+  		});
+		
 		$('form').submit(function(){
 			var idConfirmResult = $('#idConfirmMsg').text().trim();
 			var nicknameConfirmResult = $('#nicknameConfirmMsg').text().trim();
+			var mpwChkResult = $('#mpwChkResult').text().trim();
 			var mmail = $('input[name="mmail"]');
 			var patternMmail = /^[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+(\.\w+){1,2}$/; // macth함수 사용
 			if(idConfirmResult!='사용 가능한 ID입니다'){
@@ -71,7 +83,11 @@
 				alert('메일 형식이 맞지 않습니다');
 				mmail.focus();
 				return false;
-			}
+			}else if(mpwChkResult != '비밀번호 일치'){
+  				alert('비밀번호를 확인하세요');
+  				$('input[name="mpw"]').focus();
+  				return false;
+  			}
 		});
 	});
 </script>
@@ -103,6 +119,13 @@
 				<td><input type="password" name="mpw"></td>
 			</tr>
 			<tr>
+				<th>비밀번호 확인</th>
+				<td>
+					<input type="password" name="mpwChk"><br>
+					<span id="mpwChkResult"> &nbsp; </span>
+				</td>
+			</tr>
+			<tr>
 				<th>이름</th>
 				<td><input type="text" name="mname"></td>
 			</tr>
@@ -116,7 +139,7 @@
 			</tr>
 			<tr>
 				<th>사진</th>
-				<td><input type="file" name="mimage"></td>
+				<td><input type="file" name="tempMimage"></td>
 			</tr>
 			<tr><td colspan="2"><input type="submit" value="가입"></td></tr>
 		</table>

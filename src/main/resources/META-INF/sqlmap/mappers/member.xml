@@ -39,7 +39,7 @@
 		        MPW=#{mpw},
 		        MNAME=#{mname},
 		        MMAIL=#{mmail},
-		        MIMAGE=#{mimage},
+		        <if test="mimage != null and mimage!=''">MIMAGE=#{mimage},</if>
 		        MROLE=#{mrole}
 		    WHERE MID=#{mid}
 	</update>
@@ -79,7 +79,13 @@
 			SELECT COUNT(*) FROM MEMBER WHERE MANAGER=#{schWord}
 		</if>
 	</select>
-	<update id="withdrawalMember" parameterType="String">
-		UPDATE MEMBER SET MSTATE='N' WHERE MID=#{mid}
+	<update id="deactivateMember" parameterType="String">
+		UPDATE MEMBER SET MSTATE='N' WHERE MID=#{mid, jdbcType=VARCHAR}
 	</update>
+	<select id="searchId" parameterType="Member" resultType="Member">
+		SELECT * FROM MEMBER WHERE MNAME=#{mname} AND MMAIL=#{mmail}
+	</select>
+	<select id="searchPw" parameterType="Member" resultType="Member">
+		SELECT * FROM MEMBER WHERE MNAME=#{mname} AND MMAIL=#{mmail} AND MID=#{mid}
+	</select>
 </mapper>

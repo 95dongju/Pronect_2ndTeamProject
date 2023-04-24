@@ -23,6 +23,12 @@
 	</script>
 </head>
 <body>
+	<c:if test="${member.mstate eq 'N'}">
+		<script>
+			alert('탈퇴했거나 없는 회원입니다.');
+			location.href="${conPath}/member/logout.do";
+		</script>
+	</c:if>
 	<jsp:include page="header.jsp"/>
 	<div id="content">
 	</div>

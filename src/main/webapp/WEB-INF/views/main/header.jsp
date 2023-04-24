@@ -73,10 +73,10 @@ header .lnb a {
 		</ul>
 	</c:if>
 	</div>
-	<div class="logo" onclick="location.href='${conPath}/main/main.do'">LOGO</div>
+	<div class="logo" onclick="location.href='${conPath}/main.do'">LOGO</div>
 	<div class="lnb">
 		<ul>
-			<li><a href="${conPath}/main/main.do">홈</a></li>
+			<li><a href="${conPath}/main.do">홈</a></li>
 			<li><a href="#">자유게시판</a></li>
 			<li><a href="#">다른게시판</a></li>
 		</ul>
