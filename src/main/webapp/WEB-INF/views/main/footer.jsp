@@ -1,31 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+	<title>Pronect</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="${conPath }/css/main.css" />
 </head>
-<style>
-	footer {
-		height:60px; background-color: #003300;
- 	}
-	footer #footer_conts {
-		color:white;
-		font-weight: blod;
-		margin:0 auto;
-		height: 60px;
-		padding:10px 30px 0;
-		font-size:0.9em;
-		text-align: center;
-	}
-</style>
-<body>
-	<footer>
-		<div id="footer_conts">
-(주)IT 402 | 전화 : 02-123-1234 | 팩스 : 070-1234-1234 | 메일 : help@lec.com 
-<br>
-		    서울특별시 OO구 XX동 **빌딩 4층
+<body class="is-preload">
+	<footer id="footer">
+		<div class="inner">
+			<section class="footer">
+				<ul>
+					<li><a href="#">이용약관</a></li>
+					<li><a href="#">개인정보처리방침</a></li>
+					<li><a href="#">서비스소개</a></li>
+					<li><a href="#">FAQ</a></li>
+				</ul>
+			</section>
+			<section>
+				<ul class="icons">
+					<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+					<li><a href="https://github.com/95dongju/Pronect_2ndTeamProject" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+					<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+				</ul>
+			</section>
+			<ul class="copyright">
+				<li>&copy; Pronect. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
 		</div>
 	</footer>
 </body>
