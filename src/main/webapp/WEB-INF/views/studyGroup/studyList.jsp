@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
   <script src="https://code.jquery.com/jquery-3.6.4.js"></Script>
   <script>
 	  const trClicked = function(sid){
-		  location.href='${conPath}/study/content.do?sid='+sid+'&pageNum=${paging.currentPage}';
+		  location.href='${conPath}/study/detail.do?sid='+sid+'&pageNum=${paging.currentPage}';
 	  };
   </script>
 </head>
@@ -32,16 +33,18 @@
 	</c:if>
 	<table>
 		<caption>게시판</caption>
-		<tr><td><a href="${conPath}/study/write.do?pageNum=${paging.currentPage}">글쓰기</a></td></tr>
+		<c:if test="${studyGroupLeader eq 0}">
+			<tr><td><a href="${conPath}/study/register.do?pageNum=${paging.currentPage}">글쓰기</a></td></tr>
+		</c:if>
 	</table>
 	<table>
 		<tr>
-			<th>글번호</th><th>글쓴이</th><th>글제목</th><th>내용</th><th>모집 인원</th><th>사용 언어1</th><th>사용 언어2</th>
-			<th>사용 언어3</th><th>작성일</th><th>스터디 기간</th><th>조회수</th><th>지역</th>
+			<th>글번호</th><th>글쓴이</th><th>글제목</th><th>내용</th><th>모집 인원</th>
+			<th>사용 언어</th><th>작성일</th><th>스터디 기간</th><th>조회수</th><th>지역</th>
 		</tr>
 		<c:if test="${totCnt eq 0 }">
 			<tr>
-				<td colspan="7">해당 페이지의 글이 없습니다</td>
+				<td colspan="10">해당 페이지의 글이 없습니다</td>
 			</tr>
 		</c:if>
 		<c:if test="${totCnt != 0 }">
@@ -52,9 +55,20 @@
 					<td>${dto.stitle}</td>
 					<td>${dto.scontent }</td>
 					<td>${dto.speople }</td>
-					<td>${dto.slanguage1 }</td>
-					<td>${dto.slanguage2 }</td>
-					<td>${dto.slanguage3 }</td>
+					<td>
+						<c:if test="${empty dto.slanguage1 and empty dto.slanguage2 and empty dto.slanguage3}">
+							-
+						</c:if>
+						<c:if test="${not empty dto.slanguage1 }">
+								${dto.slanguage1 }
+						</c:if>
+						<c:if test="${not empty dto.slanguage2 }">
+								/ ${dto.slanguage2 }
+						</c:if>
+						<c:if test="${not empty dto.slanguage3 }">
+								/ ${dto.slanguage3 }
+						</c:if>
+					</td>
 					<td><fmt:formatDate value="${dto.srdate }" pattern="yy/MM/dd(E) HH:mm"/></td>
 					<td>
 						<fmt:formatDate value="${dto.ssdate }" pattern="yy/MM/dd(E)"/> - <fmt:formatDate value="${dto.sfdate }" pattern="yy/MM/dd(E)"/>
@@ -67,18 +81,18 @@
 	</table>
 	<div class="paging">
 		<c:if test="${paging.startPage > paging.blockSize}">
-			[ <a href="${conPath }/list.do?pageNum=${paging.startPage-1}">이전</a> ]
+			[ <a href="${conPath }/study/list.do?pageNum=${paging.startPage-1}">이전</a> ]
 		</c:if>
 		<c:forEach var="i" begin="${paging.startPage }" end="${paging.endPage}">
 			<c:if test="${i eq pageNum }">
 				[ <b>${i }</b> ]
 			</c:if>
 			<c:if test="${i != pageNum }">
-				[ <a href="${conPath}/list.do?pageNum=${i }">${i}</a> ]
+				[ <a href="${conPath}/study/list.do?pageNum=${i }">${i}</a> ]
 			</c:if>
 		</c:forEach>
 		<c:if test="${paging.endPage < paging.pageCnt }">
-			[ <a href="${conPath }/list.do?pageNum=${paging.endPage+1}">다음</a> ]
+			[ <a href="${conPath }/study/list.do?pageNum=${paging.endPage+1}">다음</a> ]
 		</c:if>
 	</div>
 	</div>
