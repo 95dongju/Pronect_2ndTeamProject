@@ -2,6 +2,7 @@ package com.google.pronect.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +48,7 @@ public class MemberController {
 		String loginResult = memberService.loginCheck(mid, mpw, httpSession);
 		if(loginResult.equals("로그인 성공")) {
 			model.addAttribute("loginResult", loginResult);
-			return "redirect:main.do";
+			return "main/main";
 		}else {
 			model.addAttribute("loginResult", loginResult);
 			model.addAttribute("mid", mid);
@@ -58,7 +59,7 @@ public class MemberController {
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession httpSession) {
 		httpSession.invalidate();
-		return "redirect:main.do";
+		return "main/main";
 	}
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String modify() {
@@ -66,8 +67,36 @@ public class MemberController {
 	}
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String modify(@ModelAttribute("mDto") Member member, 
-			Model model, HttpSession httpSession) {
-		model.addAttribute("modifyResult", memberService.modifyMember(member, httpSession));
-		return "forward:main.do";
+			Model model, HttpSession httpSession, MultipartHttpServletRequest mRequest) {
+		model.addAttribute("modifyResult", memberService.modifyMember(member, httpSession, mRequest));
+		return "main/main";
+	}
+	@RequestMapping(value = "deactivate", method = RequestMethod.GET)
+	public String deactivate() {
+		return "member/deactivate";
+	}
+	@RequestMapping(value = "deactivate", method = RequestMethod.POST)
+	public String deactivate(@ModelAttribute("mDto") Member member, Model model, HttpSession httpSession) {
+		model.addAttribute("deactivateResult", memberService.deactivateMember(member, httpSession));
+		httpSession.invalidate();
+		return "main/main";
+	}
+	@RequestMapping(value = "searchId", method = RequestMethod.GET)
+	public String searchId() {
+		return "member/searchId";
+	}
+	@RequestMapping(value = "searchId", method = RequestMethod.POST)
+	public String searchId(String mname, String mmail, Model model, HttpSession httpSession) {
+		model.addAttribute("searchIdResult", memberService.searchId(mname, mmail, httpSession));
+		return "member/login";
+	}
+	@RequestMapping(value = "searchPw", method = RequestMethod.GET)
+	public String searchPw() {
+		return "member/searchPw";
+	}
+	@RequestMapping(value = "searchPw", method = RequestMethod.POST)
+	public String searchPw(String mname, String mmail, String mid, Model model, HttpSession httpSession) {
+		model.addAttribute("searchPwResult", memberService.searchPw(mname, mmail, mid, httpSession));
+		return "member/login";
 	}
 }

@@ -3,6 +3,7 @@ package com.google.pronect.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.google.pronect.vo.Member;
 
@@ -17,4 +18,7 @@ public interface MemberDao {
 	public int modifyManager(Member member);
 	public List<Member> memberList(Member member);
 	public int totCntMember(Member member);
+	public int deactivateMember(Member member);
+	public Member searchId(@Param("mname")String mname, @Param("mmail")String mmail);
+	public Member searchPw(@Param("mname")String mname, @Param("mmail")String mmail, @Param("mid")String mid);
 }

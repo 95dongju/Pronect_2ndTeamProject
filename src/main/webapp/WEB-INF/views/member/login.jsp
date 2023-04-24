@@ -23,6 +23,12 @@
 	<c:if test="${not empty loginResult}">
 		<script>alert('${loginResult}');</script>
 	</c:if>
+	<c:if test="${not empty searchIdResult}">
+		<script>alert('${searchIdResult}');</script>
+	</c:if>
+	<c:if test="${not empty searchPwResult}">
+		<script>alert('${searchPwResult}');</script>
+	</c:if>
 	<c:if test="${not empty member }">
 		<script>
 			location.href='${conPath}/main/main.do';
@@ -48,6 +54,8 @@
 			</tr>
 		</table>
 	</form>
+	<button type="button" onclick="location.href='${conPath}/member/searchId.do'" >아이디를 잊으셨나요?</button>
+	<button type="button" onclick="location.href='${conPath}/member/searchPw.do'" >비밀번호를 잊으셨나요?</button>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
