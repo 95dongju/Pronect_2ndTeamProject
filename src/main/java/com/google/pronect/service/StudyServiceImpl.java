@@ -25,13 +25,17 @@ public class StudyServiceImpl implements StudyService {
 	public int studyTotCnt() {
 		return studyDao.studyTotCnt();
 	}
+	@Override
+	public int studyGroupLeader(String mid) {
+		return studyDao.studyGroupLeader(mid);
+	}
 
 	@Override
 	public int registerGroup(Study study) {
 		String mid = study.getMid();
+		studyDao.registerGroup(study);
 		int sid = studyDao.getRegisteredSid(mid);
-		studyDao.insertHistory(sid, mid);
-		return studyDao.registerGroup(study);
+		return studyDao.insertHistory(sid, mid);
 	}
 
 	@Override
@@ -46,17 +50,17 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public Study getStudyDetail(int sid) {
+		studyDao.studyHitUp(sid);
+		return studyDao.getStudyDetail(sid);
+	}
+	@Override
+	public Study getAfterModifyView(int sid) {
 		return studyDao.getStudyDetail(sid);
 	}
 
 	@Override
 	public int modifyStudy(Study study) {
-		String slanguage1 = study.getSlanguage1();
-		String slanguage2 = study.getSlanguage2();
-		String slanguage3 = study.getSlanguage3();
-		if(slanguage1.equals(null)) slanguage1="";
-		if(slanguage2.equals(null)) slanguage1="";
-		if(slanguage3.equals(null)) slanguage1="";
+		System.out.println("서비스 단 : " +study);
 		return studyDao.modifyStudy(study);
 	}
 
@@ -84,5 +88,7 @@ public class StudyServiceImpl implements StudyService {
 	public int completeStudy(int sid) {
 		return studyDao.completeStudy(sid);
 	}
+
+
 
 }

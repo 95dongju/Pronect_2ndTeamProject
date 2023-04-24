@@ -30,19 +30,31 @@
 	<select id="studyTotCnt" resultType="int">
 		SELECT COUNT(*) FROM STUDY WHERE SCOMPLETE = 'N'
 	</select>
+	<select id="studyGroupLeader" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM STUDY WHERE MID = #{mid} AND SCOMPLETE='N'
+	</select>
 	<insert id="registerGroup" parameterType="Study">
 		INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
                     SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
             VALUES(STUDY_SEQ.NEXTVAL, #{mid},#{stitle},#{scontent},#{speople},
                     #{slanguage1},#{slanguage2},#{slanguage3},#{ssdate},#{sfdate},#{sloc})
+ 	  <selectKey resultType="Integer" keyProperty="sid" order="AFTER">
+	  	SELECT MAX(SID) FROM STUDY
+	  </selectKey>
 	</insert>
 	<select id="getRegisteredSid" parameterType="String" resultType="int">
 		SELECT SID FROM STUDY WHERE MID = #{mid} AND  SCOMPLETE = 'N'
 	</select>
 	<insert id="insertHistory" parameterType="Study">
-		INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS)
-            VALUES (SSTATUS_SEQ.NEXTVAL, #{mid},#{sid},2)
+		INSERT INTO SSTATUS (SSID, SID, MID, SSSTATUS)
+            VALUES (SSTATUS_SEQ.NEXTVAL, #{sid}, #{mid},2)
+	  <selectKey resultType="Integer" keyProperty="ssid" order="AFTER">
+	  	SELECT MAX(SSID) FROM SSTATUS
+	  </selectKey>
 	</insert>
+	<update id="studyHitUp" parameterType="int">
+		UPDATE STUDY SET SHIT=SHIT+1 WHERE SID = #{sid}
+	</update>
 	<select id="getStudyDetail" parameterType="int" resultType="Study">
 		SELECT * FROM STUDY WHERE SID = #{sid}
 	</select>
@@ -67,6 +79,9 @@
 	<insert id="joinStudy" parameterType="Study">
 		INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS)
             VALUES (SSTATUS_SEQ.NEXTVAL, #{mid},#{sid},1)
+ 	  <selectKey resultType="Integer" keyProperty="ssid" order="AFTER">
+  		SELECT MAX(SSID) FROM SSTATUS
+  	</selectKey>
 	</insert>
 	<update id="acceptStudy" parameterType="String">
 		UPDATE SSTATUS SET SSSTATUS = 2 WHERE MID = #{mid}
