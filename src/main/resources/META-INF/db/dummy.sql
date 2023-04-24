@@ -150,7 +150,8 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
             VALUES('johnwick','존웍','1','박준익','zool212@naver.com',0,0,
                     'N','johnwick.jpg','Y');
 SELECT * FROM MEMBER;
-
+SELECT * FROM SSTATUS;
+SELECT * FROM STUDY;
 -------------------------------------------------------------------------------
 ------------------------------------FREEBOARD DUMMY----------------------------
 -------------------------------------------------------------------------------
