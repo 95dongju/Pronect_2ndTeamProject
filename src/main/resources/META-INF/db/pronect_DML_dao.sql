@@ -54,6 +54,7 @@ COMMIT;
 SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com';
 -- (12) 이름과 이메일과 아이디로 비밀번호 찾기
 SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com' AND MID='kim';
+SELECT * FROM MEMBER;
 ----------------------------------------------------------------------
 ----------------------------  FREEBOARD  -----------------------------
 ----------------------------------------------------------------------

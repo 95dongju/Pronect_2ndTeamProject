@@ -9,7 +9,6 @@
 		<typeAlias type="com.google.pronect.vo.SComment" alias="SComment"/>
 		<typeAlias type="com.google.pronect.vo.Project" alias="Project"/>
 		<typeAlias type="com.google.pronect.vo.PComment" alias="PComment"/>
-
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>

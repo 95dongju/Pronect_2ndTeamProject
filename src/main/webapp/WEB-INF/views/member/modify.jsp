@@ -8,9 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/style.css" rel="stylesheet">
+<link href="${conPath }/css/main.css" rel="stylesheet">
 <style>
-	#content {width: 800px; height:350px;margin: 50px auto;}
+	#content {width: 800px; height:800px;margin: 50px auto;}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
