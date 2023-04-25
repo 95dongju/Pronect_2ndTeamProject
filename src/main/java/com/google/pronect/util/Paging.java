@@ -13,8 +13,6 @@ public class Paging {
 	private int startPage;
 	private int endPage;
 	private int totCnt;
-	// empList.do 또는 empList.do?pageNum=2
-	// Paging paging = new Paging(14, 2, 10, 10);
 	public Paging(int totCnt, String pageNum, int pageSize, int blockSize) {
 		if(pageNum!=null) {
 			currentPage = Integer.parseInt(pageNum);

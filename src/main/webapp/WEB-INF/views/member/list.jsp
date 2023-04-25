@@ -6,19 +6,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link href="${conPath }/css/main.css" rel="stylesheet">
-<style>
-	#content {width: 800px; height:1200px;margin: 50px auto; }
-	img{width: 100px;}
-	a {text-decoration: none; color:black;}
-	b {color:red;}
-</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Insert title here</title>
+	<link href="${conPath }/css/main.css" rel="stylesheet">
+	<style>
+		#content {width: 800px; height:1200px;margin: 50px auto; }
+		img{width: 100px;}
+		a {text-decoration: none; color:black;}
+		b {color:red;}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('tr:not(:first-child)').click(function(){
+				var mid = $(this).children().eq(0).text(); // 0번째 td안의 있는 text;
+				location.href = '${conPath}/member/modifyManager.do?mid='+mid+'&pageNum=${param.pageNum}&schItem=${param.schItem}&schWord=${param.schWord}';
+			});
+		});
+	</script>
 </head>
 <body>
 	<c:set var="SUCCESS" value="1"></c:set>
-	<c:if test="${managerModifyResult eq SUCCESS }">
+	<c:if test="${modifyManagerResult eq 1 }">
 		<script>
 			alert('관리자 모드로 회원 수정 완료');
 		</script>
@@ -55,8 +64,15 @@
 					<td>${member.mname }</td>
 					<td>${member.mmail }</td>
 					<td><fmt:formatDate value="${member.mdate }" type="date" dateStyle="short"/></td>
-					<td>${member.manager }</td>
-					<td>${member.mstate }</td>
+					<td>
+						<c:if test="${member.manager eq 'Y'}">관리자</c:if>
+						<c:if test="${member.manager eq 'N'}">일반회원</c:if>
+					</td>
+					<td>
+						<c:if test="${member.mstate eq 'Y'}">활동중</c:if>
+						<c:if test="${member.mstate eq 'N'}">탈퇴</c:if>
+						<c:if test="${member.mstate eq 'B'}">정지</c:if>
+					</td>
 				</tr>
 			</c:forEach>
 		</table><br>

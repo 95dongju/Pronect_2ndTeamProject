@@ -15,7 +15,7 @@ public interface MemberService {
 	public String loginCheck(String mid, String mpw, HttpSession httpSession);
 	public Member getDetailMember(String mid);
 	public int modifyMember(Member member, HttpSession httpSession, MultipartHttpServletRequest mRequest);
-	public int modifyManager(Member member, HttpSession httpSession);
+	public int modifyManager(Member member);
 	public List<Member> memberList(String pageNum, Member member);
 	public int totCntMember(Member member);
 	public int deactivateMember(Member member, HttpSession httpSession);

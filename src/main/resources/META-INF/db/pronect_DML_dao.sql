@@ -37,7 +37,7 @@ SELECT * FROM (SELECT ROWNUM RN, A.*
     WHERE RN BETWEEN 1 AND 10;
     -- 검색어 MANAGER
 SELECT * FROM (SELECT ROWNUM RN, A.* 
-    FROM (SELECT * FROM MEMBER WHERE MANAGER='Y' ORDER BY MDATE DESC) A)
+    FROM (SELECT * FROM MEMBER WHERE MANAGER=UPPER('y') ORDER BY MDATE DESC) A)
     WHERE RN BETWEEN 1 AND 10;
 -- (9) 전체 등록된 회원수
     -- 검색어 없을 때
@@ -54,47 +54,40 @@ COMMIT;
 SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com';
 -- (12) 이름과 이메일과 아이디로 비밀번호 찾기
 SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com' AND MID='kim';
-SELECT * FROM MEMBER;
 ----------------------------------------------------------------------
 ----------------------------  FREEBOARD  -----------------------------
 ----------------------------------------------------------------------
 -- (1) 글 목록 출력
     -- 1 schItem이 null이거나 ''일 때
-SELECT *
-    FROM (SELECT ROWNUM RN, A.*
+SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD ORDER BY FGROUP DESC, FSTEP) A)
-    WHERE RN BETWEEN 1 AND 20;
+    WHERE RN BETWEEN 1 AND 10;
     -- 2 schItem이 'all'일 때
-SELECT *
-    FROM (SELECT ROWNUM RN, A.*
+SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD 
         WHERE FTITLE LIKE '%'||'찌'||'%' OR FCONTENT LIKE '%'||'찌'||'%' OR MID LIKE '%'||'찌'||'%'
         ORDER BY FGROUP DESC, FSTEP) A)
     WHERE RN BETWEEN 1 AND 10;
     -- 3 schItem이 'mid'일 때
-SELECT *
-    FROM (SELECT ROWNUM RN, A.*
+SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD 
         WHERE MID LIKE '%'||'abc'||'%'
         ORDER BY FGROUP DESC, FSTEP) A)
     WHERE RN BETWEEN 1 AND 10;
     -- 4 schItem이 'ftitle'일 때
-SELECT *
-    FROM (SELECT ROWNUM RN, A.*
+SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD 
         WHERE FTITLE LIKE '%'||'찌'||'%'
         ORDER BY FGROUP DESC, FSTEP) A)
     WHERE RN BETWEEN 1 AND 10;
     -- 5 schItem이 'fcontent'일 때
-SELECT *
-    FROM (SELECT ROWNUM RN, A.*
+SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD 
         WHERE FCONTENT LIKE '%'||'곧'||'%'
         ORDER BY FGROUP DESC, FSTEP) A)
     WHERE RN BETWEEN 1 AND 10;
     -- 6 schItem이 'ftitle+fcontent'일 때
-SELECT *
-    FROM (SELECT ROWNUM RN, A.*
+SELECT *FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD 
         WHERE FTITLE LIKE '%'||'찌'||'%' OR FCONTENT LIKE '%'||'찌'||'%'
         ORDER BY FGROUP DESC, FSTEP) A)
