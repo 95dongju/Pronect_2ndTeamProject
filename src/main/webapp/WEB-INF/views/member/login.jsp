@@ -33,10 +33,10 @@
 		<script>
 			location.href='${conPath}/main/main.do';
 		</script>
-	</c:if>
+</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
-	<form action="${conPath }/member/login.do" method="post">
+	<form action="${conPath }/member/login.do?method=${mothod}" method="post">
 		<table>
 			<caption>로그인</caption>
 			<tr>

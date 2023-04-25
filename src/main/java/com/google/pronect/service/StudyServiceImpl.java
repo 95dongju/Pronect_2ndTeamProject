@@ -74,8 +74,8 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public Study joinCheck(int sid, String mid) {
-		return studyDao.joinCheck(sid, mid);
+	public int joinCheck(Study study) {
+		return studyDao.joinCheck(study);
 	}
 	
 	@Override
@@ -83,6 +83,11 @@ public class StudyServiceImpl implements StudyService {
 		return studyDao.joinStudy(sid, mid);
 	}
 
+	@Override
+	public int unJoinStudy(int sid, String mid) {
+		return studyDao.unJoinStudy(sid, mid);
+	}
+	
 	@Override
 	public int acceptStudy(String mid) {
 		return studyDao.acceptStudy(mid);
