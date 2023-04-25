@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.pronect.dao.ProjectDao">
+	<resultMap type="Project" id="ProjectResult">
+		<result property="pid" column="pid"/>
+		<result property="mid" column="mid"/>
+		<result property="ptitle" column="ptitle"/>
+		<result property="pcontent" column="pcontent"/>
+		<result property="ppeople" column="ppeople"/>
+		<result property="planguage1" column="planguage1"/>
+		<result property="planguage2" column="planguage2"/>
+		<result property="planguage3" column="planguage3"/>
+		<result property="pdev" column="pdev"/>
+		<result property="pdesign" column="pdesign"/>
+		<result property="pm" column="pm"/>
+		<result property="prdate" column="prdate"/>
+		<result property="psdate" column="psdate"/>
+		<result property="pfdate" column="pfdate"/>
+		<result property="phit" column="phit"/>
+		<result property="ploc" column="ploc"/>
+		<result property="pcomplete" column="pcomplete"/>
+		<result property="startRow" column="startRow"/>
+		<result property="endRow" column="endRow"/>
+	</resultMap>
+	<select id="ProjectList" parameterType="Project" resultMap="ProjectResult">
+		SELECT * FROM 
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT * FROM PROJECT WHERE PCOMPLETE = 'N' ORDER BY PID DESC) A) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="ProjectTotCnt" resultType="int">
+		SELECT COUNT(*) FROM PROJECT WHERE PCOMPLETE = 'N'
+	</select>
+	<select id="ProjectGroupLeader" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM PROJECT WHERE MID = #{mid} AND PCOMPLETE='N'
+	</select>
+	<insert id="registerGroup" parameterType="Project">
+		INSERT INTO Project (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PDEV, PDESIGN, PM, PSDATE, PFDATE, PLOC)
+            VALUES(PROJECT_SEQ.NEXTVAL, #{mid},#{ptitle},#{pcontent},#{ppeople},
+                    #{planguage1},#{planguage2},#{planguage3},#{pdev},#{pdesign},#{pm},#{psdate},#{pfdate},#{ploc})
+ 	  <selectKey resultType="Integer" keyProperty="pid" order="AFTER">
+	  	SELECT MAX(PID) FROM PROJECT
+	  </selectKey>
+	</insert>
+	<select id="getRegisteredPid" parameterType="String" resultType="int">
+		SELECT PID FROM PROJECT WHERE MID = #{mid} AND  PCOMPLETE = 'N'
+	</select>
+	<insert id="insertHistory" parameterType="Project">
+		INSERT INTO PSTATUS (PSID, PID, MID, PSSTATUS)
+            VALUES (PSTATUS_SEQ.NEXTVAL, #{pid}, #{mid},2)
+	  <selectKey resultType="Integer" keyProperty="psid" order="AFTER">
+	  	SELECT MAX(PSID) FROM PSTATUS
+	  </selectKey>
+	</insert>
+	<update id="ProjectHitUp" parameterType="int">
+		UPDATE PROJECT SET PHIT= PHIT+1 WHERE PID = #{pid}
+	</update>
+	<select id="getProjectDetail" parameterType="int" resultType="Project">
+		SELECT * FROM PROJECT WHERE PID = #{pid}
+	</select>
+	<update id="modifyProject" parameterType="Project">
+		UPDATE PROJECT SET PTITLE = #{ptitle},
+                PCONTENT = #{pcontent},
+                PPEOPLE = #{ppeople},
+                PLANGUAGE1 = #{planguage1},
+                PLANGUAGE2 = #{planguage2},
+                PLANGUAGE3 = #{planguage3},
+                PDEV = #{pdev},
+                PDESIGN = #{pdesign},
+                PM = #{pm},
+                PSDATE = #{psdate},
+                PFDATE = #{pfdate},
+                PLOC = #{ploc}
+        WHERE PID = #{pid}
+	</update>
+	<update id="deleteHistory" parameterType="int">
+		UPDATE PSTATUS SET PSSTATUS = 4 WHERE PID = #{pid}
+	</update>
+	<update id="deleteProject" parameterType="int">
+		UPDATE PROJECT SET PCOMPLETE = 'D' WHERE PID = #{pid}
+	</update>
+	<insert id="joinProject" parameterType="Project">
+		INSERT INTO PSTATUS (PSID, MID, PID, PSSTATUS)
+            VALUES (PSTATUS_SEQ.NEXTVAL, #{mid},#{pid},1)
+ 	  <selectKey resultType="Integer" keyProperty="psid" order="AFTER">
+  		SELECT MAX(PSID) FROM PSTATUS
+  	</selectKey>
+	</insert>
+	<update id="acceptProject" parameterType="String">
+		UPDATE PSTATUS SET PSSTATUS = 2 WHERE MID = #{mid}
+	</update>
+	<update id="completeProject" parameterType="int">
+		UPDATE PSTATUS SET PSSTATUS = 3 WHERE PID = #{pid}
+	</update>
+</mapper>

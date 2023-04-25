@@ -76,6 +76,9 @@
 	<update id="deleteStudy" parameterType="int">
 		UPDATE STUDY SET SCOMPLETE = 'D' WHERE SID = #{sid}
 	</update>
+	<select id="joinCheck" parameterType="Study" resultType="Study">
+		SELECT * FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1;
+	</select>
 	<insert id="joinStudy" parameterType="Study">
 		INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS)
             VALUES (SSTATUS_SEQ.NEXTVAL, #{mid},#{sid},1)

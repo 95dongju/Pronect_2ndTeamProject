@@ -18,7 +18,7 @@
 <body class="is-preload">
 	<header id="header">
 		<div class="logo">	
-			<a href="home.jsp">
+			<a href="${conPath }/main.do">
 				<img src="${conPath }/images/pronect_logo.png" alt="로고" />
 			</a>
 		</div>

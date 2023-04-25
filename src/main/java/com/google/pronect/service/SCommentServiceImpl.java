@@ -1,5 +1,7 @@
 package com.google.pronect.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class SCommentServiceImpl implements SCommentService {
 	}
 
 	@Override
-	public int commentContent(int sid) {
+	public List<SComment> commentContent(int sid) {
 		return scommentDao.commentContent(sid);
 	}
 
