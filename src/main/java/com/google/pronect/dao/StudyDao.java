@@ -21,6 +21,7 @@ public interface StudyDao {
 	public int modifyStudy(Study study);
 	public int deleteHistory(int sid);
 	public int deleteStudy(int sid);
+	public Study joinCheck(int sid, String mid);
 	public int joinStudy(int sid, String mid);
 	public int acceptStudy(String mid);
 	public int completeStudy(int sid);

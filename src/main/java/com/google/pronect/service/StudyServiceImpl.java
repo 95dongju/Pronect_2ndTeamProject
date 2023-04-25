@@ -60,7 +60,6 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public int modifyStudy(Study study) {
-		System.out.println("서비스 단 : " +study);
 		return studyDao.modifyStudy(study);
 	}
 
@@ -75,6 +74,11 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
+	public Study joinCheck(int sid, String mid) {
+		return studyDao.joinCheck(sid, mid);
+	}
+	
+	@Override
 	public int joinStudy(int sid, String mid) {
 		return studyDao.joinStudy(sid, mid);
 	}
@@ -88,7 +92,5 @@ public class StudyServiceImpl implements StudyService {
 	public int completeStudy(int sid) {
 		return studyDao.completeStudy(sid);
 	}
-
-
 
 }

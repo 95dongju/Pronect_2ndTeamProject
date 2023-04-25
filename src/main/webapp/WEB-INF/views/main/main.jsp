@@ -16,7 +16,20 @@
 			padding: 10px;
 			border-radius: 20px 20px 20px 20px;
 		}
-		
+		#title {
+    	text-overflow: ellipsis;
+      white-space: nowrap;
+      display : block; 
+      margin-top: 10px;
+      margin-bottom: 15px;
+		}
+	 	#hit {
+		 text-align:right;
+		 font:italic; size:0.2em;
+		 height: 20px;
+		 margin-bottom: 30px;
+		 color:gray;
+		}
 	</style>
 </head>
 <body class="is-preload">
@@ -32,7 +45,12 @@
 				<ul>
 					<li><a href="#">전체</a></li>
 					<li><a href="#">프로젝트</a></li>
-					<li><a href="#">스터디</a></li>
+					<c:if test="${not empty member }">
+						<li><a href="${conPath}/study/list.do?mid=${member.mid}&pageNum=1">스터디</a></li>
+					</c:if>
+					<c:if test="${empty member }">
+						<li><a href="${conPath}/study/list.do?pageNum=1">스터디</a></li>
+					</c:if>
 				</ul>
 				<div class="search_div">
 					<input type="text" placeholder="스터디/프로젝트를 검색하세요" class="search">
@@ -41,46 +59,35 @@
 			<br>
 			<div class="inner">
 				<section class="tiles">
-					<article class="style">
-						<div>
-							<a href="#">
-								<div class="content">
-									<h2>스터디(Pronect) 프로젝트 </h2>
-									<p>디자이너 1명 구합니다</p>
+					<c:if test="${not empty studyList}">
+						<c:forEach var="dto" items="${studyList }">
+							<article class="style">
+								<div>
+									<a href="${conPath}/study/detail.do?sid=${dto.sid}&pageNum=${paging.currentPage}">
+										<div class="content">
+											<h2 id="title">${dto.stitle } </h2>
+											<p id="hit">조회수 : ${dto.shit }</p>
+											<p>${dto.scontent }</p>
+										</div>
+									</a>
 								</div>
-							</a>
-						</div>
-					</article>
-					<article class="style">
-						<div>
-							<a href="#">
-								<div class="content">
-									<h2>일렉트로닉 팝 레이블 Wave Orbit 프로젝트</h2>
-									<p>저희는 네 명으로 구성된 일렉트로닉 팝 레이블 Wave Orbit입니다.</p>
+							</article>
+						</c:forEach>
+					</c:if>
+<%-- 					<c:if test="${not empty projectList}">
+						<c:forEach var="dto" items="${projectList }">
+							<article class="style">
+								<div>
+									<a href="#">
+										<div class="pcontent">
+											<h2>${dto.ptitle } </h2>
+											<p>${dto.pcontent }</p>
+										</div>
+									</a>
 								</div>
-							</a>
-						</div>
-					</article>
-					<article class="style">
-						<div>
-							<a href="#">
-								<div class="content">
-									<h2>독서 플랫폼 프로젝트</h2>
-									<p>프론트엔드 개발 팀원을 구합니다</p>
-								</div>
-							</a>
-						</div>
-					</article>
-					<article class="style">
-						<div>
-							<a href="#">
-								<div class="content">
-									<h2>제목</h2>
-									<p>내용</p>
-								</div>
-							</a>
-						</div>
-					</article>
+							</article>
+						</c:forEach>
+					</c:if> --%>
 				</section>
 			</div>
 		</div>
