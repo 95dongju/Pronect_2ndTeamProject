@@ -34,9 +34,9 @@
 				<ul>
 					<li><a href="${conPath }/member/modify.do">정보수정</a></li>
 					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>
-					<li><a>${member.mname }님</a></li>
+					<li><a>${member.mnickname }님</a></li>
 					<c:if test="${member.manager eq 'Y' }">
-					<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
+						<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
 					</c:if>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>

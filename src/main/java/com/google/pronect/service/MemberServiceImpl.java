@@ -178,9 +178,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int modifyManager(Member member, HttpSession httpSession) {
+	public int modifyManager(Member member) {
 		// TODO Auto-generated method stub
-		httpSession.setAttribute("member", member);
 		return memberDao.modifyManager(member);
 	}
 
