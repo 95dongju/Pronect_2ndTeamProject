@@ -152,6 +152,7 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
 SELECT * FROM MEMBER;
 SELECT * FROM SSTATUS;
 SELECT * FROM STUDY;
+commit;
 -------------------------------------------------------------------------------
 ------------------------------------FREEBOARD DUMMY----------------------------
 -------------------------------------------------------------------------------
@@ -396,3 +397,41 @@ INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (6, 'test3-3',6,2);
 INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (7, 'test4-2',7,2);
 INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (8, 'test1-1',8,3);
 COMMIT;
+-------------------------------------------------------------------------------
+------------------------------------PROJECT DUMMY--------------------------------
+-------------------------------------------------------------------------------               
+SELECT * FROM PROJECT;
+
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
+            VALUES(1, 'test1-1','프로젝트모집','모집합니다',5,
+                    'Java','JavaScript',null,'23/05/01','23/06/04',1,1,2,'서울');
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
+            VALUES(2, 'test2-3','프로젝트원 모집','모집합니다',5,
+                    null,null,null,'23/05/01','23/06/04',1,0,3,null);
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
+            VALUES(3, 'test3-4','프로젝트 하실분 모집합니다','경기권 4명 모집합니다',5,
+                    null,null,null,'23/05/20','23/07/30',1,1,2,'경기');
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
+            VALUES(4, 'test4-1','같이 프로젝트하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,
+                    null,null,null,'23/04/20','23/05/20',2,1,0,'서울');
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
+            VALUES(5, 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,
+                    'Spring','Java','JavaScript','23/05/01','23/05/26',1,1,2,'서울');
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
+            VALUES(6, 'test3-3','같이 프로젝트하실 분','같이 리액트 공부하실 분',3,
+                    'React','Node',null,'23/05/01','23/05/16',2,1,0,null);
+INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
+                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
+            VALUES(7, 'test4-2','6월부터 같이 프로젝트 있나요','6월부터 같이 공부하실 분 찾습니다',6,
+                    'Spring',null,null,'23/06/05','23/07/14',1,2,3,null);
+INSERT INTO STUDY (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
+                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC,PCOMPLETE)
+            VALUES(8, 'test1-1','스터디모집','모집합니다',5,
+                    'Java','JavaScript',null,'23/02/01','23/04/04',1,2,2,'서울','Y');
+SELECT * FROM STUDY;

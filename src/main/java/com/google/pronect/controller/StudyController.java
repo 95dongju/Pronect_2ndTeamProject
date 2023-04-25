@@ -1,4 +1,4 @@
-package com.google.pronect;
+package com.google.pronect.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.pronect.service.SCommentService;
 import com.google.pronect.service.StudyService;
 import com.google.pronect.util.Paging;
 import com.google.pronect.vo.Study;
@@ -18,14 +19,20 @@ import com.google.pronect.vo.Study;
 public class StudyController {
 	@Autowired
 	private StudyService studyService;
+	@Autowired
+	private SCommentService sCommentService;
 	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list(String pageNum, Model model, HttpSession session) {
-		String mid = (String) session.getAttribute("mid");
+		String mid = ""; // 합칠때 mid로 바꿀것
+		String sessionMid = (String) session.getAttribute("mid");
+		if(sessionMid != null) {
+			mid=sessionMid;
+		}
 		mid = "test1-1"; // 합칠때 mid로 바꿀것
 		model.addAttribute("studyGroupLeader",studyService.studyGroupLeader(mid));
 		model.addAttribute("studyList",studyService.studyList(pageNum));
 		model.addAttribute("paging",new Paging(studyService.studyTotCnt(),pageNum));
-		return "studyGroup/studyList";
+		return "main/main";
 	}
 	@RequestMapping(value="register", method=RequestMethod.GET)
 	public String register(){
@@ -54,9 +61,15 @@ public class StudyController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detail(int sid, Model model, String pageNum){
+	public String detail(int sid, Model model, String pageNum, HttpSession session){
+		String mid="";
+		if(session.getAttribute("mid") != null ) {
+			mid=(String)session.getAttribute("mid");
+			model.addAttribute("joincheck", studyService.joinCheck(sid, mid));
+		}
 		model.addAttribute("studyDetail",studyService.getStudyDetail(sid));
 		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("studyComment",sCommentService.commentContent(sid));
 		return "studyGroup/studyDetail";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)
@@ -91,10 +104,11 @@ public class StudyController {
 		model.addAttribute("studyDeleteResult",studyService.deleteStudy(sid));
 		return "forward:list.do";
 	}
-//	@RequestMapping(value="", method=RequestMethod.)
-//	public String (){
-//		return "";
-//	}
+	@RequestMapping(value="join", method=RequestMethod.GET)
+	public String join(int sid, String mid, Model model){
+		model.addAttribute("joinResult", studyService.joinStudy(sid, mid));
+		return "forward:detail.do";
+	}
 //	@RequestMapping(value="", method=RequestMethod.)
 //	public String (){
 //		return "";

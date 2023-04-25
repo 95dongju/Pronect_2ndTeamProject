@@ -10,11 +10,6 @@
 <title>Insert title here</title>
 <link href="${conPath }/css/style.css" rel="stylesheet">
 <style>
-	#content {
-		width: 800px; height:350px;
-		margin: 50px auto;
-	}
-	img{width: 100px;}
 </style>
 </head>
 <body>
@@ -44,12 +39,42 @@
 				</tr>
 			<tr><th>스터디 기간</th><td colspan="2">${studyDetail.ssdate } - ${studyDetail.sfdate}</td></tr>
 			<tr><th>지역</th><td colspan="2">${studyDetail.sloc }</td></tr>
-			<tr><td colspan="3">
-				<button onclick="location='modify.do?sid=${studyDetail.sid}&pageNum=${param.pageNum}'">수정</button>
-				<button onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
-				<button onclick="location='delete.do?sid=${studyDetail.sid}&pageNum=${param.pageNum}'">삭제</button>
+			<tr>
+				<td colspan="3">
+					<%-- <c:if test="${(not empty member and studyDetail.mid eq member.mid) or (not empty member and member.manager eq 'Y')}"> --%>
+						<button onclick="location='modify.do?sid=${studyDetail.sid}&pageNum=${param.pageNum}'">수정</button>
+						<button onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
+						<button onclick="location='delete.do?sid=${studyDetail.sid}&pageNum=${param.pageNum}'">삭제</button>
+					<%-- </c:if> --%>
+					<c:if test="${empty member}">
+						<button onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
+					</c:if>
+					<c:if test="${studyDetail.mid ne member.mid and empty joincheck}">
+						<button onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
+						<button onclick="location='join.do?sid=${studyDetail.sid}&mid=${member.mid}&pageNum=${param.pageNum}'">참가 신청</button>
+					</c:if>
+				</td>
+			</tr>
 		</table>
 	</div>
+	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
+	<div class="comment">
+				<c:forEach var="dto" items="${studyComment }">
+					<form action="${conPath}/study/comment.do" method="post">
+						<input type="hidden" name="sid" value=${dto.sid }>
+						<input type="hidden" name="scid" value=${dto.scid }>
+						<input type="hidden" name="pageNum" value=${param.pageNum }>
+						<hr>
+						${dto.mid }님 | <fmt:formatDate value="${dto.scrdate }" pattern="yy-MM-dd hh:mm"/><br>
+						<pre>${dto.sccontent }</pre>
+						<br>
+						<c:if test="${(not empty member and dto.mid eq member.mid) or (member.manager eq 'Y')}">
+							<span><a class="comment_modify" style="color : black; text-decoration:none; cursor:pointer">수정 </a></span>
+							<span><a href="${conPath}/SCommentDelete.do?sid=${dto.sid}&scid=${dto.scid}" style="color : black; text-decoration:none;">삭제</a></span><br>
+						</c:if>
+					</form>
+				</c:forEach>
+			</div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

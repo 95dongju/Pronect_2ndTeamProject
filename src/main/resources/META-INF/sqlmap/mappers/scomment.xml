@@ -14,14 +14,17 @@
 	<insert id="comment" parameterType="SComment">
 		INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
             VALUES(SCOMMENT_SEQ.NEXTVAL, #{mid}, #{sccontent}, #{scip}, #{sid})
+ 	  <selectKey resultType="Integer" keyProperty="scid" order="AFTER">
+  		SELECT MAX(SCID) FROM SCOMMENT
+  	</selectKey>
 	</insert>
-	<select id="commentContent" parameterType="int">
-		SELECT * FROM SCOMMENT WHERE SID = ${sid};
+	<select id="commentContent" parameterType="int" resultMap="SCommentResult">
+		SELECT * FROM SCOMMENT WHERE SID = #{sid}
 	</select>
 	<update id="commentModify" parameterType="SComment">
-		UPDATE SCOMMENT SET SCCONTENT = ${sccontent} WHERE SCID=${scid};
+		UPDATE SCOMMENT SET SCCONTENT = #{sccontent} WHERE SCID = #{scid}
 	</update>
 	<delete id="commentDelete" parameterType="int">
-		DELETE SCOMMENT WHERE SCID=#{scid};
+		DELETE SCOMMENT WHERE SCID = #{scid}
 	</delete>
 </mapper>
