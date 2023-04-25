@@ -23,11 +23,24 @@
 			</a>
 		</div>
 		<nav>
-			<ul>
-				<li><a href="">회원가입</a></li>
-				<li><a href="">로그인</a></li>
-				<li><a href="#menu">메뉴</a></li>
-			</ul>
+			<c:if test="${empty member}">
+				<ul>
+					<li><a href="${conPath }/member/join.do">회원가입</a></li>
+					<li><a href="${conPath }/member/login.do">로그인</a></li>
+					<li><a href="#menu">메뉴</a></li>
+				</ul>
+			</c:if>
+			<c:if test="${not empty member}">
+				<ul>
+					<li><a href="${conPath }/member/modify.do">정보수정</a></li>
+					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>
+					<li><a>${member.mname }님</a></li>
+					<c:if test="${member.manager eq 'Y' }">
+					<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
+					</c:if>
+					<li><a href="#menu">메뉴</a></li>
+				</ul>
+			</c:if>
 		</nav>
 	</header>
 	<!-- Menu -->

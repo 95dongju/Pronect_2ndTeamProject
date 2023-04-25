@@ -5,13 +5,12 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.google.pronect.vo.Member" alias="Member"/>
-		<!-- <typeAlias type="com.google.pronect.vo.Study" alias="Study"/>
-		<typeAlias type="com.google.pronect.vo.SComment" alias="SComment"/> -->
-
+		<typeAlias type="com.google.pronect.vo.Study" alias="Study"/>
+		<typeAlias type="com.google.pronect.vo.SComment" alias="SComment"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>
-		<!-- <mapper resource="META-INF/sqlmap/mappers/study.xml"/>
-		<mapper resource="META-INF/sqlmap/mappers/scomment.xml"/> -->
+		<mapper resource="META-INF/sqlmap/mappers/study.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/scomment.xml"/>
 	</mappers>
 </configuration>

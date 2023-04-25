@@ -16,10 +16,15 @@
 			padding: 10px;
 			border-radius: 20px 20px 20px 20px;
 		}
-		
 	</style>
 </head>
 <body class="is-preload">
+<c:if test="${member.mstate eq 'N'}">
+	<script>
+		alert('탈퇴했거나 없는 회원입니다.');
+		location.href="${conPath}/member/logout.do";
+	</script>
+</c:if>
 <jsp:include page="header.jsp"/>
 <!-- Wrapper -->
 	<div id="wrapper">

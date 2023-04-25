@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.pronect.service.MemberService;
+import com.google.pronect.util.Paging;
 import com.google.pronect.vo.Member;
 
 @Controller
@@ -98,5 +99,11 @@ public class MemberController {
 	public String searchPw(String mname, String mmail, String mid, Model model, HttpSession httpSession) {
 		model.addAttribute("searchPwResult", memberService.searchPw(mname, mmail, mid, httpSession));
 		return "member/login";
+	}
+	@RequestMapping(value = "list", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberList(String pageNum, Member member, Model model) {
+		model.addAttribute("memberList", memberService.memberList(pageNum, member));
+		model.addAttribute("paging", new Paging(memberService.totCntMember(member), pageNum));
+		return "member/list";
 	}
 }
