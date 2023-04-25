@@ -9,6 +9,7 @@
 		<typeAlias type="com.google.pronect.vo.SComment" alias="SComment"/>
 		<typeAlias type="com.google.pronect.vo.Project" alias="Project"/>
 		<typeAlias type="com.google.pronect.vo.PComment" alias="PComment"/>
+		<typeAlias type="com.google.pronect.vo.Fboard" alias="Fboard"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>
@@ -16,5 +17,6 @@
 		<mapper resource="META-INF/sqlmap/mappers/scomment.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/project.xml"/>
 		<!-- <mapper resource="META-INF/sqlmap/mappers/pcomment.xml"/> -->
+		<mapper resource="META-INF/sqlmap/mappers/fboard.xml"/>
 	</mappers>
 </configuration>

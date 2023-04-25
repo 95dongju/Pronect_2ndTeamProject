@@ -106,4 +106,14 @@ public class MemberController {
 		model.addAttribute("paging", new Paging(memberService.totCntMember(member), pageNum));
 		return "member/list";
 	}
+	@RequestMapping(value = "modifyManager", method = RequestMethod.GET)
+	public String managerModify(String mid, Model model) {
+		model.addAttribute("memberDto", memberService.getDetailMember(mid));
+		return "member/modifyManager";
+	}
+	@RequestMapping(value = "modifyManager", method = RequestMethod.POST)
+	public String managerModify(@ModelAttribute("mDto")Member member, Model model, String pageNum) {
+		model.addAttribute("modifyManagerResult", memberService.modifyManager(member));
+		return "forward:list.do";
+	}
 }

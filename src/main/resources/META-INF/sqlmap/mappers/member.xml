@@ -72,7 +72,7 @@
 		</if>
 		<if test="schItem=='manager'">
 			SELECT * FROM (SELECT ROWNUM RN, A.* 
-			    FROM (SELECT * FROM MEMBER WHERE MANAGER=#{schWord} ORDER BY MDATE DESC) A)
+			    FROM (SELECT * FROM MEMBER WHERE MANAGER=UPPER(#{schWord}) ORDER BY MDATE DESC) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 	</select>
