@@ -76,16 +76,19 @@
 	<update id="deleteStudy" parameterType="int">
 		UPDATE STUDY SET SCOMPLETE = 'D' WHERE SID = #{sid}
 	</update>
-	<select id="joinCheck" parameterType="Study" resultType="Study">
-		SELECT * FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1;
+	<select id="joinCheck" parameterType="Study" resultType="int">
+		SELECT COUNT(*) FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1
 	</select>
 	<insert id="joinStudy" parameterType="Study">
 		INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS)
-            VALUES (SSTATUS_SEQ.NEXTVAL, #{mid},#{sid},1)
+            VALUES (SSTATUS_SEQ.NEXTVAL, #{mid}, #{sid},1)
  	  <selectKey resultType="Integer" keyProperty="ssid" order="AFTER">
   		SELECT MAX(SSID) FROM SSTATUS
   	</selectKey>
 	</insert>
+	<delete id="unJoinStudy" parameterType="Study">
+		DELETE FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1
+	</delete>
 	<update id="acceptStudy" parameterType="String">
 		UPDATE SSTATUS SET SSSTATUS = 2 WHERE MID = #{mid}
 	</update>
