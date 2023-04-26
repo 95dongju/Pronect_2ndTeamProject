@@ -43,11 +43,11 @@
 			<div id="back">
 				<a href="list.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
 			</div>
-				<div class="groupDetail_title">${studyDetail.gtitle }</div>
+				<div class="groupDetail_title">${groupDetail.gtitle }</div>
 				<div class="groupDetail_writer">
-					<div class="mimage">${studyDetail.mimage } </div><div class="mid">${studyDetail.mid } |</div>
+					<div class="mimage">${groupDetail.mimage } </div><div class="mid">${studyDetail.mid } |</div>
 				</div>
-				<div class="srdate">${studyDetail.srdate }</div>
+				<div class="srdate">${groupDetail.srdate }</div>
 				<ul class="groupInfo_groupGrid">
 					<li>
 						<span class="groupInfo_title">모집 구분</span>

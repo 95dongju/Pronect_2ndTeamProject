@@ -30,4 +30,6 @@ public class Group {
 	private String 	gcomplete;
 	private int 	startRow; 	//페이징 처리를 위한 속성 변수
 	private int 	endRow;		//페이징 처리를 위한 속성 변수
+	private String	mimage;
+	private int		gsid;
 }

@@ -122,16 +122,19 @@ public class GroupServiceImpl implements GroupService {
 		if (memberObj != null && memberObj instanceof Member) {
 		    Member member = (Member) memberObj;
 		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
-		    group.setMid(mid);
-		    group.setGid(gid);
 		    // id 값 사용
 		}
+		group.setMid(mid);
+		group.setGid(gid);
 		return groupDao.joinCheck(group);
 	}
 	
 	@Override
 	public int joinGroup(int gid, String mid) {
-		return groupDao.joinGroup(gid, mid);
+		Group group = new Group();
+		group.setGid(gid);
+		group.setMid(mid);
+		return groupDao.joinGroup(group);
 	}
 
 	@Override

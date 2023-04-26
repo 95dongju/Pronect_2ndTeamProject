@@ -22,7 +22,7 @@
 		SELECT * FROM GCOMMENT WHERE GID = #{gid}
 	</select>
 	<update id="commentModify" parameterType="GComment">
-		UPDATE GCOMMENT SET GCCONTENT = #{gccontent} WHERE GCID = #{scid}
+		UPDATE GCOMMENT SET GCCONTENT = #{gccontent} WHERE GCID = #{gcid}
 	</update>
 	<delete id="commentDelete" parameterType="int">
 		DELETE GCOMMENT WHERE GCID = #{gcid}

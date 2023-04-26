@@ -40,9 +40,9 @@
 			<tr><td colspan="6"><hr></td></tr>
 			<tr><th>모집 구분</th><th colspan="2">프로젝트 / 스터디 </th>
 					<th>모집 인원</th><th colspan="2">${groupDetail.gpeople }</th></tr>
-			<tr><th>시작 예정</th><th colspan="2">${groupDetail.gsdate } </th>
+			<tr><th>시작 예정</th><th colspan="2">${groupDetail.gsdate }</th>
 					<th>지역</th><th colspan="2">${groupDetail.gloc }</th></tr>
-			<tr><th>완료 예정</th><th colspan="2">${groupDetail.gsdate }</th>
+			<tr><th>완료 예정</th><th colspan="2">${groupDetail.gfdate }</th>
 					<th>모집 인원</th><th colspan="2">${groupDetail.gpeople }</th></tr>
 				<tr><th>사용 언어</th>
 					<td colspan="4">
@@ -60,15 +60,15 @@
 						</c:if>
 					</td>
 				</tr>
-			<tr><th>내용</th><td colspan="2"><pre>${groupDetail.scontent }</pre></td></tr>
+			<tr><th>내용</th><td colspan="2"><pre>${groupDetail.gcontent }</pre></td></tr>
 			<tr>
 				<td colspan="4">
  					<c:if test="${not empty member}">
-						<c:if test="${groupDetail.mid ne member.mid and empty joincheck}">
-							<button onclick="location='join.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">참가 신청</button>
+						<c:if test="${groupDetail.mid ne member.mid and joincheck eq 0}">
+							<button onclick="location='join.do?gid=${param.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">참가 신청</button>
 						</c:if>
-						<c:if test="${groupDetail.mid ne member.mid and not empty joincheck}">
-							<button onclick="location='unJoin.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">신청 취소</button>
+						<c:if test="${groupDetail.mid ne member.mid and joincheck eq 1}">
+							<button onclick="location='unJoin.do?gid=${param.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">신청 취소</button>
 						</c:if>
 						<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 							<button onclick="location='modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
@@ -84,18 +84,18 @@
 	</div>
 	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 	<div class="comment">
-				<c:forEach var="dto" items="${studyComment }">
+				<c:forEach var="dto" items="${groupComment }">
 					<form action="${conPath}/group/comment.do" method="post">
 						<input type="hidden" name="gid" value=${dto.gid }>
-						<input type="hidden" name="scid" value=${dto.scid }>
+						<input type="hidden" name="gcid" value=${dto.gcid }>
 						<input type="hidden" name="pageNum" value=${param.pageNum }>
 						<hr>
-						${dto.mid }님 | <fmt:formatDate value="${dto.scrdate }" pattern="yy-MM-dd hh:mm"/><br>
-						<pre>${dto.sccontent }</pre>
+						${dto.mid }님 | <fmt:formatDate value="${dto.gcrdate }" pattern="yy-MM-dd hh:mm"/><br>
+						<pre>${dto.gccontent }</pre>
 						<br>
 						<c:if test="${(not empty member and dto.mid eq member.mid) or (member.manager eq 'Y')}">
 							<span><a class="comment_modify" style="color : black; text-decoration:none; cursor:pointer">수정 </a></span>
-							<span><a href="${conPath}/SCommentDelete.do?gid=${dto.gid}&scid=${dto.gcid}" style="color : black; text-decoration:none;">삭제</a></span><br>
+							<span><a href="${conPath}/GCommentDelete.do?gid=${dto.gid}&gcid=${dto.gcid}" style="color : black; text-decoration:none;">삭제</a></span><br>
 						</c:if>
 					</form>
 				</c:forEach>
