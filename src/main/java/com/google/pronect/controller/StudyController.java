@@ -24,14 +24,14 @@ public class StudyController {
 	private SCommentService sCommentService;
 	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list(String pageNum, Model model, HttpSession session) {
-		// 세션 객체에서 "member" 속성의 값을 가져오기
+		// �꽭�뀡 媛앹껜�뿉�꽌 "member" �냽�꽦�쓽 媛믪쓣 媛��졇�삤湲�
 		Object memberObj = session.getAttribute("member");
 		String mid="";
-		// 가져온 값을 원하는 데이터 타입으로 형변환
+		// 媛��졇�삩 媛믪쓣 �썝�븯�뒗 �뜲�씠�꽣 ���엯�쑝濡� �삎蹂��솚
 		if (memberObj != null && memberObj instanceof Member) {
 		    Member member = (Member) memberObj;
-		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
-		    // id 값 사용
+		    mid = member.getMid(); // Member �겢�옒�뒪�뿉�꽌 id �븘�뱶�뿉 �빐�떦�븯�뒗 getter 硫붿꽌�뱶瑜� �궗�슜�븯�뿬 id 媛믪쓣 媛��졇�샂
+		    // id 媛� �궗�슜
 		}
 		model.addAttribute("studyGroupLeader",studyService.studyGroupLeader(mid));
 		model.addAttribute("studyList",studyService.studyList(pageNum));
@@ -64,16 +64,16 @@ public class StudyController {
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(Study study, Model model, String pageNum, HttpSession session){
-		// 세션 객체에서 "member" 속성의 값을 가져오기
+		// �꽭�뀡 媛앹껜�뿉�꽌 "member" �냽�꽦�쓽 媛믪쓣 媛��졇�삤湲�
 		Object memberObj = session.getAttribute("member");
 		String mid="";
-		// 가져온 값을 원하는 데이터 타입으로 형변환
+		// 媛��졇�삩 媛믪쓣 �썝�븯�뒗 �뜲�씠�꽣 ���엯�쑝濡� �삎蹂��솚
 		if (memberObj != null && memberObj instanceof Member) {
 		    Member member = (Member) memberObj;
-		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
+		    mid = member.getMid(); // Member �겢�옒�뒪�뿉�꽌 id �븘�뱶�뿉 �빐�떦�븯�뒗 getter 硫붿꽌�뱶瑜� �궗�슜�븯�뿬 id 媛믪쓣 媛��졇�샂
 		    study.setMid(mid);
 		    model.addAttribute("joincheck", studyService.joinCheck(study));
-		    // id 값 사용
+		    // id 媛� �궗�슜
 		}
 		model.addAttribute("studyDetail",studyService.getStudyDetail(study.getSid()));
 		model.addAttribute("pageNum",pageNum);

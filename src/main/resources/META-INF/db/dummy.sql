@@ -150,8 +150,8 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
             VALUES('johnwick','존웍','1','박준익','zool212@naver.com',0,0,
                     'N','johnwick.jpg','Y');
 SELECT * FROM MEMBER;
-SELECT * FROM SSTATUS;
-SELECT * FROM STUDY;
+SELECT * FROM GSTATUS;
+SELECT * FROM MYGROUP;
 commit;
 -------------------------------------------------------------------------------
 ------------------------------------FREEBOARD DUMMY----------------------------
@@ -328,115 +328,114 @@ INSERT INTO NBOARD (NID, MID, NTITLE, NCONTENT)
                 VALUES(NBOARD_SEQ.NEXTVAL, 'pronect1','웹사이트 이용중 문의사항 관련','문의사항은 자유게시판이 아닌 문의 게시판에 올려주시면 조속한 조치 취해드리고 있습니다. 자유게시판은 모든 글 확인이 어려운 관계로 꼭 문의 게시판에 문의 부탁드립니다.');  
 SELECT * FROM NBOARD;
 -------------------------------------------------------------------------------
-------------------------------------STUDY DUMMY--------------------------------
+-------------------------------MYGROUP(STUDY) DUMMY-----------------------------
 -------------------------------------------------------------------------------               
-SELECT * FROM STUDY;
+SELECT * FROM MYGROUP;
 
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test1-1','스터디모집','모집합니다',5,
-                    'Java','JavaScript',null,'23/05/01','23/06/04','서울');
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test2-3','스터디원 모집','모집합니다',5,
-                    null,null,null,'23/05/01','23/06/04',null);
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test3-4','모각코 하실분 모집합니다','경기권 4명 모집합니다',5,
-                    null,null,null,'23/05/20','23/07/30','경기');
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test4-1','같이 공부하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,
-                    null,null,null,'23/04/20','23/05/20','서울');
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,
-                    'Spring','Java','JavaScript','23/05/01','23/05/26','서울');
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test3-3','같이 리액트 공부하실 분','같이 리액트 공부하실 분',3,
-                    'React','Node',null,'23/05/01','23/05/16',null);
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test4-2','6월부터 같이 공부하실분 있나요','6월부터 같이 공부하실 분 찾습니다',6,
-                    'Spring',null,null,'23/06/05','23/07/14',null);
-INSERT INTO STUDY (SID, MID, STITLE, SCONTENT, SPEOPLE, 
-                    SLANGUAGE1, SLANGUAGE2, SLANGUAGE3, SSDATE, SFDATE, SLOC, SCOMPLETE)
-            VALUES(STUDY_SEQ.NEXTVAL, 'test1-1','스터디모집','모집합니다',5,
-                    'Java','JavaScript',null,'23/02/01','23/04/04','서울','Y');
-SELECT * FROM STUDY;
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-1','스터디모집','모집합니다',5,
+                    'Java','JavaScript',NULL,NULL,NULL,NULL,'23/05/01','23/06/04','서울');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test2-3','스터디원 모집','모집합니다',5,
+                    NULL,NULL,NULL,NULL,NULL,NULL,'23/05/01','23/06/04',NULL);
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test3-4','모각코 하실분 모집합니다','경기권 4명 모집합니다',5,
+                    NULL,NULL,NULL,NULL,NULL,NULL,'23/05/20','23/07/30','경기');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test4-1','같이 공부하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,
+                    NULL,NULL,NULL,NULL,NULL,NULL,'23/04/20','23/05/20','서울');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,
+                    'Spring','Java','JavaScript',NULL,NULL,NULL,'23/05/01','23/05/26','서울');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test3-3','같이 리액트 공부하실 분','같이 리액트 공부하실 분',3,
+                    'React','Node',NULL,NULL,NULL,NULL,'23/05/01','23/05/16',NULL);
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test4-2','6월부터 같이 공부하실분 있나요','6월부터 같이 공부하실 분 찾습니다',6,
+                    'Spring',NULL,NULL,NULL,NULL,NULL,'23/06/05','23/07/14',NULL);
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC, GCOMPLETE)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-1','스터디모집','모집합니다',5,
+                    'Java','JavaScript',NULL,NULL,NULL,NULL,'23/02/01','23/04/04','서울','Y');
+SELECT * FROM MYGROUP;
+-------------------------------------------------------------------------------
+------------------------------MYGROUP(PROJECT) DUMMY----------------------------
+-------------------------------------------------------------------------------               
+SELECT * FROM MYGROUP;
+
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test1-1','프로젝트 하실 분','모집합니다',5,
+                    'Java','JavaScript',NULL,'N','N','N','23/04/01','23/05/04','서울');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test2-3','직장인들을 위한 플랫폼','백엔드개발자입니다 디자이너가 필요해요',5,
+                    NULL,NULL,NULL,'Y','N','N','23/05/01','23/06/04',NULL);
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test3-4','습관형성 투두앱','기획자, 백엔드 개발자 구해요',5,
+                    NULL,NULL,NULL,'N','Y','N','23/05/20','23/07/30','경기');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test4-1','미술작품 거래 차트 서비스','10월까지 바짝 하실 분! 저는 기획자입니다',3,
+                    NULL,NULL,NULL,'N','N','Y','23/04/20','23/10/20','서울');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test1-3','집 초대 오픈하우스 커뮤니티','3명 구합니다~',4,
+                    'Spring','Java','JavaScript','N','N','N','23/05/01','23/05/26','서울');
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test3-3','백엔드 프로젝트','백엔드 구해요',3,
+                    'React','Node',NULL,'N','Y','Y','23/05/01','23/05/16',NULL);
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test4-2','좌석확인 웹사이트','절찬 모집중',6,
+                    'Spring',NULL,NULL,'N','N','N','23/06/05','23/07/14',NULL);
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC, GCOMPLETE)
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test1-1','메타커머스 프로젝트','파이팅해보자구요',5,
+                    'Java','JavaScript',NULL,'Y','Y','Y','23/02/01','23/04/04','서울','Y');
+SELECT * FROM MYGROUP;
 -------------------------------------------------------------------------------
 -------------------------  STUDYCOMMENT DUMMY ---------------------------------
 -------------------------------------------------------------------------------
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'test1-2','지역이 어떻게 되시나요?','193.0.0.1',5);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'test1-3','경기, 서울 다 가능합니다','192.0.0.2',5);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'teemo','마침 6월에 시작하는 그룹 찾고있었는데','191.0.0.2',7);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'johnwick','1등','183.0.0.3',3);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'abc123','유치하네요 난 2등','188.0.0.1',3);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'king99','모각코가 뭔가요?','193.0.0.1',3);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'lolo112','모여서 각자 코딩입니다','187.0.0.1',3);
-INSERT INTO SCOMMENT (SCID, MID, SCCONTENT, SCIP, SID)
-            VALUES(SCOMMENT_SEQ.NEXTVAL, 'zol212','ㄹㅇㅋㅋ','191.0.0.2',3);
-SELECT * FROM SCOMMENT;
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'test1-2','지역이 어떻게 되시나요?','193.0.0.1',5);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'test1-3','경기, 서울 다 가능합니다','192.0.0.2',5);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'teemo','마침 6월에 시작하는 그룹 찾고있었는데','191.0.0.2',7);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'johnwick','1등','183.0.0.3',3);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'abc123','유치하네요 난 2등','188.0.0.1',3);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'king99','모각코가 뭔가요?','193.0.0.1',3);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'lolo112','모여서 각자 코딩입니다','187.0.0.1',3);
+INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES(GCOMMENT_SEQ.NEXTVAL, 'zol212','ㄹㅇㅋㅋ','191.0.0.2',3);
+SELECT * FROM GCOMMENT;
 -------------------------------------------------------------------------------
 -------------------------  STD_SCHEDULE DUMMY ---------------------------------
 -------------------------------------------------------------------------------
 INSERT INTO STD_SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-25', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-25', 'YYYY-MM-DD')));
 -------------------------------------------------------------------------------
--------------------------  SSTATUS DUMMY  -------------------------------------
+-------------------------  GSTATUS DUMMY  -------------------------------------
 -------------------------------------------------------------------------------
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test1-1',1,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test2-3',2,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test3-4',3,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test4-1',4,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test1-3',5,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test3-3',6,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test4-2',7,2);
-INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS) VALUES (SSTATUS_SEQ.NEXTVAL, 'test1-1',8,3);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-1',1,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test2-3',2,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test3-4',3,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test4-1',4,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-3',5,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test3-3',6,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test4-2',7,2);
+INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-1',8,3);
 COMMIT;
--------------------------------------------------------------------------------
-------------------------------------PROJECT DUMMY--------------------------------
--------------------------------------------------------------------------------               
-SELECT * FROM PROJECT;
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test1-1','프로젝트모집','모집합니다',5,
-                    'Java','JavaScript',null,'23/05/01','23/06/04','Y','Y','Y','서울');
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test2-3','프로젝트원 모집','모집합니다',5,
-                    null,null,null,'23/05/01','23/06/04','Y','Y','Y',null);
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test3-4','프로젝트 하실분 모집합니다','경기권 4명 모집합니다',5,
-                    null,null,null,'23/05/20','23/07/30','Y','Y','Y','경기');
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test4-1','같이 프로젝트하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,
-                    null,null,null,'23/04/20','23/05/20','Y','Y','Y','서울');
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,
-                    'Spring','Java','JavaScript','23/05/01','23/05/26','Y','Y','N','서울');
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test3-3','같이 프로젝트하실 분','같이 리액트 공부하실 분',3,
-                    'React','Node',null,'23/05/01','23/05/16','Y','Y','N',null);
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PLOC)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test4-2','6월부터 같이 프로젝트 있나요','6월부터 같이 공부하실 분 찾습니다',6,
-                    'Spring',null,null,'23/06/05','23/07/14',null);
-INSERT INTO PROJECT (PID, MID, PTITLE, PCONTENT, PPEOPLE, 
-                    PLANGUAGE1, PLANGUAGE2, PLANGUAGE3, PSDATE, PFDATE, PDEV, PDESIGN, PM, PLOC,PCOMPLETE)
-            VALUES(PROJECT_SEQ.NEXTVAL, 'test1-1','스터디모집','모집합니다',5,
-                    'Java','JavaScript',null,'23/02/01','23/04/04','Y','Y','Y','서울','Y');
-SELECT * FROM PROJECT;
-SELECT * FROM MEMBER;
-commit;
