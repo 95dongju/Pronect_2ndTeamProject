@@ -82,11 +82,14 @@
 		</if>
 	</select>
 	<insert id="writeFboard" parameterType="Fboard">
-		INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
+		INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT, FFILE,
 		                    FGROUP, FSTEP, FINDENT, FIP)
-		            VALUES (FBOARD_SEQ.NEXTVAL, #{mid}, #{ftitle},#{fcontent},
+		            VALUES (FBOARD_SEQ.NEXTVAL, #{mid}, #{ftitle},#{fcontent}, #{ffile},
 		                    FBOARD_SEQ.CURRVAL,0,0,#{fip})
 	</insert>
+	<!-- <selectKey resultType="Integer" keyProperty="fid" order="AFTER">
+		SELECT MAX(FID) FROM FBOARD
+	</selectKey> -->
 	<update id="hitUpFboard" parameterType="int">
 		UPDATE FBOARD SET FHIT = FHIT + 1 WHERE FID=#{fid}
 	</update>
@@ -97,7 +100,7 @@
 		UPDATE FBOARD 
 		    SET FTITLE = #{ftitle},
 		        FCONTENT = #{fcontent},
-		        FFILE = #{ffile}
+		        <if test="ffile != null and ffile!=''">FFILE = #{ffile}</if>
 		    WHERE FID = #{fid}
 	</update>
 	<delete id="deleteFboard" parameterType="int">

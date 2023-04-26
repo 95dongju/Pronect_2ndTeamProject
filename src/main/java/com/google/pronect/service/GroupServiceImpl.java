@@ -132,7 +132,10 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public int joinGroup(int gid, String mid) {
-		return groupDao.joinGroup(gid, mid);
+		Group group = new Group();
+		group.setGid(gid);
+		group.setMid(mid);
+		return groupDao.joinGroup(group);
 	}
 
 	@Override
