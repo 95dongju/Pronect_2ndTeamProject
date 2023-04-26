@@ -8,6 +8,8 @@ SELECT COUNT(*) FROM MEMBER WHERE MNICKNAME='홍씨성을가진서자';
 -- (3) 회원가입
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MIMAGE, MROLE)
             VALUES('hong', '홍씨성을가진서자', '1', '홍길동', 'hong@chosun.com', null, '백엔드 개발자');
+INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MIMAGE, MROLE)
+            VALUES('kim', '킴정은', '1', '킴첨지', 'yse297@gmail.com', null, '백엔드 개발자');
 -- (4) 로그인
 SELECT * FROM MEMBER WHERE MID='hong' AND MPW='1';
 -- (5) mid로 dto가져오기(로그인 성공시 session에 넣기 위함)
@@ -107,14 +109,14 @@ SELECT COUNT(*) FROM FBOARD WHERE FCONTENT LIKE '%'||'미안'||'%';
 SELECT COUNT(*) FROM FBOARD WHERE FTITLE LIKE '%'||'곧'||'%' OR FCONTENT LIKE '%'||'곧'||'%';
 
 -- (3) 글쓰기(원글쓰기)
-INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
+INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT, FFILE,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (FBOARD_SEQ.NEXTVAL, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
-                    FBOARD_SEQ.CURRVAL,0,0,'192.0.0.1');
+            VALUES (FBOARD_SEQ.NEXTVAL, 'kim', '평양냉면 드실라우?','맛있읍네다', NULL,
+                    FBOARD_SEQ.CURRVAL,0,0,'192.0.0.2');
 -- (4) hit 1회 올리기
 UPDATE FBOARD SET FHIT = FHIT + 1 WHERE FID=1;
 -- (5) 글번호(fid)로 글전체 내용(boardDto) 가져오기
-SELECT * FROM FBOARD WHERE FID=1;
+SELECT * FROM FBOARD WHERE FID=13;
 -- (6) 글 수정하기(fid, ftitle, fcontent, ffilename, frdate(SYSDATE), fip 수정)
 UPDATE FBOARD 
     SET FTITLE = '제목 바꿈',

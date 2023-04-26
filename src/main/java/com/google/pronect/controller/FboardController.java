@@ -1,5 +1,7 @@
 package com.google.pronect.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,10 +31,10 @@ public class FboardController {
 		return "fboard/write";
 	}
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(@ModelAttribute("fDto") Fboard fboard, Model model, 
-			MultipartHttpServletRequest mRequest) {
-		model.addAttribute("writeResult", fboardService.writeFboard(fboard, mRequest));
-		return "fboard/write";
+	public String write(Fboard fboard, Model model, 
+			MultipartHttpServletRequest mRequest, HttpServletRequest request) {
+		model.addAttribute("writeResult", fboardService.writeFboard(fboard, mRequest, request));
+		return "forward:list.do";
 	}
 	@RequestMapping(value = "content", method = {RequestMethod.GET, RequestMethod.POST})
 	public String content(int fid, Model model) {
