@@ -2,6 +2,8 @@ package com.google.pronect.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,13 +19,13 @@ public interface StudyDao {
 	public int insertHistory(@Param("sid")int sid, @Param("mid")String mid);
 	public int studyHitUp(int sid);
 	public Study getStudyDetail(int sid);
-	public Study getAfterModifyView(int sid);
 	public int modifyStudy(Study study);
 	public int deleteHistory(int sid);
 	public int deleteStudy(int sid);
-	public int joinCheck(Study study);
+	public Study joinCheck(Study study);
 	public int joinStudy(@Param("sid") int sid, @Param("mid") String mid);
 	public int unJoinStudy(@Param("sid") int sid, @Param("mid") String mid);
+	public Study joinList(int sid);
 	public int acceptStudy(String mid);
 	public int completeStudy(int sid);
 	
