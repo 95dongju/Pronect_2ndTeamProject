@@ -76,8 +76,8 @@
 	<update id="deleteStudy" parameterType="int">
 		UPDATE STUDY SET SCOMPLETE = 'D' WHERE SID = #{sid}
 	</update>
-	<select id="joinCheck" parameterType="Study" resultType="int">
-		SELECT COUNT(*) FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1
+	<select id="joinCheck" parameterType="Study" resultType="Study">
+		SELECT * FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1
 	</select>
 	<insert id="joinStudy" parameterType="Study">
 		INSERT INTO SSTATUS (SSID, MID, SID, SSSTATUS)
@@ -89,6 +89,9 @@
 	<delete id="unJoinStudy" parameterType="Study">
 		DELETE FROM SSTATUS WHERE MID = #{mid} AND SID = #{sid} AND SSSTATUS = 1
 	</delete>
+	<select id="joinList" parameterType="int" resultType="Study">
+		SELECT MIMAGE, M.MID, SID, SSSTATUS,MNICKNAME FROM MEMBER M, SSTATUS S WHERE M.MID = S.MID AND S.SID = #{sid} AND SSSTATUS= 1
+	</select>
 	<update id="acceptStudy" parameterType="String">
 		UPDATE SSTATUS SET SSSTATUS = 2 WHERE MID = #{mid}
 	</update>
