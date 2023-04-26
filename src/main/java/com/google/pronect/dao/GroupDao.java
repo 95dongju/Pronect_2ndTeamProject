@@ -22,7 +22,7 @@ public interface GroupDao {
 	public int deleteHistory(int gid);
 	public int deleteGroup(int gid);
 	public int joinCheck(Group group);
-	public int joinGroup(@Param("gid") int gid, @Param("mid") String mid);
+	public int joinGroup(Group group);
 	public int unJoinGroup(@Param("gid") int gid, @Param("mid") String mid);
 	public Group joinList(int gid);
 	public int acceptGroup(String mid);
