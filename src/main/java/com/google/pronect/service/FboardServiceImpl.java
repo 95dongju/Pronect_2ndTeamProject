@@ -12,6 +12,7 @@ import java.util.List;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -44,7 +45,7 @@ public class FboardServiceImpl implements FboardService {
 	}
 
 	@Override
-	public int writeFboard(Fboard fboard, MultipartHttpServletRequest mRequest) {
+	public int writeFboard(Fboard fboard, MultipartHttpServletRequest mRequest, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		String uploadPath = mRequest.getRealPath("fboardFile/");
 		Iterator<String> params = mRequest.getFileNames();
@@ -70,7 +71,7 @@ public class FboardServiceImpl implements FboardService {
 			ffile="";
 		}// if
 		fboard.setFfile(ffile);
-		fboard.setFip(mRequest.getRemoteAddr());
+		fboard.setFip(request.getRemoteAddr());
 		return fboardDao.writeFboard(fboard);
 	}
 	private boolean fileCopy(String serverFile, String backupFile) {

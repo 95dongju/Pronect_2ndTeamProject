@@ -75,6 +75,7 @@
 				<input type="text" name="schWord" value="${param.schWord }">
 				<input type="submit" value="검색">
 			</form>
+			<button type="button" onclick="location.href='${conPath}/fboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">글쓰기</button>
 		</div>
 		<table>
 			<caption>자유게시판</caption>
@@ -96,6 +97,9 @@
 						 	</c:if>
 						</c:forEach>
 						${fboard.ftitle }
+						<c:if test="${not empty fboard.ffile }">
+							<img src="https://cdn-icons-png.flaticon.com/512/5088/5088374.png" width="10">
+						</c:if>
 					</td>
 					<td><fmt:formatDate value="${fboard.frdate }" type="date" dateStyle="short"/></td>
 					<td>${fboard.fhit }</td>
