@@ -69,7 +69,7 @@
 		UPDATE MYGROUP SET GHIT=GHIT+1 WHERE GID = #{gid}
 	</update>
 	<select id="getGroupDetail" parameterType="int" resultType="Group">
-		SELECT * FROM MYGROUP WHERE GID = #{gid}
+		SELECT GTITLE, GCONTENT, GPEOPLE, GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, TO_CHAR(GFDATE, 'YYYY-MM-DD') GFDATE, GLOC FROM MYGROUP WHERE GID = #{gid}
 	</select>
 	<update id="modifyGroup" parameterType="Group">
 		UPDATE MYGROUP SET GTITLE = #{gtitle},
@@ -83,8 +83,8 @@
                 GDESIGN = #{gdesign}, 
                 GPM = #{gpm},
    </if>
-                GSDATE = TO_CHAR(TO_DATE(#{gsdate}, 'YYYY-MM-DD')),
-                GFDATE = TO_CHAR(TO_DATE(#{gfdate}, 'YYYY-MM-DD')),
+                GSDATE = TO_DATE(TO_CHAR(#{gsdate}), 'YYYY-MM-DD'),
+                GFDATE = TO_DATE(TO_CHAR(#{gfdate}), 'YYYY-MM-DD'),
                 GLOC = #{gloc}
         WHERE GID = #{gid}
 	</update>

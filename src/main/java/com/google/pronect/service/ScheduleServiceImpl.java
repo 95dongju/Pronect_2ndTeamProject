@@ -50,16 +50,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 			}
 		}
 	}
-
 	@Override
 	public List<Schedule> totalSchedule(int gid) {
-		return null;
+		return scheduleDao.totalSchedule(gid);
 	}
-
 	@Override
 	public Schedule detailSchedule(int scd_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return scheduleDao.detailSchedule(scd_id);
 	}
 
 }

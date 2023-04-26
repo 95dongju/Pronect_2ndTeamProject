@@ -16,10 +16,10 @@
 
 		INSERT INTO SCHEDULE 
 		<if test="scd_end==null or scd_end==''">
-			VALUES (SCHEDULE_SEQ.NEXTVAL, #{gid}, #{mid}, #{scd_title}, #{scd_memo}, TO_CHAR(TO_DATE(#{scd_start}, 'YYYY-MM-DD')))
+			VALUES (SCHEDULE_SEQ.NEXTVAL, #{gid}, #{mid}, #{scd_title}, #{scd_memo}, TO_DATE(TO_CHAR(#{scd_start}), 'YYYY-MM-DD'))
 		</if>
 		<if test="scd_end!=null or scd_end!=''">
-			VALUES (SCHEDULE_SEQ.NEXTVAL, #{gid}, #{mid}, #{scd_title}, #{scd_memo}, TO_CHAR(TO_DATE(#{scd_start}, 'YYYY-MM-DD')), TO_CHAR(TO_DATE(#{scd_end}, 'YYYY-MM-DD')))
+			VALUES (SCHEDULE_SEQ.NEXTVAL, #{gid}, #{mid}, #{scd_title}, #{scd_memo}, TO_DATE(TO_CHAR(#{scd_start}), 'YYYY-MM-DD')), TO_DATE(TO_CHAR(#{scd_end}), 'YYYY-MM-DD'))
 		</if>
 		<selectKey resultType="int" keyProperty="scd_id" order="AFTER">
         	SELECT SCHEDULE_SEQ.CURRVAL FROM DUAL

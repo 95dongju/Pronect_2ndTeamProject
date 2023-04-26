@@ -373,11 +373,11 @@ SELECT * FROM MYGROUP;
 INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
             VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test1-1','프로젝트 하실 분','모집합니다',5,
-                    'Java','JavaScript',NULL,'N','N','N','23/04/01','23/05/04','서울');
+                    'Java','JavaScript',NULL,'N','N','N', TO_CHAR(TO_DATE('2023-04-14', 'YYYY-MM-DD')), TO_DATE(TO_CHAR('2023-05-14'), 'YYYY-MM-DD'),'서울');
 INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
             VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test2-3','직장인들을 위한 플랫폼','백엔드개발자입니다 디자이너가 필요해요',5,
-                    NULL,NULL,NULL,'Y','N','N','23/05/01','23/06/04',NULL);
+                    NULL,NULL,NULL,'Y','N','N',TO_DATE(TO_CHAR('2023-04-15'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-05-12'),NULL);
 INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
             VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test3-4','습관형성 투두앱','기획자, 백엔드 개발자 구해요',5,
@@ -403,6 +403,8 @@ INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE,
             VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test1-1','메타커머스 프로젝트','파이팅해보자구요',5,
                     'Java','JavaScript',NULL,'Y','Y','Y','23/02/01','23/04/04','서울','Y');
 SELECT * FROM MYGROUP;
+COMMIT;
+SELECT GTITLE, GCONTENT, GPEOPLE, GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, TO_CHAR(GFDATE, 'YYYY-MM-DD') GFDATE, GLOC FROM MYGROUP WHERE GID = 1;
 -------------------------------------------------------------------------------
 -------------------------  STUDYCOMMENT DUMMY ---------------------------------
 -------------------------------------------------------------------------------
@@ -426,10 +428,12 @@ SELECT * FROM GCOMMENT;
 -------------------------------------------------------------------------------
 ---------------------------  SCHEDULE DUMMY -----------------------------------
 -------------------------------------------------------------------------------
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-07', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-07', 'YYYY-MM-DD')));
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-14', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-14', 'YYYY-MM-DD')));
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-21', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-21', 'YYYY-MM-DD')));
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-28', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-28', 'YYYY-MM-DD')));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', '2023-04-07', TO_DATE(TO_CHAR('2023-04-07'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-14'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-14'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-21'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-21'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-28'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-28'), 'YYYY-MM-DD'));
+
+SELECT TO_CHAR(SCD_START, 'yyyy-mm-dd') FROM SCHEDULE;
 -------------------------------------------------------------------------------
 -------------------------  GSTATUS DUMMY  -------------------------------------
 -------------------------------------------------------------------------------
@@ -443,3 +447,5 @@ INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'tes
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-1',8,3);
 COMMIT;
 SELECT * FROM GSTATUS;
+SELECT MIMAGE, M.MID, GID, GSSTATUS, MNICKNAME FROM MEMBER M, GSTATUS S 
+			WHERE M.MID = S.MID AND S.GID = 3 AND GSSTATUS= 2;
