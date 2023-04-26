@@ -62,7 +62,7 @@
 	</select>
 	<insert id="insertHistory" parameterType="Group">
 		INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS)
-            VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid}, #{gsstatus})
+            VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid}, 2)
 	  <selectKey resultType="Integer" keyProperty="gsid" order="AFTER">
 	  	SELECT MAX(GSID) FROM GSTATUS
 	  </selectKey>

@@ -116,8 +116,9 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int joinCheck(int gid, HttpSession session) {
 		Object memberObj = session.getAttribute("member");
+		System.out.println(memberObj);
 		Group group = new Group();
-		String mid="";
+		String mid="null";
 		// 가져온 값을 원하는 데이터 타입으로 형변환
 		if (memberObj != null && memberObj instanceof Member) {
 		    Member member = (Member) memberObj;
