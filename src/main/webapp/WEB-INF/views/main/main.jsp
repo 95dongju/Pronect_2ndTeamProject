@@ -102,11 +102,5 @@
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 	<!-- Scripts -->
-		<script src="${conPath }/js/jquery.min.js"></script>
-		<script src="${conPath }/js/browser.min.js"></script>
-		<script src="${conPath }/js/breakpoints.min.js"></script>
-		<script src="${conPath }/js/util.js"></script>
-		<script src="${conPath }/js/main.js"></script>	
-
 </body>
 </html>

@@ -47,11 +47,16 @@
 	<nav id="menu">
 		<h2>Menu</h2>
 		<ul>
-			<li><a href="index.html">Home</a></li>
+			<li><a href="${conPath}/main.do">Home</a></li>
 			<li><a href="generic.html">MyStudy</a></li>
 			<li><a href="generic.html">MyProject</a></li>
+			<li><a href="${conPath }/fboard/list.do?pageNum=1">자유게시판</a></li>
 		</ul>
 	</nav>
 	<script src="${conPath }/js/util.js"></script>
+	<script src="${conPath }/js/jquery.min.js"></script>
+	<script src="${conPath }/js/browser.min.js"></script>
+	<script src="${conPath }/js/breakpoints.min.js"></script>
+	<script src="${conPath }/js/main.js"></script>	
 </body>
 </html>

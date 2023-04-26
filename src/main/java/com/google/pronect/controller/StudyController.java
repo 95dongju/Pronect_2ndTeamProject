@@ -24,7 +24,6 @@ public class StudyController {
 	private SCommentService sCommentService;
 	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list(String pageNum, Model model, HttpSession session) {
-		model.addAttribute("studyGroupLeader",studyService.studyGroupLeader(session));
 		model.addAttribute("studyList",studyService.studyList(pageNum));
 		model.addAttribute("paging",new Paging(studyService.studyTotCnt(),pageNum));
 		return "main/main";
@@ -41,8 +40,8 @@ public class StudyController {
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(int sid, Model model, String pageNum, HttpSession session){
-	    model.addAttribute("joincheck", studyService.joinCheck(sid, session));
-	    model.addAttribute("joinList",studyService.joinList(sid));
+	  model.addAttribute("joincheck", studyService.joinCheck(sid, session));
+	  model.addAttribute("joinList",studyService.joinList(sid));
 		model.addAttribute("studyDetail",studyService.getStudyDetail(sid));
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("studyComment",sCommentService.commentContent(sid));
