@@ -50,6 +50,7 @@
 			<li><a href="index.html">Home</a></li>
 			<li><a href="generic.html">MyStudy</a></li>
 			<li><a href="generic.html">MyProject</a></li>
+			<li><a href="${conPath }/fboard/list.do?pageNum=1">자유게시판</a></li>
 		</ul>
 	</nav>
 	<script src="${conPath }/js/util.js"></script>
