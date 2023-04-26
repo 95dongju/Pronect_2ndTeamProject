@@ -158,51 +158,51 @@ commit;
 -------------------------------------------------------------------------------
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (1, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
                     1,0,0,'192.0.0.1');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (2, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
                     1,1,1,'192.0.0.2');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (3, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
                     3,0,0,'192.0.0.3');  
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (4, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
                     4,0,0,'192.0.0.1');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (5, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
                     4,1,1,'192.0.0.2');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (6, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
                     6,0,0,'192.0.0.3');  
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (7, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
                     7,0,0,'192.0.0.1');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (8, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
                     7,1,1,'192.0.0.2');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (9, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
                     9,0,0,'192.0.0.3');  
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (10, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'abc123', '오늘 점심 뭐먹을까요?','제곧내',
                     10,0,0,'192.0.0.1');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (11, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'suzume', '김치찌개 추천','신촌에 맛있는 김치찌개집 있어요',
                     10,1,1,'192.0.0.2');
 INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
                     FGROUP, FSTEP, FINDENT, FIP)
-            VALUES (12, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
+            VALUES (FBOARD_SEQ.NEXTVAL, 'teemo', '요즘 막나가는 챗 GPT 근황','미안하다 이거 보여주려고 어그로끌었다',
                     12,0,0,'192.0.0.3');  
 SELECT * FROM 
     (SELECT ROWNUM RN, A.* FROM 

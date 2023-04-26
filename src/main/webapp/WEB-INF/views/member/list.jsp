@@ -26,10 +26,15 @@
 	</script>
 </head>
 <body>
-	<c:set var="SUCCESS" value="1"></c:set>
-	<c:if test="${modifyManagerResult eq 1 }">
+	<c:set var="SUCCESS" value="1"/>
+	<c:if test="${modifyManagerResult eq SUCCESS }">
 		<script>
 			alert('관리자 모드로 회원 수정 완료');
+		</script>
+	</c:if>
+	<c:if test="${modifyManagerResult eq FAIL }">
+		<script>
+			alert('관리자 모드로 회원 수정 실패');
 		</script>
 	</c:if>
 	<jsp:include page="../main/header.jsp"/>
