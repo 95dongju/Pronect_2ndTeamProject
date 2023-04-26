@@ -60,7 +60,7 @@
 	</select>
 	<insert id="insertHistory" parameterType="Group">
 		INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS)
-            VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid}, #{gsstatus})
+            VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid}, 2)
 	  <selectKey resultType="Integer" keyProperty="gsid" order="AFTER">
 	  	SELECT MAX(GSID) FROM GSTATUS
 	  </selectKey>
@@ -97,16 +97,20 @@
 	<select id="joinCheck" parameterType="Group" resultType="int">
 		SELECT COUNT(*) FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
 	</select>
-	<insert id="joinStudy" parameterType="Group">
-		INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
-            VALUES (GCOMMENT_SEQ.NEXTVAL, #{mid}, #{gccontent}, #{gcip} #{gid})
+	<insert id="joinGroup" parameterType="Group">
+		INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS)
+            VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid},1)
  	  <selectKey resultType="Integer" keyProperty="gcid" order="AFTER">
-  		SELECT MAX(GCID) FROM SSTATUS
+  		SELECT MAX(GSID) FROM GSTATUS
   	</selectKey>
 	</insert>
 	<delete id="unJoinGroup" parameterType="Group">
 		DELETE FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
 	</delete>
+	<select id="joinList" parameterType="int" resultType="Group">
+		SELECT MIMAGE, M.MID, GID, GSSTATUS, MNICKNAME FROM MEMBER M, GSTATUS S 
+			WHERE M.MID = S.MID AND S.GID = #{gid} AND GSSTATUS= 1 
+	</select>
 	<update id="acceptGroup" parameterType="Group">
 		UPDATE GSTATUS SET GSSTATUS = 2 WHERE MID = #{mid}
 	</update>

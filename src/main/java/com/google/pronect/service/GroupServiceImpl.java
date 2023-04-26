@@ -116,16 +116,17 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int joinCheck(int gid, HttpSession session) {
 		Object memberObj = session.getAttribute("member");
+		System.out.println(memberObj);
 		Group group = new Group();
-		String mid="";
+		String mid="null";
 		// 가져온 값을 원하는 데이터 타입으로 형변환
 		if (memberObj != null && memberObj instanceof Member) {
 		    Member member = (Member) memberObj;
 		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
-		    group.setMid(mid);
-		    group.setGid(gid);
 		    // id 값 사용
 		}
+		group.setMid(mid);
+		group.setGid(gid);
 		return groupDao.joinCheck(group);
 	}
 	

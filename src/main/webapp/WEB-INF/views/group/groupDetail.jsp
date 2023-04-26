@@ -60,7 +60,7 @@
 						</c:if>
 					</td>
 				</tr>
-			<tr><th>내용</th><td colspan="2"><pre>${groupDetail.scontent }</pre></td></tr>
+			<tr><th>내용</th><td colspan="2"><pre>${groupDetail.gcontent }</pre></td></tr>
 			<tr>
 				<td colspan="4">
  					<c:if test="${not empty member}">
