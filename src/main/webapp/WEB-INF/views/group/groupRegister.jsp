@@ -57,49 +57,49 @@ $(document).ready(function(){
 	<c:set var="SUCCESS" value="1"></c:set>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
-		<form action="${conPath }/study/register.do" method="post">
+		<form action="${conPath }/group/register.do" method="post">
 			<input type="hidden" name="method" value="register">
 			<table>
 				<tr><th>제목</th>
-					<td><input type="text" name="stitle" required="required"></td>
+					<td><input type="text" name="gtitle" required="required"></td>
 				</tr>
 				<tr><th>내용</th>
-					<td><textarea rows="30" cols="30" name="scontent" required="required"></textarea> </td>
+					<td><textarea rows="30" cols="30" name="gcontent" required="required"></textarea> </td>
 				</tr>
 				<tr><th>모집 인원</th>
-					<td><input type="number" name="speople" required="required">명</td>
+					<td><input type="number" name="gpeople" required="required">명</td>
 				</tr>
 				<tr><th rowspan="4">사용 언어</th>
 				<tr>
 					<td>
-						<input type="checkbox" name="slanguage" value="Python">Python
-						<input type="checkbox" name="slanguage" value="Java">Java
-						<input type="checkbox" name="slanguage" value="JavaScript">JavaScript
+						<input type="checkbox" name="glanguage" value="Python">Python
+						<input type="checkbox" name="glanguage" value="Java">Java
+						<input type="checkbox" name="glanguage" value="JavaScript">JavaScript
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="checkbox" name="slanguage" value="C++">C++
-						<input type="checkbox" name="slanguage" value="PHP">PHP
-						<input type="checkbox" name="slanguage" value="TypeScript">TypeScript
+						<input type="checkbox" name="glanguage" value="C++">C++
+						<input type="checkbox" name="glanguage" value="PHP">PHP
+						<input type="checkbox" name="glanguage" value="TypeScript">TypeScript
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="checkbox" name="slanguage" value="C">C
-						<input type="checkbox" name="slanguage" value="Go">Go
-						<input type="checkbox" name="slanguage" value="Shell">Shell
-						<input type="checkbox" name="slanguage" value="Ruby">Ruby
+						<input type="checkbox" name="glanguage" value="C">C
+						<input type="checkbox" name="glanguage" value="Go">Go
+						<input type="checkbox" name="glanguage" value="Shell">Shell
+						<input type="checkbox" name="glanguage" value="Ruby">Ruby
 					</td>
 				</tr>
 				<tr><th>스터디 시작일</th>
-					<td><input type="text" id="sdate" class="sdate" name="ssdate" required="required"></td>
+					<td><input type="text" id="sdate" class="sdate" name="gsdate" required="required"></td>
 				</tr>
 				<tr><th>스터디 완료일</th>
-					<td><input type="text" id="edate" class="edate" name="sfdate" required="required"></td>
+					<td><input type="text" id="edate" class="edate" name="gfdate" required="required"></td>
 				</tr>
 				<tr><th>지역</th>
-					<td><input type="text" name="sloc"></td>
+					<td><input type="text" name="gloc"></td>
 				</tr>
 				<tr><td colspan="2">
 					<input type="submit" value="등록">

@@ -424,9 +424,12 @@ INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
             VALUES(GCOMMENT_SEQ.NEXTVAL, 'zol212','ㄹㅇㅋㅋ','191.0.0.2',3);
 SELECT * FROM GCOMMENT;
 -------------------------------------------------------------------------------
--------------------------  STD_SCHEDULE DUMMY ---------------------------------
+---------------------------  SCHEDULE DUMMY -----------------------------------
 -------------------------------------------------------------------------------
-INSERT INTO STD_SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-25', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-25', 'YYYY-MM-DD')));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-07', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-07', 'YYYY-MM-DD')));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-14', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-14', 'YYYY-MM-DD')));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-21', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-21', 'YYYY-MM-DD')));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_CHAR(TO_DATE('2023-04-28', 'YYYY-MM-DD')), TO_CHAR(TO_DATE('2023-04-28', 'YYYY-MM-DD')));
 -------------------------------------------------------------------------------
 -------------------------  GSTATUS DUMMY  -------------------------------------
 -------------------------------------------------------------------------------

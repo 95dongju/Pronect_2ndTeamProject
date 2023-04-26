@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.pronect.dao.GroupDao">
+	<resultMap type="Group" id="GroupResult">
+		<result property="gid" column="gid"/>
+		<result property="gcharacter" column="gcharacter"/>
+		<result property="mid" column="mid"/>
+		<result property="gtitle" column="gtitle"/>
+		<result property="gcontent" column="gcontent"/>
+		<result property="gpeople" column="gpeople"/>
+		<result property="glanguage1" column="glanguage1"/>
+		<result property="glanguage2" column="glanguage2"/>
+		<result property="glanguage3" column="glanguage3"/>
+		<result property="gdev" column="gdev"/>
+		<result property="gdesign" column="gdesign"/>
+		<result property="gpm" column="gpm"/>
+		<result property="grdate" column="grdate"/>
+		<result property="gsdate" column="gsdate"/>
+		<result property="gfdate" column="gfdate"/>
+		<result property="ghit" column="ghit"/>
+		<result property="gloc" column="gloc"/>
+		<result property="gcomplete" column="gcomplete"/>
+		<result property="startRow" column="startRow"/>
+		<result property="endRow" column="endRow"/>
+	</resultMap>
+	<select id="groupList" parameterType="Group" resultMap="GroupResult">
+		SELECT * FROM 
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT * FROM MYGROUP WHERE GCOMPLETE = 'N' ORDER BY GID DESC) A) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="groupTotCnt" resultType="int">
+		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N'
+	</select>
+	<select id="groupLeader" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MYGROUP WHERE MID = #{mid} AND GCOMPLETE='N'
+	</select>
+	<insert id="registerGroup" parameterType="Group">
+		INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+                    GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, 
+                    GDEV, GDESIGN, GPM,
+                    GSDATE, GFDATE, GLOC)
+            VALUES(MYGROUP_SEQ.NEXTVAL, #{gcharacter}, #{mid}, #{gtitle}, #{gcontent}, #{gpeople},
+                    #{glanguage1},#{glanguage2},#{glanguage3},
+   		<if test="gcharacter=='S'">
+                    NULL, NULL, NULL,
+      </if>
+      <if test="gcharacter=='P'">
+                    #{gdev}, #{gdesign}, #{gpm},
+      </if>
+                    TO_CHAR(TO_DATE(#{gsdate}, 'YYYY-MM-DD')), TO_CHAR(TO_DATE(#{gfdate}, 'YYYY-MM-DD')), #{gloc})
+ 	  <selectKey resultType="Integer" keyProperty="gid" order="AFTER">
+	  	SELECT MAX(GID) FROM MYGROUP
+	  </selectKey>
+	</insert>
+	<select id="getRegisteredGid" parameterType="String" resultType="int">
+		SELECT GID FROM MYGROUP WHERE MID = #{mid} AND GCOMPLETE = 'N'
+	</select>
+	<insert id="insertHistory" parameterType="Group">
+		INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS)
+            VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid}, #{gsstatus})
+	  <selectKey resultType="Integer" keyProperty="gsid" order="AFTER">
+	  	SELECT MAX(GSID) FROM GSTATUS
+	  </selectKey>
+	</insert>
+	<update id="groupHitUp" parameterType="int">
+		UPDATE MYGROUP SET GHIT=GHIT+1 WHERE GID = #{gid}
+	</update>
+	<select id="getGroupDetail" parameterType="int" resultType="Group">
+		SELECT * FROM MYGROUP WHERE GID = #{gid}
+	</select>
+	<update id="modifyGroup" parameterType="Group">
+		UPDATE MYGROUP SET GTITLE = #{gtitle},
+                GCONTENT = #{gcontent},
+                GPEOPLE = #{gpeople},
+                GLANGUAGE1 = #{glanguage1},
+                GLANGUAGE2 = #{glanguage2},
+                GLANGUAGE3 = #{glanguage3},
+   <if test="gcharacter=='P'">
+                GDEV = #{gdev}, 
+                GDESIGN = #{gdesign}, 
+                GPM = #{gpm},
+   </if>
+                GSDATE = TO_CHAR(TO_DATE(#{gsdate}, 'YYYY-MM-DD')),
+                GFDATE = TO_CHAR(TO_DATE(#{gfdate}, 'YYYY-MM-DD')),
+                GLOC = #{gloc}
+        WHERE GID = #{gid}
+	</update>
+	<update id="deleteHistory" parameterType="int">
+		UPDATE GSTATUS SET GSSTATUS = 4 WHERE GID = #{gid}
+	</update>
+	<update id="deleteStudy" parameterType="int">
+		UPDATE MYGROUP SET SCOMPLETE = 'D' WHERE GID = #{gid}
+	</update>
+	<select id="joinCheck" parameterType="Group" resultType="int">
+		SELECT COUNT(*) FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
+	</select>
+	<insert id="joinStudy" parameterType="Group">
+		INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
+            VALUES (GCOMMENT_SEQ.NEXTVAL, #{mid}, #{gccontent}, #{gcip} #{gid})
+ 	  <selectKey resultType="Integer" keyProperty="gcid" order="AFTER">
+  		SELECT MAX(GCID) FROM SSTATUS
+  	</selectKey>
+	</insert>
+	<delete id="unJoinGroup" parameterType="Group">
+		DELETE FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
+	</delete>
+	<update id="acceptGroup" parameterType="Group">
+		UPDATE GSTATUS SET GSSTATUS = 2 WHERE MID = #{mid}
+	</update>
+	<update id="completeGroup" parameterType="int">
+		UPDATE GSTATUS SET GSSTATUS = 3 WHERE GID = #{gid}
+	</update>
+	
+</mapper>

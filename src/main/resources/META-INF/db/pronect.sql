@@ -148,7 +148,7 @@ CREATE TABLE GCOMMENT(
 CREATE SEQUENCE GCOMMENT_SEQ MAXVALUE 99999 NOCACHE NOCYCLE;
 
 ----------------------------------------------------------------------
-------------------------  STUDY_SCHEDULE  ----------------------------
+---------------------------  SCHEDULE  -------------------------------
 ----------------------------------------------------------------------
 CREATE TABLE SCHEDULE (
     SCD_ID NUMBER(5) PRIMARY KEY,
@@ -165,7 +165,7 @@ CREATE TABLE SCHEDULE (
 CREATE SEQUENCE SCHEDULE_SEQ INCREMENT BY 1 START WITH 11111 MINVALUE 11111 MAXVALUE 99999 NOCYCLE CACHE 50000 ORDER;
 
 ----------------------------------------------------------------------
---------------------  STUDY_SCHEDULE_COMMENT  ------------------------
+------------------------  SCHEDULE_COMMENT  --------------------------
 ----------------------------------------------------------------------
 CREATE TABLE SCD_COMMENT (
     SCD_CMT_ID NUMBER(5) PRIMARY KEY,
@@ -179,6 +179,15 @@ CREATE TABLE SCD_COMMENT (
 );
 -- SEQUENCE
 CREATE SEQUENCE SCH_CMT_SEQ INCREMENT BY 1 START WITH 11111 MINVALUE 11111 MAXVALUE 99999 NOCYCLE CACHE 50000 ORDER;
+
+----------------------------------------------------------------------
+------------------------  SCHEDULE_ACHIVE  ---------------------------
+----------------------------------------------------------------------
+CREATE TABLE SCD_ACHIVE (
+    SCD_ID NUMBER(5) REFERENCES SCHEDULE(SCD_ID) NOT NULL,
+    MID VARCHAR2(100) REFERENCES MEMBER(MID) NOT NULL,
+    SCD_ACHIVE VARCHAR2(1) DEFAULT 'N' NOT NULL
+);
 
 ----------------------------------------------------------------------
 --------------------------  GROUP STATUS  ----------------------------

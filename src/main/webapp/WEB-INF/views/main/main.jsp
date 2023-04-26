@@ -52,10 +52,10 @@
 					<li><a href="#">전체</a></li>
 					<li><a href="#">프로젝트</a></li>
 					<c:if test="${not empty member }">
-						<li><a href="${conPath}/study/list.do?mid=${member.mid}&pageNum=1">스터디</a></li>
+						<li><a href="${conPath}/group/list.do?mid=${member.mid}&pageNum=1">스터디</a></li>
 					</c:if>
 					<c:if test="${empty member }">
-						<li><a href="${conPath}/study/list.do?pageNum=1">스터디</a></li>
+						<li><a href="${conPath}/group/list.do?pageNum=1">스터디</a></li>
 					</c:if>
 				</ul>
 				<div class="search_div">
@@ -65,15 +65,15 @@
 			<br>
 			<div class="inner">
 				<section class="tiles">
-					<c:if test="${not empty studyList}">
-						<c:forEach var="dto" items="${studyList }">
+					<c:if test="${not empty groupList}">
+						<c:forEach var="dto" items="${groupList }">
 							<article class="style">
 								<div>
-									<a href="${conPath}/study/detail.do?sid=${dto.sid}&pageNum=${paging.currentPage}">
+									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
 										<div class="content">
-											<h2 id="title">${dto.stitle } </h2>
-											<p id="hit">조회수 : ${dto.shit }</p>
-											<p>${dto.scontent }</p>
+											<h2 id="title">${dto.gtitle } </h2>
+											<p id="hit">조회수 : ${dto.ghit }</p>
+											<p>${dto.gcontent }</p>
 										</div>
 									</a>
 								</div>

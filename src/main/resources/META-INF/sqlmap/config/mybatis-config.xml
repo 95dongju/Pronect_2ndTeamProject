@@ -5,18 +5,17 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.google.pronect.vo.Member" alias="Member"/>
-		<typeAlias type="com.google.pronect.vo.Study" alias="Study"/>
-		<typeAlias type="com.google.pronect.vo.SComment" alias="SComment"/>
-		<typeAlias type="com.google.pronect.vo.Project" alias="Project"/>
-		<typeAlias type="com.google.pronect.vo.PComment" alias="PComment"/>
+		<typeAlias type="com.google.pronect.vo.Group" alias="Group"/>
+		<typeAlias type="com.google.pronect.vo.GComment" alias="GComment"/>
 		<typeAlias type="com.google.pronect.vo.Fboard" alias="Fboard"/>
+		<typeAlias type="com.google.pronect.vo.Schedule" alias="Schedule"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>
-		<mapper resource="META-INF/sqlmap/mappers/study.xml"/>
-		<mapper resource="META-INF/sqlmap/mappers/scomment.xml"/>
-		<mapper resource="META-INF/sqlmap/mappers/project.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/group.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/gcomment.xml"/>
 		<!-- <mapper resource="META-INF/sqlmap/mappers/pcomment.xml"/> -->
 		<mapper resource="META-INF/sqlmap/mappers/fboard.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/schedule.xml"/>
 	</mappers>
 </configuration>
