@@ -20,10 +20,22 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private GCommentService gCommentService;
-	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
-	public String list(String pageNum, Model model) {
+	@RequestMapping(value="groupList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String goupList(String pageNum, Model model) {
 		model.addAttribute("groupList",groupService.groupList(pageNum));
-		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum));
+		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum,12,12));
+		return "main/main";
+	}
+	@RequestMapping(value="studyList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String studyList(String pageNum, Model model) {
+		model.addAttribute("studyList",groupService.studyList(pageNum));
+		model.addAttribute("paging",new Paging(groupService.studyTotCnt(),pageNum,12,10));
+		return "main/main";
+	}
+	@RequestMapping(value="projectList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String projectList(String pageNum, Model model) {
+		model.addAttribute("projectList",groupService.projectList(pageNum));
+		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
 		return "main/main";
 	}
 	@RequestMapping(value="register", method=RequestMethod.GET)
@@ -43,7 +55,8 @@ public class GroupController {
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		return "group/groupDetail";
+		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
+		return "group/groupDetail2";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modify(int gid, Model model){
@@ -63,14 +76,22 @@ public class GroupController {
 	}
 	@RequestMapping(value="join", method=RequestMethod.GET)
 	public String join(int gid, String mid, String pageNum, Model model){
+		System.out.println("test7");
 		model.addAttribute("pageNum", pageNum);
+		System.out.println("GID"+gid+"mid"+mid);
 		model.addAttribute("joinResult", groupService.joinGroup(gid, mid));
+		System.out.println("test9");
 		return "forward:detail.do";
 	}
 	@RequestMapping(value="unJoin", method=RequestMethod.GET)
 	public String unJoin(int gid, String mid, String pageNum, Model model){
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("unJoinResult", groupService.unJoinGroup(gid, mid));
+		return "forward:detail.do";
+	}
+	@RequestMapping(value="accept", method=RequestMethod.GET)
+	public String accept(String mid, int gid, Model model){
+		model.addAttribute("acceptResult", groupService.acceptGroup(gid, mid));
 		return "forward:detail.do";
 	}
 }
