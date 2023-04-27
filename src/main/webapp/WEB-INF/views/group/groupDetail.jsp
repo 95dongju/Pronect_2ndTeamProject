@@ -32,7 +32,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div id="main">
 		<div id="back">
-			<a href="list.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
+			<a href="history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
 		</div>
 		<table id="groupDetail">
 			<tr><td colspan="6"><h1>${groupDetail.gtitle }</h1></td></tr>

@@ -17,7 +17,7 @@ public class GroupServiceImpl implements GroupService {
 	private GroupDao groupDao;
 	@Override
 	public List<Group> groupList(String pageNum) {
-		Paging paging = new Paging(groupDao.groupTotCnt(), pageNum, 10, 10);
+		Paging paging = new Paging(groupDao.groupTotCnt(), pageNum, 12, 10);
 		Group group = new Group();
 		group.setStartRow(paging.getStartRow());
 		group.setEndRow(paging.getEndRow());
@@ -31,7 +31,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public List<Group> studyList(String pageNum) {
-		Paging paging = new Paging(groupDao.studyTotCnt(), pageNum, 10, 10);
+		Paging paging = new Paging(groupDao.studyTotCnt(), pageNum, 12, 10);
 		Group group = new Group();
 		group.setStartRow(paging.getStartRow());
 		group.setEndRow(paging.getEndRow());
@@ -45,7 +45,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public List<Group> projectList(String pageNum) {
-		Paging paging = new Paging(groupDao.projectTotCnt(), pageNum, 10, 10);
+		Paging paging = new Paging(groupDao.projectTotCnt(), pageNum, 12, 10);
 		Group group = new Group();
 		group.setStartRow(paging.getStartRow());
 		group.setEndRow(paging.getEndRow());
@@ -144,7 +144,6 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int joinCheck(int gid, HttpSession session) {
 		Object memberObj = session.getAttribute("member");
-		System.out.println(memberObj);
 		Group group = new Group();
 		String mid="null";
 		// 가져온 값을 원하는 데이터 타입으로 형변환
@@ -211,5 +210,4 @@ public class GroupServiceImpl implements GroupService {
 	public int getCommentCnt(int gid) {
 		return groupDao.getCommentCnt(gid);
 	}
-
 }

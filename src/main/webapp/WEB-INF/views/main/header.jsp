@@ -32,9 +32,9 @@
 			</c:if>
 			<c:if test="${not empty member}">
 				<ul>
-					<li><a href="${conPath }/member/modify.do">정보수정</a></li>
+					<li><a href="${conPath }/group/register.do">스터디/프로젝트  등록</a></li>
 					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>
-					<li><a>${member.mnickname }님</a></li>
+					<li><a href="${conPath}/member/mypage.do">${member.mnickname }님</a></li>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>

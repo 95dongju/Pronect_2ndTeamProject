@@ -40,13 +40,14 @@ public class ScheduleController {
 			hash.put("cal_id", list.get(i).getScd_id());
 			hash.put("start", list.get(i).getScd_start());
 			hash.put("end", list.get(i).getScd_end()); 
+			hash.put("allDay", "true");
 			jsonObj = new JSONObject(hash); 
 			jsonArr.add(jsonObj); 
 		}
 		//log.info("jsonArrCheck: {}", jsonArr);
 		return jsonArr;
 	}
-	@RequestMapping(value="myGroup", method=RequestMethod.GET)
+	@RequestMapping(value="myGroupSchedule", method=RequestMethod.GET)
 	public String myGroup(int gid, Model model) {
 		model.addAttribute("gid", gid);
 		return "group/schedule/groupCalendar";

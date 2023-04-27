@@ -10,27 +10,14 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="${conPath }/css/main.css" />
-	<style>
-		.style {
-			border: 1px solid gray;
-			padding: 10px;
-			border-radius: 20px 20px 20px 20px;
-		}
-		#title {
-    	text-overflow: ellipsis;
-      white-space: nowrap;
-      display : block; 
-      margin-top: 10px;
-      margin-bottom: 15px;
-		}
-	 	#hit {
-		 text-align:right;
-		 font:italic; size:0.2em;
-		 height: 20px;
-		 margin-bottom: 30px;
-		 color:gray;
-		}
-	</style>
+	<script>
+		$(function(){
+			$('#searchBtn').click(function(){
+				var searchtxt = $('#searchtxt').val();
+				location.href= '${conPath}/searchGroup.do?cgName='+searchtxt;
+			});
+		});
+	</script>
 </head>
 <body class="is-preload">
 <c:if test="${member.mstate eq 'N'}">
@@ -61,7 +48,7 @@
 					</c:if>
 				</ul>
 				<div class="search_div">
-					<input type="text" placeholder="스터디/프로젝트를 검색하세요" class="search">
+					<input type="text" placeholder="스터디/프로젝트를 검색하세요" class="searchtxt"><img src="${conPath }/images/searchIcon.png" id="searchBtn">
 				</div>
 			</nav>
 			<br>
@@ -73,9 +60,9 @@
 								<div>
 									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
 										<div class="content">
-											<h2 id="title">${dto.gtitle } </h2>
-											<p id="hit">조회수 : ${dto.ghit }</p>
-											<p>${dto.gcontent }</p>
+											<h2 class="gtitle">${dto.gtitle } </h2>
+											<p class="ghit">조회수 : ${dto.ghit }</p>
+											<p class="gcontent">${dto.gcontent }</p>
 										</div>
 									</a>
 								</div>
@@ -88,9 +75,9 @@
 								<div>
 									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
 										<div class="content">
-											<h2 id="title">${dto.gtitle } </h2>
-											<p id="hit">조회수 : ${dto.ghit }</p>
-											<p>${dto.gcontent }</p>
+											<h2 class="gtitle">${dto.gtitle } </h2>
+											<p class="ghit">조회수 : ${dto.ghit }</p>
+											<p class="gcontent">${dto.gcontent }</p>
 										</div>
 									</a>
 								</div>
@@ -103,9 +90,9 @@
 								<div>
 									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
 										<div class="content">
-											<h2 id="title">${dto.gtitle } </h2>
-											<p id="hit">조회수 : ${dto.ghit }</p>
-											<p>${dto.gcontent }</p>
+											<h2 class="gtitle">${dto.gtitle } </h2>
+											<p class="ghit">조회수 : ${dto.ghit }</p>
+											<p class="gcontent">${dto.gcontent }</p>
 										</div>
 									</a>
 								</div>

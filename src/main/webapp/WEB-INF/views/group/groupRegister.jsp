@@ -61,7 +61,7 @@ $(document).ready(function(){
 			<input type="hidden" name="method" value="register">
 			<table>
 				<tr><th>제목</th>
-					<td><input type="text" name="gtitle" required="required"></td>
+					<td><input type="text" name="gtitle" required="required" maxlength="80"></td>
 				</tr>
 				<tr><th>내용</th>
 					<td><textarea rows="30" cols="30" name="gcontent" required="required"></textarea> </td>

@@ -99,6 +99,7 @@
 			<div id="div_joinAndLogin">
 				<form action="${conPath }/member/join.do" method="post" enctype="multipart/form-data">
 				<table>
+					<caption>회원가입</caption>
 					<tr>
 						<th>아이디</th>
 						<td>

@@ -55,8 +55,7 @@
 				</tr>
 			</table>
 		</form>
-		<input type="button" onclick="location.href='${conPath}/member/searchId.do'" value="아이디를 잊으셨나요?" class="btn">
-		<input type="button" onclick="location.href='${conPath}/member/searchPw.do'" value="비밀번호를 잊으셨나요?" class="btn">
+		<a href="${conPath}/member/searchId.do">아이디 찾기</a> &nbsp; / &nbsp; <a href="${conPath}/member/searchPw.do">비밀번호 찾기</a>
 		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>

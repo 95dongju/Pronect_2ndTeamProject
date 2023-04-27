@@ -2,6 +2,8 @@
 ------------------------------------MEMBER DUMMY-------------------------------
 -------------------------------------------------------------------------------
 --MANAGER (TEST)
+SELECT * FROM MEMBER;
+SELECT * FROM MYGROUP;
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     MANAGER, MSTATE, MIMAGE)
             VALUES('manager1','manager1nick','1','매니저테스트1','zool212@naver.com',0,0,

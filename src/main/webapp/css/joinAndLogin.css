@@ -1,17 +1,15 @@
 @charset "UTF-8";
 
-*{
-	margin: 0;
-	padding: 0;
-}
-
 #joinAndLoginWrap {
 	max-width: 800px;
-	margin: 0 auto;
+	margin: 20px auto;
+	padding: 20px;
 }
 #div_joinAndLogin {
-	margin: 0 auto;
 	text-align: center;
+}
+#div_joinAndLogin a {
+	font-size: 0.9em;
 }
 #div_joinAndLogin form {	
 	padding: 10px;
@@ -21,12 +19,17 @@
 	background-color: #FFFFFF;
 	text-align: center;
 }
+#div_joinAndLogin form table caption {
+	font-size: 2em;
+	
+}
 #div_joinAndLogin form table tr {
 	background-color: #FFFFFF;
 	border: none;
 }
 #div_joinAndLogin form table input:not(.btn) {
 	width: 80%;
+	margin: auto;
 }
 #div_joinAndLogin .btn {
 	width: 50%;
@@ -46,7 +49,7 @@
 @media screen and (max-width: 736px) {
 		#joinAndLoginWrap {
 		max-width: 400px;
-		font-size: 0.8em;
+		font-size: 0.9em;
 	}
 }
 @media screen and (max-width: 480px) {

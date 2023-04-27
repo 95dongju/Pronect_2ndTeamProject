@@ -62,6 +62,10 @@ public class MemberController {
 		httpSession.invalidate();
 		return "main/main";
 	}
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public String mypage() {
+		return "member/myPage";
+	}
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String modify() {
 		return "member/modify";

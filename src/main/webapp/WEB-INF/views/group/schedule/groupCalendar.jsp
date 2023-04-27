@@ -65,8 +65,6 @@
 	  </script>
 	</head>
 	<body>
-	<jsp:include page="../../main/header.jsp"/>
     <div id='calendar'></div>
-  <jsp:include page="../../main/footer.jsp"/>
   </body>
 </html>

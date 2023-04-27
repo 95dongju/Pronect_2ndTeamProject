@@ -3,94 +3,143 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="conPath" value="${pageContext.request.contextPath }"/>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/main.css" rel="stylesheet">
-<style>
-	#back {
-		width: 1000px;
-		margin: 0 auto;
-	}
-	#groupDetail{
-		width: 1000px;
-		margin: 0 auto;
-	}
-	.back{
-		width : 30px;
-		text-align: left;
-	}
-	button{
-		text-align: center;
-	}
-	#commentContent{
-		border-radius: 10px;
-	}
-	#submitBtn{
-		border-radius: 20px;
-		background-color:black;
-		color:white;
-	}
-	
-</style>
+<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
+	  <script>
+	  document.addEventListener('DOMContentLoaded', function () {
+          $(function () {
+              var request = $.ajax({
+                  url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
+                  method: "GET",
+                  dataType: "json"
+              });
+
+              request.done(function (data) {
+                  console.log(data); // log 로 데이터 찍어주기.
+
+                  var calendarEl = document.getElementById('calendar');
+
+                  var calendar = new FullCalendar.Calendar(calendarEl, {
+                      initialView: 'dayGridMonth',
+                      headerToolbar: {
+                          left: 'prev,next',
+                          center: 'title',
+                      },
+                      editable: true,
+                      droppable: true, // this allows things to be dropped onto the calendar
+                      drop: function (arg) {
+                          // is the "remove after drop" checkbox checked?
+                          if (document.getElementById('drop-remove').checked) {
+                              // if so, remove the element from the "Draggable Events" list
+                              arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+                          }
+                      },
+                      events: data
+                  });
+
+                  calendar.render();
+              });
+
+              request.fail(function( jqXHR, textStatus ) {
+                  alert( "Request failed: " + textStatus );
+              });
+          });
+
+      });
+	  </script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="main">
-		<section class="groupContent_detailHeader">
+		<div class="groupContent_detailHeader">
 			<div id="back">
-				<a href="list.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
+				<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
 			</div>
 				<div class="groupDetail_title">${groupDetail.gtitle }</div>
 <!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
 				<div class="groupDetail_writer">
-					<div class="mimage">${groupDetail.mimage } </div><div class="mid">${groupDetail.mnickname } |</div>
+					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }"/></div><div class="mid">${groupDetail.mnickname } </div>
+					<div class="grdate">작성일: ${groupDetail.grdate }</div>
 				</div>
+				<p style=clear:both;></p>
 <!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
 	
-				<div class="grdate">${groupDetail.grdate }</div>
-				<ul class="groupInfo_groupGrid">
-					<li>
-						<span class="groupInfo_title">모집 구분</span>
-						<span class="groupInfo_content">프로젝트 / 스터디 </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">모집 인원</span>
-						<span class="groupInfo_content">${groupDetail.gpeople } </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">시작 예정</span>
-						<span class="groupInfo_content">${groupDetail.gsdate }  </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">지역</span>
-						<span class="groupInfo_content">${groupDetail.gloc } </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">완료 예정</span>
-						<span class="groupInfo_content">${groupDetail.gfdate } </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">사용 언어</span>
-						<span class="groupInfo_content">
-							<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
-								-
-							</c:if>
-							<c:if test="${not empty groupDetail.glanguage1 }">
-									${groupDetail.glanguage1 }
-							</c:if>
-							<c:if test="${not empty groupDetail.glanguage2 }">
-									/ ${groupDetail.glanguage2 }
-							</c:if>
-							<c:if test="${not empty groupDetail.glanguage3 }">
-									/ ${groupDetail.glanguage3 }
-							</c:if>
-						</span>
-					</li>
-				</ul>
-			</section>
+				<div class="groupContent_detail">
+					<ul class="groupInfo_groupGrid">
+						<li>
+							<span class="groupInfo_title">모집 구분 </span>
+							<span class="groupInfo_content">
+								<c:if test="${groupDetail.gcharacter eq 'P' }">
+									<b>프로젝트</b>
+								</c:if>
+								<c:if test="${groupDetail.gcharacter eq 'S'}">
+									<b>스터디</b>
+								</c:if>
+							</span>
+						</li>
+						<li>
+							<span class="groupInfo_title">모집 인원</span>
+							<span class="groupInfo_content">${groupDetail.gpeople }명 </span>
+						</li>
+						<li>
+							<span class="groupInfo_title">시작 예정</span>
+							<span class="groupInfo_content">${groupDetail.gsdate }  </span>
+						</li>
+						<li>
+							<span class="groupInfo_title">지역</span>
+							<span class="groupInfo_content">${groupDetail.gloc } </span>
+						</li>
+						<li>
+							<span class="groupInfo_title">완료 예정</span>
+							<span class="groupInfo_content">${groupDetail.gfdate } </span>
+						</li>
+						<li>
+							<span class="groupInfo_title">사용 언어</span>
+							<span class="groupInfo_content_lang">
+								<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
+									-
+								</c:if>
+								<c:if test="${not empty groupDetail.glanguage1 }">
+										${groupDetail.glanguage1 }
+								</c:if>
+								<c:if test="${not empty groupDetail.glanguage2 }">
+										 / ${groupDetail.glanguage2 }
+								</c:if>
+								<c:if test="${not empty groupDetail.glanguage3 }">
+										 / ${groupDetail.glanguage3 }
+								</c:if>
+							</span>
+						</li>
+					</ul>
+				<p style=clear:both;></p>
+				</div>
+				<nav id="mygroup_nav">
+					<ul>
+						<li>
+						<a href="">
+								<c:if test="${groupDetail.gcharacter eq 'P' }">
+									프로젝트
+								</c:if>
+								<c:if test="${groupDetail.gcharacter eq 'S' }">
+									스터디
+								</c:if>
+										정보</a>
+						</li>
+						<li>
+							<a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }">일정</a>
+						</li>
+						<c:if test="${groupDetail.gcharacter eq 'P' }">
+						<li><a href="">Gantt 계획표</a></li>
+						</c:if>
+						<li><a href="">게시판</a></li>
+					</ul>
+				</nav>
+			</div>
+			
 <!-------------------------------------------------참가 신청자 정보--------------------------------------------------------------->				
 			<div class="groupJoin">
 				<c:if test="${groupDetail.mid eq member.mid }">
@@ -107,7 +156,6 @@
 			</div>
 			<div class="groupContent_detailContentWrapper">
 				<h2 class="groupContent_detailInfo">프로젝트 소개</h2>
-				<hr>
 				<pre>${groupDetail.gcontent }</pre>
 			</div>
 			<div class="groupContent_btns">
@@ -138,13 +186,12 @@
 						<button class="comentInput_buttonSubmit">댓글 등록</button>
 					</div>
 				</form>
-				<hr>
 			</div>
 			<c:if test="${not empty groupComment }">
 				<ul class="commentList">
 					<c:forEach var="dto" items="${groupComment }">
 						<li class="commentItem_commentContainer">
-							<section class="commentItem_commentHeader">
+							<div class="commentItem_commentHeader">
 								<form action="${conPath}/group/commentModify.do" method="post">
 									<input type="hidden" name="gid" value=${dto.gid }>
 									<input type="hidden" name="gcid" value=${dto.gcid }>
@@ -162,16 +209,17 @@
 										<span><a href="${conPath}/GCommentDelete.do?gid=${dto.gid}&gcid=${dto.gcid}" style="color : black; text-decoration:none;">삭제</a></span><br>
 									</c:if>
 								</form>
-							</section>
-							<section class="commentItem_commentContent">
+							</div>
+							<div class="commentItem_commentContent">
 								<p class="commentItem_commentContent">${dto.gccontent }</p>
-							</section>
+							</div>
 						</li>
 					</c:forEach>
 				</ul>
 			</c:if>
 		</div>
 	</div>
+	<div id='calendar'></div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

@@ -2663,6 +2663,35 @@ input, select, textarea {
 					.tiles article > a .content > :last-child {
 						margin-bottom: 0;
 					}
+					
+					.style {
+				border: 2px solid #EFEFEF;
+				padding: 10px;
+				border-radius: 20px 20px 20px 20px;
+				}
+				.tiles .style .content .gtitle {
+			    	text-overflow: ellipsis;
+			      white-space: nowrap;
+			      overflow:hidden;
+			      display : block; 
+			      margin-top: 10px;
+			      margin-bottom: 15px;
+				}
+				.tiles .style .content .gcontent {
+			    	text-overflow: ellipsis;
+			      white-space: nowrap;
+			      overflow:hidden;
+			      display : block; 
+			      margin-top: 10px;
+			      margin-bottom: 15px;
+				}
+			 	.tiles .style .content .ghit {
+					 text-align:right;
+					 font:italic; size:0.2em;
+					 height: 20px;
+					 margin-bottom: 30px;
+					 color:gray;
+				}
 
 			body:not(.is-touch) .tiles article:hover > .image {
 				-moz-transform: scale(1.1);
@@ -3105,10 +3134,23 @@ input, select, textarea {
 		content: '';
 		clear:both;
 	}
-	#wrapper #main #nav .search_div .search {
-		max-width: 100%;
+	#wrapper #main #nav .search_div {
+		width: 80%;
+		margin: 0 auto;
+	}
+	#wrapper #main #nav .search_div .searchtxt {
+		width: 93%;
 		margin: 0 100px;
+		display: inline-block;
 		margin: auto;
+	}
+	#wrapper #main #nav #searchBtn {
+		opacity: 0.3;
+		width: 25px;
+	}
+	#wrapper #main #nav #searchBtn:hover {
+		opacity: 0.6;
+		cursor: pointer;
 	}
 
 		@media screen and (max-width: 1280px) {
@@ -3121,13 +3163,11 @@ input, select, textarea {
 				width: 120px;
 				font-size: 1.3em;
 			}
+			
 		}
 
 
 		@media screen and (max-width: 736px) {
-			#main {
-				padding: 0em 0 4em 0 ;
-			}
 			#wrapper #main #nav ul li {
 				width: 100px;
 				font-size: 1.2em;

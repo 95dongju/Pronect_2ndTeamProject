@@ -11,6 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	가입된 프로젝트 리스트 출력
+	<jsp:include page="../main/header.jsp"/>
+	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
