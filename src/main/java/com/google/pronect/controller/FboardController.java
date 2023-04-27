@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.pronect.service.FboardService;
+import com.google.pronect.service.FcommentService;
 import com.google.pronect.util.Paging;
 import com.google.pronect.vo.Fboard;
 
@@ -19,6 +20,8 @@ import com.google.pronect.vo.Fboard;
 public class FboardController {
 	@Autowired
 	private FboardService fboardService;
+	@Autowired
+	private FcommentService fcommentService;
 	
 	@RequestMapping(value = "list", method = {RequestMethod.GET, RequestMethod.POST})
 	public String list(Fboard fboard, Model model, String pageNum) {
@@ -37,8 +40,9 @@ public class FboardController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value = "content", method = {RequestMethod.GET, RequestMethod.POST})
-	public String content(int fid, Model model) {
+	public String content(int fid, Model model, String commentPageNum) {
 		model.addAttribute("fDto", fboardService.contentFboard(fid));
+		model.addAttribute("fcommentList", fcommentService.fcommentList(fid, commentPageNum, model));
 		//TODO 여기에 댓글 로직 추가
 		return "fboard/content";
 	}

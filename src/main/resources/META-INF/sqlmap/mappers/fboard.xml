@@ -16,44 +16,45 @@
 		<result property="fip" column="fip"/>
 		<result property="fhit" column="fhit"/>
 		<result property="flike" column="flike"/>
+		<result property="commentCnt" column="commentCnt"/>
 	</resultMap>
 	
 	<select id="fboardList" parameterType="Fboard" resultMap="FboardResult">
 		<if test="schItem==null or schItem==''">
-			SELECT * FROM (SELECT ROWNUM RN, A.*
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM FCOMMENT WHERE FID=A.FID) commentCnt
 			        FROM (SELECT * FROM FBOARD ORDER BY FGROUP DESC, FSTEP) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="schItem=='all'">
-			SELECT * FROM (SELECT ROWNUM RN, A.*
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM FCOMMENT WHERE FID=A.FID) commentCnt
 			        FROM (SELECT * FROM FBOARD 
 			        WHERE FTITLE LIKE '%'||#{schWord}||'%' OR FCONTENT LIKE '%'||#{schWord}||'%' OR MID LIKE '%'||#{schWord}||'%'
 			        ORDER BY FGROUP DESC, FSTEP) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="schItem=='mid'">
-			SELECT * FROM (SELECT ROWNUM RN, A.*
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM FCOMMENT WHERE FID=A.FID) commentCnt
 			        FROM (SELECT * FROM FBOARD 
 			        WHERE MID LIKE '%'||#{schWord}||'%'
 			        ORDER BY FGROUP DESC, FSTEP) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="schItem=='ftitle'">
-			SELECT * FROM (SELECT ROWNUM RN, A.*
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM FCOMMENT WHERE FID=A.FID) commentCnt
 			        FROM (SELECT * FROM FBOARD 
 			        WHERE FTITLE LIKE '%'||#{schWord}||'%'
 			        ORDER BY FGROUP DESC, FSTEP) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="schItem=='fcontent'">
-			SELECT * FROM (SELECT ROWNUM RN, A.*
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM FCOMMENT WHERE FID=A.FID) commentCnt
 			        FROM (SELECT * FROM FBOARD 
 			        WHERE FCONTENT LIKE '%'||#{schWord}||'%'
 			        ORDER BY FGROUP DESC, FSTEP) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="schItem=='ftitle+fcontent'">
-			SELECT *FROM (SELECT ROWNUM RN, A.*
+			SELECT *FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM FCOMMENT WHERE FID=A.FID) commentCnt
 			        FROM (SELECT * FROM FBOARD 
 			        WHERE FTITLE LIKE '%'||#{schWord}||'%' OR FCONTENT LIKE '%'||#{schWord}||'%'
 			        ORDER BY FGROUP DESC, FSTEP) A)

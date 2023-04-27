@@ -100,6 +100,9 @@
 						<c:if test="${not empty fboard.ffile }">
 							<img src="https://cdn-icons-png.flaticon.com/512/5088/5088374.png" style="width:15px;">
 						</c:if>
+						<c:if test="${fboard.commentCnt != 0 }"> <!-- 댓글이 있을 경우 title과 함께 댓글 갯수 출력 -->
+							[${fboard.commentCnt }]
+						</c:if>
 					</td>
 					<td><fmt:formatDate value="${fboard.frdate }" type="date" dateStyle="short"/></td>
 					<td>${fboard.fhit }</td>
