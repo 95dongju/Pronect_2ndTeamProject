@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<<<<<<< HEAD
 <link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	  <script>
 	  document.addEventListener('DOMContentLoaded', function () {
@@ -51,23 +52,101 @@
 
       });
 	  </script>
+=======
+<link href="${conPath }/css/main.css" rel="stylesheet">
+<style>
+	#main{
+		width:1000px;
+		margin:0 auto;
+	}
+	#back {
+		width: 1000px;
+		margin: 0 auto;
+	}
+	#groupDetail{
+		width: 1000px;
+		margin: 0 auto;
+	}
+	#sideBanner{
+		width:200px;
+		position:fixed;
+		top:200px;
+		right:200px;
+	}
+	#sideBanner_hitGroup{
+		display: block;
+		white-space:nowrap;
+		overflow:hidden;
+	}
+	#sideBanner_hitGroup li::marker{
+		color : blue;
+		
+	}
+	#sideBanner_hitGroup_border{
+		border-radius: 10px;
+		border:solid gray 2px;
+	}
+	.back{
+		width : 30px;
+		text-align: left;
+	}
+	button{
+		text-align: center;
+	}
+	#commentContent{
+		border-radius: 10px;
+	}
+	#submitBtn{
+		border-radius: 20px;
+		background-color:black;
+		color:white;
+	}
+	
+</style>
+>>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 </head>
+<c:if test="${not empty acceptResult }">
+	<script>
+		alert('${acceptResult}');
+	</script>
+</c:if>
 <body>
 	<jsp:include page="../main/header.jsp"/>
+<!-- ---------------------------------------------------추천글-------------------------------------------------------------------- -->
+	<div id="sideBanner">
+		오늘의 추천글
+		<fieldset class="sideBanner_hitGroup_border">
+			<ol type="1">
+				<c:forEach var="dto" items="${hitGroup}">
+					<li id="sideBanner_hitGroup"><a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}">${dto.gtitle }</a></li>
+				</c:forEach>
+			</ol>
+		</fieldset>
+	</div>
+<!-----------------------------------------------------그룹 본문------------------------------------------------------------------->
 	<div id="main">
 		<div class="groupContent_detailHeader">
 			<div id="back">
+<<<<<<< HEAD
 				<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
+=======
+				<a href="${name }List.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
+>>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 			</div>
 				<div class="groupDetail_title">${groupDetail.gtitle }</div>
 <!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
 				<div class="groupDetail_writer">
+<<<<<<< HEAD
 					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }"/></div><div class="mid">${groupDetail.mnickname } </div>
 					<div class="grdate">작성일: ${groupDetail.grdate }</div>
+=======
+					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }" alt="사용자 이미지"> </div><div class="mid">${groupDetail.mnickname } |</div>
+>>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 				</div>
 				<p style=clear:both;></p>
 <!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
 	
+<<<<<<< HEAD
 				<div class="groupContent_detail">
 					<ul class="groupInfo_groupGrid">
 						<li>
@@ -140,6 +219,49 @@
 				</nav>
 			</div>
 			
+=======
+				<div class="grdate">${groupDetail.grdate }</div>
+				<ul class="groupInfo_groupGrid">
+					<li>
+						<span class="groupInfo_title">모집 구분</span>
+						<span class="groupInfo_content">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} </span>
+					</li>
+					<li>
+						<span class="groupInfo_title">모집 인원</span>
+						<span class="groupInfo_content">${groupDetail.gpeople } </span>
+					</li>
+					<li>
+						<span class="groupInfo_title">시작 예정</span>
+						<span class="groupInfo_content">${groupDetail.gsdate }  </span>
+					</li>
+					<li>
+						<span class="groupInfo_title">지역</span>
+						<span class="groupInfo_content">${groupDetail.gloc } </span>
+					</li>
+					<li>
+						<span class="groupInfo_title">완료 예정</span>
+						<span class="groupInfo_content">${groupDetail.gfdate } </span>
+					</li>
+					<li>
+						<span class="groupInfo_title">사용 언어</span>
+						<span class="groupInfo_content">
+							<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
+								-
+							</c:if>
+							<c:if test="${not empty groupDetail.glanguage1 }">
+									${groupDetail.glanguage1 }
+							</c:if>
+							<c:if test="${not empty groupDetail.glanguage2 }">
+									/ ${groupDetail.glanguage2 }
+							</c:if>
+							<c:if test="${not empty groupDetail.glanguage3 }">
+									/ ${groupDetail.glanguage3 }
+							</c:if>
+						</span>
+					</li>
+				</ul>
+			</section>
+>>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 <!-------------------------------------------------참가 신청자 정보--------------------------------------------------------------->				
 			<div class="groupJoin">
 				<c:if test="${groupDetail.mid eq member.mid }">
@@ -149,11 +271,26 @@
 							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
 						</div>
 						<div class="groupJoin_acceptBtn">
-							<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }'"></button>
+							<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }'">수락</button>
 						</div>
 					</c:forEach>
 				</c:if>
 			</div>
+<!---------------------------------------------------그룹원 정보----------------------------------------------------------------->				
+			<div class="groupMember">
+				<c:if test="${groupDetail.mid eq member.mid }">
+					<c:forEach var="dto" items="${groupMember }">
+						<div class="groupJoin_memberInfo">
+							<div class="groupJoin_memberInfo_img">${dto.mimage }</div>
+							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
+						</div>
+						<div class="groupJoin_acceptBtn">
+							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }'">퇴출</button>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+<!-------------------------------------------------프로젝트 소개------------------------------------------------------------------>
 			<div class="groupContent_detailContentWrapper">
 				<h2 class="groupContent_detailInfo">프로젝트 소개</h2>
 				<pre>${groupDetail.gcontent }</pre>
@@ -169,6 +306,7 @@
 					<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 						<button onclick="location='modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
 						<button onclick="location='delete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
+						<button onclick="location='complete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
 					</c:if>
 				</c:if>
 				<c:if test="${empty member}">
@@ -180,14 +318,26 @@
 			<div class="commentInput_commentText">
 				<hr>
 				<h2>${commentCnt }개의 댓글이 있습니다.</h2>
+<<<<<<< HEAD
 				<form action="${conPath}/group/comment.do" method="post">
 					<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
 					<div class="contentInput_buttonWrapper">
 						<button class="comentInput_buttonSubmit">댓글 등록</button>
 					</div>
 				</form>
+=======
+				<c:if test="${not empty member }">
+					<form action="${conPath}/group/comment.do" method="post">
+						<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
+						<div class="contentInput_buttonWrapper">
+								<button class="comentInput_buttonSubmit">댓글 등록</button>
+						</div>
+					</form>
+				</c:if>
+>>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 			</div>
 			<c:if test="${not empty groupComment }">
+				<hr>
 				<ul class="commentList">
 					<c:forEach var="dto" items="${groupComment }">
 						<li class="commentItem_commentContainer">

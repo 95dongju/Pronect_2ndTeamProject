@@ -16,6 +16,7 @@ public class Group {
 	private String 	gtitle;
 	private String 	gcontent;
 	private int 	gpeople;
+	private	int		gcurpeople;
 	private String 	glanguage1;
 	private String 	glanguage2;
 	private String 	glanguage3;

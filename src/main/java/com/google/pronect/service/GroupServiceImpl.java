@@ -86,20 +86,16 @@ public class GroupServiceImpl implements GroupService {
 	            }
 	        }
 	    }
-		String mid = group.getMid();
 		groupDao.registerGroup(group);
+		String mid = group.getMid();
 		int gid = groupDao.getRegisteredGid(mid);
-		return groupDao.insertHistory(gid, mid);
+		group.setGid(gid);
+		return groupDao.insertHistory(group);
 	}
 
 	@Override
 	public int getRegisteredGid(String mid) {
 		return groupDao.getRegisteredGid(mid);
-	}
-
-	@Override
-	public int insertHistory(int gid, String mid) {
-		return groupDao.insertHistory(gid, mid);
 	}
 
 	@Override
@@ -167,6 +163,11 @@ public class GroupServiceImpl implements GroupService {
 		}
 		return groupDao.joinGroup(group);
 	}
+	
+	@Override
+	public List<Group> groupMember(int gid) {
+		return groupDao.groupMember(gid);
+	}
 
 	@Override
 	public int unJoinGroup(int gid, String mid) {
@@ -174,18 +175,70 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public int acceptGroup(int gid, String mid) {
-		Group group = new Group();
+	public String acceptGroup(int gid, String mid) {
+		String msg="";
 		String gidTemp = Integer.toString(gid);
 		if(gidTemp != null && mid != null) {
+			Group group = groupDao.memberFullCheck(gid);
+			int gpeople = group.getGpeople();
+			int gcurpeople = group.getGcurpeople();
+			if(gpeople == gcurpeople) {
+				msg="그룹 멤버가 모두 모여 더이상 그룹원을 받을 수 없습니다";
+				return msg;
+			}else if(gpeople - gcurpeople == 1) {
+				groupDao.peopleFull(gid);
+				msg="모든 그룹원이 모였습니다.";
+			}
+			groupDao.memberPlus(gid);
+			group.setGid(gid);
+			group.setMid(mid);
+			groupDao.acceptGroup(group);
+		}
+		return msg;
+	}
+	
+	@Override
+	public int memberPlus(int gid) {
+		return groupDao.memberPlus(gid);
+	}
+	
+	@Override
+	public Group memberFullCheck(int gid) {
+		return groupDao.memberFullCheck(gid);
+	}
+	
+	@Override
+	public int peopleFull(int gid) {
+		return groupDao.peopleFull(gid);
+	}
+	
+	@Override
+	public int memberOut(int gid, String mid) {
+//		Group group = new Group();
+//		String gidTemp = Integer.toString(gid);
+//		if(gidTemp != null && mid != null) {
+//			group.setGid(gid);
+//			group.setMid(mid);
+		Group group = new Group();
+		String msg="";
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null && mid != null) {
+			group = groupDao.memberFullCheck(gid);
+			int gpeople = group.getGpeople();
+			int gcurpeople = group.getGcurpeople();
+			if(gpeople == gcurpeople) {
+				groupDao.peopleUnFull(gid);
+			}
+			groupDao.memberMinus(gid);
 			group.setGid(gid);
 			group.setMid(mid);
 		}
-		return groupDao.acceptGroup(group);
+		return groupDao.memberOut(group);
 	}
 
 	@Override
 	public int completeGroup(int gid) {
+		groupDao.joinDelete(gid);
 		return groupDao.completeGroup(gid);
 	}
 
@@ -210,4 +263,25 @@ public class GroupServiceImpl implements GroupService {
 	public int getCommentCnt(int gid) {
 		return groupDao.getCommentCnt(gid);
 	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public int memberMinus(int gid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int peopleUnFull(int gid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Group> hitGroup() {
+		return groupDao.hitGroup();
+	}
+
+>>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 }

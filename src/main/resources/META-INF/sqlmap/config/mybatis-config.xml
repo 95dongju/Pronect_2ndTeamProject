@@ -8,6 +8,7 @@
 		<typeAlias type="com.google.pronect.vo.Group" alias="Group"/>
 		<typeAlias type="com.google.pronect.vo.GComment" alias="GComment"/>
 		<typeAlias type="com.google.pronect.vo.Fboard" alias="Fboard"/>
+		<typeAlias type="com.google.pronect.vo.Fcomment" alias="Fcomment"/>
 		<typeAlias type="com.google.pronect.vo.Schedule" alias="Schedule"/>
 	</typeAliases>
 	<mappers>
@@ -16,6 +17,7 @@
 		<mapper resource="META-INF/sqlmap/mappers/gcomment.xml"/>
 		<!-- <mapper resource="META-INF/sqlmap/mappers/pcomment.xml"/> -->
 		<mapper resource="META-INF/sqlmap/mappers/fboard.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/fcomment.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/schedule.xml"/>
 	</mappers>
 </configuration>

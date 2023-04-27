@@ -10,10 +10,33 @@
 	<title>Insert title here</title>
 	<link href="${conPath }/css/main.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-  	$(document).ready(function(){
-  		
-  	});
+	<script>
+		$(document).ready(function(){
+	  		$('.commentReplyView').click(function(){
+	  			var fcid = $(this).attr('id');
+	  			$.ajax({
+	  				url : '${conPath}/fcomment/reply.do',
+						data : {'fcid':fcid, 'pageNum':pageNum, 'commentPageNum':commentPageNum},
+						type : 'get',
+						dateType : 'html',
+						success : function(data, status){
+							$('.commentReply'+fcid).html(data);
+						}
+	  			});
+	  		});
+	  	});
+		
+		function modifyComment(fcid, pageNum, fid, commentPageNum){
+			$.ajax({
+				url : '${conPath}/fcomment/modify.do',
+				data : {'fcid':fcid, 'pageNum':pageNum, 'commentPageNum':commentPageNum},
+				type : 'get',
+				dateType : 'html',
+				success : function(data, status){
+					$('.commentReplySpace'+fcid).html(data);
+				}
+			});
+		}
 	</script>
 </head>
 <body>
@@ -63,6 +86,59 @@
 			</td>
 		</tr>
 	</table>
+	
+	<h3>댓글</h3>
+	<form action="${conPath }/fcomment/write.do" method="post">
+		<input type="hidden" name="fid" value="${fDto.fid }">
+		<input type="hidden" name="pageNum" value="${param.pageNum }">
+		<input type="hidden" name="mid" value="${member.mid }">
+		<textarea rows="2" cols="5" name="fccontent" style="width:50%; height:50px; float:left; margin: 5px;"></textarea>
+		<input type="submit" value="등록" class="btn" style="height:50px; float:left; margin: 5px;">
+	</form>
+	<p style="clear:both;"></p>
+	<c:if test="${empty fcommentList }">등록된 댓글이 없습니다</c:if>
+	<c:if test="${not empty fcommentList }">
+		<c:forEach items="${fcommentList }" var="fcomment">
+			<div class="commentReply${fcomment.fcid }">
+				<div class="toggle${fcomment.fcid }">
+					<c:forEach var="i" begin="1" end="${fcomment.fcindent }">
+						<c:if test="${i==fcomment.fcindent }">
+				  			&nbsp; &nbsp; &nbsp; └
+				  		</c:if>
+						<c:if test="${i!=fcomment.fcindent }">
+				  			&nbsp; &nbsp; &nbsp; 
+				  		</c:if>
+					</c:forEach>
+					${fcomment.fcid }.
+					<span style="font-weight: blod; font-size: 1.3em;">${fcomment.fccontent }</span> 
+					<i>from ${fcomment.mid} - at ${fcomment.fcrdate }</i>
+					<c:if test="${member.mid eq fcomment.mid or member.manager eq 'Y' }">
+						<span onclick="location='${conPath}/fcomment/delete.do?fcid=${fcomment.fcid }&fid=${fDto.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span>
+						<span class="btn" onclick="modifyComment(${fcomment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})">[ 수정 ]</span>					
+					</c:if>
+					<span class="modifyBtn${fcomment.fcid }" class="commentReplyView" class="btn">[ 답변 ]</span>
+				</div>
+				<div class="commentReplySpace${fcomment.fcid }"></div>
+			</div>
+			<br>
+		</c:forEach>
+	</c:if>
+	<div class="paging">
+		<c:if test="${commentPaging.startPage > commentPaging.blockSize }">
+			[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
+		</c:if>
+		<c:forEach var="i" begin="${commentPaging.startPage }" end="${commentPaging.endPage }">
+			<c:if test="${i eq commentPaging.currentPage }">
+				[ <b> ${i } </b> ]
+			</c:if>
+			<c:if test="${i != commentPaging.currentPage }">
+				[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${i}">${i }</a> ]
+			</c:if>
+		</c:forEach>
+		<c:if test="${paging.endPage < paging.pageCnt }">
+			[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.endPage+1}">다음</a> ]
+		</c:if>
+	</div>
 </body>
 </html>
 
