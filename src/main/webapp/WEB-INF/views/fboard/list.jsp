@@ -98,7 +98,7 @@
 						</c:forEach>
 						${fboard.ftitle }
 						<c:if test="${not empty fboard.ffile }">
-							<img src="https://cdn-icons-png.flaticon.com/512/5088/5088374.png" width="10">
+							<img src="https://cdn-icons-png.flaticon.com/512/5088/5088374.png" style="width:15px;">
 						</c:if>
 					</td>
 					<td><fmt:formatDate value="${fboard.frdate }" type="date" dateStyle="short"/></td>

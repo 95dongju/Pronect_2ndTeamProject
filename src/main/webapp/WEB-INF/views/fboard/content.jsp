@@ -53,13 +53,13 @@
 		<tr>
 			<td colspan="2">
 				<c:if test="${member.mid eq fDto.mid}">
-					<button onclick="location='${conPath}/fboard/modify.do?fid=${param.fid }&pageNum=${param.pageNum }'">수정</button>
+					<button onclick="location='${conPath}/fboard/modify.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">수정</button>
 				</c:if>
 				<c:if test="${member.mid eq fDto.mid or member.manager eq 'Y'}">
-					<button onclick="location='${conPath}/fboard/delete.do?fid=${param.fid }&pageNum=${param.pageNum }'">삭제</button>				
+					<button onclick="location='${conPath}/fboard/delete.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">삭제</button>				
 				</c:if>
-				<button onclick="location='${conPath}/fboard/reply.do?fid=${param.fid }&pageNum=${param.pageNum }'">답변</button>
-				<button onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }'">목록</button>
+				<button onclick="location='${conPath}/fboard/reply.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">답변</button>
+				<button onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">목록</button>
 			</td>
 		</tr>
 	</table>
