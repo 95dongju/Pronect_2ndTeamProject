@@ -85,7 +85,7 @@
 	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 	<div class="comment">
 				<c:forEach var="dto" items="${groupComment }">
-					<form action="${conPath}/group/comment.do" method="post">
+					<form action="${conPath}/group/commentModify.do" method="post">
 						<input type="hidden" name="gid" value=${dto.gid }>
 						<input type="hidden" name="gcid" value=${dto.gcid }>
 						<input type="hidden" name="pageNum" value=${param.pageNum }>

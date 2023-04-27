@@ -26,6 +26,7 @@
 		<result property="endRow" column="endRow"/>
 		<result property="mimage" column="mimage"/>
 		<result property="gsid" column="gsid"/>
+		<result property="mnickname" column="mnickname"/>
 	</resultMap>
 	<select id="groupList" parameterType="Group" resultMap="GroupResult">
 		SELECT * FROM 
@@ -35,6 +36,24 @@
 	</select>
 	<select id="groupTotCnt" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N'
+	</select>
+	<select id="studyList" parameterType="Group" resultMap="GroupResult">
+		SELECT * FROM 
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT * FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='S' ORDER BY GID DESC) A) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="studyTotCnt" resultType="int">
+		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='S'
+	</select>
+	<select id="projectList" parameterType="Group" resultMap="GroupResult">
+		SELECT * FROM 
+    (SELECT ROWNUM RN, A.* FROM
+        (SELECT * FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='P' ORDER BY GID DESC) A) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="projectTotCnt" resultType="int">
+		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='P'
 	</select>
 	<select id="groupLeader" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP WHERE MID = #{mid} AND GCOMPLETE='N'
@@ -71,7 +90,8 @@
 		UPDATE MYGROUP SET GHIT=GHIT+1 WHERE GID = #{gid}
 	</update>
 	<select id="getGroupDetail" parameterType="int" resultType="Group">
-		SELECT MID, GRDATE, GTITLE, GCONTENT, GPEOPLE, GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, TO_CHAR(GFDATE, 'YYYY-MM-DD') GFDATE, GLOC FROM MYGROUP WHERE GID = #{gid}
+		SELECT M.MID MID, MIMAGE, MNICKNAME, GRDATE, GID ,GTITLE, GCONTENT, GPEOPLE, GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, TO_CHAR(GFDATE, 'YYYY-MM-DD') GFDATE, GLOC
+			FROM MYGROUP G,MEMBER M WHERE G.MID=M.MID AND GID=#{gid}
 	</select>
 	<update id="modifyGroup" parameterType="Group">
 		UPDATE MYGROUP SET GTITLE = #{gtitle},
@@ -109,14 +129,17 @@
 	<delete id="unJoinGroup" parameterType="Group">
 		DELETE FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
 	</delete>
-	<select id="joinList" parameterType="int" resultType="Group">
-		SELECT MIMAGE, M.MID, GID, GSSTATUS,MNICKNAME FROM MEMBER M, GSTATUS G WHERE M.MID = G.MID AND G.GID = #{gid} AND GSSTATUS= 1
+	<select id="joinList" parameterType="int" resultMap="GroupResult">
+		SELECT MIMAGE, M.MID MID, GID, GSID ,GSSTATUS,MNICKNAME FROM MEMBER M, GSTATUS G WHERE M.MID = G.MID AND G.GID = #{gid} AND GSSTATUS= 1
 	</select>
 	<update id="acceptGroup" parameterType="Group">
-		UPDATE GSTATUS SET GSSTATUS = 2 WHERE MID = #{mid}
+		UPDATE GSTATUS SET GSSTATUS = 2 WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
 	</update>
 	<update id="completeGroup" parameterType="int">
 		UPDATE GSTATUS SET GSSTATUS = 3 WHERE GID = #{gid}
 	</update>
+	<select id="getCommentCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM MYGROUP G, GCOMMENT C WHERE G.GID=C.GID AND G.GID = #{gid}
+	</select>
 	
 </mapper>

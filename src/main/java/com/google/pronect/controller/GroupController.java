@@ -20,10 +20,22 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private GCommentService gCommentService;
-	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
-	public String list(String pageNum, Model model) {
+	@RequestMapping(value="groupList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String goupList(String pageNum, Model model) {
 		model.addAttribute("groupList",groupService.groupList(pageNum));
-		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum));
+		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum,12,12));
+		return "main/main";
+	}
+	@RequestMapping(value="studyList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String studyList(String pageNum, Model model) {
+		model.addAttribute("studyList",groupService.studyList(pageNum));
+		model.addAttribute("paging",new Paging(groupService.studyTotCnt(),pageNum,12,10));
+		return "main/main";
+	}
+	@RequestMapping(value="projectList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String projectList(String pageNum, Model model) {
+		model.addAttribute("projectList",groupService.projectList(pageNum));
+		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
 		return "main/main";
 	}
 	@RequestMapping(value="register", method=RequestMethod.GET)
@@ -38,19 +50,13 @@ public class GroupController {
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(int gid, Model model, String pageNum, HttpSession session){
-		System.out.println(gid);
-		System.out.println("test1");
 		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
-		System.out.println("test2");
 		model.addAttribute("joinList",groupService.joinList(gid));
-		System.out.println("test3");
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		System.out.println("test4");
 		model.addAttribute("pageNum",pageNum);
-		System.out.println("test5");
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		System.out.println("test6");
-		return "group/groupDetail";
+		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
+		return "group/groupDetail2";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)
 	public String modify(int gid, Model model){
@@ -81,6 +87,11 @@ public class GroupController {
 	public String unJoin(int gid, String mid, String pageNum, Model model){
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("unJoinResult", groupService.unJoinGroup(gid, mid));
+		return "forward:detail.do";
+	}
+	@RequestMapping(value="accept", method=RequestMethod.GET)
+	public String accept(String mid, int gid, Model model){
+		model.addAttribute("acceptResult", groupService.acceptGroup(gid, mid));
 		return "forward:detail.do";
 	}
 }

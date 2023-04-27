@@ -10,6 +10,8 @@
 		<result property="gcip" column="gcip"/>
 		<result property="gcrdate" column="gcrdate"/>
 		<result property="gid" column="gid"/>
+		<result property="mimage" column="mimage"/>
+		<result property="mnickname" column="mnickname"/>
 	</resultMap>
 	<insert id="comment" parameterType="GComment">
 		INSERT INTO GCOMMENT (GCID, MID, GCCONTENT, GCIP, GID)
@@ -19,7 +21,7 @@
   	</selectKey>
 	</insert>
 	<select id="commentContent" parameterType="int" resultMap="GCommentResult">
-		SELECT * FROM GCOMMENT WHERE GID = #{gid}
+		SELECT GID, GCID, MIMAGE, MNICKNAME, GCRDATE, GCCONTENT FROM MEMBER M, GCOMMENT C WHERE M.MID = C.MID AND GID = #{gid}
 	</select>
 	<update id="commentModify" parameterType="GComment">
 		UPDATE GCOMMENT SET GCCONTENT = #{gccontent} WHERE GCID = #{gcid}

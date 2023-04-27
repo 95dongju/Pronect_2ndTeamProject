@@ -49,13 +49,15 @@
 			</div>
 			<nav id="nav">
 				<ul>
-					<li><a href="#">전체</a></li>
-					<li><a href="#">프로젝트</a></li>
 					<c:if test="${not empty member }">
-						<li><a href="${conPath}/group/list.do?mid=${member.mid}&pageNum=1">스터디</a></li>
+						<li><a href="${conPath}/group/groupList.do?mid=${member.mid}&pageNum=1">전체</a></li>
+						<li><a href="${conPath}/group/studyList.do?mid=${member.mid}&pageNum=1">스터디</a></li>
+						<li><a href="${conPath}/group/projectList.do?mid=${member.mid}&pageNum=1">프로젝트</a></li>
 					</c:if>
 					<c:if test="${empty member }">
-						<li><a href="${conPath}/group/list.do?pageNum=1">스터디</a></li>
+						<li><a href="${conPath}/group/groupList.do?pageNum=1">전체</a></li>
+						<li><a href="${conPath}/group/studyList.do?pageNum=1">스터디</a></li>
+						<li><a href="${conPath}/group/projectList.do?pageNum=1">프로젝트</a></li>
 					</c:if>
 				</ul>
 				<div class="search_div">
@@ -67,6 +69,36 @@
 				<section class="tiles">
 					<c:if test="${not empty groupList}">
 						<c:forEach var="dto" items="${groupList }">
+							<article class="style">
+								<div>
+									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
+										<div class="content">
+											<h2 id="title">${dto.gtitle } </h2>
+											<p id="hit">조회수 : ${dto.ghit }</p>
+											<p>${dto.gcontent }</p>
+										</div>
+									</a>
+								</div>
+							</article>
+						</c:forEach>
+					</c:if>
+					<c:if test="${not empty studyList}">
+						<c:forEach var="dto" items="${studyList }">
+							<article class="style">
+								<div>
+									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
+										<div class="content">
+											<h2 id="title">${dto.gtitle } </h2>
+											<p id="hit">조회수 : ${dto.ghit }</p>
+											<p>${dto.gcontent }</p>
+										</div>
+									</a>
+								</div>
+							</article>
+						</c:forEach>
+					</c:if>
+					<c:if test="${not empty projectList}">
+						<c:forEach var="dto" items="${projectList }">
 							<article class="style">
 								<div>
 									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">

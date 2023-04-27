@@ -28,6 +28,34 @@ public class GroupServiceImpl implements GroupService {
 	public int groupTotCnt() {
 		return groupDao.groupTotCnt();
 	}
+	
+	@Override
+	public List<Group> studyList(String pageNum) {
+		Paging paging = new Paging(groupDao.studyTotCnt(), pageNum, 10, 10);
+		Group group = new Group();
+		group.setStartRow(paging.getStartRow());
+		group.setEndRow(paging.getEndRow());
+		return groupDao.studyList(group);
+	}
+	
+	@Override
+	public int studyTotCnt() {
+		return groupDao.studyTotCnt();
+	}
+	
+	@Override
+	public List<Group> projectList(String pageNum) {
+		Paging paging = new Paging(groupDao.projectTotCnt(), pageNum, 10, 10);
+		Group group = new Group();
+		group.setStartRow(paging.getStartRow());
+		group.setEndRow(paging.getEndRow());
+		return groupDao.projectList(group);
+	}
+	
+	@Override
+	public int projectTotCnt() {
+		return groupDao.projectTotCnt();
+	}
 	@Override
 	public int groupLeader(HttpSession session) {
 		// 세션 객체에서 "member" 속성의 값을 가져오기
@@ -133,8 +161,11 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int joinGroup(int gid, String mid) {
 		Group group = new Group();
-		group.setGid(gid);
-		group.setMid(mid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null && mid != null) {
+			group.setGid(gid);
+			group.setMid(mid);
+		}
 		return groupDao.joinGroup(group);
 	}
 
@@ -144,8 +175,14 @@ public class GroupServiceImpl implements GroupService {
 	}
 	
 	@Override
-	public int acceptGroup(String mid) {
-		return groupDao.acceptGroup(mid);
+	public int acceptGroup(int gid, String mid) {
+		Group group = new Group();
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null && mid != null) {
+			group.setGid(gid);
+			group.setMid(mid);
+		}
+		return groupDao.acceptGroup(group);
 	}
 
 	@Override
@@ -165,9 +202,14 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public Group joinList(int gid) {
+	public List<Group> joinList(int gid) {
 		// TODO Auto-generated method stub
 		return groupDao.joinList(gid);
+	}
+
+	@Override
+	public int getCommentCnt(int gid) {
+		return groupDao.getCommentCnt(gid);
 	}
 
 }

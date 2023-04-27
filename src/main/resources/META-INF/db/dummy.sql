@@ -377,7 +377,7 @@ INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE,
 INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
             VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test2-3','직장인들을 위한 플랫폼','백엔드개발자입니다 디자이너가 필요해요',5,
-                    NULL,NULL,NULL,'Y','N','N',TO_DATE(TO_CHAR('2023-04-15'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-05-12'),NULL);
+                    NULL,NULL,NULL,'Y','N','N',TO_DATE(TO_CHAR('2023-04-15'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-15'), 'YYYY-MM-DD'),NULL);
 INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
             VALUES(MYGROUP_SEQ.NEXTVAL, 'P', 'test3-4','습관형성 투두앱','기획자, 백엔드 개발자 구해요',5,
@@ -428,10 +428,10 @@ SELECT * FROM GCOMMENT;
 -------------------------------------------------------------------------------
 ---------------------------  SCHEDULE DUMMY -----------------------------------
 -------------------------------------------------------------------------------
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', '2023-04-07', TO_DATE(TO_CHAR('2023-04-07'), 'YYYY-MM-DD'));
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-14'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-14'), 'YYYY-MM-DD'));
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-21'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-21'), 'YYYY-MM-DD'));
-INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '1', 'test1-2', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-28'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-28'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '13', 'test3-3', '모여서 스터디', '강남역 4시', '2023-04-07', TO_DATE(TO_CHAR('2023-04-07'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '13', 'test3-3', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-14'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-14'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '13', 'test3-3', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-21'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-21'), 'YYYY-MM-DD'));
+INSERT INTO SCHEDULE VALUES (SCHEDULE_SEQ.NEXTVAL, '13', 'test3-3', '모여서 스터디', '강남역 4시', TO_DATE(TO_CHAR('2023-04-28'), 'YYYY-MM-DD'), TO_DATE(TO_CHAR('2023-04-28'), 'YYYY-MM-DD'));
 
 SELECT TO_CHAR(SCD_START, 'yyyy-mm-dd') FROM SCHEDULE;
 -------------------------------------------------------------------------------

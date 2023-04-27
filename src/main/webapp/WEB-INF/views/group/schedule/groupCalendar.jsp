@@ -10,6 +10,14 @@
 		<script src="${conPath}/js/fullcalendar-5.0.1/lib/main.js"></script>
 		<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
 	  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	  <style>
+	  	#calendar{
+	  		margin: auto;
+	  		margin-top: 80px;
+	  		max-width: 800px;
+	  		text-align: center;
+	  	}
+	  </style>
 	  <script>
 	  document.addEventListener('DOMContentLoaded', function () {
           $(function () {
@@ -18,25 +26,30 @@
                   method: "GET",
                   dataType: "json"
               });
-              
+
               request.done(function (data) {
-                  console.log(data);
-                  
+                  console.log(data); // log 로 데이터 찍어주기.
+
                   var calendarEl = document.getElementById('calendar');
+
                   var calendar = new FullCalendar.Calendar(calendarEl, {
                       initialView: 'dayGridMonth',
                       headerToolbar: {
-                          left: 'prev,next today',
+                          left: 'prev,next',
                           center: 'title',
-                          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                       },
                       editable: true,
-                      droppable: true,
+                      droppable: true, // this allows things to be dropped onto the calendar
                       drop: function (arg) {
+                          // is the "remove after drop" checkbox checked?
                           if (document.getElementById('drop-remove').checked) {
+                              // if so, remove the element from the "Draggable Events" list
                               arg.draggedEl.parentNode.removeChild(arg.draggedEl);
                           }
                       },
+                      /**
+                       * data 로 값이 넘어온다. log 값 전달.
+                       */
                       events: data
                   });
 
@@ -54,9 +67,6 @@
 	<body>
 	<jsp:include page="../../main/header.jsp"/>
     <div id='calendar'></div>
-    <div>
-    	${gid}
-    </div>
-   <jsp:include page="../../main/footer.jsp"/>
+  <jsp:include page="../../main/footer.jsp"/>
   </body>
 </html>

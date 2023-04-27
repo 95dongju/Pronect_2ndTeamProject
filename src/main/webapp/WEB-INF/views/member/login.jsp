@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/main.css" rel="stylesheet">
+<link href="${conPath }/css/joinAndLogin.css" rel="stylesheet">
 <style>
 	#content {
 		width: 800px; height:350px;
@@ -35,27 +35,29 @@
 		</script>
 </c:if>
 	<jsp:include page="../main/header.jsp"/>
-	<div id="content">
-	<form action="${conPath }/member/login.do?method=${mothod}" method="post">
-		<table>
-			<caption>로그인</caption>
-			<tr>
-				<th>아이디</th>
-				<td><input type="text" name="mid" required="required" value="${mid }"></td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" name="mpw" required="required" value="${mpw }"></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="로그인">
-				</td>
-			</tr>
-		</table>
-	</form>
-	<button type="button" onclick="location.href='${conPath}/member/searchId.do'" >아이디를 잊으셨나요?</button>
-	<button type="button" onclick="location.href='${conPath}/member/searchPw.do'" >비밀번호를 잊으셨나요?</button>
+	<div id="joinAndLoginWrap">
+		<div id="div_joinAndLogin">
+		<form action="${conPath }/member/login.do?method=${mothod}" method="post">
+			<table>
+				<caption>로그인</caption>
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" name="mid" required="required" value="${mid }"></td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" name="mpw" required="required" value="${mpw }"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="로그인" class="btn">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<input type="button" onclick="location.href='${conPath}/member/searchId.do'" value="아이디를 잊으셨나요?" class="btn">
+		<input type="button" onclick="location.href='${conPath}/member/searchPw.do'" value="비밀번호를 잊으셨나요?" class="btn">
+		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
