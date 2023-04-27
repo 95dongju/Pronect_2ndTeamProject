@@ -1,8 +1,8 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lec.cb.dao.CommentDao">
+<mapper namespace="com.google.pronect.dao.FcommentDao">
 	<resultMap type="Fcomment" id="FcommentResult">
 		<result property="fcid" column="fcid"/>
 		<result property="mid" column="mid"/>
@@ -16,41 +16,33 @@
 	</resultMap>
 	
 	<select id="fcommentList" parameterType="Fcomment" resultMap="FcommentResult">
-		<![CDATA[
-			SELECT * 
-		    FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM BCOMMENT WHERE BID=#{bid} ORDER BY CGROUP, CSTEP) A)
-	    	WHERE RN BETWEEN #{startRow} AND #{endRow}
-    	]]>
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM FCOMMENT WHERE FID=#{fid} ORDER BY FCGROUP, FCSTEP) A)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="fcommentTotCnt" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM BCOMMENT where bid= #{bid}
+		SELECT COUNT(*) FROM FCOMMENT WHERE FID=#{fid}
 	</select>
 	
-	<insert id="fcommentWrite" parameterType="Comment">
-		INSERT INTO BCOMMENT (CNUM, BID, CNAME, CMEMO, CGROUP, CSTEP, CINDENT, CIP)
-    	VALUES (COMMENT_SQ.NEXTVAL, #{bid}, #{cname}, #{cmemo},COMMENT_SQ.CURRVAL, 0,0, #{cip})
+	<insert id="fcommentWrite" parameterType="Fcomment">
+		INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,#{mid},#{fccontent},#{fcip},#{fid}, FCOMMENT_SEQ.CURRVAL, 0, 0)
 	</insert>
 
-	<update id="fcommentReplyPreStep" parameterType="Comment">
-		UPDATE BCOMMENT SET SET CSTEP=CSTEP+1 WHERE CGROUP=#{cgroup} AND CSTEP>#{cstep}
+	<update id="fcommentReplyPreStep" parameterType="Fcomment">
+		UPDATE FCOMMENT SET FCSTEP=FCSTEP+1 WHERE FCGROUP=#{fcgroup} AND FCSTEP>#{fcstep}
 	</update>
 	
-	<insert id="fcommentReply" parameterType="Comment">
-		INSERT INTO BCOMMENT (CNUM, BID, CNAME, CMEMO, CGROUP, CSTEP, CINDENT, CIP)
-		    VALUES (COMMENT_SQ.NEXTVAL, #{bid}, #{cname}, #{cmemo}, #{cgroup}, #{cstep}+1, #{cindent}+1, #{cip})
+	<insert id="fcommentReply" parameterType="Fcomment">
+		INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+    		VALUES (FCOMMENT_SEQ.NEXTVAL,#{mid},#{fccontent},#{fcip},#{fid}, #{fcgroup}, #{fcstep}+1, #{fcindent}+1)
 	</insert>
-	<update id="fcommentModify" parameterType="Comment">
-		UPDATE BCOMMENT SET
-		    CNAME = #{cname},
-		    CMEMO = #{cmemo},
-		    CDATE = SYSDATE,
-		    CIP = #{cip}
-		  WHERE CNUM=#{cnum}
+	<update id="fcommentModify" parameterType="Fcomment">
+		UPDATE FCOMMENT SET FCCONTENT = #{fccontent} WHERE FCID=#{fcid}
 	</update>
 	<delete id="fcommentDelete" parameterType="int">
-		DELETE FROM BCOMMENT WHERE CNUM= #{cnum}
+		DELETE FROM FCOMMENT WHERE FCID=#{fcid}
 	</delete>
-	<select id="fcommentContent" parameterType="int" resultType="Comment">
-		SELECT * FROM BCOMMENT WHERE CNUM=#{cnum}
+	<select id="fcommentContent" parameterType="int" resultType="Fcomment">
+		SELECT * FROM FCOMMENT WHERE FCID=#{fcid}
 	</select>
-</mapper> -->
+</mapper>
