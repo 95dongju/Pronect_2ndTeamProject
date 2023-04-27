@@ -49,7 +49,7 @@ public class MemberController {
 		String loginResult = memberService.loginCheck(mid, mpw, httpSession);
 		if(loginResult.equals("로그인 성공")) {
 			model.addAttribute("loginResult", loginResult);
-			return "main/main";
+			return "forward:/main.do";
 		}else {
 			model.addAttribute("loginResult", loginResult);
 			model.addAttribute("mid", mid);

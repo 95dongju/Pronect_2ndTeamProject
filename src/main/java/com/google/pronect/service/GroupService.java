@@ -16,7 +16,6 @@ public interface GroupService {
 	public int 		registerGroup(Group group, String[] glanguage);
 	public int 		getRegisteredGid(String mid);
 	public int 		groupLeader(HttpSession session);
-	public int 		insertHistory(int gid, String mid);
 	public Group 	getGroupDetail(int gid);
 	public Group 	getAfterModifyView(int gid);
 	public int 		modifyGroup(Group group, String[] glanguage);
@@ -24,11 +23,19 @@ public interface GroupService {
 	public int 		deleteGroup(int gid);
 	public int 		joinCheck(int gid, HttpSession session);
 	public int 		joinGroup(int gid, String mid);
+	public List<Group>	groupMember(int gid);
 	public int 		unJoinGroup(int gid, String mid);
 	public List<Group> 	joinList(int gid);
-	public int 		acceptGroup(int gid, String mid);
+	public String	acceptGroup(int gid, String mid);
+	public int		memberPlus(int gid);
+	public Group	memberFullCheck(int gid);
+	public int		peopleFull(int gid);
+	public int		memberOut(int gid, String mid);
+	public int		memberMinus(int gid);
+	public int 		peopleUnFull(int gid);
 	public int 		completeGroup(int gid);
 	public String 	startDate(int gid);
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
+	public List<Group> hitGroup();
 }

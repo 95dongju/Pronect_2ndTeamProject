@@ -37,7 +37,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div id="joinAndLoginWrap">
 		<div id="div_joinAndLogin">
-		<form action="${conPath }/member/login.do?method=${mothod}" method="post">
+		<form action="${conPath }/member/login.do" method="post">
 			<table>
 				<caption>로그인</caption>
 				<tr>

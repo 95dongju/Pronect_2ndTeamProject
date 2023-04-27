@@ -18,7 +18,7 @@ public interface GroupDao {
 	public int 		registerGroup(Group group);
 	public int 		getRegisteredGid(String mid);
 	public int 		groupLeader(String mid);
-	public int 		insertHistory(@Param("gid")int gid, @Param("mid")String mid);
+	public int 		insertHistory(Group group);
 	public int 		groupHitUp(int gid);
 	public Group 	getGroupDetail(int gid);
 	public Group 	getAfterModifyView(int gid);
@@ -27,11 +27,20 @@ public interface GroupDao {
 	public int 		deleteGroup(int gid);
 	public int 		joinCheck(Group group);
 	public int 		joinGroup(Group group);
+	public List<Group>	groupMember(int gid);
 	public int 		unJoinGroup(@Param("gid") int gid, @Param("mid") String mid);
 	public List<Group> 	joinList(int gid);
 	public int 		acceptGroup(Group group);
+	public int		memberPlus(int gid);
+	public Group	memberFullCheck(int gid);
+	public int		peopleFull(int gid);
+	public int		memberOut(Group group);
+	public int		memberMinus(int gid);
+	public int 		peopleUnFull(int gid);
 	public int 		completeGroup(int gid);
+	public int 		joinDelete(int gid);
 	public String 	startDate(int gid);
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
+	public List<Group> hitGroup();
 }

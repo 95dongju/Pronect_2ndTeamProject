@@ -32,13 +32,13 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div id="main">
 		<div id="back">
-			<a href="list.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
+			<a href="javascript:window.history.back();"><img class = "back" src="${conPath}/images/back.png"></a>
 		</div>
 		<table id="groupDetail">
 			<tr><td colspan="6"><h1>${groupDetail.gtitle }</h1></td></tr>
 			<tr><td colspan="6">${groupDetail.mimage} ${groupDetail.mid} | ${groupDetail.grdate}</td></tr>
 			<tr><td colspan="6"><hr></td></tr>
-			<tr><th>모집 구분</th><th colspan="2">프로젝트 / 스터디 </th>
+			<tr><th>모집 구분</th><th colspan="2">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} </th>
 					<th>모집 인원</th><th colspan="2">${groupDetail.gpeople }</th></tr>
 			<tr><th>시작 예정</th><th colspan="2">${groupDetail.gsdate }</th>
 					<th>지역</th><th colspan="2">${groupDetail.gloc }</th></tr>

@@ -14,7 +14,8 @@ public class MainController {
 	private GroupService groupService;
 	@RequestMapping(value = "main")
 	public String main(String pageNum, Model model) {
-		model.addAttribute("groupList",groupService.groupList(pageNum));
+		model.addAttribute("list",groupService.groupList(pageNum));
+		model.addAttribute("name","group");
 		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum));
 		return "main/main";
 	}

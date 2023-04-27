@@ -331,38 +331,38 @@ SELECT * FROM NBOARD;
 -------------------------------MYGROUP(STUDY) DUMMY-----------------------------
 -------------------------------------------------------------------------------               
 SELECT * FROM MYGROUP;
-
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+SELECT * FROM GSTATUS ORDER BY GID;
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-1','스터디모집','모집합니다',5,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-1','스터디모집','모집합니다',5,1,
                     'Java','JavaScript',NULL,NULL,NULL,NULL,'23/05/01','23/06/04','서울');
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE,
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test2-3','스터디원 모집','모집합니다',5,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test2-3','스터디원 모집','모집합니다',5,1,
                     NULL,NULL,NULL,NULL,NULL,NULL,'23/05/01','23/06/04',NULL);
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE,
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test3-4','모각코 하실분 모집합니다','경기권 4명 모집합니다',5,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test3-4','모각코 하실분 모집합니다','경기권 4명 모집합니다',5,1,
                     NULL,NULL,NULL,NULL,NULL,NULL,'23/05/20','23/07/30','경기');
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE,
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test4-1','같이 공부하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test4-1','같이 공부하실분 모아요','혼자 하면 퍼져서 같이 공부하실 분 찾습니다',3,1,
                     NULL,NULL,NULL,NULL,NULL,NULL,'23/04/20','23/05/20','서울');
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-3','같이 공부해요','같이 공부하실 분 찾습니다',4,1,
                     'Spring','Java','JavaScript',NULL,NULL,NULL,'23/05/01','23/05/26','서울');
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test3-3','같이 리액트 공부하실 분','같이 리액트 공부하실 분',3,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test3-3','같이 리액트 공부하실 분','같이 리액트 공부하실 분',3,1,
                     'React','Node',NULL,NULL,NULL,NULL,'23/05/01','23/05/16',NULL);
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test4-2','6월부터 같이 공부하실분 있나요','6월부터 같이 공부하실 분 찾습니다',6,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test4-2','6월부터 같이 공부하실분 있나요','6월부터 같이 공부하실 분 찾습니다',6,1,
                     'Spring',NULL,NULL,NULL,NULL,NULL,'23/06/05','23/07/14',NULL);
-INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
+INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE,
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, GSDATE, GFDATE, GLOC, GCOMPLETE)
-            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-1','스터디모집','모집합니다',5,
+            VALUES(MYGROUP_SEQ.NEXTVAL, 'S', 'test1-1','스터디모집','모집합니다',5,1,
                     'Java','JavaScript',NULL,NULL,NULL,NULL,'23/02/01','23/04/04','서울','Y');
 SELECT * FROM MYGROUP;
 -------------------------------------------------------------------------------
