@@ -10,6 +10,10 @@
 <title>Insert title here</title>
 <link href="${conPath }/css/main.css" rel="stylesheet">
 <style>
+	#main{
+		width:1000px;
+		margin:0 auto;
+	}
 	#back {
 		width: 1000px;
 		margin: 0 auto;
@@ -17,6 +21,25 @@
 	#groupDetail{
 		width: 1000px;
 		margin: 0 auto;
+	}
+	#sideBanner{
+		width:200px;
+		position:fixed;
+		top:200px;
+		right:200px;
+	}
+	#sideBanner_hitGroup{
+		display: block;
+		white-space:nowrap;
+		overflow:hidden;
+	}
+	#sideBanner_hitGroup li::marker{
+		color : blue;
+		
+	}
+	#sideBanner_hitGroup_border{
+		border-radius: 10px;
+		border:solid gray 2px;
 	}
 	.back{
 		width : 30px;
@@ -36,17 +59,34 @@
 	
 </style>
 </head>
+<c:if test="${not empty acceptResult }">
+	<script>
+		alert('${acceptResult}');
+	</script>
+</c:if>
 <body>
 	<jsp:include page="../main/header.jsp"/>
+<!-- ---------------------------------------------------추천글-------------------------------------------------------------------- -->
+	<div id="sideBanner">
+		오늘의 추천글
+		<fieldset class="sideBanner_hitGroup_border">
+			<ol type="1">
+				<c:forEach var="dto" items="${hitGroup}">
+					<li id="sideBanner_hitGroup"><a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}">${dto.gtitle }</a></li>
+				</c:forEach>
+			</ol>
+		</fieldset>
+	</div>
+<!-----------------------------------------------------그룹 본문------------------------------------------------------------------->
 	<div id="main">
 		<section class="groupContent_detailHeader">
 			<div id="back">
-				<a href="list.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
+				<a href="${name }List.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
 			</div>
 				<div class="groupDetail_title">${groupDetail.gtitle }</div>
 <!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
 				<div class="groupDetail_writer">
-					<div class="mimage">${groupDetail.mimage } </div><div class="mid">${groupDetail.mnickname } |</div>
+					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }" alt="사용자 이미지"> </div><div class="mid">${groupDetail.mnickname } |</div>
 				</div>
 <!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
 	
@@ -54,7 +94,7 @@
 				<ul class="groupInfo_groupGrid">
 					<li>
 						<span class="groupInfo_title">모집 구분</span>
-						<span class="groupInfo_content">프로젝트 / 스터디 </span>
+						<span class="groupInfo_content">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} </span>
 					</li>
 					<li>
 						<span class="groupInfo_title">모집 인원</span>
@@ -100,11 +140,26 @@
 							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
 						</div>
 						<div class="groupJoin_acceptBtn">
-							<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }'"></button>
+							<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }'">수락</button>
 						</div>
 					</c:forEach>
 				</c:if>
 			</div>
+<!---------------------------------------------------그룹원 정보----------------------------------------------------------------->				
+			<div class="groupMember">
+				<c:if test="${groupDetail.mid eq member.mid }">
+					<c:forEach var="dto" items="${groupMember }">
+						<div class="groupJoin_memberInfo">
+							<div class="groupJoin_memberInfo_img">${dto.mimage }</div>
+							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
+						</div>
+						<div class="groupJoin_acceptBtn">
+							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }'">퇴출</button>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+<!-------------------------------------------------프로젝트 소개------------------------------------------------------------------>
 			<div class="groupContent_detailContentWrapper">
 				<h2 class="groupContent_detailInfo">프로젝트 소개</h2>
 				<hr>
@@ -121,6 +176,7 @@
 					<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 						<button onclick="location='modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
 						<button onclick="location='delete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
+						<button onclick="location='complete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
 					</c:if>
 				</c:if>
 				<c:if test="${empty member}">
@@ -132,15 +188,17 @@
 			<div class="commentInput_commentText">
 				<hr>
 				<h2>${commentCnt }개의 댓글이 있습니다.</h2>
-				<form action="${conPath}/group/comment.do" method="post">
-					<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
-					<div class="contentInput_buttonWrapper">
-						<button class="comentInput_buttonSubmit">댓글 등록</button>
-					</div>
-				</form>
-				<hr>
+				<c:if test="${not empty member }">
+					<form action="${conPath}/group/comment.do" method="post">
+						<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
+						<div class="contentInput_buttonWrapper">
+								<button class="comentInput_buttonSubmit">댓글 등록</button>
+						</div>
+					</form>
+				</c:if>
 			</div>
 			<c:if test="${not empty groupComment }">
+				<hr>
 				<ul class="commentList">
 					<c:forEach var="dto" items="${groupComment }">
 						<li class="commentItem_commentContainer">

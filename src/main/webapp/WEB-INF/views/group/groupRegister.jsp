@@ -52,6 +52,15 @@ $(document).ready(function(){
 	});
 	
 </script>
+<style>
+	#content{
+		width:1000px;
+		margin:0 auto;
+	}
+	th{
+		width:150px;
+	}
+</style>
 </head>
 <body>
 	<c:set var="SUCCESS" value="1"></c:set>
@@ -64,7 +73,7 @@ $(document).ready(function(){
 					<td><input type="text" name="gtitle" required="required"></td>
 				</tr>
 				<tr><th>내용</th>
-					<td><textarea rows="30" cols="30" name="gcontent" required="required"></textarea> </td>
+					<td><textarea rows="10" cols="10" name="gcontent" required="required"></textarea> </td>
 				</tr>
 				<tr><th>모집 인원</th>
 					<td><input type="number" name="gpeople" required="required">명</td>
