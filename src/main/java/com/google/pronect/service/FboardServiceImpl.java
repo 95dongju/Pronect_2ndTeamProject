@@ -180,7 +180,7 @@ public class FboardServiceImpl implements FboardService {
 		fboard.setFfile(ffile);
 		fboard.setFip(mRequest.getRemoteAddr());
 		fboardDao.replyFboardPreStep(fboard);
-		return fboardDao.writeFboard(fboard);
+		return fboardDao.replyFboard(fboard);
 	}
 
 }

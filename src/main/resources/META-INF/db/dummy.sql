@@ -211,14 +211,14 @@ WHERE RN BETWEEN 1 AND 20;
 -------------------------------------------------------------------------------
 ------------------------------------FCOMMENT DUMMY-----------------------------
 -------------------------------------------------------------------------------
-INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
-            VALUES (FCOMMENT_SEQ.NEXTVAL,'king99','버거킹 드세요 먹을거 없어요 근처에','197.0.0.1',1);
-INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
-            VALUES (FCOMMENT_SEQ.NEXTVAL,'johnwick','한국인은 국밥이죠 역시','196.0.0.2',1);
-INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
-            VALUES (FCOMMENT_SEQ.NEXTVAL,'zol212','ㄹㅇㅋㅋ','191.0.0.2',3);            
-INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
-            VALUES (FCOMMENT_SEQ.NEXTVAL,'sososo','거기 맛있는데 점심에 1인 입장 안돼서 친구 없으면 못먹음','191.0.0.2',2); 
+INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,'king99','버거킹 드세요 먹을거 없어요 근처에','197.0.0.1',1, FCOMMENT_SEQ.CURRVAL, 0, 0);
+INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,'johnwick','한국인은 국밥이죠 역시','196.0.0.2',1, FCOMMENT_SEQ.CURRVAL, 0, 0);
+INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,'zol212','ㄹㅇㅋㅋ','191.0.0.2',3, FCOMMENT_SEQ.CURRVAL, 0, 0);            
+INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,'sososo','거기 맛있는데 점심에 1인 입장 안돼서 친구 없으면 못먹음','191.0.0.2',2, FCOMMENT_SEQ.CURRVAL, 0, 0); 
 SELECT * FROM FCOMMENT;
 -------------------------------------------------------------------------------
 ------------------------------------QBOARD DUMMY----------------------------------

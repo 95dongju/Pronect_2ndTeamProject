@@ -63,7 +63,7 @@ SELECT * FROM MEMBER WHERE MNAME='킴첨지' AND MMAIL='yse297@gmail.com' AND MI
     -- 1 schItem이 null이거나 ''일 때
 SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD ORDER BY FGROUP DESC, FSTEP) A)
-    WHERE RN BETWEEN 1 AND 10;
+    WHERE RN BETWEEN 1 AND 30;
     -- 2 schItem이 'all'일 때
 SELECT * FROM (SELECT ROWNUM RN, A.*
         FROM (SELECT * FROM FBOARD 
@@ -141,17 +141,25 @@ COMMIT;
 ----------------------------------------------------------------------
 -------------------  FREEBOARD_COMMENT(FCOMMENT)  --------------------
 ----------------------------------------------------------------------
--- (1) 1번글에 댓글 쓰기
-SELECT * FROM FCOMMENT;
-INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID)
-    VALUES(FCOMMENT_SEQ.NEXTVAL, 'hong', '흠좀무', '155.155.155.155', 1);
--- (2) 1번글에 달린 댓글 모두 출력
-SELECT * FROM FCOMMENT WHERE FID=1 ORDER BY FCRDATE;
--- (3) 댓글 수정 view
-SELECT * FROM FCOMMENT WHERE FCID=1;
--- (4) 댓글 수정
-UPDATE FCOMMENT SET FCCONTENT = '너무좋아서 댓글도 수정했어요' WHERE FCID=3;
--- (5) 댓글 삭제
+-- (1)댓글 쓰기(fcommentWrite)
+INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,'king99','버거킹 드세요 먹을거 없어요 근처에','197.0.0.1',1, FCOMMENT_SEQ.CURRVAL, 0, 0);
+-- 상세보기에서 댓글리스트(id = fcommentList)
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM FCOMMENT WHERE FID=1 ORDER BY FCGROUP, FCSTEP) A)
+    WHERE RN BETWEEN 1 AND 10;
+-- 댓글 갯수(id = fcommentTotCnt)
+SELECT COUNT(*) FROM FCOMMENT WHERE FID=1;
+-- 대댓글 쓰기 전 (id = fcommentReplyPreStep)
+UPDATE FCOMMENT SET FCSTEP=FCSTEP+1 WHERE FCGROUP=2 AND FCSTEP>0;
+-- 대댓글 쓰기 (id = fcommentReply)
+INSERT INTO FCOMMENT (FCID, MID, FCCONTENT, FCIP, FID, FCGROUP, FCSTEP, FCINDENT)
+            VALUES (FCOMMENT_SEQ.NEXTVAL,'king99','버거킹 드세요 먹을거 없어요 근처에','197.0.0.1',1, 2, 2, 2);
+-- 댓글 수정( id = fcommentModify)
+UPDATE FCOMMENT SET FCCONTENT = '댓글내용 바꿨당' WHERE FCID=5;
 COMMIT;
-DELETE FROM FCOMMENT WHERE FCID=1;
+-- 댓글 삭제 (id = fcommentDelete)
+DELETE FROM FCOMMENT WHERE FCID=5;
+SELECT * FROM FCOMMENT WHERE FID=1 ORDER BY FCGROUP, FCSTEP;
 ROLLBACK;
+-- 댓글번호로 댓글 dto 가져오기(id = fcommentContent)
+SELECT * FROM FCOMMENT WHERE FCID=1;
