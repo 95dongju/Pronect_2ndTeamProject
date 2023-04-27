@@ -35,9 +35,6 @@
 					<li><a href="${conPath }/member/modify.do">정보수정</a></li>
 					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>
 					<li><a>${member.mnickname }님</a></li>
-					<c:if test="${member.manager eq 'Y' }">
-						<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
-					</c:if>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
@@ -48,9 +45,12 @@
 		<h2>Menu</h2>
 		<ul>
 			<li><a href="${conPath}/main.do">Home</a></li>
-			<li><a href="generic.html">MyStudy</a></li>
-			<li><a href="generic.html">MyProject</a></li>
+			<li><a href="../group/myStudy.jsp">MyStudy</a></li>
+			<li><a href="../group/myProject.jsp">MyProject</a></li>
 			<li><a href="${conPath }/fboard/list.do?pageNum=1">자유게시판</a></li>
+			<c:if test="${member.manager eq 'Y' }">
+				<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
+			</c:if>
 		</ul>
 	</nav>
 	<script src="${conPath }/js/util.js"></script>

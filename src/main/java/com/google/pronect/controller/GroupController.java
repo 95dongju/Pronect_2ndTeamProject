@@ -38,18 +38,11 @@ public class GroupController {
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(int gid, Model model, String pageNum, HttpSession session){
-		System.out.println(gid);
-		System.out.println("test1");
 		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
-		System.out.println("test2");
 		model.addAttribute("joinList",groupService.joinList(gid));
-		System.out.println("test3");
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		System.out.println("test4");
 		model.addAttribute("pageNum",pageNum);
-		System.out.println("test5");
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		System.out.println("test6");
 		return "group/groupDetail";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)
@@ -70,11 +63,8 @@ public class GroupController {
 	}
 	@RequestMapping(value="join", method=RequestMethod.GET)
 	public String join(int gid, String mid, String pageNum, Model model){
-		System.out.println("test7");
 		model.addAttribute("pageNum", pageNum);
-		System.out.println("GID"+gid+"mid"+mid);
 		model.addAttribute("joinResult", groupService.joinGroup(gid, mid));
-		System.out.println("test9");
 		return "forward:detail.do";
 	}
 	@RequestMapping(value="unJoin", method=RequestMethod.GET)

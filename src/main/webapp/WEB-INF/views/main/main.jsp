@@ -16,12 +16,19 @@
 			padding: 10px;
 			border-radius: 20px 20px 20px 20px;
 		}
-		#title {
-    	text-overflow: ellipsis;
+		#gtitle {
       white-space: nowrap;
       display : block; 
+      overflow: hidden;
+    	text-overflow: ellipsis;
       margin-top: 10px;
       margin-bottom: 15px;
+		}
+		#gcontent {
+			white-space: nowrap;
+      display : block; 
+      overflow: hidden;
+    	text-overflow: ellipsis;
 		}
 	 	#hit {
 		 text-align:right;
@@ -49,8 +56,8 @@
 			</div>
 			<nav id="nav">
 				<ul>
-					<li><a href="#">전체</a></li>
-					<li><a href="#">프로젝트</a></li>
+					<li><a href="${conPath}/group/list.do?mid=${member.mid}&pageNum=1">전체</a></li>
+					<li><a href="${conPath}/group/list.do?mid=${member.mid}&pageNum=1">프로젝트</a></li>
 					<c:if test="${not empty member }">
 						<li><a href="${conPath}/group/list.do?mid=${member.mid}&pageNum=1">스터디</a></li>
 					</c:if>
@@ -71,9 +78,9 @@
 								<div>
 									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
 										<div class="content">
-											<h2 id="title">${dto.gtitle } </h2>
+											<h2 id="gtitle">${dto.gtitle } </h2>
 											<p id="hit">조회수 : ${dto.ghit }</p>
-											<p>${dto.gcontent }</p>
+											<p id="gcontent">${dto.gcontent }</p>
 										</div>
 									</a>
 								</div>

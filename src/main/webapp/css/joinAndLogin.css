@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#joinAndLoginWrap {
+	max-width: 800px;
+	margin: 0 auto;
+}
+#div_joinAndLogin {
+	margin: 0 auto;
+	text-align: center;
+}
+#div_joinAndLogin form {	
+	padding: 10px;
+	padding-top: 30px;
+	border: 4px solid #EEEEEE;
+	border-radius: 50px;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+#div_joinAndLogin form table tr {
+	background-color: #FFFFFF;
+	border: none;
+}
+#div_joinAndLogin form table input:not(.btn) {
+	width: 80%;
+}
+#div_joinAndLogin .btn {
+	width: 50%;
+	border-radius: 20px;
+	margin-bottom: 5px;
+}
+#div_joinAndLogin form table tr th {
+	text-align: center;
+}
+
+@media screen and (max-width: 980px) {
+		#joinAndLoginWrap {
+		max-width: 600px;
+	}
+}
+
+@media screen and (max-width: 736px) {
+		#joinAndLoginWrap {
+		max-width: 400px;
+		font-size: 0.8em;
+	}
+}
+@media screen and (max-width: 480px) {
+		#joinAndLoginWrap {
+		max-width: 200px;
+	}
+}

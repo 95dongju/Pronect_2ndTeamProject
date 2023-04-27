@@ -77,6 +77,7 @@
 					</c:if>
 					<c:if test="${empty member}">
 						<button onclick="location='${conPath}/member/login.do'">참가 신청</button>
+						<button onclick="location='${conPath}/group/schedule/myGroup.do?gid=${groupDetail.gid}'">달력</button>
 					</c:if>
 				</td>
 			</tr>

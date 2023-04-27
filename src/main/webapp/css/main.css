@@ -1,15 +1,14 @@
-@import url(fontawesome-all.min.css);
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-
-/*
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 
 *{
 	text-decoration: none;
 	list-style: none;
+	font-family: 'NanumSquareNeo-Variable';
 }
 
 html, body, div, span, applet, object,
@@ -27,7 +26,7 @@ section, summary, time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	font-family: 'NanumSquareNeo-Variable';
 	vertical-align: baseline;}
 
 article, aside, details, figcaption, figure,
@@ -122,7 +121,7 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #585858;
-		font-size: 14pt;
+		font-size: 13pt;
 		font-weight: 300;
 		line-height: 1.75;
 	}
@@ -271,7 +270,7 @@ input, select, textarea {
 		background: rgba(144, 144, 144, 0.075);
 		border-radius: 4px;
 		border: solid 1px #c9c9c9;
-		font-family: "Courier New", monospace;
+		font-family: 'NanumSquareNeo-Variable';
 		font-size: 0.9em;
 		margin: 0 0.25em;
 		padding: 0.25em 0.65em;
@@ -279,7 +278,7 @@ input, select, textarea {
 
 	pre {
 		-webkit-overflow-scrolling: touch;
-		font-family: "Courier New", monospace;
+		font-family: 'NanumSquareNeo-Variable';
 		font-size: 0.9em;
 		margin: 0 0 2em 0;
 	}
@@ -1817,7 +1816,6 @@ input, select, textarea {
 			text-rendering: auto;
 			line-height: 1;
 			text-transform: none !important;
-			font-family: 'Font Awesome 5 Free';
 			font-weight: 400;
 		}
 
@@ -1834,7 +1832,6 @@ input, select, textarea {
 		}
 
 		.icon.brands:before {
-			font-family: 'Font Awesome 5 Brands';
 		}
 
 		.icon.style2 {
@@ -2247,7 +2244,6 @@ input, select, textarea {
 				text-rendering: auto;
 				line-height: 1;
 				text-transform: none !important;
-				font-family: 'Font Awesome 5 Free';
 				font-weight: 900;
 			}
 
@@ -2765,32 +2761,28 @@ input, select, textarea {
 
 	#header {
 		padding: 1em 0 0.1em 0 ;
-		text-align: center;
+		height: 100px;
 	}
 		#header .logo {
 			border-bottom: 0;
 			color: inherit;
 			font-weight: 900;
 			letter-spacing: 0.35em;
-			margin: 0 auto;
-			text-align: center;
 			text-decoration: none;
 			text-transform: uppercase;
 			display: inline-block;
 		}
-
 			#header .logo img {
 				display: inline-block;
-				margin: 0 auto;
-				float: center;
 				width: 200px;
 			}
-
 		#header nav {
 			position: fixed;
 			right: 2em;
 			top: 2em;
 			z-index: 10000;
+			min-width: 100px;
+			overflow: hidden;
 		}
 
 			#header nav ul {
@@ -2812,8 +2804,8 @@ input, select, textarea {
 					display: block;
 					padding: 0;
 					float: right;
-					width: 100px;
-					margin: 0 0 10px 10px;
+					text-align: center;
+					margin: 0 10px;
 				}
 				#header nav ul::after {
 					display: block;
@@ -2882,7 +2874,8 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#header {
-				padding: 4em 0 0.1em 0 ;
+				padding: 0 0 0.1em 0 ;
+				height: 60%;
 			}
 				#header .logo img {
 					width: 150px;
@@ -2891,7 +2884,6 @@ input, select, textarea {
 					right: 0.5em;
 					top: 0.5em;
 				}
-
 					#header nav ul li a[href="#menu"]:before, #header nav ul li a[href="#menu"]:after {
 						background-size: 1.5em 1.5em;
 					}
@@ -3153,10 +3145,12 @@ input, select, textarea {
 		padding: 5em 0 6em 0 ;
 		background-color: #f6f6f6;
 	}
+	#footer .footer ul {
+		margin-bottom: 20px;
+	}
 	#footer .footer ul li {
-		float: left;
 		display: inline-block;
-		width: 150px;
+		width: 200px;
 		text-align: center;
 	}
 
@@ -3179,14 +3173,11 @@ input, select, textarea {
 				margin-bottom: 0;
 			}
 
-			#footer > .inner section:nth-child(1) {
-				width: calc(66% - 2.5em);
-				margin-right: 2.5em;
-			}
-
-			#footer > .inner section:nth-child(2) {
-				width: calc(33% - 2.5em);
-				margin-left: 2.5em;
+			#footer > .inner section {
+				width: 100%;
+				text-align: center;
+				margin: auto;
+				margin-bottom: 2em;
 			}
 
 			#footer > .inner .copyright {
@@ -3222,32 +3213,21 @@ input, select, textarea {
 			#footer {
 				padding: 5em 0 3em 0 ;
 			}
-
-				#footer > .inner section:nth-child(1) {
-					width: calc(66% - 1.25em);
-					margin-right: 1.25em;
-				}
-
-				#footer > .inner section:nth-child(2) {
-					width: calc(33% - 1.25em);
-					margin-left: 1.25em;
-				}
-
+				#footer .footer ul li {
+						width: 150px;
+						font-size: 1em;
+					}
 		}
+		
+		@media screen and (max-width: 900px) {
 
-		@media screen and (max-width: 980px) {
-
-			#footer > .inner section:nth-child(1) {
-				width: 66%;
-				margin-right: 0;
+			#footer {
+				padding: 5em 0 3em 0 ;
 			}
 
-			#footer > .inner section:nth-child(2) {
-				width: calc(33% - 2.5em);
-				margin-left: 2.5em;
-			}
-
+				
 		}
+		
 
 		@media screen and (max-width: 736px) {
 
@@ -3255,30 +3235,22 @@ input, select, textarea {
 				padding: 3em 0 1em 0 ;
 			}
 
-				#footer > .inner {
-					-moz-flex-direction: column;
-					-webkit-flex-direction: column;
-					-ms-flex-direction: column;
-					flex-direction: column;
-				}
 
-					#footer > .inner section:nth-child(1) {
+
+					#footer > .inner section {
 						width: 100%;
 						margin-right: 0;
-						margin: 3em 0 0 0;
+						margin: 2em 0 0 0;
 					}
 
-					#footer > .inner section:nth-child(2) {
-						-moz-order: -1;
-						-webkit-order: -1;
-						-ms-order: -1;
-						order: -1;
-						width: 100%;
-						margin-left: 0;
-					}
 
 					#footer > .inner .copyright {
 						margin-top: 3em;
+					}
+					
+					#footer .footer ul li {
+						width: 150px;
+						font-size: 0.9em;
 					}
 
 		}

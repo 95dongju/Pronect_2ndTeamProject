@@ -7,14 +7,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="${conPath }/css/main.css" rel="stylesheet">
+<link href="${conPath }/css/joinAndLogin.css" rel="stylesheet">
 <style>
 	#content {width: 800px; height:800px;margin: 50px auto;}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	$(document).ready(function(){
-		$('.idconfirm').click(function(){
+		$('.mid').keyup(function(){
 			$.ajax({
 				url : '${conPath}/member/idConfirm.do',
 				datatype : 'html',
@@ -25,7 +25,7 @@
 			});
 		});
 		
-		$('.nicknameconfirm').click(function(){
+		$('.mnickname').keyup(function(){
 			$.ajax({
 				url : '${conPath}/member/nicknameConfirm.do',
 				datatype : 'html',
@@ -95,56 +95,56 @@
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
-	<div id="content">
-		<form action="${conPath }/member/join.do" method="post" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="mid" id="mid">
-					<input type="button" class="idconfirm" value="중복확인"><br>
-					<span id="idConfirmMsg"></span>
-				</td>
-			</tr>
-			<tr>
-				<th>닉네임</th>
-				<td>
-					<input type="text" name="mnickname" id="mnickname">
-					<input type="button" class="nicknameconfirm" value="중복확인"><br>
-					<span id="nicknameConfirmMsg"></span>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" name="mpw"></td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-					<input type="password" name="mpwChk"><br>
-					<span id="mpwChkResult"> &nbsp; </span>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="mname"></td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td><input type="text" name="mmail"></td>
-			</tr>
-			<tr>
-				<th>직업군</th>
-				<td><input type="text" name="mrole"></td>
-			</tr>
-			<tr>
-				<th>사진</th>
-				<td><input type="file" name="tempMimage"></td>
-			</tr>
-			<tr><td colspan="2"><input type="submit" value="가입"></td></tr>
-		</table>
-		</form>
-	</div>
+		<div id="joinAndLoginWrap">
+			<div id="div_joinAndLogin">
+				<form action="${conPath }/member/join.do" method="post" enctype="multipart/form-data">
+				<table>
+					<tr>
+						<th>아이디</th>
+						<td>
+							<input type="text" name="mid" id="mid">
+							<span id="idConfirmMsg"> &nbsp; </span>
+						</td>
+					</tr>
+					<tr>
+						<th>닉네임</th>
+						<td>
+							<input type="text" name="mnickname" id="mnickname">
+							<span id="nicknameConfirmMsg"> &nbsp; </span>
+						</td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td><input type="password" name="mpw"></td>
+					</tr>
+					<tr>
+						<th>비밀번호 확인</th>
+						<td>
+							<input type="password" name="mpwChk">
+							<span id="mpwChkResult"> &nbsp; </span>
+						</td>
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td><input type="text" name="mname"></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td><input type="text" name="mmail"></td>
+					</tr>
+					<tr>
+						<th>직업군</th>
+						<td><input type="text" name="mrole"></td>
+					</tr>
+					<tr>
+						<th>사진</th>
+						<td><input type="file" name="tempMimage"></td>
+					</tr>
+					<tr><td colspan="2"><input type="submit" value="가입" class="btn"></td></tr>
+				</table>
+				</form>
+			</div>
+		</div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
