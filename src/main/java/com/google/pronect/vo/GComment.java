@@ -12,4 +12,6 @@ public class GComment {
 	private String 	gcip;
 	private Date 	gcrdate;
 	private int 	gid;
+	private String	mimage;
+	private String	mnickname;
 }

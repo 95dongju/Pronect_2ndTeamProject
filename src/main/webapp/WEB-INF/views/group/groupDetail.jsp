@@ -77,7 +77,6 @@
 					</c:if>
 					<c:if test="${empty member}">
 						<button onclick="location='${conPath}/member/login.do'">참가 신청</button>
-						<button onclick="location='${conPath}/group/schedule/myGroup.do?gid=${groupDetail.gid}'">달력</button>
 					</c:if>
 				</td>
 			</tr>
@@ -86,7 +85,7 @@
 	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 	<div class="comment">
 				<c:forEach var="dto" items="${groupComment }">
-					<form action="${conPath}/group/comment.do" method="post">
+					<form action="${conPath}/group/commentModify.do" method="post">
 						<input type="hidden" name="gid" value=${dto.gid }>
 						<input type="hidden" name="gcid" value=${dto.gcid }>
 						<input type="hidden" name="pageNum" value=${param.pageNum }>
