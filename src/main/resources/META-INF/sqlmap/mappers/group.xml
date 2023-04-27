@@ -165,10 +165,7 @@
 	<select id="getCommentCnt" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP G, GCOMMENT C WHERE G.GID=C.GID AND G.GID = #{gid}
 	</select>
-<<<<<<< HEAD
-=======
 	<select id="hitGroup" resultMap="GroupResult">
 		SELECT ROWNUM, GTITLE, GID FROM (SELECT * FROM MYGROUP WHERE GCOMPLETE='N' ORDER BY GHIT DESC) A WHERE ROWNUM BETWEEN 1 AND 10
 	</select>
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 </mapper>

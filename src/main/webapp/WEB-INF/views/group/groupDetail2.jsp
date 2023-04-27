@@ -8,7 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
 <link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	  <script>
 	  document.addEventListener('DOMContentLoaded', function () {
@@ -52,8 +51,6 @@
 
       });
 	  </script>
-=======
-<link href="${conPath }/css/main.css" rel="stylesheet">
 <style>
 	#main{
 		width:1000px;
@@ -127,26 +124,16 @@
 	<div id="main">
 		<div class="groupContent_detailHeader">
 			<div id="back">
-<<<<<<< HEAD
 				<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
-=======
-				<a href="${name }List.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a>
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 			</div>
 				<div class="groupDetail_title">${groupDetail.gtitle }</div>
 <!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
 				<div class="groupDetail_writer">
-<<<<<<< HEAD
-					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }"/></div><div class="mid">${groupDetail.mnickname } </div>
-					<div class="grdate">작성일: ${groupDetail.grdate }</div>
-=======
 					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }" alt="사용자 이미지"> </div><div class="mid">${groupDetail.mnickname } |</div>
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
+					<div class="grdate">작성일: ${groupDetail.grdate }</div>
 				</div>
 				<p style=clear:both;></p>
 <!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
-	
-<<<<<<< HEAD
 				<div class="groupContent_detail">
 					<ul class="groupInfo_groupGrid">
 						<li>
@@ -200,13 +187,7 @@
 					<ul>
 						<li>
 						<a href="">
-								<c:if test="${groupDetail.gcharacter eq 'P' }">
-									프로젝트
-								</c:if>
-								<c:if test="${groupDetail.gcharacter eq 'S' }">
-									스터디
-								</c:if>
-										정보</a>
+								${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</a>
 						</li>
 						<li>
 							<a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }">일정</a>
@@ -218,50 +199,6 @@
 					</ul>
 				</nav>
 			</div>
-			
-=======
-				<div class="grdate">${groupDetail.grdate }</div>
-				<ul class="groupInfo_groupGrid">
-					<li>
-						<span class="groupInfo_title">모집 구분</span>
-						<span class="groupInfo_content">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">모집 인원</span>
-						<span class="groupInfo_content">${groupDetail.gpeople } </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">시작 예정</span>
-						<span class="groupInfo_content">${groupDetail.gsdate }  </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">지역</span>
-						<span class="groupInfo_content">${groupDetail.gloc } </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">완료 예정</span>
-						<span class="groupInfo_content">${groupDetail.gfdate } </span>
-					</li>
-					<li>
-						<span class="groupInfo_title">사용 언어</span>
-						<span class="groupInfo_content">
-							<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
-								-
-							</c:if>
-							<c:if test="${not empty groupDetail.glanguage1 }">
-									${groupDetail.glanguage1 }
-							</c:if>
-							<c:if test="${not empty groupDetail.glanguage2 }">
-									/ ${groupDetail.glanguage2 }
-							</c:if>
-							<c:if test="${not empty groupDetail.glanguage3 }">
-									/ ${groupDetail.glanguage3 }
-							</c:if>
-						</span>
-					</li>
-				</ul>
-			</section>
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 <!-------------------------------------------------참가 신청자 정보--------------------------------------------------------------->				
 			<div class="groupJoin">
 				<c:if test="${groupDetail.mid eq member.mid }">
@@ -318,14 +255,6 @@
 			<div class="commentInput_commentText">
 				<hr>
 				<h2>${commentCnt }개의 댓글이 있습니다.</h2>
-<<<<<<< HEAD
-				<form action="${conPath}/group/comment.do" method="post">
-					<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
-					<div class="contentInput_buttonWrapper">
-						<button class="comentInput_buttonSubmit">댓글 등록</button>
-					</div>
-				</form>
-=======
 				<c:if test="${not empty member }">
 					<form action="${conPath}/group/comment.do" method="post">
 						<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
@@ -334,7 +263,6 @@
 						</div>
 					</form>
 				</c:if>
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 			</div>
 			<c:if test="${not empty groupComment }">
 				<hr>

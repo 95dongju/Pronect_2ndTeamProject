@@ -263,8 +263,6 @@ public class GroupServiceImpl implements GroupService {
 	public int getCommentCnt(int gid) {
 		return groupDao.getCommentCnt(gid);
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public int memberMinus(int gid) {
@@ -282,6 +280,4 @@ public class GroupServiceImpl implements GroupService {
 	public List<Group> hitGroup() {
 		return groupDao.hitGroup();
 	}
-
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 }
