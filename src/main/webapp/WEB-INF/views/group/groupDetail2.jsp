@@ -100,7 +100,6 @@
 	}
 	
 </style>
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 </head>
 <c:if test="${not empty acceptResult }">
 	<script>
@@ -190,7 +189,7 @@
 								${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</a>
 						</li>
 						<li>
-							<a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }">일정</a>
+							<a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</a>
 						</li>
 						<c:if test="${groupDetail.gcharacter eq 'P' }">
 						<li><a href="">Gantt 계획표</a></li>
