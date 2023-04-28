@@ -11,7 +11,7 @@
 <body>
 	<br>
 	<div>
-		<form action="${conPath}/fcomment/modify.do" method="post">
+		<form action="${conPath}/fcomment/modify.do">
 			<input type="hidden" name="fcid" value="${fcomment.fcid }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="commentPageNum" value="${param.commentPageNum}">
