@@ -19,7 +19,7 @@ public class FcommentServiceImpl implements FcommentService {
 	public List<Fcomment> fcommentList(int fid, String commentPageNum, Model model) {
 		// TODO Auto-generated method stub
 		Fcomment fcomment = new Fcomment();
-		Paging paging = new Paging(fcommentDao.fcommentTotCnt(fid), commentPageNum, 5, 20);
+		Paging paging = new Paging(fcommentDao.fcommentTotCnt(fid), commentPageNum, 20, 5);
 		fcomment.setFid(fid);
 		fcomment.setStartRow(paging.getStartRow());
 		fcomment.setEndRow(paging.getEndRow());

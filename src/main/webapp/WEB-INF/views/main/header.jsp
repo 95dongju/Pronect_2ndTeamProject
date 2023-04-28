@@ -44,6 +44,7 @@
 			<li><a href="../group/myStudy.jsp">MyStudy</a></li>
 			<li><a href="../group/myProject.jsp">MyProject</a></li>
 			<li><a href="${conPath }/fboard/list.do?pageNum=1">자유게시판</a></li>
+			<li><a href="${conPath }/qboard/list.do?pageNum=1">문의게시판</a></li>
 			<c:if test="${member.manager eq 'Y' }">
 				<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
 			</c:if>

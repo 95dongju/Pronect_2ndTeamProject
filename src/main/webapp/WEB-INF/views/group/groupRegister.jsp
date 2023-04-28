@@ -9,13 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	#content{
-		width:1000px;
-		margin:0 auto;
-	}
- 	#checkbox{
-		margin-right:30px;
-	}
+	#content{width:700px;	margin:0 auto;}
+ 	#checkbox{margin-right:30px;}
 	#registerInfo {
 		width:150px;
 		font-size: 0.9em;
@@ -31,9 +26,11 @@
 		font-family: 'NanumSquareNeo-Variable';
 		vertical-align: middle;
 	}
-	textarea{
-		resize : none;
-	}
+	textarea{resize : none;}
+	#btnContainer{text-align:center;}
+	#btn{ margin:0 10px 0 10px;}
+	#peopleInfo{color:#B6B8C0; font-size:0.8em; margin-left:30px;}
+	#mandatory { color:red;}
 </style>
 </head>
 <body>
@@ -43,14 +40,17 @@
 		<form action="${conPath }/group/register.do" method="post">
 			<input type="hidden" name="method" value="register">
 			<table>
-				<tr><th id="registerInfo">제목</th>
+				<tr><th id="registerInfo">제목<b id="mandatory">*</b></th>
 					<td><input type="text" autocomplete="off" name="gtitle" required="required" maxlength="80"></td>
 				</tr>
-				<tr><th id="registerInfo">내용</th>
+				<tr><th id="registerInfo">내용<b id="mandatory">*</b></th>
 					<td><textarea rows="10" autocomplete="off" cols="10" name="gcontent" required="required"></textarea> </td>
 				</tr>
-				<tr><th id="registerInfo">모집 인원</th>
-					<td><input type="number" autocomplete="off" name="gpeople" required="required">명</td>
+				<tr><th id="registerInfo">모집 인원<b id="mandatory">*</b></th>
+					<td>
+						<input type="number" autocomplete="off" name="gpeople" required="required" value=2>명
+						<span id="peopleInfo">최소 2명부터 입력 가능</span>
+					</td>
 				</tr>
 				<tr>
 					<th id="registerInfo" class="exception" rowspan="2">사용 언어</th>
@@ -71,18 +71,18 @@
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Ruby">Ruby</label>
 					</td>
 				</tr>
-				<tr><th id="registerInfo">스터디 시작일</th>
+				<tr><th id="registerInfo">그룹 시작일<b id="mandatory">*</b></th>
 					<td><input type="text" id="sdate" autocomplete="off" class="sdate" name="gsdate" required="required"></td>
 				</tr>
-				<tr><th id="registerInfo">스터디 완료일</th>
+				<tr><th id="registerInfo">그룹 완료일<b id="mandatory">*</b></th>
 					<td><input type="text" id="edate" autocomplete="off" class="edate" name="gfdate" required="required"></td>
 				</tr>
 				<tr><th id="registerInfo">지역</th>
 					<td><input type="text" autocomplete="off" name="gloc"></td>
 				</tr>
-				<tr><td colspan="2">
-					<input type="submit" value="등록">
-					<button onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
+				<tr><td id="btnContainer" colspan="2">
+					<input id="btn" type="submit" value="등록">
+					<button id="btn" onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
 				</td></tr>
 			</table>
 		</form>
@@ -125,6 +125,13 @@ $(document).ready(function(){
 			}
 		})
 		$("input[type='number']").on("change",function(){
+			let number = $(this).val();
+			if(number<2){
+				alert("인원수를 확인해주세요");
+				$(this).val('2');
+			}
+		})
+		$("input[type='number']").on("keyup",function(){
 			let number = $(this).val();
 			if(number<2){
 				alert("인원수를 확인해주세요");

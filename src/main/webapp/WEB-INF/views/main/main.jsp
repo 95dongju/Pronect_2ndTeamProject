@@ -71,50 +71,6 @@
 							</article>
 						</c:forEach>
 					</c:if>
-					<c:if test="${not empty studyList}">
-						<c:forEach var="dto" items="${studyList }">
-							<article class="style">
-								<div>
-									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
-										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if>
-					<c:if test="${not empty projectList}">
-						<c:forEach var="dto" items="${projectList }">
-							<article class="style">
-								<div>
-									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
-										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if>
-<%-- 					<c:if test="${not empty projectList}">
-						<c:forEach var="dto" items="${projectList }">
-							<article class="style">
-								<div>
-									<a href="#">
-										<div class="pcontent">
-											<h2>${dto.ptitle } </h2>
-											<p>${dto.pcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if> --%>
 				</section>
 				<div id="div_paging">
 					<c:if test="${paging.startPage>paging.blockSize}">

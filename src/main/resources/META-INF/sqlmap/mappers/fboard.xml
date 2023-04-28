@@ -100,8 +100,8 @@
 	<update id="modifyFboard" parameterType="Fboard">
 		UPDATE FBOARD 
 		    SET FTITLE = #{ftitle},
-		        FCONTENT = #{fcontent},
-		        <if test="ffile != null and ffile!=''">FFILE = #{ffile}</if>
+		        <if test="ffile != null and ffile!=''">FFILE = #{ffile},</if>
+		        FCONTENT = #{fcontent}
 		    WHERE FID = #{fid}
 	</update>
 	<delete id="deleteFboard" parameterType="int">

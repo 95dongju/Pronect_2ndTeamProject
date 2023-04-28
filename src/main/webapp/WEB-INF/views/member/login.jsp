@@ -35,6 +35,26 @@
 		</script>
 </c:if>
 	<jsp:include page="../main/header.jsp"/>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script>
+		window.Kakao.init("f9874e5b00c71f621fc4c80e11e94244");
+		
+		function kakaoLogin() {
+			window.Kakao.Auth.login({
+				scope:'profile_nickname, account_email, gender',
+				success: function(authObj) {
+					console.log(authObj);
+					window.Kakao.API.request({
+						url:'/v2/user/me',
+						success: res => {
+							const kakao_account = res.kakao_account;
+							console.log(kakao_account);
+						}
+					});
+				}
+			});
+		}
+	</script>
 	<div id="joinAndLoginWrap">
 		<div id="div_joinAndLogin">
 		<form action="${conPath }/member/login.do" method="post">
@@ -51,6 +71,7 @@
 				<tr>
 					<td colspan="2">
 						<input type="submit" value="로그인" class="btn">
+						<a href="javascript:kakaoLogin();"><img alt="카카오로 로그인" src="${conPath }/images/kakao_login_large_narrow.png"></a>
 					</td>
 				</tr>
 			</table>
