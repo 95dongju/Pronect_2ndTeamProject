@@ -10,19 +10,15 @@
 	<title>Insert title here</title>
 	<link href="${conPath }/css/main.css" rel="stylesheet">
   <style>
-	#content{
-		width:1000px;
-		margin:0 auto;
-	}
- 	#checkbox{
-		margin-right:30px;
-	}
+	#content{width:700px;	margin:0 auto;}
+ 	#checkbox{margin-right:30px;}
 	#registerInfo {
 		width:150px;
 		font-size: 0.9em;
 		font-weight: 900;
 		padding: 0 0.75em 0.75em 0.75em;
 		text-align: center;
+		vertical-align: middle;
 	}
 	.exception{
 		margin: 0;
@@ -32,9 +28,11 @@
 		font-family: 'NanumSquareNeo-Variable';
 		vertical-align: middle;
 	}
-	textarea{
-		resize : none;
-	}
+	textarea{resize : none;}
+	#btnContainer{text-align:center;}
+	#btn{ margin:0 10px 0 10px;}
+	#peopleInfo{color:#B6B8C0; font-size:0.8em; margin-left:30px;}
+	#mandatory { color:red;}
   </style>
 </head>
 <body>
@@ -45,14 +43,17 @@
 		<input type="hidden" name="gid" value="${groupDetail.gid }">
 		<input type="hidden" name="mid" value="${groupDetail.mid }">
 			<table id="main">
-				<tr><th id="registerInfo" >제목</th>
+				<tr><th id="registerInfo" >제목<b id="mandatory">*</b></th>
 					<td><input type="text" autocomplete="off" name="gtitle" required="required" value="${groupDetail.gtitle}"></td>
 				</tr>
-				<tr><th id="registerInfo" >내용</th>
+				<tr><th id="registerInfo" >내용<b id="mandatory">*</b></th>
 					<td><textarea rows="10" cols="10" autocomplete="off" name="gcontent" required="required">${groupDetail.gcontent}</textarea></td>
 				</tr>
-				<tr><th id="registerInfo" >모집 인원</th>
-					<td><input type="number" autocomplete="off" name="gpeople" required="required" value="${groupDetail.gpeople}">명</td>
+				<tr><th id="registerInfo" >모집 인원<b id="mandatory">*</b></th>
+					<td>
+						<input type="number" autocomplete="off" name="gpeople" required="required" value="${groupDetail.gpeople}">명
+						<span id="peopleInfo">최소 2명부터 입력 가능</span>
+					</td>
 				<tr>
 					<th id="registerInfo"  class="exception" rowspan="2">사용 언어</th>
 					<td>
@@ -102,19 +103,21 @@
 														groupDetail.glanguage3 eq 'Ruby'}"> checked="checked"</c:if>>Ruby</label>
 					</td>
 				</tr>
-				<tr><th id="registerInfo" >스터디 시작일</th>
+				<tr><th id="registerInfo" >그룹 시작일<b id="mandatory">*</b></th>
 					<td><input type="text" id="sdate" class="sdate" autocomplete="off" name="gsdate" value="${groupDetail.gsdate}"></td>
 				</tr>
-				<tr><th id="registerInfo" >스터디 완료일</th>
+				<tr><th id="registerInfo" >그룹 완료일<b id="mandatory">*</b></th>
 					<td><input type="text" id="edate" class="edate" autocomplete="off" name="gfdate" value="${groupDetail.gfdate}"></td>
 				</tr>
 				<tr><th id="registerInfo" >지역</th>
 					<td><input type="text" autocomplete="off" name="gloc" value="${groupDetail.gloc}"></td>
 				</tr>
-				<tr><td colspan="2">
-					<input type="submit" value="등록">
-					<button onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
-				</td></tr>
+				<tr>
+					<td id="btnContainer" colspan="2">
+						<input id="btn" type="submit" value="등록">
+						<button id="btn" onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
+					</td>
+				</tr>
 			</table>
 		</form>
 	</div>
@@ -152,6 +155,32 @@ $(document).ready(function(){
 			if(count>3){
 				$(this).prop("checked",false);
 				alert("3개까지만 선택 할 수 있습니다.");
+			}
+		})
+		$("input[type='number']").on("change",function(){
+			let number = $(this).val();
+			let curpeople = ${groupDetail.gcurpeople};
+			if(number<2){
+				alert("인원수를 확인해주세요");
+				if(number<curpeople){
+					$(this).val(curpeople);
+				}else{
+					$(this).val('2');
+				}
+			}else if(number<curpeople){
+				alert("모집인원이 현재 인원보다 적습니다");
+				$(this).val(curpeople);
+			}
+		})
+		$("input[type='number']").on("keyup",function(){
+			let number = $(this).val();
+			let curpeople = ${groupDetail.gcurpeople};
+			if(number<2){
+				alert("인원수를 확인해주세요");
+				$(this).val('2');
+			}else if(number<curpeople){
+				alert("모집인원이 현재 인원보다 적습니다");
+				$(this).val(curpeople);
 			}
 		})
 	});
