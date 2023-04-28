@@ -142,7 +142,7 @@ public class FboardServiceImpl implements FboardService {
 			ffile="";
 		}// if
 		fboard.setFfile(ffile);
-		return fboardDao.writeFboard(fboard);
+		return fboardDao.modifyFboard(fboard);
 	}
 
 	@Override

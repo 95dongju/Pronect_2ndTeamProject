@@ -22,14 +22,14 @@
 </head>
 <body>
 	<form action="${conPath }/fcomment/reply.do">
-		<input type="text" name="pageNum" value="${param.pageNum }">
-		<input type="text" name="commentPageNum" value="${param.commentPageNum}">
-		<input type="text" name="fid" value="${fcomment.fid }">
-		<input type="text" name="mid" value="${member.mid }">
-		<input type="text" name="fcgroup" value="${fcomment.fcgroup}">
-		<input type="text" name="fcstep" value="${fcomment.fcstep}">
-		<input type="text" name="fcindent" value="${fcomment.fcindent}">
-		<input type="text" name="fcip" value="${fcomment.fcip}">
+		<input type="hidden" name="pageNum" value="${param.pageNum }">
+		<input type="hidden" name="commentPageNum" value="${param.commentPageNum}">
+		<input type="hidden" name="fid" value="${fcomment.fid }">
+		<input type="hidden" name="mid" value="${member.mid }">
+		<input type="hidden" name="fcgroup" value="${fcomment.fcgroup}">
+		<input type="hidden" name="fcstep" value="${fcomment.fcstep}">
+		<input type="hidden" name="fcindent" value="${fcomment.fcindent}">
+		<input type="hidden" name="fcip" value="${fcomment.fcip}">
 		<textarea rows="2" cols="5" name="fccontent" style="width:50%; height:50px; float:left; margin: 5px;"></textarea>
 		<input type="submit" value="댓글저장" class="btn" style="height:50px; float:left; margin: 5px;">
 	</form>

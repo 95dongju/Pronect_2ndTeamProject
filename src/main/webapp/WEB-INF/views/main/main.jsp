@@ -10,6 +10,13 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="${conPath }/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
 	<script>
 		$(function(){
 			$('#searchBtn').click(function(){
@@ -22,8 +29,12 @@
 <body class="is-preload">
 <c:if test="${member.mstate eq 'N'}">
 	<script>
-		alert('탈퇴했거나 없는 회원입니다.');
-		location.href="${conPath}/member/logout.do";
+		Swal.fire({
+		  icon: 'error',
+		  text: '탈퇴했거나 없는 회원이에요!',
+		  footer: '<a href="${conPath}/member/join.do">회원가입을 하시겠어요?</a>'
+		})
+		setTimeout("location.href='${conPath}/member/logout.do'", 5000);
 	</script>
 </c:if>
 <jsp:include page="header.jsp"/>
