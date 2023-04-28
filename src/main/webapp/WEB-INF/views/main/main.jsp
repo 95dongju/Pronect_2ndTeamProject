@@ -70,7 +70,6 @@
 							</article>
 						</c:forEach>
 					</c:if>
-<<<<<<< HEAD
 					<c:if test="${not empty studyList}">
 						<c:forEach var="dto" items="${studyList }">
 							<article class="style">
@@ -115,10 +114,8 @@
 							</article>
 						</c:forEach>
 					</c:if> --%>
-=======
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 				</section>
-				<div>
+				<div id="div_paging">
 					<c:if test="${paging.startPage>paging.blockSize}">
 						[ <a href="${conPath }/group/${name}List.do?pageNum=${paging.startPage-1 }">이전</a> ]
 					</c:if>	
@@ -136,9 +133,7 @@
 				</div>
 			</div>
 		</div>
-	<!-- Footer -->
-		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
-	<!-- Scripts -->
+		<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

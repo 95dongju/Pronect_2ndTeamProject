@@ -28,7 +28,7 @@
               });
 
               request.done(function (data) {
-                  console.log(data); // log 로 데이터 찍어주기.
+                  console.log(data);
 
                   var calendarEl = document.getElementById('calendar');
 
@@ -39,17 +39,12 @@
                           center: 'title',
                       },
                       editable: true,
-                      droppable: true, // this allows things to be dropped onto the calendar
+                      droppable: true,
                       drop: function (arg) {
-                          // is the "remove after drop" checkbox checked?
                           if (document.getElementById('drop-remove').checked) {
-                              // if so, remove the element from the "Draggable Events" list
                               arg.draggedEl.parentNode.removeChild(arg.draggedEl);
                           }
                       },
-                      /**
-                       * data 로 값이 넘어온다. log 값 전달.
-                       */
                       events: data
                   });
 

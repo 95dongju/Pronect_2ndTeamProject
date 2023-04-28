@@ -108,5 +108,10 @@ public class GroupController {
 		model.addAttribute("completeResult", groupService.completeGroup(gid));
 		return "forward:detail.do";
 	}
-	
+	@RequestMapping(value="memberInfo", method=RequestMethod.GET)
+	public String memberInfo(int gid, Model model){
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		model.addAttribute("groupMember",groupService.groupMember(gid));
+		return "group/groupMemberManagement";
+	}
 }

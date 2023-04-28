@@ -1,8 +1,8 @@
 @charset "UTF-8";
-.back{
-		width : 30px;
-		text-align: left;
-	}
+*{
+	margin: 0;
+	padding: 0;
+}
 #main {
 	max-width: 1000px;
 	margin: auto;
@@ -47,7 +47,6 @@
 	content: '';
 }
 #main .groupContent_detailHeader .groupContent_detail {
-	margin: 0 20px;
 }
 #main .groupContent_detailHeader .groupContent_detail ul li {
 	float: left;
@@ -59,10 +58,19 @@
 	display: block;
 	content: '';
 }
+#main .groupContent_detailHeader #mygroup_nav ul li p {
+	padding: 0;
+	margin: 0 2.5%;
+	float: left;
+	width: 20%;
+	text-align: center;
+	background-color: #eeeeee;
+}
+#main .groupContent_detailHeader #mygroup_nav ul li p:hover {
+	cursor: pointer;
+}
 #main .groupContent_detailContentWrapper {
 	width: 100%;
-	margin: 20px;
-	padding: 20px;
 }
 .groupContent_detailContentWrapper pre {
 	white-space: normal;

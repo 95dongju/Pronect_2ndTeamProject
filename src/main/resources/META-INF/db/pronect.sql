@@ -121,6 +121,7 @@ CREATE TABLE MYGROUP(
     GTITLE     VARCHAR2(300)  NOT NULL,
     GCONTENT   VARCHAR2(4000) NOT NULL,
     GPEOPLE    NUMBER(2)      DEFAULT 1,
+    GCURPEOPLE NUMBER(2)      DEFAULT 1,
     GLANGUAGE1 VARCHAR2(100),
     GLANGUAGE2 VARCHAR2(100),
     GLANGUAGE3 VARCHAR2(100),
@@ -195,7 +196,7 @@ CREATE TABLE SCD_ACHIVE (
 ----------------------------------------------------------------------
 --------------------------  GROUP STATUS  ----------------------------
 ----------------------------------------------------------------------
--- TABLE
+-- TABLE (0: 프로젝트 종료로 인한 참가 실패 / 1: 대기 / 2: 진행중 / 3: 완료 / 4: 중간탈주)
 CREATE TABLE GSTATUS(
     GSID     NUMBER(5)     PRIMARY KEY,
     MID      VARCHAR2(100) REFERENCES MEMBER(MID) NOT NULL,

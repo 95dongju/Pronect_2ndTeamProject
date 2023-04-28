@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <link href="${conPath }/css/joinAndLogin.css" rel="stylesheet">
 <style>
 	#content {width: 800px; height:800px;margin: 50px auto;}
@@ -14,18 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	$(document).ready(function(){
-		$('.mid').keyup(function(){
-			$.ajax({
-				url : '${conPath}/member/idConfirm.do',
-				datatype : 'html',
-				data : "mid="+$('#mid').val(),
-				success : function(data, status){
-					$('#idConfirmMsg').html(data);
-				}
-			});
-		});
-		
-		$('.mnickname').keyup(function(){
+		$('#mnickname').keyup(function(){
 			$.ajax({
 				url : '${conPath}/member/nicknameConfirm.do',
 				datatype : 'html',
@@ -36,7 +26,7 @@
 			});
 		});
 		
-		$('#mid').click(function(){
+		$('#mid').keyup(function(){
 			var mid = $(this).val();
 			var patternMid = /^[a-zA-Z0-9_]+$/; // macth함수 사용
 			if(mid.length<2){

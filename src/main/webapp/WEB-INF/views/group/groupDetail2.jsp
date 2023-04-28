@@ -7,50 +7,76 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
-	  <script>
-	  document.addEventListener('DOMContentLoaded', function () {
-          $(function () {
-              var request = $.ajax({
-                  url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
-                  method: "GET",
-                  dataType: "json"
-              });
-
-              request.done(function (data) {
-                  console.log(data); // log 로 데이터 찍어주기.
-
-                  var calendarEl = document.getElementById('calendar');
-
-                  var calendar = new FullCalendar.Calendar(calendarEl, {
-                      initialView: 'dayGridMonth',
-                      headerToolbar: {
-                          left: 'prev,next',
-                          center: 'title',
-                      },
-                      editable: true,
-                      droppable: true, // this allows things to be dropped onto the calendar
-                      drop: function (arg) {
-                          // is the "remove after drop" checkbox checked?
-                          if (document.getElementById('drop-remove').checked) {
-                              // if so, remove the element from the "Draggable Events" list
-                              arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-                          }
-                      },
-                      events: data
-                  });
-
-                  calendar.render();
-              });
-
-              request.fail(function( jqXHR, textStatus ) {
-                  alert( "Request failed: " + textStatus );
-              });
-          });
-
-      });
-	  </script>
+<title>Pronect</title>
+	<script src="${conPath}/js/fullcalendar-5.0.1/lib/main.js"></script>
+	<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<link href="${conPath}/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
+	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
+	<script>
+	$(document).ready(function(){
+		$('#groupDetail_memberInfo').click(function(){
+			$.ajax({
+				url : '${conPath}/group/memberInfo.do',
+				datatype : 'html',
+				data : "gid="+${groupDetail.gid},
+				success : function(data, status){
+					$('.groupMemberInfo').html(data);
+				}
+			});
+		});
+		$('#groupDetail_memberInfo').click(function(){
+			$.ajax({
+				url : '${conPath}/group/memberInfo.do',
+				datatype : 'html',
+				data : "gid="+${groupDetail.gid},
+				success : function(data, status){
+					$('.groupMemberInfo').html(data);
+				}
+			});
+		});
+	});
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			$(function () {
+				var request = $.ajax({
+					url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
+					method: "GET",
+					dataType: "json"
+				});
+			
+				request.done(function (data) {
+					console.log(data);
+					
+					var calendarEl = document.getElementById('calendar');
+					
+					var calendar = new FullCalendar.Calendar(calendarEl, {
+						initialView: 'dayGridMonth',
+						headerToolbar: {
+							left: 'prev,next',
+							center: 'title',
+						},
+						editable: true,
+						droppable: true,
+						drop: function (arg) {
+						if (document.getElementById('drop-remove').checked) {
+							arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+							}
+						},
+						events: data
+					});
+				
+					calendar.render();
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+						alert( "Request failed: " + textStatus );
+					});
+			});
+		
+		});
+	</script>
 <style>
 	#main{
 		width:1000px;
@@ -98,7 +124,6 @@
 		background-color:black;
 		color:white;
 	}
-	
 </style>
 </head>
 <c:if test="${not empty acceptResult }">
@@ -185,50 +210,30 @@
 				<nav id="mygroup_nav">
 					<ul>
 						<li>
-						<a href="">
-								${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</a>
+						<p id="groupDetail_info">
+								${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</p>
 						</li>
 						<li>
-							<a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</a>
+							<p id="groupDetail_schedule"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
+							<!-- <a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }">test</a> -->
 						</li>
 						<c:if test="${groupDetail.gcharacter eq 'P' }">
-						<li><a href="">Gantt 계획표</a></li>
+						<li><p id="groupDetail_gantt">Gantt 계획표</p></li>
 						</c:if>
-						<li><a href="">게시판</a></li>
+						<li><p id="groupDetail_board">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판</p></li>
+						<c:if test="${groupDetail.mid eq member.mid }">
+							<li><p id="groupDetail_memberInfo">멤버 정보</p></li>
+						</c:if>
 					</ul>
+					<p style=clear:both;></p>
 				</nav>
 			</div>
-<!-------------------------------------------------참가 신청자 정보--------------------------------------------------------------->				
 			<div class="groupJoin">
-				<c:if test="${groupDetail.mid eq member.mid }">
-					<c:forEach var="dto" items="${joinList }">
-						<div class="groupJoin_memberInfo">
-							<div class="groupJoin_memberInfo_img">${dto.mimage }</div>
-							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
-						</div>
-						<div class="groupJoin_acceptBtn">
-							<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }'">수락</button>
-						</div>
-					</c:forEach>
-				</c:if>
 			</div>
-<!---------------------------------------------------그룹원 정보----------------------------------------------------------------->				
-			<div class="groupMember">
-				<c:if test="${groupDetail.mid eq member.mid }">
-					<c:forEach var="dto" items="${groupMember }">
-						<div class="groupJoin_memberInfo">
-							<div class="groupJoin_memberInfo_img">${dto.mimage }</div>
-							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
-						</div>
-						<div class="groupJoin_acceptBtn">
-							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }'">퇴출</button>
-						</div>
-					</c:forEach>
-				</c:if>
+			<div class="groupMemberInfo">
 			</div>
-<!-------------------------------------------------프로젝트 소개------------------------------------------------------------------>
 			<div class="groupContent_detailContentWrapper">
-				<h2 class="groupContent_detailInfo">프로젝트 소개</h2>
+				<h2 class="groupContent_detailInfo">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 소개</h2>
 				<pre>${groupDetail.gcontent }</pre>
 			</div>
 			<div class="groupContent_btns">
