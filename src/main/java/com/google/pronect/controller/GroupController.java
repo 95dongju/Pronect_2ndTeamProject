@@ -114,4 +114,12 @@ public class GroupController {
 		model.addAttribute("groupMember",groupService.groupMember(gid));
 		return "group/groupMemberManagement";
 	}
+	@RequestMapping(value="groupInfo", method=RequestMethod.GET)
+	public String groupInfo(int gid, Model model, HttpSession session){
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		model.addAttribute("groupComment",gCommentService.commentContent(gid));
+		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
+		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
+		return "group/groupInfo";
+	}
 }

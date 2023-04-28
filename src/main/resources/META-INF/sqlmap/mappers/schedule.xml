@@ -13,7 +13,6 @@
 		<result property="scd_end" column="SCD_END"/>
 	</resultMap>
 	<insert id="insertSchedule" parameterType="Schedule">
-
 		INSERT INTO SCHEDULE 
 		<if test="scd_end==null or scd_end==''">
 			VALUES (SCHEDULE_SEQ.NEXTVAL, #{gid}, #{mid}, #{scd_title}, #{scd_memo}, TO_DATE(TO_CHAR(#{scd_start}), 'YYYY-MM-DD'))

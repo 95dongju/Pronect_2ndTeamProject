@@ -10,6 +10,7 @@
 		<typeAlias type="com.google.pronect.vo.Fboard" alias="Fboard"/>
 		<typeAlias type="com.google.pronect.vo.Fcomment" alias="Fcomment"/>
 		<typeAlias type="com.google.pronect.vo.Schedule" alias="Schedule"/>
+		<typeAlias type="com.google.pronect.vo.Achive" alias="Achive"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>
@@ -19,5 +20,6 @@
 		<mapper resource="META-INF/sqlmap/mappers/fboard.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/fcomment.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/schedule.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/achive.xml"/>
 	</mappers>
 </configuration>

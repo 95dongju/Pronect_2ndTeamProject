@@ -36,8 +36,8 @@ public class ScheduleController {
 		for(int i=0; i < list.size(); i++) {			
 			hash.put("title", list.get(i).getScd_title());
 			hash.put("cal_memo", list.get(i).getScd_memo()); 
-			hash.put("s_id", list.get(i).getScd_id());
-			hash.put("cal_id", list.get(i).getScd_id());
+			hash.put("groupId", list.get(i).getScd_id());
+			hash.put("id", list.get(i).getScd_id());
 			hash.put("start", list.get(i).getScd_start());
 			hash.put("end", list.get(i).getScd_end()); 
 			hash.put("allDay", "true");
