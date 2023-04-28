@@ -30,7 +30,7 @@
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
-			<c:if test="${member.mstate eq 'Y'}">
+			<c:if test="${not empty member}">
 				<ul>
 					<li><a href="${conPath }/group/register.do">스터디/프로젝트  등록</a></li>
 					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>
@@ -48,6 +48,7 @@
 			<li><a href="../group/myStudy.jsp">MyStudy</a></li>
 			<li><a href="../group/myProject.jsp">MyProject</a></li>
 			<li><a href="${conPath }/fboard/list.do?pageNum=1">자유게시판</a></li>
+			<li><a href="${conPath }/qboard/list.do?pageNum=1">문의게시판</a></li>
 			<c:if test="${member.manager eq 'Y' }">
 				<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
 			</c:if>

@@ -10,13 +10,6 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="${conPath }/css/main.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-	<script>
-		function alert(msg) {
-			Swal.fire(msg);
-		}
-	</script>
 	<script>
 		$(function(){
 			$('#searchBtn').click(function(){
@@ -29,12 +22,8 @@
 <body class="is-preload">
 <c:if test="${member.mstate eq 'N'}">
 	<script>
-		Swal.fire({
-		  icon: 'error',
-		  text: '탈퇴했거나 없는 회원이에요!',
-		  footer: '<a href="${conPath}/member/join.do">회원가입을 하시겠어요?</a>'
-		})
-		setTimeout("location.href='${conPath}/member/logout.do'", 5000);
+		alert('탈퇴했거나 없는 회원입니다.');
+		location.href="${conPath}/member/logout.do";
 	</script>
 </c:if>
 <jsp:include page="header.jsp"/>
@@ -81,50 +70,6 @@
 							</article>
 						</c:forEach>
 					</c:if>
-					<c:if test="${not empty studyList}">
-						<c:forEach var="dto" items="${studyList }">
-							<article class="style">
-								<div>
-									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
-										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if>
-					<c:if test="${not empty projectList}">
-						<c:forEach var="dto" items="${projectList }">
-							<article class="style">
-								<div>
-									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
-										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if>
-<%-- 					<c:if test="${not empty projectList}">
-						<c:forEach var="dto" items="${projectList }">
-							<article class="style">
-								<div>
-									<a href="#">
-										<div class="pcontent">
-											<h2>${dto.ptitle } </h2>
-											<p>${dto.pcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if> --%>
 				</section>
 				<div id="div_paging">
 					<c:if test="${paging.startPage>paging.blockSize}">

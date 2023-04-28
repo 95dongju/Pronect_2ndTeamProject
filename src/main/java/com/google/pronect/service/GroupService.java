@@ -18,7 +18,7 @@ public interface GroupService {
 	public int 		groupLeader(HttpSession session);
 	public Group 	getGroupDetail(int gid);
 	public Group 	getAfterModifyView(int gid);
-	public int 		modifyGroup(Group group, String[] glanguage);
+	public int	 	modifyGroup(Group group, String[] glanguage);
 	public int 		deleteHistory(int gid);
 	public int 		deleteGroup(int gid);
 	public int 		joinCheck(int gid, HttpSession session);
