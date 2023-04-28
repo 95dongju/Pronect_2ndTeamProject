@@ -4,8 +4,6 @@
 --MANAGER (TEST)
 SELECT * FROM MEMBER;
 SELECT * FROM MYGROUP;
-UPDATE MEMBER SET MIMAGE = 'noprofile.jpg';
-commit;
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MNAME, MMAIL, MSCORE, MEVALNUM,
                     MANAGER, MSTATE, MIMAGE)
             VALUES('manager1','manager1nick','1','매니저테스트1','zool212@naver.com',0,0,
@@ -460,6 +458,11 @@ INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'tes
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test3-3',14,2);
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test4-2',15,2);
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-1',16,3);
+-------------------------------------------------------------------------------
+-------------------------  MIMAGE CHANGE  -------------------------------------
+-------------------------------------------------------------------------------
+UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE = 'test.jpg';
+UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE is null;
 COMMIT;
 SELECT * FROM GSTATUS;
 SELECT MIMAGE, M.MID, GID, GSSTATUS, MNICKNAME FROM MEMBER M, GSTATUS S 

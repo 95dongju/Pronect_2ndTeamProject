@@ -204,6 +204,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public Group memberFullCheck(int gid) {
+		
 		return groupDao.memberFullCheck(gid);
 	}
 	
@@ -214,13 +215,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Override
 	public int memberOut(int gid, String mid) {
-//		Group group = new Group();
-//		String gidTemp = Integer.toString(gid);
-//		if(gidTemp != null && mid != null) {
-//			group.setGid(gid);
-//			group.setMid(mid);
 		Group group = new Group();
-		String msg="";
 		String gidTemp = Integer.toString(gid);
 		if(gidTemp != null && mid != null) {
 			group = groupDao.memberFullCheck(gid);
@@ -249,13 +244,11 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public String endDate(int gid) {
-		// TODO Auto-generated method stub
 		return groupDao.endDate(gid);
 	}
 
 	@Override
 	public List<Group> joinList(int gid) {
-		// TODO Auto-generated method stub
 		return groupDao.joinList(gid);
 	}
 
@@ -266,18 +259,23 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public int memberMinus(int gid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return groupDao.memberMinus(gid);
 	}
 
 	@Override
 	public int peopleUnFull(int gid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return groupDao.peopleUnFull(gid);
 	}
 
 	@Override
 	public List<Group> hitGroup() {
 		return groupDao.hitGroup();
+	}
+
+	@Override
+	public int giveUp(int gid) {
+		groupDao.giveUp(gid);
+		groupDao.memberMinus(gid);
+		return 0;
 	}
 }

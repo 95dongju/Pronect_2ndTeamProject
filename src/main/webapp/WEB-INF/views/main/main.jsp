@@ -32,7 +32,7 @@
 		<!-- Main -->
 		<div id="main">
 			<div id="banner">
-				<img src="${conPath}/images/pronect_banner.png" class="banner">
+				<a href="#"><img src="${conPath}/images/pronect_banner.png" class="banner"></a>
 			</div>
 			<nav id="nav">
 				<ul>

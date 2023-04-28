@@ -11,29 +11,29 @@
 	<link href="${conPath }/css/main.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		$(document).ready(function(){
-	  		$('.commentReplyView').click(function(){
+	  	$(document).ready(function(){
+	  		$('.replyView').click(function(){
 	  			var fcid = $(this).attr('id');
 	  			$.ajax({
-	  				url : '${conPath}/fcomment/reply.do',
-						data : {'fcid':fcid, 'pageNum':pageNum, 'commentPageNum':commentPageNum},
+	  				url : '${conPath}/fcomment/replyView.do',
+						data : {'fcid':fcid, 'pageNum':${param.pageNum}, 'commentPageNum':${commentPaging.currentPage}},
 						type : 'get',
 						dateType : 'html',
 						success : function(data, status){
-							$('.commentReply'+fcid).html(data);
+							$('.reply'+fcid).html(data);
 						}
 	  			});
 	  		});
 	  	});
-		
+	  	
 		function modifyComment(fcid, pageNum, fid, commentPageNum){
 			$.ajax({
-				url : '${conPath}/fcomment/modify.do',
+				url : '${conPath}/fcomment/modifyView.do',
 				data : {'fcid':fcid, 'pageNum':pageNum, 'commentPageNum':commentPageNum},
 				type : 'get',
 				dateType : 'html',
 				success : function(data, status){
-					$('.commentReplySpace'+fcid).html(data);
+					$('.replySpace'+fcid).html(data);
 				}
 			});
 		}
@@ -87,38 +87,37 @@
 		</tr>
 	</table>
 	
+	
 	<h3>댓글</h3>
-	<form action="${conPath }/fcomment/write.do" method="post">
-		<input type="hidden" name="fid" value="${fDto.fid }">
+	<form action="${conPath }/fcomment/write.do">
+		<input type="hidden" name="fid" value="${param.fid }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
 		<input type="hidden" name="mid" value="${member.mid }">
 		<textarea rows="2" cols="5" name="fccontent" style="width:50%; height:50px; float:left; margin: 5px;"></textarea>
-		<input type="submit" value="등록" class="btn" style="height:50px; float:left; margin: 5px;">
+		<input type="submit" value="댓글 등록" class="btn" style="height:50px; float:left; margin: 5px;">
 	</form>
 	<p style="clear:both;"></p>
 	<c:if test="${empty fcommentList }">등록된 댓글이 없습니다</c:if>
 	<c:if test="${not empty fcommentList }">
-		<c:forEach items="${fcommentList }" var="fcomment">
-			<div class="commentReply${fcomment.fcid }">
-				<div class="toggle${fcomment.fcid }">
-					<c:forEach var="i" begin="1" end="${fcomment.fcindent }">
-						<c:if test="${i==fcomment.fcindent }">
+		<c:forEach items="${fcommentList }" var="comment">
+			<div class="reply${comment.fcid }">
+				<div>
+					<c:forEach var="i" begin="1" end="${comment.fcindent }">
+						<c:if test="${i==comment.fcindent }">
 				  			&nbsp; &nbsp; &nbsp; └
 				  		</c:if>
-						<c:if test="${i!=fcomment.fcindent }">
+						<c:if test="${i!=comment.fcindent }">
 				  			&nbsp; &nbsp; &nbsp; 
 				  		</c:if>
 					</c:forEach>
-					${fcomment.fcid }.
-					<span style="font-weight: blod; font-size: 1.3em;">${fcomment.fccontent }</span> 
-					<i>from ${fcomment.mid} - at ${fcomment.fcrdate }</i>
-					<c:if test="${member.mid eq fcomment.mid or member.manager eq 'Y' }">
-						<span onclick="location='${conPath}/fcomment/delete.do?fcid=${fcomment.fcid }&fid=${fDto.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span>
-						<span class="btn" onclick="modifyComment(${fcomment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})">[ 수정 ]</span>					
-					</c:if>
-					<span class="modifyBtn${fcomment.fcid }" class="commentReplyView" class="btn">[ 답변 ]</span>
+					${comment.fcid }.
+					<span style="font-weight: blod; font-size: 1.3em;">${comment.fccontent }</span> 
+					<i>from ${comment.mid} - at ${comment.fcrdate }</i>
+					<span class="btn" onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})">[ 수정 ]</span>
+					<span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span>
+					<span id="${comment.fcid }" class="replyView" class="btn">[ 답변 ]</span>
 				</div>
-				<div class="commentReplySpace${fcomment.fcid }"></div>
+				<div class="replySpace${comment.fcid }"></div>
 			</div>
 			<br>
 		</c:forEach>
