@@ -30,7 +30,7 @@
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
-			<c:if test="${not empty member}">
+			<c:if test="${member.mstate eq 'Y'}">
 				<ul>
 					<li><a href="${conPath }/group/register.do">스터디/프로젝트  등록</a></li>
 					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>

@@ -121,8 +121,8 @@ SELECT * FROM FBOARD WHERE FID=13;
 UPDATE FBOARD 
     SET FTITLE = '제목 바꿈',
         FCONTENT = '본문 바꿈',
-        FFILE = 'changed.png'
-    WHERE FID = 1;
+        FFILE = null
+    WHERE FID = 52;
 -- (7) 글 삭제하기
 COMMIT;
     -- 댓글 선삭제

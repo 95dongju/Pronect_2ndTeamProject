@@ -10,6 +10,13 @@
 	<title>Insert title here</title>
 	<link href="${conPath }/css/main.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
 	<script>
 	  	$(document).ready(function(){
 	  		$('.replyView').click(function(){
@@ -20,9 +27,24 @@
 						type : 'get',
 						dateType : 'html',
 						success : function(data, status){
-							$('.reply'+fcid).html(data);
+							$('.replySpace'+fcid).html(data);
 						}
 	  			});
+	  		});
+	  		
+	  		$('#deleteBtn').click(function(){
+	  			Swal.fire({
+			        title: '정말로 글을 삭제하시겠습니까?',
+			        showDenyButton: true,
+			        confirmButtonText: '삭제',
+			        denyButtonText: '취소',
+			        icon: 'warning',
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			        	location.href = '${conPath}/fboard/delete.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+			        }
+			    });
+			    return false;
 	  		});
 	  	});
 	  	
@@ -33,10 +55,25 @@
 				type : 'get',
 				dateType : 'html',
 				success : function(data, status){
-					$('.replySpace'+fcid).html(data);
+					$('.reply'+fcid).html(data);
 				}
 			});
 		}
+		
+		/* function confirmSubmit(){
+		    Swal.fire({
+		        title: '정말로 글을 삭제하시겠습니까?',
+		        showDenyButton: true,
+		        confirmButtonText: '삭제',
+		        denyButtonText: '취소',
+		        icon: 'warning',
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            document.getElementById('frm').submit();
+		        }
+		    });
+		    return false;
+		} */
 	</script>
 </head>
 <body>
@@ -79,7 +116,10 @@
 					<button onclick="location='${conPath}/fboard/modify.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">수정</button>
 				</c:if>
 				<c:if test="${member.mid eq fDto.mid or member.manager eq 'Y'}">
-					<button onclick="location='${conPath}/fboard/delete.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">삭제</button>				
+					<%-- <form id="frm" action="${conPath}/fboard/delete.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}" onsubmit="return confirmSubmit();">
+						<input type="submit" value="삭제">
+					</form> --%>
+					<button type="button" id="deleteBtn">삭제</button>
 				</c:if>
 				<button onclick="location='${conPath}/fboard/reply.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">답변</button>
 				<button onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">목록</button>
@@ -110,9 +150,8 @@
 				  			&nbsp; &nbsp; &nbsp; 
 				  		</c:if>
 					</c:forEach>
-					${comment.fcid }.
 					<span style="font-weight: blod; font-size: 1.3em;">${comment.fccontent }</span> 
-					<i>from ${comment.mid} - at ${comment.fcrdate }</i>
+					<i>ID: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>
 					<span class="btn" onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})">[ 수정 ]</span>
 					<span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span>
 					<span id="${comment.fcid }" class="replyView" class="btn">[ 답변 ]</span>
