@@ -32,7 +32,7 @@
 		<!-- Main -->
 		<div id="main">
 			<div id="banner">
-				<img src="${conPath}/images/pronect_banner.png" class="banner">
+				<a href="#"><img src="${conPath}/images/pronect_banner.png" class="banner"></a>
 			</div>
 			<nav id="nav">
 				<ul>
@@ -70,53 +70,6 @@
 							</article>
 						</c:forEach>
 					</c:if>
-<<<<<<< HEAD
-					<c:if test="${not empty studyList}">
-						<c:forEach var="dto" items="${studyList }">
-							<article class="style">
-								<div>
-									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
-										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if>
-					<c:if test="${not empty projectList}">
-						<c:forEach var="dto" items="${projectList }">
-							<article class="style">
-								<div>
-									<a href="${conPath}/group/detail.do?gid=${dto.gid}&pageNum=${paging.currentPage}">
-										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if>
-<%-- 					<c:if test="${not empty projectList}">
-						<c:forEach var="dto" items="${projectList }">
-							<article class="style">
-								<div>
-									<a href="#">
-										<div class="pcontent">
-											<h2>${dto.ptitle } </h2>
-											<p>${dto.pcontent }</p>
-										</div>
-									</a>
-								</div>
-							</article>
-						</c:forEach>
-					</c:if> --%>
-=======
->>>>>>> 1661db55e24aa7f3331d8cc34a5750b0fa73e3d6
 				</section>
 				<div>
 					<c:if test="${paging.startPage>paging.blockSize}">

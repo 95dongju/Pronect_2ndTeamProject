@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 				System.out.println(e.getMessage());
 			}
 		}else {
-			mimage="";
+			mimage="noprofile.jpg";
 		}// if
 		MimeMessagePreparator message = new MimeMessagePreparator() {
 			String content = "<div style=\"width:550px; margin: 0 auto;\">\n" + 
@@ -170,7 +170,7 @@ public class MemberServiceImpl implements MemberService {
 				System.out.println(e.getMessage());
 			}
 		}else {
-			mimage="";
+			mimage="noprofile.jpg";
 		}// if
 		member.setMimage(mimage);
 		httpSession.setAttribute("member", member);
