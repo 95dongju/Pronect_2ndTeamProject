@@ -16,7 +16,7 @@ import com.google.pronect.vo.Fcomment;
 public class FcommentController {
 	@Autowired
 	private FcommentService fcommentService;
-	@RequestMapping(value = "write", method = RequestMethod.POST)
+	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String write(Fcomment fcomment, Model model, HttpServletRequest request) {
 		model.addAttribute("fcommentWriteResult", fcommentService.fcommentWrite(fcomment, request));
 		return "forward:../fboard/content.do?fid="+fcomment.getFid();
@@ -26,22 +26,22 @@ public class FcommentController {
 		model.addAttribute("fcommentDeleteResult", fcommentService.fcommentDelete(fcomment.getFcid()));
 		return "forward:../fboard/content.do?fid="+fcomment.getFid()+"&pageNum="+pageNum;
 	}
-	@RequestMapping(value = "modify", method = RequestMethod.GET)
-	public String modify(int fcid, Model model) {
+	@RequestMapping(value = "modifyView", method = RequestMethod.GET)
+	public String modifyView(int fcid, Model model) {
 		model.addAttribute("fcomment", fcommentService.fcommentContent(fcid));
 		return "fboard/commentModify";
 	}
-	@RequestMapping(value = "modify", method = RequestMethod.POST)
+	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String modify(Fcomment fcomment, Model model) {
-		model.addAttribute("commentModifyResult", fcommentService.fcommentModify(fcomment));
+		model.addAttribute("fcommentModifyResult", fcommentService.fcommentModify(fcomment));
 		return "forward:../fboard/content.do?fid="+fcomment.getFid();
 	}
-	@RequestMapping(value="reply", method = RequestMethod.GET)
-	public String reply(int fcid, Model model) {
-		model.addAttribute("comment", fcommentService.fcommentContent(fcid));
+	@RequestMapping(value="replyView", method = RequestMethod.GET)
+	public String replyView(int fcid, Model model) {
+		model.addAttribute("fcomment", fcommentService.fcommentContent(fcid));
 		return "fboard/commentReply";
 	}
-	@RequestMapping(value = "reply", method = RequestMethod.POST)
+	@RequestMapping(value = "reply", method = RequestMethod.GET)
 	public String reply(Fcomment fcomment, Model model, HttpServletRequest request) {
 		model.addAttribute("fcommentReplyResult", fcommentService.fcommentReply(fcomment, request));
 		return "forward:../fboard/content.do?fid="+fcomment.getFid();
