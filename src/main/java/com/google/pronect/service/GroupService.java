@@ -38,4 +38,5 @@ public interface GroupService {
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
 	public List<Group> hitGroup();
+	public int		giveUp(int gid);
 }

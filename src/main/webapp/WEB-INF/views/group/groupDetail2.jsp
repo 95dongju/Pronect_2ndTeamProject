@@ -128,8 +128,11 @@
 				<div class="groupDetail_title">${groupDetail.gtitle }</div>
 <!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
 				<div class="groupDetail_writer">
-					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage }" alt="사용자 이미지"> </div><div class="mid">${groupDetail.mnickname } |</div>
+					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage}" alt="사용자 이미지"></div><div class="mid">${groupDetail.mnickname } |</div>
 					<div class="grdate">작성일: ${groupDetail.grdate }</div>
+					<c:if test=" ${empty groupDetail.mimage}">
+						이미지 비어있음
+					</c:if>
 				</div>
 				<p style=clear:both;></p>
 <!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
@@ -228,7 +231,7 @@
 			</div>
 <!-------------------------------------------------프로젝트 소개------------------------------------------------------------------>
 			<div class="groupContent_detailContentWrapper">
-				<h2 class="groupContent_detailInfo">프로젝트 소개</h2>
+				<h2 class="groupContent_detailInfo">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'}소개</h2>
 				<pre>${groupDetail.gcontent }</pre>
 			</div>
 			<div class="groupContent_btns">
@@ -239,6 +242,7 @@
 					<c:if test="${groupDetail.mid ne member.mid and joincheck eq 1}">
 						<button onclick="location='unJoin.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">신청 취소</button>
 					</c:if>
+					
 					<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 						<button onclick="location='modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
 						<button onclick="location='delete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>

@@ -447,6 +447,12 @@ INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'tes
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test3-3',6,2);
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test4-2',7,2);
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-1',8,3);
+
+-------------------------------------------------------------------------------
+-------------------------  MIMAGE CHANGE  -------------------------------------
+-------------------------------------------------------------------------------
+UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE = 'test.jpg';
+UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE is null;
 COMMIT;
 SELECT * FROM GSTATUS;
 SELECT MIMAGE, M.MID, GID, GSSTATUS, MNICKNAME FROM MEMBER M, GSTATUS S 
