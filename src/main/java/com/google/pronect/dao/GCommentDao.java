@@ -12,4 +12,5 @@ public interface GCommentDao {
 	public List<GComment> commentContent(int gid);
 	public int commentModify(GComment gcomment); 
 	public int commentDelete(int gcid);
+	public int commentCnt(int gid);
 }
