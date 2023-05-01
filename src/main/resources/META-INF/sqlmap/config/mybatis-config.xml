@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD config 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	
 	<typeAliases>
 		<typeAlias type="com.google.pronect.vo.Member" alias="Member"/>
 		<typeAlias type="com.google.pronect.vo.Group" alias="Group"/>

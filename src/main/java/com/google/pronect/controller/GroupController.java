@@ -47,8 +47,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
-	public String register(Group group, Model model, String[] glanguage){
-	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage));
+	public String register(Group group, Model model, String[] glanguage, HttpSession session){
+		System.out.println("4"+group);
+	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage, session));
 		return "forward:groupList.do";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)

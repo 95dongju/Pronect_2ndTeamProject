@@ -2489,7 +2489,7 @@ textarea {
 			transition: transform 0.5s ease, opacity 0.5s ease;
 			position: relative;
 			width: calc(33.33333% - 2.5em);
-			height: 200px;
+			height: 300px;
 			white-space: no-wrap;
 			text-overflow: ellipsis;
 			overflow: hidden;
@@ -2547,7 +2547,7 @@ textarea {
 					margin: 0;
 				}
 
-				.tiles article > a:hover {
+				.tiles article > a:hover:not(.mnickname) {
 					color: #ffffff !important;
 				}
 

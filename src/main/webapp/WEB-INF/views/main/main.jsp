@@ -19,6 +19,42 @@
 			});
 		});
 	</script>
+	<style>
+		.image{
+			width:30px;
+			height:30px;
+		}
+		.language{
+			width:40px;
+			height:40px;
+		}
+		.commentCnt, .hit{
+			width:15px;
+			height:15px;
+		}
+		
+		.language{
+			display: inline;
+		}
+		#hitCnt{
+			color:gray;
+			text-decoration: none;
+		}
+		.hit{
+			margin : 0 10px 0 40px;
+		}
+		.commentCnt{
+			margin : 0 10px 0 10px;
+		}
+		.titleContent{
+			height:100px;
+		}
+		.mnickname{
+			text-decoration: none;
+			width: 40px;
+			line-height: 39px;
+		}
+	</style>
 </head>
 <body class="is-preload">
 <c:if test="${member.mstate eq 'N'}">
@@ -60,11 +96,29 @@
 						<c:forEach var="dto" items="${list }">
 							<article class="style">
 								<div>
-									<a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}">
+									<a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}" title="${dto.gtitle }">
 										<div class="content">
-											<h2 class="gtitle">${dto.gtitle } </h2>
-											<p class="ghit">조회수 : ${dto.ghit }</p>
-											<p class="gcontent">${dto.gcontent }</p>
+											<div class="titleContent">
+												<h2 class="gtitle">${dto.gtitle }</h2>
+												<p class="gcontent">${dto.gcontent }</p>
+											</div>
+											<p style="height:40px;">
+												<c:if test="${not empty dto.glanguage1}">
+													<img class="language" style="border-radius: 50px;" src="${conPath }/logos/${dto.glanguage1}.png" alt="${dto.glanguage1}">
+												</c:if>
+												<c:if test="${not empty dto.glanguage2}">
+													<img class="language" style="border-radius: 50px;" src="${conPath }/logos/${dto.glanguage2}.png" alt="${dto.glanguage2}">
+												</c:if>
+												<c:if test="${not empty dto.glanguage3}">
+													<img class="language" style="border-radius: 50px;" src="${conPath }/logos/${dto.glanguage3}.png" alt="${dto.glanguage3}">
+												</c:if>
+											<hr>
+											<div>
+												<p class="writer">
+													<img class="image" style="border-radius: 50px;" src="${conPath }/memberFile/${dto.mimage}" alt="사용자 이미지"><span class="mnickname"> ${dto.mnickname}</span>
+													<span id="hitCnt"><img class="hit" src="${conPath }/logos/hit.png" alt="조회수">${dto.ghit }<img class="commentCnt" src="${conPath }/logos/comment.png" alt="댓글수">${dto.comment_count}</span>
+												</p>
+											</div>
 										</div>
 									</a>
 								</div>
