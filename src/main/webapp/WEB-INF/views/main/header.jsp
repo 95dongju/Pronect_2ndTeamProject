@@ -10,6 +10,34 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="${conPath }/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+		function logout(){
+		    Swal.fire({
+		        title: "로그아웃 하시겠습니까?",
+		        icon: "question",
+		        showCancelButton: true,
+		        confirmButtonText: "로그아웃",
+		        cancelButtonText: "취소"
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            Swal.fire({
+		                title: "로그아웃되었습니다.",
+		                text: "다음에 다시 만나요~",
+		                icon: "success",
+		                confirmButtonText: "확인"
+		            }).then(() => {
+		                location.href = "${conPath}/member/logout.do";
+		            });
+		        }
+		    });
+		    return false;
+		}
+	</script>
 </head>
 <body class="is-preload">
 	<header id="header">
@@ -29,7 +57,7 @@
 			<c:if test="${not empty member}">
 				<ul>
 					<li><a href="${conPath }/group/register.do">스터디/프로젝트  등록</a></li>
-					<li><a href="${conPath }/member/logout.do">로그아웃</a></li>
+					<li><a href="${conPath }/member/logout.do"  onclick="return logout()">로그아웃</a></li>
 					<li><a href="${conPath}/member/mypage.do">${member.mnickname }님</a></li>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>

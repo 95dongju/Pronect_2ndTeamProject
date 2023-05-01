@@ -16,6 +16,13 @@
 		b {color:red;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
 	<script>
 		$(document).ready(function(){
 			$('tr:not(:first-child)').click(function(){
@@ -31,27 +38,79 @@
 	<c:set var="SUCCESS" value="1"/>
 	<c:set var="FAIL" value="0"/>
 	<c:if test="${writeResult eq SUCCESS }">
-		<script>alert('글 작성을 완료했습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '글 작성을 완료했습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
 	</c:if>
 	<c:if test="${writeResult eq FAIL }">
-		<script>alert('글 작성에 실패했습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '글 작성에 실패했습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
 	</c:if>
 	<c:if test="${deleteResult eq SUCCESS }">
-		<script>alert('${param.fid}번 글을 삭제하였습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '글 삭제를 완료했습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
 	</c:if>
 	<c:if test="${deleteResult eq FAIL }">
-		<script>alert('${param.fid}번 글 삭제에 실패했습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '글 삭제에 실패했습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
 	</c:if>
 	<c:if test="${replyResult eq SUCCESS }">
-		<script>alert('답글을 작성하셨습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '답변 작성을 완료했습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
 	</c:if>
 	<c:if test="${replyResult eq FAIL }">
-		<script>alert('답변 작성에 실패했습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '답변 작성에 실패했습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
 	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
 		<div>
-			<form action="${conPath }/fboard/list.do">
+			<form action="${conPath }/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}">
+				<input type="hidden" name="pageNum" value="${param.pageNum }">
 				<select name="schItem">
 					<option value=""
 						<c:if test="${param.schItem eq '' }">selected="selected"</c:if>

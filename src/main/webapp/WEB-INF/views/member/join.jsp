@@ -81,13 +81,36 @@
 		});
 	});
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<script>
+	function alert(msg) {
+		Swal.fire(msg);
+	}
+</script>
+<script>
+	function confirmSubmit(){
+	    Swal.fire({
+	        title: '회원 가입을 완료하시겠습니까?',
+	        showCancelButton: true,
+	        confirmButtonText: '완료',
+	        cancelButtonText: '취소',
+	        icon: 'question',
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            document.getElementById('frm').submit();
+	        }
+	    });
+	    return false;
+	}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp"/>
 		<div id="joinAndLoginWrap">
 			<div id="div_joinAndLogin">
-				<form action="${conPath }/member/join.do" method="post" enctype="multipart/form-data">
+				<form action="${conPath }/member/join.do" method="post" enctype="multipart/form-data" id="frm">
 				<table>
 					<caption>회원가입</caption>
 					<tr>

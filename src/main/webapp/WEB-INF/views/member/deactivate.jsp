@@ -16,6 +16,30 @@
 	}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<script>
+	function alert(msg) {
+		Swal.fire(msg);
+	}
+</script>
+<script>
+	function confirmSubmit(){
+	    Swal.fire({
+	        title: '정말로 회원 탈퇴하시겠습니까?',
+	        text: '떠나지 마세요...',
+	        showCancelButton: true,
+	        confirmButtonText: '완료',
+	        cancelButtonText: '취소',
+	        icon: 'warning',
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            document.getElementById('frm').submit();
+	        }
+	    });
+	    return false;
+	}
+</script>
 <script>
 	$(document).ready(function(){
 		$('form').submit(function(){
@@ -32,7 +56,7 @@
 <body>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
-	<form action="${conPath }/member/deactivate.do" method="post">
+	<form action="${conPath }/member/deactivate.do" method="post" id="frm" onsubmit="return confirmSubmit();">
 		<input type="hidden" name="mid" value="${member.mid }">
 		<table>
 			<caption>회원탈퇴</caption>
