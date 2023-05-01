@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD config 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	
 	<typeAliases>
 		<typeAlias type="com.google.pronect.vo.Member" alias="Member"/>
 		<typeAlias type="com.google.pronect.vo.Group" alias="Group"/>
@@ -12,6 +13,8 @@
 		<typeAlias type="com.google.pronect.vo.Qboard" alias="Qboard"/>
 		<typeAlias type="com.google.pronect.vo.Schedule" alias="Schedule"/>
 		<typeAlias type="com.google.pronect.vo.Achive" alias="Achive"/>
+		<typeAlias type="com.google.pronect.vo.GroupBoard" alias="GroupBoard"/>
+		<typeAlias type="com.google.pronect.vo.GroupBoardReply" alias="GroupBoardReply"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>
@@ -23,5 +26,7 @@
 		<mapper resource="META-INF/sqlmap/mappers/qboard.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/schedule.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/achive.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/groupboard.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/groupboardreply.xml"/>
 	</mappers>
 </configuration>

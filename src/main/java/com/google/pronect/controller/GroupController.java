@@ -47,8 +47,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
-	public String register(Group group, Model model, String[] glanguage){
-	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage));
+	public String register(Group group, Model model, String[] glanguage, HttpSession session){
+		System.out.println("4"+group);
+	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage, session));
 		return "forward:groupList.do";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
@@ -121,5 +122,13 @@ public class GroupController {
 		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
 		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
 		return "group/groupInfo";
+	}
+	@RequestMapping(value="groupBoard", method=RequestMethod.GET)
+	public String groupBoard(int gid, Model model, HttpSession session){
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		model.addAttribute("groupComment",gCommentService.commentContent(gid));
+		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
+		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
+		return "group/groupBoard";
 	}
 }

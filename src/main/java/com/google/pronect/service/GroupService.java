@@ -13,7 +13,7 @@ public interface GroupService {
 	public int 		studyTotCnt();
 	public List<Group> projectList(String pageNum);
 	public int 		projectTotCnt();
-	public int 		registerGroup(Group group, String[] glanguage);
+	public int 		registerGroup(Group group, String[] glanguage, HttpSession session);
 	public int 		getRegisteredGid(String mid);
 	public int 		groupLeader(HttpSession session);
 	public Group 	getGroupDetail(int gid);
