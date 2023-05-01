@@ -38,17 +38,23 @@
 	<c:if test="${modifyManagerResult eq SUCCESS }">
 		<script>
 			alert({
-				title: '관리자 모드로\n회원 수정이 완료되었습니다!',
-				icon: 'success'
+				position: 'top-end',
+				icon: 'success',
+				title: '관리자 모드로\n회원 수정하였습니다!',
+				showConfirmButton: false,
+				timer: 2000
 			});
 		</script>
 	</c:if>
 	<c:if test="${modifyManagerResult eq FAIL }">
 		<script>
-		alert({
-			title: '관리자 모드로\n회원 수정에 실패했습니다...',
-			icon: 'error'
-		});
+			alert({
+				position: 'top-end',
+				icon: 'error',
+				title: '관리자 모드로\n회원 수정에 실패했습니다...',
+				showConfirmButton: false,
+				timer: 2000
+			});
 		</script>
 	</c:if>
 	<jsp:include page="../main/header.jsp"/>

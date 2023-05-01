@@ -11,6 +11,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<link rel="stylesheet" href="${conPath }/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
 	<script>
 		$(function(){
 			$('#searchBtn').click(function(){
@@ -57,10 +64,91 @@
 	</style>
 </head>
 <body class="is-preload">
+<c:set var="SUCCESS" value="1"/>
+<c:set var="FAIL" value="0"/>
 <c:if test="${member.mstate eq 'N'}">
+    <script>
+        $(document).ready(function() {
+            Swal.fire({
+                icon: 'error',
+                title: '탈퇴한 회원입니다',
+                text: '탈퇴한 회원으로 현재 로그인이 불가합니다.',
+                footer: '<a href="mailto:teamPronect@gmail.com?subject=[ProNect 탈퇴복구신청]아이디:&body=[이름]:%0D%0A%0D%0A[닉네임]:%0D%0A%0D%0A[상세내용]:">탈퇴 복구신청을 원하시나요?</a>'
+            }).then(function() {
+                location.href="${conPath}/member/logout.do";
+            });
+        });
+    </script>
+</c:if>
+<c:if test="${member.mstate eq 'B'}">
 	<script>
-		alert('탈퇴했거나 없는 회원입니다.');
-		location.href="${conPath}/member/logout.do";
+        $(document).ready(function() {
+            Swal.fire({
+                icon: 'error',
+                title: '활동 정지된 회원입니다',
+                text: '활동 정지된 회원으로 현재 로그인이 불가합니다.',
+                footer: '<a href="mailto:teamPronect@gmail.com?subject=[ProNect 정지복구신청]아이디:&body=[이름]:%0D%0A%0D%0A[닉네임]:%0D%0A%0D%0A[상세내용]: 명확한 사유로 정지를 당한 경우 절대 복구되지 않습니다.">부당한 정지를 당했다고 생각하시면 복구 신청을 해주세요</a>'
+            }).then(function() {
+                location.href="${conPath}/member/logout.do";
+            });
+        });
+    </script>
+</c:if>
+<c:if test="${member.mstate eq 'Y' && not empty loginResult}">
+	<script>
+        $(document).ready(function() {
+        	Swal.fire({
+        		  title: '안녕하세요, ${member.mnickname} 님?\n ProNect에서 즐겁고 가치있는 경험을\n하시길 바랍니다.',
+        		  width: 800,
+        		  padding: '2em',
+        		  color: '#716add',
+        		  /* background: '#fff url(${conPath}/images/charlesdeluvio-Lks7vei-eAg-unsplash.jpg)', */
+        		  backdrop: `
+        		    rgba(0,0,123,0.4)
+        		    url("${conPath}/images/nyan-cat.gif")
+        		    left top
+        		    no-repeat
+        		  `
+        		});
+        });
+    </script>
+</c:if>
+<c:if test="${deactivateResult eq SUCCESS}">
+	<script>
+        $(document).ready(function() {
+            Swal.fire({
+                icon: 'success',
+                title: '회원 탈퇴가 완료되었습니다',
+                text: '다음에 다시 만나길 바라요~',
+                footer: '<a href="mailto:teamPronect@gmail.com?subject=[ProNect 탈퇴복구신청]아이디:&body=[이름]:%0D%0A%0D%0A[닉네임]:%0D%0A%0D%0A[상세내용]:">탈퇴 복구신청을 원하시면 클릭하세요. 나중에라도 가능합니다.</a>'
+            }).then(function() {
+                location.href="${conPath}/member/logout.do";
+            });
+        });
+    </script>
+</c:if>
+<c:if test="${joinResult eq SUCCESS }">
+	<script>
+		Swal.fire({
+			position: 'top-end',
+			icon: 'success',
+			title: '회원가입이 완료되었습니다!',
+			text: '환영합니다~',
+			showConfirmButton: false,
+			timer: 2000
+		});
+	</script>
+</c:if>
+<c:if test="${joinResult eq FAIL }">
+	<script>
+		Swal.fire({
+			position: 'top-end',
+			icon: 'success',
+			title: '회원가입에 실패했습니다...',
+			text: '어떤 문제가 있는 것 같습니다',
+			footer: '<a href="history.back()">회원가입 페이지로 돌아가기</a>'
+			showConfirmButton: true
+		});
 	</script>
 </c:if>
 <jsp:include page="header.jsp"/>
