@@ -243,6 +243,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int completeGroup(int gid) {
 		groupDao.joinDelete(gid);
+		groupDao.groupHitUp(gid);
 		return groupDao.completeGroup(gid);
 	}
 

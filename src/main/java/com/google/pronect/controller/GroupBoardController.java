@@ -20,9 +20,7 @@ public class GroupBoardController {
 	private GroupBoardService groupBoardService;
 	@RequestMapping(value="list", method={RequestMethod.GET, RequestMethod.POST})
 	public String groupBoardList(GroupBoard groupboard, int gid, String pageNum, Model model) {
-		System.out.println("1. groupBoardList");
 		model.addAttribute("groupBoard", groupBoardService.groupBoardList(groupboard, pageNum, model));
-		System.out.println("2. getGroupDetail");
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		System.out.println(groupBoardService.groupBoardList(groupboard, pageNum, model));
 		System.out.println(groupService.getGroupDetail(gid));

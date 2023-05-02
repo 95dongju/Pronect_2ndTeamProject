@@ -35,7 +35,7 @@
 	<div class="studyContent_detailComment">
 		<div class="commentInput_commentText">
 			<hr>
-			<h2>${commentCnt }개의 댓글이 있습니다.</h2>
+			<h2>${groupDetail.comment_count }개의 댓글이 있습니다.</h2>
 			<c:if test="${not empty member }">
 				<form action="${conPath}/group/comment.do" method="post">
 					<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>

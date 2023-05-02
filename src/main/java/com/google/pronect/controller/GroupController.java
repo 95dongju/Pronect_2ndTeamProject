@@ -24,7 +24,7 @@ public class GroupController {
 	public String goupList(String pageNum, Model model) {
 		model.addAttribute("list",groupService.groupList(pageNum));
 		model.addAttribute("name","group");
-		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum));
+		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum,12,10));
 		return "main/main";
 	}
 	@RequestMapping(value="studyList", method= {RequestMethod.GET, RequestMethod.POST})
@@ -62,7 +62,6 @@ public class GroupController {
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
 		model.addAttribute("hitGroup",groupService.hitGroup());
 		return "group/groupDetail2";
 	}
@@ -119,16 +118,7 @@ public class GroupController {
 	public String groupInfo(int gid, Model model, HttpSession session){
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
 		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
 		return "group/groupInfo";
-	}
-	@RequestMapping(value="groupBoard", method=RequestMethod.GET)
-	public String groupBoard(int gid, Model model, HttpSession session){
-		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
-		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
-		return "group/groupBoard";
 	}
 }
