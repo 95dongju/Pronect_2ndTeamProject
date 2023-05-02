@@ -15,6 +15,13 @@
 		margin: 50px auto;
 	}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<script>
+	function alert(msg) {
+		Swal.fire(msg);
+	}
+</script>
 </head>
 <body>
 	<c:if test="${joinResult eq 1 }">

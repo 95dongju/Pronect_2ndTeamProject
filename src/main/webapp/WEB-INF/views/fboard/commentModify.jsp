@@ -7,11 +7,34 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
+	<script>
+		function confirmSubmit(){
+		    Swal.fire({
+		        title: '댓글 수정을 완료하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonText: '완료',
+		        cancelButtonText: '취소',
+		        icon: 'question',
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            document.getElementById('frm2').submit();
+		        }
+		    });
+		    return false;
+		}
+	</script>
 </head>
 <body>
 	<br>
 	<div>
-		<form action="${conPath}/fcomment/modify.do">
+		<form id="frm2" action="${conPath}/fcomment/modify.do" onsubmit="return confirmSubmit();">
 			<input type="hidden" name="fcid" value="${fcomment.fcid }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="commentPageNum" value="${param.commentPageNum}">
