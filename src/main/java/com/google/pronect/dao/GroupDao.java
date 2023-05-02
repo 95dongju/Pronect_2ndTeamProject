@@ -16,7 +16,6 @@ public interface GroupDao {
 	public List<Group> projectList(Group group);
 	public int 		projectTotCnt();
 	public int 		registerGroup(Group group);
-	public int 		getRegisteredGid(String mid);
 	public int 		groupLeader(String mid);
 	public int 		insertHistory(Group group);
 	public int 		groupHitUp(int gid);
@@ -25,6 +24,7 @@ public interface GroupDao {
 	public int	modifyGroup(Group group);
 	public int 		deleteHistory(int gid);
 	public int 		deleteGroup(int gid);
+	public int 		joinCheckCnt(Group group);
 	public int 		joinCheck(Group group);
 	public int 		joinGroup(Group group);
 	public List<Group>	groupMember(int gid);
@@ -43,5 +43,4 @@ public interface GroupDao {
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
 	public List<Group> hitGroup();
-	public int 		giveUp(int gid);
 }

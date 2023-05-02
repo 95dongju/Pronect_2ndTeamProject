@@ -21,11 +21,13 @@
 			<c:if test="${groupDetail.mid ne member.mid and joincheck eq 1}">
 				<button onclick="location='unJoin.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">신청 취소</button>
 			</c:if>
-					
+			<c:if test="${groupDetail.mid ne member.mid and joincheck eq 2}">
+				<button onclick="location='memberOut.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">그룹 탈퇴</button>
+			</c:if>
 			<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 				<button onclick="location='modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
 				<button onclick="location='delete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
-				<button onclick="location='complete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
+				<button onclick="location='complete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">그룹 종료</button>
 			</c:if>
 		</c:if>
 		<c:if test="${empty member}">

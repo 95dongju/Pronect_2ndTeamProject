@@ -17,6 +17,7 @@
 }
 #main .groupContent_detailHeader .groupDetail_writer .mimage img {
 	width: 40px;
+	height: 40px;
 	border-radius: 100%;
 }
 #main .groupContent_detailHeader .groupDetail_writer .mimage {
