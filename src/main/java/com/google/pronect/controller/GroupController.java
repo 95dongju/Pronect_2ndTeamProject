@@ -118,7 +118,7 @@ public class GroupController {
 	public String groupInfo(int gid, Model model, HttpSession session){
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
+		model.addAttribute("joinList",groupService.joinList(gid));
 		return "group/groupInfo";
 	}
 }

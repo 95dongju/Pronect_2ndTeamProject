@@ -13,12 +13,14 @@ public class GroupBoardReplyServiceImpl implements GroupBoardReplyService {
 	@Autowired
 	private GroupBoardReplyDao gboardReplyDao;
 	@Override
-	public List<GroupBoardReply> groupBoardReplyList(GroupBoardReply gboard_reply, String replyPageNum, Model model) {
+	public List<GroupBoardReply> groupBoardReplyList(int group_bid, String replyPageNum, Model model) {
 		GroupBoardReply greply = new GroupBoardReply();
-		Paging paging = new Paging(gboardReplyDao.totCntGroupBoardReply(gboard_reply.getGroup_bid()), replyPageNum);
+		Paging paging = new Paging(gboardReplyDao.totCntGroupBoardReply(group_bid), replyPageNum);
+		greply.setGroup_bid(group_bid);
 		greply.setStartRow(paging.getStartRow());
 		greply.setEndRow(paging.getEndRow());
-		return gboardReplyDao.groupBoardReplyList(gboard_reply);
+		model.addAttribute("commentPaging", paging);
+		return gboardReplyDao.groupBoardReplyList(greply);
 	}
 
 	@Override

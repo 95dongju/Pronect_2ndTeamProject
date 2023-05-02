@@ -11,7 +11,7 @@ import com.google.pronect.vo.GroupBoard;
 import com.google.pronect.vo.GroupBoardReply;
 
 public interface GroupBoardReplyService {
-	public List<GroupBoardReply> groupBoardReplyList(GroupBoardReply gboard_reply, String replyPageNum, Model model);
+	public List<GroupBoardReply> groupBoardReplyList(int group_bid, String replyPageNum, Model model);
 	public int totCntGroupBoardReply(int group_bid);
 	public int writeGroupBoardReply(GroupBoardReply gboard_reply);
 	public int modifyGroupBoardReply(GroupBoardReply gboard_reply);

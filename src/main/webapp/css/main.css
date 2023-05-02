@@ -74,6 +74,11 @@ input:not(.inputBox), select, textarea:not(.inputBox) {
 	-ms-appearance: none;
 }
 
+.inputBox {
+	text-align: center;
+	margin: auto;
+}
+
 textarea {
 	resize : none;
 }
@@ -2371,37 +2376,69 @@ textarea {
 		overflow-x: auto;
 	}
 
-	table {
+	table:not(#boardTable) {
 		margin: 0 0 2em 0;
 		width: 100%;
 	}
+	
+	#boardTable {
+		width: 90%;
+		margin: 10px auto;
+		border-top: 3px solid #dddddd;
+		border-bottom: 3px solid #dddddd;
+	}
+	
+	#boardTable tr:nth-child(1){
+		font-weight: bold;
+	}
+	
+	#boardTable tr:nth-child(1) td {
+		padding: 5px;
+	}
+	
+	#boardTable tr:not(tr:nth-child(1)) {
+		border-top: 1px solid #dddddd;
+		cursor: pointer;
+	}
+	
+	#boardTable tr:not(tr:nth-child(1)):hover {
+			color: #f2849e !important;
+	}
+	
+	#boardTable tr:not(tr:nth-child(1)) td {
+		padding: 10px;
+	}
+	
+	#boardTable tr td:not(.boardTitle) {
+		text-align: center;
+	}
 
-		table tbody tr {
+		table:not(#boardTable) tbody tr {
 			border: solid 1px #c9c9c9;
 			border-left: 0;
 			border-right: 0;
 		}
 
-			table tbody tr:nth-child(2n + 1) {
+			table:not(#boardTable) tbody tr:nth-child(2n + 1) {
 				background-color: rgba(144, 144, 144, 0.075);
 			}
 
-		table td {
+		table:not(#boardTable) td {
 			padding: 0.75em 0.75em;
 		}
 
-		table th:not(#registerInfo) {
+		table:not(#boardTable) th:not(#registerInfo) {
 			font-size: 0.9em;
 			font-weight: 900;
 			padding: 0 0.75em 0.75em 0.75em;
 			text-align: left;
 		}
 
-		table thead {
+		table:not(#boardTable) thead {
 			border-bottom: solid 2px #c9c9c9;
 		}
 
-		table tfoot {
+		table:not(#boardTable) tfoot {
 			border-top: solid 2px #c9c9c9;
 		}
 

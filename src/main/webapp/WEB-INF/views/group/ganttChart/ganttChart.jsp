@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 </head>
 <body>
-=
 	<div id="my-timeline" style="position: relative;"><div class="jqtl-headline"><div class="jqtl-headline-wrapper"><h3 class="jqtl-timeline-title">Demo of jQuery.Timeline</h3><div class="jqtl-range-meta">2023. 4. 30.<span class="jqtl-range-span"></span>2023. 8. 1.</div></div></div>
       <ul class="timeline-events">
 <li data-timeline-node="

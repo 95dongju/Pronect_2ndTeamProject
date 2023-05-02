@@ -29,12 +29,10 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 	String backupPath = "C:\\JU\\WebProgramming\\source\\10_2ndTeamProject\\pronect\\src\\main\\webapp\\groupBoardFileUpload\\";
 	@Override
 	public List<GroupBoard> groupBoardList(GroupBoard groupboard, String pageNum, Model model) {
-		System.out.println(" 서비스   totCnt  ");
 		Paging paging = new Paging(gboardDao.totCntGroupBoard(groupboard), pageNum);
 		model.addAttribute("paging", paging);
 		groupboard.setStartRow(paging.getStartRow());
 		groupboard.setEndRow(paging.getEndRow());
-		System.out.println(" 서비스   groupBoardList  ");
 		return gboardDao.groupBoardList(groupboard);
 	}
 

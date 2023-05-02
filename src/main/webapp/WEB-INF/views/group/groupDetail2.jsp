@@ -16,6 +16,7 @@
 	<link href="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.js"></script>
 	<!-- FullCalendar Script -->
+	
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			$(function () {
@@ -58,19 +59,19 @@
 				    	let day = ('0' + today.getDate()).slice(-2);
 				    	let todayStr = year + '-' + month + '-' + day;
 							if (!confirm(info.event.startStr+" 일정 ("+info.event.title+")에 참여하셨습니까?")) {
-					    	alert("취소(아니오)를 누르셨습니다.");
-					    } else {
-					    	if (info.event.startStr == todayStr) {
-					    		alert("확인(예)을 누르셨습니다.");
-					    		location.href='group/schedule/';
-					    	}else {
-					    		alert("스터디 당일에만 참석이 가능합니다.");
-					    	}
-					    	
-					    }
-						    alert('그룹아이디: ' + info.event.groupId);
-						    alert('아이디: ' + info.event.id);
-						  }
+					    		alert("취소(아니오)를 누르셨습니다.");
+						    }else {
+						    	if (info.event.startStr == todayStr) {
+						    		alert("확인(예)을 누르셨습니다.");
+						    		location.href='group/schedule/';
+						    	}else {
+						    		alert("스터디 당일에만 참석이 가능합니다.");
+						    	}
+						    	
+						    }
+							    alert('그룹아이디: ' + info.event.groupId);
+							    alert('아이디: ' + info.event.id);
+							  }
 					});
 				
 					calendar.render();
@@ -300,7 +301,6 @@
 						</li>
 						<li>
 							<p id="groupDetail_schedule"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
-							<!-- <a href="${conPath }/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid }">test</a> -->
 						</li>
 						<c:if test="${groupDetail.gcharacter eq 'P' }">
 						<li><p id="groupDetail_gantt">Gantt 계획표</p></li>

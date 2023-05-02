@@ -69,13 +69,13 @@
 			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid}
 		</if>
 		<if test='searchGroupBoard=="mid"'>
-			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid} AND MID LIKE '%'||#{mid}||'%'
+			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid} AND MID LIKE '%'||#{searchGroupBoard_Word}||'%'
 		</if>
 		<if test='searchGroupBoard=="title"'>
-			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid} AND GROUP_BOARD_TITLE LIKE '%'||#{group_board_title}||'%'
+			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid} AND GROUP_BOARD_TITLE LIKE '%'||#{searchGroupBoard_Word}||'%'
 		</if>
 		<if test='searchGroupBoard=="content"'>
-			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid} AND GROUP_BOARD_CONTENT LIKE '%'||#{group_board_content}||'%'
+			SELECT COUNT(*) FROM GROUP_BOARD WHERE GID = #{gid} AND GROUP_BOARD_CONTENT LIKE '%'||#{searchGroupBoard_Word}||'%'
 		</if>
 	</select>
 	<insert id="writeGroupBoard" parameterType="GroupBoard">
