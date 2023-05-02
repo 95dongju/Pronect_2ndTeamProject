@@ -63,25 +63,18 @@
 						    }else {
 						    	if (info.event.startStr == todayStr) {
 						    		alert("확인(예)을 누르셨습니다.");
-						    		location.href='group/schedule/';
+						    		// location.href='group/schedule/';
 						    	}else {
 						    		alert("스터디 당일에만 참석이 가능합니다.");
 						    	}
-						    	
 						    }
 							    alert('그룹아이디: ' + info.event.groupId);
 							    alert('아이디: ' + info.event.id);
 							  }
 					});
-				
 					calendar.render();
 				});
-				
-				request.fail(function( jqXHR, textStatus ) {
-						alert( "Request failed: " + textStatus );
-					});
 			});
-		
 		});
 	</script>
 	<!-- NAV Ajax Script -->

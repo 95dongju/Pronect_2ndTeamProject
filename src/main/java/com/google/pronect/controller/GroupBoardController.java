@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.pronect.service.GroupBoardReplyService;
 import com.google.pronect.service.GroupBoardService;
 import com.google.pronect.service.GroupService;
 import com.google.pronect.vo.GroupBoard;
@@ -18,10 +19,9 @@ public class GroupBoardController {
 	private GroupService groupService;
 	@Autowired
 	private GroupBoardService groupBoardService;
-
-	/*
-	 * @Autowired private GroupBoardReplyService groupBoardReplyService;
-	 */
+	@Autowired 
+	private GroupBoardReplyService groupBoardReplyService;
+	
 	@RequestMapping(value="list", method={RequestMethod.GET, RequestMethod.POST})
 	public String groupBoardList(GroupBoard groupboard, int gid, String pageNum, Model model) {
 		model.addAttribute("groupBoard", groupBoardService.groupBoardList(groupboard, pageNum, model));
@@ -33,7 +33,7 @@ public class GroupBoardController {
 		System.out.println(groupBoardService.detailGroupBoard(group_bid));
 		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
 		groupboardReply.setGroup_bid(group_bid);
-		// model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(groupboardReply.getGroup_bid(), replyPageNum, model));
+		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(group_bid, replyPageNum, model));
 		return "group/groupBoardDetail";
 	}
 }

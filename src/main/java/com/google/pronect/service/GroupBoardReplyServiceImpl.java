@@ -3,12 +3,14 @@ package com.google.pronect.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.google.pronect.dao.GroupBoardReplyDao;
 import com.google.pronect.util.Paging;
 import com.google.pronect.vo.GroupBoardReply;
 
+@Service
 public class GroupBoardReplyServiceImpl implements GroupBoardReplyService {
 	@Autowired
 	private GroupBoardReplyDao gboardReplyDao;

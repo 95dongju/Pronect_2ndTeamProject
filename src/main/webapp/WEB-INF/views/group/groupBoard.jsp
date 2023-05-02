@@ -8,6 +8,23 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('tr:not(:first-child)').click(function(){
+			let group_bid = Number($(this).children().eq(0).text());
+			document.getElementById('calendar').style.display = 'none';
+			$('.groupDetail').html('');
+			$.ajax({
+				url : '${conPath}/groupBoard/detail.do?',
+				datatype : 'html',
+				data : "group_bid="+group_bid,
+				success : function(data, status){
+					$('.groupDetail').html(data);
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<h2>${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판 </h2>
@@ -17,6 +34,7 @@
 		<table id="boardTable">
 			<c:if test="${not empty groupBoard }">
 				<tr>
+					<td>글번호</td>
 					<td>제목</td>
 					<td>작성자</td>
 					<td>좋아요</td>
@@ -24,6 +42,7 @@
 				</tr>
 				<c:forEach var="groupBoard" items="${groupBoard }">
 					<tr>
+						<td>${groupBoard.group_bid }</td>
 						<td class="boardTitle">
 							${groupBoard.group_board_title }
 							<c:if test="${groupBoard.rep_cnt != 0 }">
@@ -59,7 +78,7 @@
 					<option value="SearchAll" 
 						<c:if test="${param.searchGroupBoard eq 'SearchAll' }">selected="selected"</c:if>
 					>전체 검색</option>
-				</select>
+		</select>
 		<input type="text" name="searchGroupBoard_Word" class="inputBox">
 		<input type="submit" value="검색">
 	</form>
