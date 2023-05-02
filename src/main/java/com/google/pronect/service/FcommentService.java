@@ -15,5 +15,6 @@ public interface FcommentService {
 	public int fcommentReply(Fcomment fcomment, HttpServletRequest request);
 	public int fcommentModify(Fcomment fcomment);
 	public int fcommentDelete(int fcid);
+	public int fcommentDeleteForFboardDelete(int fid);
 	public Fcomment fcommentContent(int fcid);
 }

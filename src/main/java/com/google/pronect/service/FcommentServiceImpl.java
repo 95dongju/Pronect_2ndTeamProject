@@ -66,4 +66,10 @@ public class FcommentServiceImpl implements FcommentService {
 		return fcommentDao.fcommentContent(fcid);
 	}
 
+	@Override
+	public int fcommentDeleteForFboardDelete(int fid) {
+		// TODO Auto-generated method stub
+		return fcommentDao.fcommentDeleteForFboardDelete(fid);
+	}
+
 }

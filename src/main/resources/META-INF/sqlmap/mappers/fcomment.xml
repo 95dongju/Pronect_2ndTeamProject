@@ -39,6 +39,9 @@
 	<update id="fcommentModify" parameterType="Fcomment">
 		UPDATE FCOMMENT SET FCCONTENT = #{fccontent} WHERE FCID=#{fcid}
 	</update>
+	<delete id="fcommentDeleteForFboardDelete" parameterType="int">
+		DELETE FROM FCOMMENT WHERE FID=#{fid}
+	</delete>
 	<delete id="fcommentDelete" parameterType="int">
 		DELETE FROM FCOMMENT WHERE FCID=#{fcid}
 	</delete>
