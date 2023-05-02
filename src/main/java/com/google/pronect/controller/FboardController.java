@@ -59,6 +59,7 @@ public class FboardController {
 	}
 	@RequestMapping(value="delete", method = RequestMethod.GET)
 	public String delete(int fid, Model model) {
+		model.addAttribute("commentPreDeleteResult", fcommentService.fcommentDeleteForFboardDelete(fid));
 		model.addAttribute("deleteResult", fboardService.deleteFboard(fid));
 		return "forward:list.do";
 	}

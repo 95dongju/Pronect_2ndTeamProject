@@ -28,8 +28,10 @@
 		            Swal.fire({
 		                title: "로그아웃되었습니다.",
 		                text: "다음에 다시 만나요~",
-		                icon: "success",
-		                confirmButtonText: "확인"
+		                footer: "3초 뒤에 자동으로 사라집니다",
+		                imageUrl: '${conPath}/images/pexels-leeloo-thefirst-5238584.jpg',
+		                imageHeight: 400,
+		                timer: 3000
 		            }).then(() => {
 		                location.href = "${conPath}/member/logout.do";
 		            });
