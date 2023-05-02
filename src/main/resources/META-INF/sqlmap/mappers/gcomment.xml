@@ -29,4 +29,7 @@
 	<delete id="commentDelete" parameterType="int">
 		DELETE GCOMMENT WHERE GCID = #{gcid}
 	</delete>
+	<select id="commentCnt">
+		SELECT COUNT(*) FROM GCOMMENT WHERE GID = #{gid}
+	</select>
 </mapper>

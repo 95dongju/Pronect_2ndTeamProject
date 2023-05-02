@@ -43,13 +43,34 @@
 		<input type="hidden" name="gid" value="${groupDetail.gid }">
 		<input type="hidden" name="mid" value="${groupDetail.mid }">
 			<table id="main">
-				<tr><th id="registerInfo" >제목<b id="mandatory">*</b></th>
+				<tr>
+					<th id="registerInfo" >제목<b id="mandatory">*</b></th>
 					<td><input type="text" autocomplete="off" name="gtitle" required="required" value="${groupDetail.gtitle}"></td>
 				</tr>
-				<tr><th id="registerInfo" >내용<b id="mandatory">*</b></th>
+				<tr>
+					<th id="registerInfo" >내용<b id="mandatory">*</b></th>
 					<td><textarea rows="10" cols="10" autocomplete="off" name="gcontent" required="required">${groupDetail.gcontent}</textarea></td>
 				</tr>
-				<tr><th id="registerInfo" >모집 인원<b id="mandatory">*</b></th>
+				<tr>
+					<th id="registerInfo">모집 구분<b id="mandatory">*</b></th>
+					<td>
+						<select name="gcharacter" required="required">
+							<option value="S" <c:if test="${groupDetail.gcharacter eq 'S'}">selected="selected"</c:if>>스터디</option>						
+							<option value="P" <c:if test="${groupDetail.gcharacter eq 'P'}">selected="selected"</c:if>>프로젝트</option>						
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span>
+							<label id="checkbox"><input type="checkbox" class ="position" name="gdev" id="gdev-checkbox" value="Y" disabled="disabled">개발자</label>
+							<label id="checkbox"><input type="checkbox" class ="position" name="gdesign" id="gdesign-checkbox" value="Y" disabled="disabled">디자이너</label>
+							<label id="checkbox"><input type="checkbox" class ="position" name="gpm" id="gpm-checkbox" value="Y" disabled="disabled">기획자</label>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th id="registerInfo" >모집 인원<b id="mandatory">*</b></th>
 					<td>
 						<input type="number" autocomplete="off" name="gpeople" required="required" value="${groupDetail.gpeople}">명
 						<span id="peopleInfo">최소 2명부터 입력 가능</span>
@@ -77,6 +98,14 @@
 							<c:if test="${groupDetail.glanguage1 eq 'PHP' or
 														groupDetail.glanguage2 eq 'PHP' or 
 														groupDetail.glanguage3 eq 'PHP'}"> checked="checked"</c:if>>PHP</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="Spring"
+							<c:if test="${groupDetail.glanguage1 eq 'Spring' or
+														groupDetail.glanguage2 eq 'Spring' or 
+														groupDetail.glanguage3 eq 'Spring'}"> checked="checked"</c:if>>Spring</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="React"
+							<c:if test="${groupDetail.glanguage1 eq 'React' or
+														groupDetail.glanguage2 eq 'React' or 
+														groupDetail.glanguage3 eq 'React'}"> checked="checked"</c:if>>React</label>
 					</td>
 				</tr>
 				<tr>
@@ -85,6 +114,10 @@
 							<c:if test="${groupDetail.glanguage1 eq 'TypeScript' or
 														groupDetail.glanguage2 eq 'TypeScript' or 
 														groupDetail.glanguage3 eq 'TypeScript'}"> checked="checked"</c:if>>TypeScript</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="Node"
+							<c:if test="${groupDetail.glanguage1 eq 'Node' or
+														groupDetail.glanguage2 eq 'Node' or 
+														groupDetail.glanguage3 eq 'Node'}"> checked="checked"</c:if>>Node.js</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="C"
 							<c:if test="${groupDetail.glanguage1 eq 'C' or
 														groupDetail.glanguage2 eq 'C' or 
@@ -150,14 +183,14 @@ $(document).ready(function(){
 </script>
 <script>
 	$(document).ready(function(){
-		$("input[type='checkbox']").on("click",function(){
-			let count = $("input:checked[type='checkbox']").length;
+		$("input[name='glanguage']").on("click",function(){
+			let count = $("input:checked[name='glanguage']").length;
 			if(count>3){
 				$(this).prop("checked",false);
 				alert("3개까지만 선택 할 수 있습니다.");
 			}
 		})
-		$("input[type='number']").on("change",function(){
+		$(".gpeople").on("change",function(){
 			let number = $(this).val();
 			let curpeople = ${groupDetail.gcurpeople};
 			if(number<2){
@@ -172,7 +205,7 @@ $(document).ready(function(){
 				$(this).val(curpeople);
 			}
 		})
-		$("input[type='number']").on("keyup",function(){
+		$(".gpeople").on("keyup",function(){
 			let number = $(this).val();
 			let curpeople = ${groupDetail.gcurpeople};
 			if(number<2){
@@ -183,6 +216,55 @@ $(document).ready(function(){
 				$(this).val(curpeople);
 			}
 		})
+	  let gdevCheckbox = document.getElementById("gdev-checkbox");
+	  let gdesignCheckbox = document.getElementById("gdesign-checkbox");
+	  let gpmCheckbox = document.getElementById("gpm-checkbox");
+	
+	  let gdevInput = document.getElementsByName("gdev")[0];
+	  let gdesignInput = document.getElementsByName("gdesign")[0];
+	  let gpmInput = document.getElementsByName("gpm")[0];
+	
+	  gdevCheckbox.addEventListener("change", function() {
+	    if (this.checked) {
+	      gdevInput.value = "Y";
+	    } else {
+	      gdevInput.value = "N";
+	    }
+	  });
+	
+	  gdesignCheckbox.addEventListener("change", function() {
+	    if (this.checked) {
+	      gdesignInput.value = "Y";
+	    } else {
+	      gdesignInput.value = "N";
+	    }
+	  });
+	
+	  gpmCheckbox.addEventListener("change", function() {
+	    if (this.checked) {
+	      gpmInput.value = "Y";
+	    } else {
+	      gpmInput.value = "N";
+	    }
+	  });
+	  $("form").on("submit", function(event) {
+		  if(!$("#gdev-checkbox").prop("checked") && !$("#gdesign-checkbox").prop("checked") && !$("#gpm-checkbox").prop("checked")) {
+		    alert("한 가지 이상의 직군을 선택해야 합니다.");
+		    event.preventDefault();
+		  }
+		});
+    $("select[name='gcharacter']").change(function(){
+        var selectedVal = $(this).val();
+	  	  let gdevCheckbox = document.getElementById("gdev-checkbox");
+			  let gdesignCheckbox = document.getElementById("gdesign-checkbox");
+			  let gpmCheckbox = document.getElementById("gpm-checkbox");
+        if(selectedVal === 'P'){
+          $('.position').prop('disabled', false);
+        } else {
+          $('.position').prop('disabled', true);
+          $('.position').prop('checked', false)
+        }
+    });
 	});
 </script>
 </html>
