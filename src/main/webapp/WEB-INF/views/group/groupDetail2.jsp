@@ -13,7 +13,8 @@
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
 	<link href="${conPath}/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
 	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
-	
+	<link href="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.js"></script>
 	<!-- FullCalendar Script -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
@@ -47,6 +48,9 @@
 							}
 						},
 						events: data,
+						dateClick: function(info) {
+							alert('ee');
+						}, 
 						eventClick: function(info) {
 				    	let today = new Date();   
 				    	let year = today.getFullYear();
@@ -108,12 +112,44 @@
 			document.getElementById('calendar').style.display = 'block';
 			document.getElementsByClassName('fc-prev-button fc-button fc-button-primary')[0].click();
 			document.getElementsByClassName('fc-next-button fc-button fc-button-primary')[0].click();
+			$.ajax({
+				url : '${conPath}/group/schedule/myGroupSchedule.do',
+				datatype : 'html',
+				data : "gid="+${groupDetail.gid},
+				success : function(data, status){
+					$('.groupDetail').html(data);
+				}
+			});
 		});
 		$('#groupDetail_memberInfo').click(function(){
 			document.getElementById('calendar').style.display = 'none';
 			$('.groupDetail').html('');
 			$.ajax({
 				url : '${conPath}/group/memberInfo.do',
+				datatype : 'html',
+				data : "gid="+${groupDetail.gid},
+				success : function(data, status){
+					$('.groupDetail').html(data);
+				}
+			});
+		});
+		$('#groupDetail_gantt').click(function(){
+			document.getElementById('calendar').style.display = 'none';
+			$('.groupDetail').html('');
+			$.ajax({
+				url : '${conPath}/group/schedule/gantt.do',
+				datatype : 'html',
+				data : "gid="+${groupDetail.gid},
+				success : function(data, status){
+					$('.groupDetail').html(data);
+				}
+			});
+		});
+		$('#groupDetail_board').click(function(){
+			document.getElementById('calendar').style.display = 'none';
+			$('.groupDetail').html('');
+			$.ajax({
+				url : '${conPath}/groupBoard/list.do?',
 				datatype : 'html',
 				data : "gid="+${groupDetail.gid},
 				success : function(data, status){
@@ -169,9 +205,6 @@
 		border-radius: 20px;
 		background-color:black;
 		color:white;
-	}
-	#sideBanner {
-		display: none;
 	}
 </style>
 </head>
@@ -280,10 +313,9 @@
 					<p style=clear:both;></p>
 				</nav>
 			</div>
-			<div class="groupDetail">
-			</div>
 			<div id='calendar'>
-				<h2></h2>
+			</div>
+			<div class="groupDetail">
 			</div>
 	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 	</div>

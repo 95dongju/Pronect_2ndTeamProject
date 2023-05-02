@@ -459,6 +459,46 @@ INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'tes
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test4-2',15,2);
 INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS) VALUES (GSTATUS_SEQ.NEXTVAL, 'test1-1',16,3);
 -------------------------------------------------------------------------------
+-----------------------  GROUP_BOARD DUMMY  -----------------------------------
+-------------------------------------------------------------------------------
+SELECT * FROM GROUP_BOARD;
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '1', 'test1-1', '스터디 시작!', '열심히 합시당', NULL, 2, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '2', 'test1-1', '필독해주세요', '이번 주는 언제 보는 게 좋을까요?', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '3', 'test3-4', '코테 푸는 중인데', '이거 푸는 법 좀 알려주세요', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '4', 'test4-1', '취준생입니다', '네카라쿠배까지 파이팅.', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '5', 'test1-3', '졸려요', '잠 깨는 법 좀 공유해주세요', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '6', 'test3-3', '백준 골드 풀어보신 분', '괴물이신가요 제 머리로도 풀 수 있는 게 맞나요', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '7', 'test4-2', '스프링 강의 추천해주세요', '...제발요', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '8', 'test1-1', '스터디에 오신 여러분들을 환영합니다', '아래의 주의사항들을 지켜주세요 1. 어쩌구 2. 저쩌구 3. 블라블라', NULL, 0, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '9', 'test1-1', '이번 주 스터디는 쉽니다!', '다들 체력을 안배하셔요', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '10', 'test2-3', '스프링에 사용할 간트차트 api 좀 추천해주세요', '쓸만한게 없어요..', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '11', 'test3-4', '다음 주 월요일 회의는 줌으로 진행합니다', '줌 링크는 곧 공유하겠습니다', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '12', 'test4-1', '날씨가 요즘 오락가락해서 날씨 어플 같은 거 만들어도 재미있을 듯용', '뻘글입니다', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '13', 'test1-3', '오픈하우스 커뮤니티는 이렇게 진행하겠습니다', '첨부된 기획안 확인해주세요', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '14', 'test3-3', '저희는 오로지 백엔드로만 승부합니다', '내용은 다음과 같습니다', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '15', 'test4-2', '좌석확인!!', '카톡으로 프로젝트 진행상황 공유하겠습니다', NULL, 0, '182.11.2', 0, SYSDATE);
+INSERT INTO GROUP_BOARD VALUES (GROUP_BOARD_SEQ.NEXTVAL, '16', 'test1-1', '메타커머스 프로젝트입니당', '우하하 잘 부탁드려용', NULL, 0, '182.11.2', 0, SYSDATE);
+-------------------------------------------------------------------------------
+-----------------------  GROUP_REPLY DUMMY  -----------------------------------
+-------------------------------------------------------------------------------
+SELECT * FROM GROUP_BOARD_REPLY;
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11114', 'test1-1', '저는 진짜 열심히 할거예요', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11114', 'test1-2', '저도거든여?', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11115', 'test1-3', '참고로 커피 못 마십니당', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11115', 'test1-2', '그러면 그거 드세여 편의점에 디카페인 박카스 팔던데', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11116', 'test1-3', '전 프로그래머스 0단계도 어렵던데', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11117', 'test1-2', '인프런 김영한인가 그거 추천', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11118', 'test1-1', '궁금한 점은 댓글 남겨 주세욘', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11119', 'test1-2', '님은 좀 쉬긴 해야 해여', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11120', 'test2-3', 'ㅠㅠ 무플 슬퍼여', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11121', 'test3-4', '줌 링크: http://dkdjwi.swjdhcvk.zoom.com/1281626', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11122', 'test1-1', 'ㅎㅎ..', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11123', 'test4-1', '굿굿 감사합니다', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11124', 'test1-1', '힘내봅시당', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11125', 'test1-2', '카톡 아이디 없다고 뜨는데여??', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11125', 'test4-2', 'test1-2님 잘못 입력한듯여 ㅠㅠ sieud092 입니당 다시 추가해주세욤 ', 0, SYSDATE);
+INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11126', 'test1-2', '잘부탁드려요~!~', 0, SYSDATE);
+-------------------------------------------------------------------------------
 -------------------------  MIMAGE CHANGE  -------------------------------------
 -------------------------------------------------------------------------------
 UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE = 'test.jpg';

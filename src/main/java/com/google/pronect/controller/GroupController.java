@@ -24,7 +24,7 @@ public class GroupController {
 	public String goupList(String pageNum, Model model) {
 		model.addAttribute("list",groupService.groupList(pageNum));
 		model.addAttribute("name","group");
-		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum));
+		model.addAttribute("paging",new Paging(groupService.groupTotCnt(),pageNum,12,10));
 		return "main/main";
 	}
 	@RequestMapping(value="studyList", method= {RequestMethod.GET, RequestMethod.POST})
@@ -47,8 +47,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
-	public String register(Group group, Model model, String[] glanguage){
-	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage));
+	public String register(Group group, Model model, String[] glanguage, HttpSession session){
+		System.out.println("4"+group);
+	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage, session));
 		return "forward:groupList.do";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
@@ -61,7 +62,6 @@ public class GroupController {
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
 		model.addAttribute("hitGroup",groupService.hitGroup());
 		return "group/groupDetail2";
 	}
@@ -118,7 +118,6 @@ public class GroupController {
 	public String groupInfo(int gid, Model model, HttpSession session){
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
-		model.addAttribute("commentCnt",groupService.getCommentCnt(gid));
 		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
 		return "group/groupInfo";
 	}

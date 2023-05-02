@@ -31,6 +31,7 @@
 	#btn{ margin:0 10px 0 10px;}
 	#peopleInfo{color:#B6B8C0; font-size:0.8em; margin-left:30px;}
 	#mandatory { color:red;}
+	.position{width:50px;}
 </style>
 </head>
 <body>
@@ -40,15 +41,36 @@
 		<form action="${conPath }/group/register.do" method="post">
 			<input type="hidden" name="method" value="register">
 			<table>
-				<tr><th id="registerInfo">제목<b id="mandatory">*</b></th>
+				<tr>
+					<th id="registerInfo">제목<b id="mandatory">*</b></th>
 					<td><input type="text" autocomplete="off" name="gtitle" required="required" maxlength="80"></td>
 				</tr>
-				<tr><th id="registerInfo">내용<b id="mandatory">*</b></th>
-					<td><textarea rows="10" autocomplete="off" cols="10" name="gcontent" required="required"></textarea> </td>
+				<tr>
+					<th id="registerInfo">내용<b id="mandatory">*</b></th>
+					<td><textarea rows="10" autocomplete="off" cols="10" name="gcontent" required="required"></textarea></td>
 				</tr>
-				<tr><th id="registerInfo">모집 인원<b id="mandatory">*</b></th>
+				<tr>
+					<th rowspan="2" id="registerInfo">모집 구분<b id="mandatory">*</b></th>
 					<td>
-						<input type="number" autocomplete="off" name="gpeople" required="required" value=2>명
+						<select name="gcharacter">
+							<option value="S" selected="selected">스터디</option>						
+							<option value="P">프로젝트</option>						
+						</select>
+					</td>
+				</tr>
+					<tr>
+						<td>
+							<span>
+								<label id="checkbox"><input type="checkbox" class ="position" name="gdev" id="gdev-checkbox" value="Y" disabled="disabled">개발자</label>
+								<label id="checkbox"><input type="checkbox" class ="position" name="gdesign" id="gdesign-checkbox" value="Y" disabled="disabled">디자이너</label>
+								<label id="checkbox"><input type="checkbox" class ="position" name="gpm" id="gpm-checkbox" value="Y" disabled="disabled">기획자</label>
+							</span>
+						</td>
+					</tr>
+				<tr>
+					<th id="registerInfo">모집 인원<b id="mandatory">*</b></th>
+					<td>
+						<input class="gpeople" type="number" autocomplete="off" min="2" name="gpeople" required="required" value=2>명
 						<span id="peopleInfo">최소 2명부터 입력 가능</span>
 					</td>
 				</tr>
@@ -60,14 +82,17 @@
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="JavaScript">JavaScript</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="C++">C++</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="PHP">PHP</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="Spring">Spring</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="REACT">REACT</label>
 					</td>
 				</tr>
 				<tr>
 					<td>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="Node.js">Node.js</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="TypeScript">TypeScript</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="C">C</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Go">Go</label>
-						<label id="checkbox"><input type="checkbox" name="glanguage" value="Shell">Shell</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="Shell">Shell</label><br>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Ruby">Ruby</label>
 					</td>
 				</tr>
@@ -82,7 +107,7 @@
 				</tr>
 				<tr><td id="btnContainer" colspan="2">
 					<input id="btn" type="submit" value="등록">
-					<button id="btn" onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
+					<button id="btn" onclick="location='groupList.do?pageNum=1'">목록</button>
 				</td></tr>
 			</table>
 		</form>
@@ -102,7 +127,6 @@ $(document).ready(function(){
          monthNamesShort: ["1월","2월","3월","4월","5월","6월", "7월","8월","9월","10월","11월","12월"],
          dateFormat:'yy-mm-dd',
      });
-    
     $('#sdate').datepicker("option", "maxDate", $("#edate").val());
     $('#sdate').datepicker("option", "onClose", function (selectedDate){
         $("#edate").datepicker( "option", "minDate", selectedDate );
@@ -112,32 +136,85 @@ $(document).ready(function(){
     $('#edate').datepicker("option", "minDate", $("#sdate").val());
     $('#edate').datepicker("option", "onClose", function (selectedDate){
         $("#sdate").datepicker( "option", "maxDate", selectedDate );
-       });
+  	});
 	});
 </script>
 <script>
 	$(document).ready(function(){
-		$("input[type='checkbox']").on("click",function(){
-			let count = $("input:checked[type='checkbox']").length;
+		$("input[name='glanguage']").on("click",function(){
+			let count = $("input:checked[name='glanguage']").length;
 			if(count>3){
 				$(this).prop("checked",false);
 				alert("3개까지만 선택 할 수 있습니다.");
 			}
 		})
-		$("input[type='number']").on("change",function(){
+		$(".gpeople").on("change",function(){
 			let number = $(this).val();
 			if(number<2){
 				alert("인원수를 확인해주세요");
 				$(this).val('2');
 			}
 		})
-		$("input[type='number']").on("keyup",function(){
+		$(".gpeople").on("keyup",function(){
 			let number = $(this).val();
 			if(number<2){
 				alert("인원수를 확인해주세요");
 				$(this).val('2');
 			}
 		})
+	  let gdevCheckbox = document.getElementById("gdev-checkbox");
+	  let gdesignCheckbox = document.getElementById("gdesign-checkbox");
+	  let gpmCheckbox = document.getElementById("gpm-checkbox");
+	
+	  let gdevInput = document.getElementsByName("gdev")[0];
+	  let gdesignInput = document.getElementsByName("gdesign")[0];
+	  let gpmInput = document.getElementsByName("gpm")[0];
+	
+	  gdevCheckbox.addEventListener("change", function() {
+	    if (this.checked) {
+	      gdevInput.value = "Y";
+	    } else {
+	      gdevInput.value = "N";
+	    }
+	  });
+	
+	  gdesignCheckbox.addEventListener("change", function() {
+	    if (this.checked) {
+	      gdesignInput.value = "Y";
+	    } else {
+	      gdesignInput.value = "N";
+	    }
+	  });
+	
+	  gpmCheckbox.addEventListener("change", function() {
+	    if (this.checked) {
+	      gpmInput.value = "Y";
+	    } else {
+	      gpmInput.value = "N";
+	    }
+	  });
+
+    $("select[name='gcharacter']").change(function(){
+     	let selectedVal = $(this).val();
+		  let gdevCheckbox = document.getElementById("gdev-checkbox");
+		  let gdesignCheckbox = document.getElementById("gdesign-checkbox");
+		  let gpmCheckbox = document.getElementById("gpm-checkbox");
+		    if(selectedVal === 'P'){
+		      $('.position').prop('disabled', false);
+		    } else {
+		      $('.position').prop('disabled', true);
+		      $('.position').prop('checked', false)
+		    }
+		});
+    $("form").on("submit", function(event) {
+   	  let gcharacter = $("select[name='gcharacter']").val();
+   	  if(gcharacter == 'P'){
+   	    if(!$("#gdev-checkbox").prop("checked") && !$("#gdesign-checkbox").prop("checked") && !$("#gpm-checkbox").prop("checked")) {
+   	      alert("한 가지 이상의 직군을 선택해야 합니다.");
+   	      event.preventDefault();
+   	    }
+   	  }
+   	});
 	});
 </script>
 </html>

@@ -34,4 +34,5 @@ public class Group {
 	private String	mimage;		//작성자 이미지
 	private String	mnickname;	//작성자 닉네임
 	private int		gsid;
+	private int 	comment_count;
 }

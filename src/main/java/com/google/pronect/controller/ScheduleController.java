@@ -36,7 +36,7 @@ public class ScheduleController {
 		for(int i=0; i < list.size(); i++) {			
 			hash.put("title", list.get(i).getScd_title());
 			hash.put("cal_memo", list.get(i).getScd_memo()); 
-			hash.put("groupId", list.get(i).getScd_id());
+			hash.put("groupId", list.get(i).getGid());
 			hash.put("id", list.get(i).getScd_id());
 			hash.put("start", list.get(i).getScd_start());
 			hash.put("end", list.get(i).getScd_end()); 
@@ -55,5 +55,9 @@ public class ScheduleController {
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detailSchedule(int scd_id) {
 		return "";
+	}
+	@RequestMapping(value="gantt", method=RequestMethod.GET)
+	public String gantt() {
+		return "group/ganttChart/gantt";
 	}
 }

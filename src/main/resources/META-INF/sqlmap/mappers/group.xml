@@ -28,49 +28,81 @@
 		<result property="gsid" column="gsid"/>
 		<result property="mnickname" column="mnickname"/>
 	</resultMap>
+<!--//////////////////////////////////goupList.do//////////////////////////////////// -->
 	<select id="groupList" parameterType="Group" resultMap="GroupResult">
-		SELECT * FROM 
-    (SELECT ROWNUM RN, A.* FROM
-        (SELECT * FROM MYGROUP WHERE GCOMPLETE = 'N' ORDER BY GID DESC) A) 
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		SELECT A.*, COALESCE(C.COMMENT_COUNT, 0) AS COMMENT_COUNT
+		FROM 
+		    (SELECT ROWNUM RN, G.GID, G.GCHARACTER, M.MID, M.MIMAGE, M.MNICKNAME, G.GTITLE, G.GCONTENT, G.GPEOPLE, G.GCURPEOPLE,
+		           G.GLANGUAGE1, G.GLANGUAGE2, G.GLANGUAGE3, G.GDEV, G.GDESIGN, G.GPM, G.GRDATE, G.GSDATE, G.GFDATE, G.GHIT, G.GLOC, G.GCOMPLETE 
+		    FROM MYGROUP G
+		    INNER JOIN MEMBER M ON G.MID = M.MID 
+		    WHERE G.GCOMPLETE = 'N' 
+		    ORDER BY G.GID DESC) A
+		LEFT JOIN 
+		    (SELECT GID, COUNT(*) AS COMMENT_COUNT
+		    FROM GCOMMENT
+		    GROUP BY GID) C
+		ON A.GID = C.GID
+		WHERE A.RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="groupTotCnt" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N'
 	</select>
+<!--//////////////////////////////////studyList.do//////////////////////////// -->
 	<select id="studyList" parameterType="Group" resultMap="GroupResult">
-		SELECT * FROM 
-    (SELECT ROWNUM RN, A.* FROM
-        (SELECT * FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='S' ORDER BY GID DESC) A) 
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		SELECT A.*, COALESCE(C.COMMENT_COUNT, 0) AS COMMENT_COUNT
+		FROM 
+		    (SELECT ROWNUM RN, G.GID, G.GCHARACTER, M.MID, M.MIMAGE, M.MNICKNAME, G.GTITLE, G.GCONTENT, G.GPEOPLE, G.GCURPEOPLE,
+		           G.GLANGUAGE1, G.GLANGUAGE2, G.GLANGUAGE3, G.GDEV, G.GDESIGN, G.GPM, G.GRDATE, G.GSDATE, G.GFDATE, G.GHIT, G.GLOC, G.GCOMPLETE 
+		    FROM MYGROUP G
+		    INNER JOIN MEMBER M ON G.MID = M.MID 
+		    WHERE G.GCOMPLETE = 'N' AND GCHARACTER='S'
+		    ORDER BY G.GID DESC) A
+		LEFT JOIN 
+		    (SELECT GID, COUNT(*) AS COMMENT_COUNT
+		    FROM GCOMMENT
+		    GROUP BY GID) C
+		ON A.GID = C.GID
+		WHERE A.RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="studyTotCnt" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='S'
 	</select>
+<!--//////////////////////////////////////projectList.do/////////////////////////////////  -->
 	<select id="projectList" parameterType="Group" resultMap="GroupResult">
-		SELECT * FROM 
-    (SELECT ROWNUM RN, A.* FROM
-        (SELECT * FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='P' ORDER BY GID DESC) A) 
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		SELECT A.*, COALESCE(C.COMMENT_COUNT, 0) AS COMMENT_COUNT
+		FROM 
+		    (SELECT ROWNUM RN, G.GID, G.GCHARACTER, M.MID, M.MIMAGE, M.MNICKNAME, G.GTITLE, G.GCONTENT, G.GPEOPLE, G.GCURPEOPLE,
+		           G.GLANGUAGE1, G.GLANGUAGE2, G.GLANGUAGE3, G.GDEV, G.GDESIGN, G.GPM, G.GRDATE, G.GSDATE, G.GFDATE, G.GHIT, G.GLOC, G.GCOMPLETE 
+		    FROM MYGROUP G
+		    INNER JOIN MEMBER M ON G.MID = M.MID 
+		    WHERE G.GCOMPLETE = 'N' AND GCHARACTER = 'P'
+		    ORDER BY G.GID DESC) A
+		LEFT JOIN 
+		    (SELECT GID, COUNT(*) AS COMMENT_COUNT
+		    FROM GCOMMENT
+		    GROUP BY GID) C
+		ON A.GID = C.GID
+		WHERE A.RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="projectTotCnt" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP WHERE GCOMPLETE = 'N' AND GCHARACTER='P'
 	</select>
-	<select id="groupLeader" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM MYGROUP WHERE MID = #{mid} AND GCOMPLETE='N'
-	</select>
+<!-- /////////////////////////////////register.do////////////////////////////////// -->
 	<insert id="registerGroup" parameterType="Group">
 		INSERT INTO MYGROUP (GID, GCHARACTER, MID, GTITLE, GCONTENT, GPEOPLE, 
                     GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, 
                     GDEV, GDESIGN, GPM,
                     GSDATE, GFDATE, GLOC)
-            VALUES(MYGROUP_SEQ.NEXTVAL, #{gcharacter}, #{mid}, #{gtitle}, #{gcontent}, #{gpeople},
+            VALUES(MYGROUP_SEQ.NEXTVAL, #{gcharacter, jdbcType=VARCHAR}, #{mid, jdbcType=VARCHAR}, #{gtitle, jdbcType=VARCHAR}, #{gcontent, jdbcType=VARCHAR}, #{gpeople, jdbcType=VARCHAR},
                     #{glanguage1},#{glanguage2},#{glanguage3},
-   		<if test="gcharacter=='S'">
-                    NULL, NULL, NULL,
-      </if>
-      <if test="gcharacter=='P'">
-                    #{gdev}, #{gdesign}, #{gpm},
-      </if>
+   		
+			<if test="gcharacter=='S'">
+               			'N', 'N', 'N',
+     		</if>
+			<if test="gcharacter=='P'">
+	         			#{gdev}, #{gdesign}, #{gpm},
+			</if>
                     TO_CHAR(TO_DATE(#{gsdate}, 'YYYY-MM-DD')), TO_CHAR(TO_DATE(#{gfdate}, 'YYYY-MM-DD')), #{gloc})
  	  <selectKey resultType="Integer" keyProperty="gid" order="AFTER">
 	  	SELECT MAX(GID) FROM MYGROUP
@@ -86,13 +118,30 @@
 	  	SELECT MAX(GSID) FROM GSTATUS
 	  </selectKey>
 	</insert>
-	<update id="groupHitUp" parameterType="int">
-		UPDATE MYGROUP SET GHIT=GHIT+1 WHERE GID = #{gid}
-	</update>
+<!--////////////////////////////////////// detail.do/////////////////////////////////-->
+	<select id="joinCheck" parameterType="Group" resultType="int">
+		SELECT COUNT(*) FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
+	</select>
+	<select id="joinList" parameterType="int" resultMap="GroupResult">
+		SELECT MIMAGE, M.MID MID, GID, GSID ,GSSTATUS,MNICKNAME FROM MEMBER M, GSTATUS G WHERE M.MID = G.MID AND G.GID = #{gid} AND GSSTATUS= 1
+	</select>
+	<select id="groupMember" parameterType="int" resultMap="GroupResult">
+		SELECT GSID, M.MID MID, MIMAGE, MNICKNAME, GID FROM MEMBER M, GSTATUS G WHERE M.MID = G.MID AND GID = #{gid} AND GSSTATUS = 2
+	</select>
 	<select id="getGroupDetail" parameterType="int" resultType="Group">
 		SELECT M.MID MID, MIMAGE, MNICKNAME, GCHARACTER, GRDATE, GID ,GTITLE, GCONTENT, GPEOPLE, GCURPEOPLE, GLANGUAGE1, GLANGUAGE2, GLANGUAGE3, GDEV, GDESIGN, GPM, TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, TO_CHAR(GFDATE, 'YYYY-MM-DD') GFDATE, GLOC
 			FROM MYGROUP G,MEMBER M WHERE G.MID=M.MID AND GID=#{gid}
 	</select>
+	<update id="groupHitUp" parameterType="int">
+		UPDATE MYGROUP SET GHIT=GHIT+1 WHERE GID = #{gid}
+	</update>
+	<select id="groupLeader" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MYGROUP WHERE MID = #{mid} AND GCOMPLETE='N'
+	</select>
+	<select id="hitGroup" resultMap="GroupResult">
+		SELECT ROWNUM, GTITLE, GID FROM (SELECT * FROM MYGROUP WHERE GCOMPLETE='N' ORDER BY GHIT DESC) A WHERE ROWNUM BETWEEN 1 AND 10
+	</select>
+<!--//////////////////////////////////////////modify.do///////////////////////-->
 	<update id="modifyGroup" parameterType="Group">
 		UPDATE MYGROUP SET GTITLE = #{gtitle},
                 GCONTENT = #{gcontent},
@@ -110,15 +159,14 @@
                 GLOC = #{gloc}
         WHERE GID = #{gid}
 	</update>
+<!--////////////////////////////delete.do///////////////////////////////////////  -->
 	<update id="deleteHistory" parameterType="int">
 		UPDATE GSTATUS SET GSSTATUS = 4 WHERE GID = #{gid}
 	</update>
 	<update id="deleteGroup" parameterType="int">
 		UPDATE MYGROUP SET GCOMPLETE = 'D' WHERE GID = #{gid}
 	</update>
-	<select id="joinCheck" parameterType="Group" resultType="int">
-		SELECT COUNT(*) FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
-	</select>
+<!--/////////////////////////////////join.do////////////////////////////////////////-->
 	<insert id="joinGroup" parameterType="Group">
 		INSERT INTO GSTATUS (GSID, MID, GID, GSSTATUS)
             VALUES (GSTATUS_SEQ.NEXTVAL, #{mid}, #{gid},1)
@@ -126,12 +174,11 @@
   		SELECT MAX(GSID) FROM GSTATUS
   	</selectKey>
 	</insert>
+<!--////////////////////////////////unJoin.do////////////////////////////////  -->
 	<delete id="unJoinGroup" parameterType="Group">
 		DELETE FROM GSTATUS WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
 	</delete>
-	<select id="joinList" parameterType="int" resultMap="GroupResult">
-		SELECT MIMAGE, M.MID MID, GID, GSID ,GSSTATUS,MNICKNAME FROM MEMBER M, GSTATUS G WHERE M.MID = G.MID AND G.GID = #{gid} AND GSSTATUS= 1
-	</select>
+<!--///////////////////////////////////accept.do/////////////////////////////////  -->
 	<update id="acceptGroup" parameterType="Group">
 		UPDATE GSTATUS SET GSSTATUS = 2 WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 1
 	</update>
@@ -144,9 +191,7 @@
 	<update id="peopleFull" parameterType="int">
 		UPDATE MYGROUP SET GCOMPLETE = 'F' WHERE GID = #{gid}
 	</update>
-	<select id="groupMember" parameterType="int" resultMap="GroupResult">
-		SELECT GSID, M.MID MID, MIMAGE, MNICKNAME, GID FROM MEMBER M, GSTATUS G WHERE M.MID = G.MID AND GID = #{gid} AND GSSTATUS = 2
-	</select>
+<!--///////////////////////////////////memberOut.do//////////////////////////////  -->
 	<update id="memberOut" parameterType="Group">
 		UPDATE GSTATUS SET GSSTATUS = 0 WHERE MID = #{mid} AND GID = #{gid} AND GSSTATUS = 2
 	</update>
@@ -156,19 +201,15 @@
 	<update id="peopleUnFull" parameterType="int">
 		UPDATE MYGROUP SET GCOMPLETE = 'N' WHERE GID = #{gid}
 	</update>
+<!--//////////////////////////////////////////complete.do/////////////////////////  -->
 	<update id="completeGroup" parameterType="int">
 		UPDATE GSTATUS SET GSSTATUS = 3 WHERE GID = #{gid} AND GSSTATUS = 2
 	</update>
 	<delete id="joinDelete" parameterType="int">
 		DELETE FROM GSTATUS WHERE GID = #{gid} AND GSSTATUS = 1
 	</delete>
-	<select id="getCommentCnt" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM MYGROUP G, GCOMMENT C WHERE G.GID=C.GID AND G.GID = #{gid}
-	</select>
-	<select id="hitGroup" resultMap="GroupResult">
-		SELECT ROWNUM, GTITLE, GID FROM (SELECT * FROM MYGROUP WHERE GCOMPLETE='N' ORDER BY GHIT DESC) A WHERE ROWNUM BETWEEN 1 AND 10
-	</select>
-	<update id="giveUp">
-	
+<!--///////////////////////////////////giveUp.do, 4 or 0?? ///////////////////////////////////-->
+	<update id="giveUp" parameterType="int">
+		UPDATE GSTATUS SET GSSTATUS = 4 WHERE GID = #{gid}
 	</update>
 </mapper>

@@ -71,7 +71,7 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public int registerGroup(Group group, String[] glanguage) {
+	public int registerGroup(Group group, String[] glanguage, HttpSession session) {
 		group.setGlanguage1("");
 		group.setGlanguage2("");
 		group.setGlanguage3("");
@@ -86,10 +86,19 @@ public class GroupServiceImpl implements GroupService {
 	            }
 	        }
 	    }
-		groupDao.registerGroup(group);
-		String mid = group.getMid();
+	    String mid = null;
+	    Member member = (Member)session.getAttribute("member");
+	    if(member!=null) {
+	    	mid = member.getMid();
+	    }
+	    group.setMid(mid);
+	    System.out.println("1"+group);
+	    groupDao.registerGroup(group);
+	    System.out.println(group);
 		int gid = groupDao.getRegisteredGid(mid);
+		System.out.println("2"+group);
 		group.setGid(gid);
+		System.out.println("3"+group);
 		return groupDao.insertHistory(group);
 	}
 
@@ -234,6 +243,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public int completeGroup(int gid) {
 		groupDao.joinDelete(gid);
+		groupDao.groupHitUp(gid);
 		return groupDao.completeGroup(gid);
 	}
 
