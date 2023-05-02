@@ -90,7 +90,7 @@
 		$.ajax({
 			url : '${conPath}/group/groupInfo.do',
 			datatype : 'html',
-			data : "gid="+${groupDetail.gid},
+			data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
 			success : function(data, status){
 				$('.groupDetail').html(data);
 			}
@@ -101,7 +101,7 @@
 			$.ajax({
 				url : '${conPath}/group/groupInfo.do',
 				datatype : 'html',
-				data : "gid="+${groupDetail.gid},
+				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
 				success : function(data, status){
 					$('.groupDetail').html(data);
 				}
@@ -115,7 +115,7 @@
 			$.ajax({
 				url : '${conPath}/group/schedule/myGroupSchedule.do',
 				datatype : 'html',
-				data : "gid="+${groupDetail.gid},
+				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
 				success : function(data, status){
 					$('.groupDetail').html(data);
 				}
@@ -127,7 +127,7 @@
 			$.ajax({
 				url : '${conPath}/group/memberInfo.do',
 				datatype : 'html',
-				data : "gid="+${groupDetail.gid},
+				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
 				success : function(data, status){
 					$('.groupDetail').html(data);
 				}
@@ -139,7 +139,7 @@
 			$.ajax({
 				url : '${conPath}/group/schedule/gantt.do',
 				datatype : 'html',
-				data : "gid="+${groupDetail.gid},
+				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
 				success : function(data, status){
 					$('.groupDetail').html(data);
 				}
@@ -151,7 +151,7 @@
 			$.ajax({
 				url : '${conPath}/groupBoard/list.do?',
 				datatype : 'html',
-				data : "gid="+${groupDetail.gid},
+				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
 				success : function(data, status){
 					$('.groupDetail').html(data);
 				}
@@ -191,6 +191,9 @@
 		border-radius: 10px;
 		border:solid gray 2px;
 	}
+	#groupInfo_title{
+		margin-right:20px;
+	}
 	.back{
 		width : 30px;
 		text-align: left;
@@ -206,6 +209,11 @@
 		background-color:black;
 		color:white;
 	}
+	#rank{
+		font-style: italic;
+		font-weight: bold;
+		color:blue;
+	}
 </style>
 </head>
 <c:if test="${not empty acceptResult }">
@@ -215,13 +223,16 @@
 </c:if>
 <body>
 	<jsp:include page="../main/header.jsp"/>
-<!-- ---------------------------------------------------추천글-------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------추천글(사이드배너)-------------------------------------------------------------------- -->
 	<div id="sideBanner">
-		오늘의 추천글
+		인기 그룹
 		<fieldset class="sideBanner_hitGroup_border">
 			<ol type="1">
+				<c:set var="rank" value="1"/>
 				<c:forEach var="dto" items="${hitGroup}">
-					<li id="sideBanner_hitGroup"><a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}">${dto.gtitle }</a></li>
+					<c:set var="rank" value="${rank }"/>
+					<li id="sideBanner_hitGroup"><a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}"><span id="rank"><c:out value="${rank }"/>.</span> ${dto.gtitle }</a></li>
+					<c:set var="rank" value="${rank+1 }"/>
 				</c:forEach>
 			</ol>
 		</fieldset>
@@ -246,7 +257,7 @@
 				<div class="groupContent_detail">
 					<ul class="groupInfo_groupGrid">
 						<li>
-							<span class="groupInfo_title">모집 구분 </span>
+							<span class="groupInfo_title">모집 구분&nbsp;&nbsp; </span>
 							<span class="groupInfo_content">
 								<c:if test="${groupDetail.gcharacter eq 'P' }">
 									<b>프로젝트</b>
@@ -257,23 +268,23 @@
 							</span>
 						</li>
 						<li>
-							<span class="groupInfo_title">모집 인원</span>
+							<span class="groupInfo_title">모집 인원&nbsp;&nbsp;</span>
 							<span class="groupInfo_content">${groupDetail.gpeople }명 </span>
 						</li>
 						<li>
-							<span class="groupInfo_title">시작 예정</span>
+							<span class="groupInfo_title">시작 예정&nbsp;&nbsp;</span>
 							<span class="groupInfo_content">${groupDetail.gsdate }  </span>
 						</li>
 						<li>
-							<span class="groupInfo_title">지역</span>
+							<span class="groupInfo_title">지역&nbsp;&nbsp;</span>
 							<span class="groupInfo_content">${groupDetail.gloc } </span>
 						</li>
 						<li>
-							<span class="groupInfo_title">완료 예정</span>
+							<span class="groupInfo_title">완료 예정&nbsp;&nbsp;</span>
 							<span class="groupInfo_content">${groupDetail.gfdate } </span>
 						</li>
 						<li>
-							<span class="groupInfo_title">사용 언어</span>
+							<span class="groupInfo_title">사용 언어&nbsp;&nbsp;</span>
 							<span class="groupInfo_content_lang">
 								<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
 									-

@@ -48,12 +48,14 @@ public class GroupController {
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
 	public String register(Group group, Model model, String[] glanguage, HttpSession session){
-		System.out.println("4"+group);
 	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage, session));
 		return "forward:groupList.do";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(int gid, Model model, String name,String pageNum, HttpSession session){
+		if(pageNum.equals(null)) {
+			pageNum = (String) model.getAttribute("pageNum");
+		}
 		model.addAttribute("name",name);
 		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
 		model.addAttribute("joinList",groupService.joinList(gid));
@@ -93,6 +95,7 @@ public class GroupController {
 		model.addAttribute("unJoinResult", groupService.unJoinGroup(gid, mid));
 		return "forward:detail.do";
 	}
+	
 	@RequestMapping(value="accept", method=RequestMethod.GET)
 	public String accept(String mid, int gid, Model model){
 		model.addAttribute("acceptResult", groupService.acceptGroup(gid, mid));
