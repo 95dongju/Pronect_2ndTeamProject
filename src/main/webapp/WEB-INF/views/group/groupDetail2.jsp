@@ -8,9 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Pronect</title>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/main.js"></script>
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<link href="${conPath}/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
 	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 				var request = $.ajax({
 					url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
 					method: "GET",
-					dataType: "json",
+					dataType: "json"
 				});
 			
 				request.done(function (data) {
@@ -35,11 +35,7 @@
 						headerToolbar: {
 							left: 'prev,next',
 							center: 'title',
-							right: 'today',
 						},
-						titleFormat : function(date) {
-						  return date.date.year +"년 "+(date.date.month +1)+"월"; 
-						}, 
 						editable: true,
 						droppable: true,
 						drop: function (arg) {
@@ -318,7 +314,53 @@
 			<div class="groupDetail">
 			</div>
 	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
+		<div class="studyContent_detailComment">
+			<div class="commentInput_commentText">
+				<hr>
+				<h2>${commentCnt }개의 댓글이 있습니다.</h2>
+				<c:if test="${not empty member }">
+					<form action="${conPath}/group/comment.do" method="post">
+						<textarea class="commentInput_commentText_textarea" placeholder="댓글을 입력하세요."></textarea>
+						<div class="contentInput_buttonWrapper">
+								<button class="comentInput_buttonSubmit">댓글 등록</button>
+						</div>
+					</form>
+				</c:if>
+			</div>
+			<c:if test="${not empty groupComment }">
+				<hr>
+				<ul class="commentList">
+					<c:forEach var="dto" items="${groupComment }">
+						<li class="commentItem_commentContainer">
+							<div class="commentItem_commentHeader">
+								<form action="${conPath}/group/commentModify.do" method="post">
+									<input type="hidden" name="gid" value=${dto.gid }>
+									<input type="hidden" name="gcid" value=${dto.gcid }>
+									<input type="hidden" name="pageNum" value=${param.pageNum }>
+									<div class="commentItem_writer"><img src="" class="commentItem_userImg" alt="사용자 이미지">
+										<div class="commentItem_commentInfo">
+											<div class="commentItem_title">
+												<div class="commentItem_userNickname">${dto.mnickname }</div>
+												<div class="commentItem_registerDate">${dto.gcrdate }</div>
+											</div>
+										</div>
+									</div>
+									<c:if test="${(not empty member and dto.mid eq member.mid) or (member.manager eq 'Y')}">
+										<span><a class="comment_modify" style="color : black; text-decoration:none; cursor:pointer">수정 </a></span>
+										<span><a href="${conPath}/GCommentDelete.do?gid=${dto.gid}&gcid=${dto.gcid}" style="color : black; text-decoration:none;">삭제</a></span><br>
+									</c:if>
+								</form>
+							</div>
+							<div class="commentItem_commentContent">
+								<p class="commentItem_commentContent">${dto.gccontent }</p>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+		</div>
 	</div>
+	<div id='calendar'></div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
