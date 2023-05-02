@@ -9,9 +9,32 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link href="${conPath }/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
+	<script>
+		function confirmSubmit(){
+		    Swal.fire({
+		        title: '답변을 작성하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonText: '완료',
+		        cancelButtonText: '취소',
+		        icon: 'question',
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            document.getElementById('frm').submit();
+		        }
+		    });
+		    return false;
+		}
+	</script>
 </head>
 <body>
-	<form action="${conPath }/fboard/reply.do" method="post" enctype="multipart/form-data">		
+	<form id="frm" action="${conPath }/fboard/reply.do" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmit();">		
 		<input type="hidden" name="mid" value="${member.mid }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
 		<input type="hidden" name="schItem" value="${param.schItem }">

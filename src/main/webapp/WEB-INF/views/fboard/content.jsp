@@ -18,7 +18,7 @@
 		}
 	</script>
 	<script>
-	  	$(document).ready(function(){
+		$(document).ready(function(){
 	  		$('.replyView').click(function(){
 	  			var fcid = $(this).attr('id');
 	  			$.ajax({
@@ -60,30 +60,139 @@
 			});
 		}
 		
-		/* function confirmSubmit(){
+		function confirmSubmit(){
 		    Swal.fire({
-		        title: '정말로 글을 삭제하시겠습니까?',
-		        showDenyButton: true,
-		        confirmButtonText: '삭제',
-		        denyButtonText: '취소',
-		        icon: 'warning',
+		        title: '댓글 작성을 완료하시겠습니까?',
+		        showCancelButton: true,
+		        confirmButtonText: '완료',
+		        cancelButtonText: '취소',
+		        icon: 'question',
 		    }).then((result) => {
 		        if (result.isConfirmed) {
 		            document.getElementById('frm').submit();
 		        }
 		    });
 		    return false;
-		} */
+		}
 	</script>
 </head>
 <body>
 	<c:set var="SUCCESS" value="1"/>
 	<c:set var="FAIL" value="0"/>
 	<c:if test="${modifyResult eq SUCCESS }">
-		<script>alert('글 수정에 성공하였습니다');</script>
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '글 수정을 완료했습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
 	</c:if>
-	<c:if test="${modifyResult eq 0 }">
-		<script>alert('글 수정을 실패했습니다'); history.back();</script>
+	<c:if test="${modifyResult eq FAIL }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '글 수정을 실패했습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${fcommentReplyResult eq SUCCESS }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '대댓글 작성을 완료했습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
+	</c:if>
+	<c:if test="${fcommentReplyResult eq FAIL }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '대댓글 작성을 실패했습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${fcommentModifyResult eq SUCCESS }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '댓글 수정을 완료하였습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
+	</c:if>
+	<c:if test="${fcommentModifyResult eq FAIL }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '댓글 수정을 실패하였습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${fcommentWriteResult eq SUCCESS }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '댓글 작성을 완료하였습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
+	</c:if>
+	<c:if test="${fcommentWriteResult eq FAIL }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '댓글 작성을 실패하였습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${fcommentDeleteResult eq SUCCESS }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'success',
+			  title: '댓글을 삭제하였습니다!',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+		</script>
+	</c:if>
+	<c:if test="${fcommentDeleteResult eq FAIL }">
+		<script>
+			Swal.fire({
+			  position: 'top-end',
+			  icon: 'error',
+			  title: '댓글 삭제를 실패하였습니다...',
+			  showConfirmButton: false,
+			  timer: 2000
+			});
+			history.back();
+		</script>
 	</c:if>
 	<!-- ${bDto } ${param.fid } ${param.pageNum } 들어옴 -->
 	<table>
@@ -129,7 +238,7 @@
 	
 	
 	<h3>댓글</h3>
-	<form action="${conPath }/fcomment/write.do">
+	<form id="frm" action="${conPath }/fcomment/write.do" onsubmit="return confirmSubmit();">
 		<input type="hidden" name="fid" value="${param.fid }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
 		<input type="hidden" name="mid" value="${member.mid }">
@@ -153,7 +262,19 @@
 					<span style="font-weight: blod; font-size: 1.3em;">${comment.fccontent }</span> 
 					<i>ID: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>
 					<span class="btn" onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})">[ 수정 ]</span>
-					<span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span>
+					<%-- <span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span> --%>
+					<span onclick="Swal.fire({
+						  title: '삭제하시겠습니까?',
+						  text: '삭제된 댓글은 복구할 수 없습니다.',
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonText: '삭제',
+						  cancelButtonText: '취소'
+						}).then((result) => {
+						  if (result.isConfirmed) {
+						    location='${conPath}/fcomment/delete.do?fcid=${comment.fcid}&fid=${param.fid}&pageNum=${param.pageNum}&commentPageNum=${commentPaging.currentPage}';
+						  }
+						})" class="btn">[ 삭제 ]</span>
 					<span id="${comment.fcid }" class="replyView" class="btn">[ 답변 ]</span>
 				</div>
 				<div class="replySpace${comment.fcid }"></div>
@@ -179,19 +300,3 @@
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

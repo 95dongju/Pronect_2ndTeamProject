@@ -13,6 +13,13 @@
 	#content {width: 800px; height:800px;margin: 50px auto;}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<script>
+	function alert(msg) {
+		Swal.fire(msg);
+	}
+</script>
 <script>
 	$(document).ready(function(){
 		$('form').submit(function(){

@@ -133,7 +133,9 @@ public class MemberServiceImpl implements MemberService {
 		String result = "로그인 성공";
 		Member member = memberDao.getDetailMember(mid);
 		if(member == null) {
-			result = "잘못된 아이디나 비밀번호를 입력하셨습니다.";
+			result = "잘못된 아이디나 비밀번호입니다.";
+		}else if(! member.getMpw().equals(mpw)) {
+			result = "잘못된 아이디나 비밀번호입니다.";
 		}else {
 			httpSession.setAttribute("member", member);
 		}
