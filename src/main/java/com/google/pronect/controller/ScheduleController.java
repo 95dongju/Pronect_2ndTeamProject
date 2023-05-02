@@ -54,7 +54,7 @@ public class ScheduleController {
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detailSchedule(int scd_id) {
-		return "";
+		return "group/detail";
 	}
 	@RequestMapping(value="gantt", method=RequestMethod.GET)
 	public String gantt() {
