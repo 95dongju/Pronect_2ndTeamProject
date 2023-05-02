@@ -92,19 +92,8 @@ public class GroupServiceImpl implements GroupService {
 	    	mid = member.getMid();
 	    }
 	    group.setMid(mid);
-	    System.out.println("1"+group);
 	    groupDao.registerGroup(group);
-	    System.out.println(group);
-		int gid = groupDao.getRegisteredGid(mid);
-		System.out.println("2"+group);
-		group.setGid(gid);
-		System.out.println("3"+group);
 		return groupDao.insertHistory(group);
-	}
-
-	@Override
-	public int getRegisteredGid(String mid) {
-		return groupDao.getRegisteredGid(mid);
 	}
 
 	@Override
@@ -148,6 +137,7 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public int joinCheck(int gid, HttpSession session) {
+		int notJoined = 0;
 		Object memberObj = session.getAttribute("member");
 		Group group = new Group();
 		String mid="null";
@@ -159,7 +149,11 @@ public class GroupServiceImpl implements GroupService {
 		}
 		group.setMid(mid);
 		group.setGid(gid);
-		return groupDao.joinCheck(group);
+		if(notJoined == groupDao.joinCheckCnt(group)) {
+			return 0; //가입 안했으면 0 리턴
+		} else {
+			return groupDao.joinCheck(group); // 가입 이력 있으면 1~3중 리턴
+		}
 	}
 	
 	@Override
@@ -283,9 +277,10 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public int giveUp(int gid) {
-		groupDao.giveUp(gid);
-		groupDao.memberMinus(gid);
-		return 0;
+	public int joinCheckCnt(String mid, int gid) {
+		Group group = new Group();
+		return groupDao.joinCheckCnt(group);
 	}
+
+
 }

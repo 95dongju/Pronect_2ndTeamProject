@@ -27,7 +27,7 @@ import com.google.pronect.vo.Qboard;
 public class QboardServiceImpl implements QboardService {
 	@Autowired
 	private QboardDao qboardDao;
-	String backupPath = "D:\\YeosongYoon\\WebProgramming\\Source\\10_2ndTeamProject\\pronect\\src\\main\\webapp\\qboardFile\\";
+	String backupPath = "D:\\KHW\\source\\10_2ndProject\\Pronect\\src\\main\\webapp\\qboardFile\\";
 	
 	@Override
 	public List<Qboard> qboardList(Qboard qboard, String pageNum) {

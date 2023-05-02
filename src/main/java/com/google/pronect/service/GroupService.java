@@ -14,13 +14,13 @@ public interface GroupService {
 	public List<Group> projectList(String pageNum);
 	public int 		projectTotCnt();
 	public int 		registerGroup(Group group, String[] glanguage, HttpSession session);
-	public int 		getRegisteredGid(String mid);
 	public int 		groupLeader(HttpSession session);
 	public Group 	getGroupDetail(int gid);
 	public Group 	getAfterModifyView(int gid);
 	public int	 	modifyGroup(Group group, String[] glanguage);
 	public int 		deleteHistory(int gid);
 	public int 		deleteGroup(int gid);
+	public int 		joinCheckCnt(String mid, int gid);
 	public int 		joinCheck(int gid, HttpSession session);
 	public int 		joinGroup(int gid, String mid);
 	public List<Group>	groupMember(int gid);
@@ -38,5 +38,4 @@ public interface GroupService {
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
 	public List<Group> hitGroup();
-	public int		giveUp(int gid);
 }

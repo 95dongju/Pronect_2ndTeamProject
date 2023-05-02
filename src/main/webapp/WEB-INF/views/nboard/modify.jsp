@@ -28,22 +28,22 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
 		<div>
-			<form action="${conPath }/qboard/modify.do" method="post" enctype="multipart/form-data">
+			<form action="${conPath }/nboard/modify.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="mid" value="${member.mid }">
 				<input type="hidden" name="pageNum" value="${param.pageNum }">
-				<input type="hidden" name="qid" value="${qDto.qid }">
+				<input type="hidden" name="nid" value="${nDto.nid }">
 				<input type="hidden" name="schItem" value="${param.schItem }">
 				<input type="hidden" name="schWord" value="${param.schWord }">
 				<h1>${qDto.qid }번 글 수정</h1>
 				<table>
-					<tr><th id="qnaModifyInfo">제목</th><td><input type="text" name="qtitle" required="required" value="${qDto.qtitle }"></td></tr>
-					<tr><th id="qnaModifyInfo">본문</th><td><textarea rows="5" cols="20" name="qcontent">${qDto.qcontent }</textarea></td></tr>
-					<tr><th id="qnaModifyInfo">첨부파일</th><td><input type="file" name="tempQfile">${qDto.qfile }</td></tr>
+					<tr><th id="qnaModifyInfo">제목</th><td><input type="text" name="ntitle" required="required" value="${nDto.ntitle }"></td></tr>
+					<tr><th id="qnaModifyInfo">본문</th><td><textarea rows="5" cols="20" name="ncontent">${nDto.ncontent }</textarea></td></tr>
+					<tr><th id="qnaModifyInfo">첨부파일</th><td><input type="file" name="tempNfile">${nDto.nfile }</td></tr>
 					<tr>
 						<td id="btnContainer" colspan="2">
 							<input type="submit" value="수정" id="btn">
 							<input type="reset" value="초기화" id="btn">
-							<input type="button" value="목록" onclick="location='${conPath}/qboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'" id="btn">
+							<input type="button" value="목록" onclick="location='${conPath}/nboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'" id="btn">
 						</td>
 					</tr>
 				</table>

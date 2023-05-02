@@ -44,21 +44,21 @@
 	<div id="content">
 		<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
 		<div>
-			<form action="${conPath }/qboard/write.do" method="post" enctype="multipart/form-data">		
+			<form action="${conPath }/nboard/write.do" method="post" enctype="multipart/form-data">		
 				<input type="hidden" name="mid" value="${member.mid }">
 				<input type="hidden" name="pageNum" value="${param.pageNum }">
 				<input type="hidden" name="schItem" value="${param.schItem }">
 				<input type="hidden" name="schWord" value="${param.schWord }">
 				<table>
 					<caption>글 작성</caption>
-					<tr><th id="info">제목</th><td><input type="text" name="qtitle" required="required"></td></tr>
-					<tr><th id="info">본문</th><td><textarea rows="5" cols="20" name="qcontent"></textarea></td></tr>
-					<tr><th id="info">첨부파일</th><td><input type="file" name="tempQfile"></td></tr>
+					<tr><th id="info">제목</th><td><input type="text" name="ntitle" required="required"></td></tr>
+					<tr><th id="info">본문</th><td><textarea rows="5" cols="20" name="ncontent"></textarea></td></tr>
+					<tr><th id="info">첨부파일</th><td><input type="file" name="tempNfile"></td></tr>
 					<tr>
 						<td colspan="2">
 							<input type="submit" value="글쓰기" class="btn">
 							<input type="reset" value="초기화" class="btn">
-							<input type="button" value="목록" onclick="location='${conPath}/qboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'" class="btn">
+							<input type="button" value="목록" onclick="location='${conPath}/nboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'" class="btn">
 						</td>
 					</tr>
 				</table>

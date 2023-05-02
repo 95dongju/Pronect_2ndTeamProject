@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.pronect.dao.NboardDao">
+	<resultMap type="Nboard" id="NboardResult">
+		<result property="nid" column="nid"/>
+		<result property="mid" column="mid"/>
+		<result property="ntitle" column="ntitle"/>
+		<result property="ncontent" column="ncontent"/>
+		<result property="nfile" column="nfile"/>
+		<result property="nrdate" column="nrdate"/>
+		<result property="mnickname" column="mnickname"/>
+		<result property="mimage" column="mimage"/>
+	</resultMap>
+	
+	<select id="nboardList" parameterType="Nboard" resultMap="NboardResult">
+		<if test="schItem==null or schItem==''">
+			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NBOARD 
+							ORDER BY NID DESC) A)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='all'">
+			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NBOARD 
+			        WHERE NTITLE LIKE '%'||#{schWord}||'%' OR NCONTENT LIKE '%'||#{schWord}||'%'
+			        ORDER BY NID DESC) A)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='ntitle'">
+			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NBOARD 
+			        WHERE NTITLE LIKE '%'||#{schWord}||'%'
+			        ORDER BY NID DESC) A)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='ncontent'">
+			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM NBOARD 
+			        WHERE NCONTENT LIKE '%'||#{schWord}||'%'
+			        ORDER BY NID DESC) A)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+	</select>
+	<!-- 페이징용 멤버 수 -->
+	<select id="totCntNboard" resultType="int">
+		<if test="schItem==null or schItem==''">
+			SELECT COUNT(*) FROM NBOARD
+		</if>
+		<if test="schItem=='all'">
+			SELECT COUNT(*) FROM NBOARD WHERE NTITLE LIKE '%'||#{schWord}||'%' OR NCONTENT LIKE '%'||#{schWord}||'%'
+		</if>
+		<if test="schItem=='ntitle'">
+			SELECT COUNT(*) FROM NBOARD WHERE NTITLE LIKE '%'||#{schWord}||'%'
+		</if>
+		<if test="schItem=='ncontent'">
+			SELECT COUNT(*) FROM NBOARD WHERE NCONTENT LIKE '%'||#{schWord}||'%'
+		</if>
+	</select>
+	<insert id="writeNboard" parameterType="Nboard">
+		INSERT INTO NBOARD (NID, MID, NTITLE, NCONTENT, NFILE)
+		            VALUES (NBOARD_SEQ.NEXTVAL, #{mid}, #{ntitle},#{ncontent}, #{nfile})
+	</insert>
+	<!-- <selectKey resultType="Integer" keyProperty="qid" order="AFTER">
+		SELECT MAX(qid) FROM NBOARD
+	</selectKey> -->
+	<select id="contentNboard" parameterType="int" resultType="Nboard">
+		SELECT NID, M.MID MID, MIMAGE, MNICKNAME, NTITLE, NCONTENT, NFILE, NRDATE FROM NBOARD N,MEMBER M WHERE N.MID=M.MID AND NID=${nid} 
+	</select>
+	<update id="modifyNboard" parameterType="Nboard">
+		UPDATE NBOARD 
+		    SET NTITLE = #{ntitle},
+		        NCONTENT = #{ncontent},
+		        <if test="nfile != null and nfile!=''">NFILE = #{nfile}</if>
+		    WHERE NID = #{nid}
+	</update>
+	<delete id="deleteNboard" parameterType="int">
+		DELETE FROM NBOARD WHERE NID=#{nid}
+	</delete>
+</mapper>
