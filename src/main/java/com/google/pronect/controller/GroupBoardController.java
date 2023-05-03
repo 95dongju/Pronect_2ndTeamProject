@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.pronect.service.GroupBoardReplyService;
 import com.google.pronect.service.GroupBoardService;
 import com.google.pronect.service.GroupService;
+import com.google.pronect.util.Paging;
 import com.google.pronect.vo.GroupBoard;
 import com.google.pronect.vo.GroupBoardReply;
 
@@ -25,15 +26,20 @@ public class GroupBoardController {
 	@RequestMapping(value="list", method={RequestMethod.GET, RequestMethod.POST})
 	public String groupBoardList(GroupBoard groupboard, int gid, String pageNum, Model model) {
 		model.addAttribute("groupBoard", groupBoardService.groupBoardList(groupboard, pageNum, model));
+		model.addAttribute("paging", new Paging(groupBoardService.totCntFboard(groupboard), pageNum));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/groupBoard";
+		return "group/groupBoard/groupBoard";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detailGroupBoard(GroupBoard groupboard, int group_bid, String replyPageNum, GroupBoardReply groupboardReply, Model model) {
-		System.out.println(groupBoardService.detailGroupBoard(group_bid));
+	public String detailGroupBoard(int group_bid, String replyPageNum, Model model) {
 		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
-		groupboardReply.setGroup_bid(group_bid);
 		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(group_bid, replyPageNum, model));
-		return "group/groupBoardDetail";
+		System.out.println(groupBoardReplyService.groupBoardReplyList(group_bid, replyPageNum, model));
+		return "group/groupBoard/groupBoardDetail";
+	}
+	@RequestMapping(value="write", method=RequestMethod.GET)
+	public String writeGroupBoard(int gid, Model model) {
+		model.addAttribute("gid", gid);
+		return "group/groupBoard/groupBoardWrite";
 	}
 }

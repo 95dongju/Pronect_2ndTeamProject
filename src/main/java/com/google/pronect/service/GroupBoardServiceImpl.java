@@ -134,4 +134,10 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 	public int deleteGroupBoard(int group_bid) {
 		return gboardDao.deleteGroupBoard(group_bid);
 	}
+
+	@Override
+	public int totCntFboard(GroupBoard groupboard) {
+		// TODO Auto-generated method stub
+		return gboardDao.totCntGroupBoard(groupboard);
+	}
 }

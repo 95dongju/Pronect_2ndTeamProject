@@ -14,7 +14,7 @@
 	<select id="groupBoardReplyList" parameterType="GroupBoardReply" resultMap="Map">
 			SELECT * FROM (SELECT ROWNUM RN, A.*
     		FROM (SELECT * FROM GROUP_BOARD_REPLY 
-    		WHERE GROUP_REPID = #{group_repid} ORDER BY GROUP_BOARD_REP_RDATE) A)
+    		WHERE GROUP_BID = #{group_bid} ORDER BY GROUP_BOARD_REP_RDATE) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntGroupBoardReply" resultType="int">

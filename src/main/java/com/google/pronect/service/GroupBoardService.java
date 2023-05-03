@@ -11,6 +11,7 @@ import com.google.pronect.vo.GroupBoard;
 
 public interface GroupBoardService {
 	public List<GroupBoard> groupBoardList(GroupBoard groupboard, String pageNum, Model model);
+	public int totCntFboard(GroupBoard groupboard);
 	public int writeGroupBoard(GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request);
 	public GroupBoard detailGroupBoard(int group_bid);
 	public int modifyGroupBoard(GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request);

@@ -13,4 +13,6 @@ public interface GroupBoardReplyDao {
 	public int writeGroupBoardReply(GroupBoardReply gboard_reply);
 	public int modifyGroupBoardReply(GroupBoardReply gboard_reply);
 	public int deleteGroupBoardReply(int group_repid);
+	public int deleteAllGroupBoardReply(int group_bid);
+	public GroupBoardReply groupBoardReplyContent(int group_repid);
 }

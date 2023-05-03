@@ -11,13 +11,25 @@
 <script>
 	$(document).ready(function(){
 		$('tr:not(:first-child)').click(function(){
-			let group_bid = Number($(this).children().eq(0).text());
+			var group_bid = Number($(this).children().eq(0).text());
 			document.getElementById('calendar').style.display = 'none';
 			$('.groupDetail').html('');
 			$.ajax({
 				url : '${conPath}/groupBoard/detail.do?',
 				datatype : 'html',
 				data : "group_bid="+group_bid,
+				success : function(data, status){
+					$('.groupDetail').html(data);
+				}
+			});
+		});
+		$('#groupBoard_writeBtn').click(function(){
+			document.getElementById('calendar').style.display = 'none';
+			$('.groupDetail').html('');
+			$.ajax({
+				url : '${conPath}/groupBoard/write.do?',
+				datatype : 'html',
+				data : "gid="+${groupDetail.gid},
 				success : function(data, status){
 					$('.groupDetail').html(data);
 				}
@@ -97,5 +109,22 @@
 	</select>
 	<input type="text" name="searchGroupBoard_Word" id="searchGroupBoard_Word" class="inputBox">
 	<input type="submit" value="검색" id="groupBoard_searchBtn">
+	<button id="groupBoard_writeBtn">글쓰기</button>
+	<div id="paging">
+			<c:if test="${paging.startPage>paging.blockSize}">
+				[ <a href="${conPath }/fboard/list.do?pageNum=${paging.startPage-1 }&schItem=${param.schItem}&schWord=${param.schWord}">이전</a> ]
+			</c:if>	
+			<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage }">
+				<c:if test="${paging.currentPage==i }"> 
+					<b>[ ${i } ]</b> 
+				</c:if>
+				<c:if test="${paging.currentPage != i }">
+					[ <a href="${conPath }/fboard/list.do?pageNum=${i }&schItem=${param.schItem}&schWord=${param.schWord}">${i }</a> ]
+				</c:if>
+			</c:forEach>
+			<c:if test="${paging.endPage<paging.pageCnt }">
+				[ <a href="${conPath }/fboard/list.do?pageNum=${paging.endPage+1 }&schItem=${param.schItem}&schWord=${param.schWord}">다음</a> ]
+			</c:if>
+		</div>
 </body>
 </html>
