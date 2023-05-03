@@ -73,15 +73,9 @@
 							    alert('아이디: ' + info.event.id);
 							  }
 					});
-				
 					calendar.render();
 				});
-				
-				request.fail(function( jqXHR, textStatus ) {
-						alert( "Request failed: " + textStatus );
-					});
 			});
-		
 		});
 	</script>
 	<!-- NAV Ajax Script -->

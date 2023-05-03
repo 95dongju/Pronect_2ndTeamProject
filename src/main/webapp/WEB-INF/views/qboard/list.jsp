@@ -5,19 +5,25 @@
 <c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
-	<style>
-		#content{width:700px;	margin:0 auto;}
-	</style>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
 	<link href="${conPath }/css/main.css" rel="stylesheet">
 	<style>
-		#content {width: 800px; height:1200px;margin: 50px auto; }
+		#content {width: 1000px; height:1200px;margin: 50px auto; }
 		img{width: 100px;}
 		a {text-decoration: none; color:black;}
 		b {color:red;}
- 		.back{width : 30px; text-align: left;}
+ 		.back{width : 30px; text-align: left; margin-bottom:20px;}
+ 		#center {text-align: center;}
+ 		#titleBack{height:236px; background-color:#75348C; }
+ 		#listTitle{font-size:1.6em; text-align: center; color:white; box-shadow: black 1px;}
+ 		#listForm {text-align: right; width: 440px; float:right;}
+ 		#sch,#writeBtn {display:inline;}
+ 		#writeBtn{margin-left: 30px;}
+ 		#schArea{margin-bottom:40px}
+ 		#sch[name=schItem]{width:150px; text-align: center;}
+ 		#sch[name=schWord]{width:200px;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script>
@@ -53,74 +59,81 @@
 		<script>alert('답변 작성에 실패했습니다');</script>
 	</c:if>
 	<jsp:include page="../main/header.jsp"/>
-	<div id="content">
-		<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
-		<div>
-			<form action="${conPath }/qboard/list.do">
-				<select name="schItem">
-					<option value=""
-						<c:if test="${param.schItem eq '' }">selected="selected"</c:if>
-					>검색조건</option>
-					<option value="qtitle" 
-						<c:if test="${param.schItem eq 'qtitle' }">selected="selected"</c:if>
-					>제목</option>
-					<option value="qcontent" 
-						<c:if test="${param.schItem eq 'qcontent' }">selected="selected"</c:if>
-					>내용</option>
-					<option value="all" 
-						<c:if test="${param.schItem eq 'all' }">selected="selected"</c:if>
-					>제목+내용</option>
-				</select>
-				<input type="text" name="schWord" value="${param.schWord }">
-				<input type="submit" value="검색">
-			</form>
-			<button type="button" onclick="location.href='${conPath}/qboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">글쓰기</button>
-		</div>
-		<table>
-			<caption>문의게시판</caption>
-			<tr>
-				<th>글번호</th><th>글쓴이</th><th>제목</th><th>작성일</th>
-			</tr>
-			<c:if test="${empty qboardList }">
-				<tr><th style="text-align:center;" colspan="4">검색하신 조건의 글이 없습니다.</th></tr>
-			</c:if>
-			<c:forEach var="qboard" items="${qboardList }">
-				<tr>					
-					<td>${qboard.qid }</td>
-					<td>${qboard.mid }</td>
-					<td class="left">
-						<c:forEach var="i" begin="1" end="${qboard.qindent }">
-						 	<c:if test="${i == qboard.qindent }">
-						 		└─re:
-						 	</c:if>
-						 	<c:if test="${i != qboard.qindent }">
-						 		&nbsp; &nbsp; &nbsp; 
-						 	</c:if>
-						</c:forEach>
-						${qboard.qtitle }
-						<c:if test="${not empty qboard.qfile }">
-							<img src="https://cdn-icons-png.flaticon.com/512/5088/5088374.png" style="width:15px;">
-						</c:if>
-					</td>
-					<td><fmt:formatDate value="${qboard.qrdate }" type="date" dateStyle="short"/></td>
-				</tr>
-			</c:forEach>
-		</table><br>
-		<div>
-			<c:if test="${paging.startPage>paging.blockSize}">
-				[ <a href="${conPath }/qboard/list.do?pageNum=${paging.startPage-1 }&schItem=${param.schItem}&schWord=${param.schWord}">이전</a> ]
-			</c:if>	
-			<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage }">
-				<c:if test="${paging.currentPage==i }"> 
-					<b>[ ${i } ]</b> 
-				</c:if>
-				<c:if test="${paging.currentPage != i }">
-					[ <a href="${conPath }/qboard/list.do?pageNum=${i }&schItem=${param.schItem}&schWord=${param.schWord}">${i }</a> ]
-				</c:if>
-			</c:forEach>
-			<c:if test="${paging.endPage<paging.pageCnt }">
-				[ <a href="${conPath }/qboard/list.do?pageNum=${paging.endPage+1 }&schItem=${param.schItem}&schWord=${param.schWord}">다음</a> ]
-			</c:if>
+	<div id="boardTable">
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+					<div id="content">
+						<div id="titleBack">
+							<h2 id="listTitle">문의 게시판</h2>
+						</div>
+						<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a><br>
+						<div id="schArea">
+							<form id="listForm"action="${conPath }/qboard/list.do">
+								<select id="sch" name="schItem">
+									<option value="qtitle" 
+										<c:if test="${param.schItem eq 'qtitle' }">selected="selected"</c:if>
+									>제목</option>
+									<option value="qcontent" 
+										<c:if test="${param.schItem eq 'qcontent' }">selected="selected"</c:if>
+									>내용</option>
+									<option value="all" 
+										<c:if test="${param.schItem eq 'all' }">selected="selected"</c:if>
+									>제목+내용</option>
+								</select>
+								<input id="sch" type="text" name="schWord" value="${param.schWord }">
+								<input type="submit" value="검색">
+							</form>
+							<button id="writeBtn" type="button" onclick="location.href='${conPath}/qboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">글쓰기</button>
+						</div>
+						<table>
+							<tr>
+								<th id="center" >글번호</th><th id="center" >글쓴이</th><th id="center" >제목</th><th id="center" >작성일</th>
+							</tr>
+							<c:if test="${empty qboardList }">
+								<tr><th id="center" colspan="4">검색하신 조건의 글이 없습니다.</th></tr>
+							</c:if>
+							<c:forEach var="qboard" items="${qboardList }">
+								<tr>					
+									<td id="center" >${qboard.qid }</td>
+									<td id="center" >${qboard.mid }</td>
+									<td class="left">
+										<c:forEach var="i" begin="1" end="${qboard.qindent }">
+										 	<c:if test="${i == qboard.qindent }">
+										 		└─re:
+										 	</c:if>
+										 	<c:if test="${i != qboard.qindent }">
+										 		&nbsp; &nbsp; &nbsp; 
+										 	</c:if>
+										</c:forEach>
+										${qboard.qtitle }
+										<c:if test="${not empty qboard.qfile }">
+											<img src="https://cdn-icons-png.flaticon.com/512/5088/5088374.png" style="width:15px;">
+										</c:if>
+									</td>
+									<td id="center" ><fmt:formatDate value="${qboard.qrdate }" type="date" dateStyle="short"/></td>
+								</tr>
+							</c:forEach>
+						</table><br>
+						<div id="div_paging">
+							<c:if test="${paging.startPage>paging.blockSize}">
+								[ <a href="${conPath }/qboard/list.do?pageNum=${paging.startPage-1 }&schItem=${param.schItem}&schWord=${param.schWord}">이전</a> ]
+							</c:if>	
+							<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage }">
+								<c:if test="${paging.currentPage==i }"> 
+									<b>[ ${i } ]</b> 
+								</c:if>
+								<c:if test="${paging.currentPage != i }">
+									[ <a href="${conPath }/qboard/list.do?pageNum=${i }&schItem=${param.schItem}&schWord=${param.schWord}">${i }</a> ]
+								</c:if>
+							</c:forEach>
+							<c:if test="${paging.endPage<paging.pageCnt }">
+								[ <a href="${conPath }/qboard/list.do?pageNum=${paging.endPage+1 }&schItem=${param.schItem}&schWord=${param.schWord}">다음</a> ]
+							</c:if>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="../main/footer.jsp"/>
