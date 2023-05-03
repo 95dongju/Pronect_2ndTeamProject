@@ -138,6 +138,16 @@ INSERT INTO FBOARD (FID, MID, FTITLE, FCONTENT,
         VALUES (FBOARD_SEQ.NEXTVAL, 'hong', '답변이 진짜 가능한', '완전 자유로운 자유게시판', 
                 3, 1, 1, '111.1.1.1');
 COMMIT;
+-- (10) 좋아요
+-- 10-1. 멤버가 특정 글에 좋아요 했는지 안했는지 확인하기
+SELECT COUNT(*) FROM FLIKE WHERE FID=1 AND MID = 'kim';
+-- (10)-2 좋아요를 안눌렀으면 누르기
+INSERT INTO FLIKE (FLIKEID, MID, FID)
+    VALUES(FLIKE_SEQ.NEXTVAL, 'kim', 1);
+-- (10)-3 좋아요를 눌렀으면 취소 누르기
+DELETE FROM FLIKE WHERE FID=1 AND MID='kim';
+-- (10)-4 특정 글 좋아요 수
+SELECT COUNT(*) FROM FLIKE WHERE FID=1;
 ----------------------------------------------------------------------
 -------------------  FREEBOARD_COMMENT(FCOMMENT)  --------------------
 ----------------------------------------------------------------------

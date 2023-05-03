@@ -16,8 +16,7 @@
 		b {color:red;}
  		.back{width : 30px; text-align: left; margin-bottom:20px;}
  		#center {text-align: center;}
- 		#titleBack{height:236px; background-color:#75348C; }
- 		#listTitle{font-size:1.6em; text-align: center; color:white; box-shadow: black 1px;}
+ 		#listTitle{font-size:1.6em; text-align: center;}
  		#listForm {text-align: right; width: 440px; float:right;}
  		#sch,#writeBtn {display:inline;}
  		#writeBtn{margin-left: 30px;}
@@ -67,9 +66,9 @@
 						<div id="titleBack">
 							<h2 id="listTitle">문의 게시판</h2>
 						</div>
-						<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a><br>
+						<a href="${conPath }/group/groupList.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a><br>
 						<div id="schArea">
-							<form id="listForm"action="${conPath }/qboard/list.do">
+							<form id="listForm" action="${conPath }/qboard/list.do">
 								<select id="sch" name="schItem">
 									<option value="qtitle" 
 										<c:if test="${param.schItem eq 'qtitle' }">selected="selected"</c:if>
@@ -97,7 +96,7 @@
 								<tr>					
 									<td id="center" >${qboard.qid }</td>
 									<td id="center" >${qboard.mid }</td>
-									<td class="left">
+									<td id="left" class="boardTitle">
 										<c:forEach var="i" begin="1" end="${qboard.qindent }">
 										 	<c:if test="${i == qboard.qindent }">
 										 		└─re:

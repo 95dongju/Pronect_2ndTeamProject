@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.pronect.dao.FlikeDao">
+	<resultMap type="Flike" id="FlikeResult">
+		<result property="flikeid" column="flikeid"/>
+		<result property="mid" column="mid"/>
+		<result property="fid" column="fid"/>
+	</resultMap>
+	<select id="findLike" resultType="int">
+		SELECT COUNT(*) FROM FLIKE WHERE FID=#{fid} AND MID = #{mid}
+	</select>
+	<select id="getLike" resultType="int">
+		SELECT COUNT(*) FROM FLIKE WHERE FID=#{fid}
+	</select>
+	<insert id="likeUp">
+		INSERT INTO FLIKE (FLIKEID, MID, FID)
+    		VALUES(FLIKE_SEQ.NEXTVAL, #{mid}, #{fid})
+	</insert>
+	<delete id="likeDown">
+		DELETE FROM FLIKE WHERE FID=#{fid} AND MID=#{mid}
+	</delete>
+</mapper>

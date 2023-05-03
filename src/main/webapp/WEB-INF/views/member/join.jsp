@@ -116,14 +116,14 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input type="text" name="mid" id="mid">
+							<input type="text" name="mid" id="mid"><br>
 							<span id="idConfirmMsg"> &nbsp; </span>
 						</td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
 						<td>
-							<input type="text" name="mnickname" id="mnickname">
+							<input type="text" name="mnickname" id="mnickname"><br>
 							<span id="nicknameConfirmMsg"> &nbsp; </span>
 						</td>
 					</tr>
@@ -134,7 +134,7 @@
 					<tr>
 						<th>비밀번호 확인</th>
 						<td>
-							<input type="password" name="mpwChk">
+							<input type="password" name="mpwChk"><br>
 							<span id="mpwChkResult"> &nbsp; </span>
 						</td>
 					</tr>
@@ -144,7 +144,7 @@
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="text" name="mmail"></td>
+						<td><input type="text" name="mmail" required="required"></td>
 					</tr>
 					<tr>
 						<th>직업군</th>
