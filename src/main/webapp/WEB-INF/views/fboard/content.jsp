@@ -25,7 +25,7 @@
 	  				url : '${conPath}/fcomment/replyView.do',
 						data : {'fcid':fcid, 'pageNum':${param.pageNum}, 'commentPageNum':${commentPaging.currentPage}},
 						type : 'get',
-						dateType : 'html',
+						dataType : 'html',
 						success : function(data, status){
 							$('.replySpace'+fcid).html(data);
 						}
@@ -53,7 +53,7 @@
 				url : '${conPath}/fcomment/modifyView.do',
 				data : {'fcid':fcid, 'pageNum':pageNum, 'commentPageNum':commentPageNum},
 				type : 'get',
-				dateType : 'html',
+				dataType : 'html',
 				success : function(data, status){
 					$('.reply'+fcid).html(data);
 				}
@@ -195,6 +195,7 @@
 		</script>
 	</c:if>
 	<!-- ${bDto } ${param.fid } ${param.pageNum } 들어옴 -->
+	<jsp:include page="../main/header.jsp"/>
 	<table>
 		<caption>글 내용</caption>
 		<tr><th>글번호</th><td>${fDto.fid}</td></tr>
@@ -249,7 +250,7 @@
 	<c:if test="${empty fcommentList }">등록된 댓글이 없습니다</c:if>
 	<c:if test="${not empty fcommentList }">
 		<c:forEach items="${fcommentList }" var="comment">
-			<div class="reply${comment.fcid }">
+			<div class="reply${comment.fcid }" style="margin-left: 30px;">
 				<div>
 					<c:forEach var="i" begin="1" end="${comment.fcindent }">
 						<c:if test="${i==comment.fcindent }">
@@ -259,11 +260,11 @@
 				  			&nbsp; &nbsp; &nbsp; 
 				  		</c:if>
 					</c:forEach>
-					<span style="font-weight: blod; font-size: 1.3em;">${comment.fccontent }</span> 
-					<i>ID: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>
-					<span class="btn" onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})">[ 수정 ]</span>
+					<span style="font-weight: blod; font-size: 1.3em; margin-right: 50px;">${comment.fccontent }</span> 
+					<i>작성자: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>&nbsp; &nbsp; 
+					<button onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})" type="button">댓글수정</button>
 					<%-- <span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span> --%>
-					<span onclick="Swal.fire({
+					<button onclick="Swal.fire({
 						  title: '삭제하시겠습니까?',
 						  text: '삭제된 댓글은 복구할 수 없습니다.',
 						  icon: 'warning',
@@ -274,8 +275,8 @@
 						  if (result.isConfirmed) {
 						    location='${conPath}/fcomment/delete.do?fcid=${comment.fcid}&fid=${param.fid}&pageNum=${param.pageNum}&commentPageNum=${commentPaging.currentPage}';
 						  }
-						})" class="btn">[ 삭제 ]</span>
-					<span id="${comment.fcid }" class="replyView" class="btn">[ 답변 ]</span>
+						})" type="button">댓글삭제</button>
+					<button id="${comment.fcid }" class="replyView" type="button">대댓글</button>
 				</div>
 				<div class="replySpace${comment.fcid }"></div>
 			</div>
@@ -298,5 +299,6 @@
 			[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.endPage+1}">다음</a> ]
 		</c:if>
 	</div>
+	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

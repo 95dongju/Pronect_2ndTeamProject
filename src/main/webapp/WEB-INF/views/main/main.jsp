@@ -162,15 +162,15 @@
 			<nav id="nav">
 				<ul>
 					<c:if test="${not empty member }">
-						<li><a href="${conPath}/group/groupList.do?mid=${member.mid}&pageNum=1">전체</a></li>
-						<li><a href="${conPath}/group/studyList.do?mid=${member.mid}&pageNum=1">스터디</a></li>
-						<li><a href="${conPath}/group/projectList.do?mid=${member.mid}&pageNum=1">프로젝트</a></li>
-						<li style="float:right; margin-right:70px;"><a href="${conPath}/group/register.do">새 글 쓰기</a></li>
+						<li><a href="${conPath}/group/groupList.do?mid=${member.mid}&pageNum=1"><i class="fa-solid fa-list"></i> 전체</a></li>
+						<li><a href="${conPath}/group/studyList.do?mid=${member.mid}&pageNum=1"><i class="fa-solid fa-graduation-cap" style="--fa-animation-duration: 2s;"></i> 스터디</a></li>
+						<li><a href="${conPath}/group/projectList.do?mid=${member.mid}&pageNum=1"><i class="fa-solid fa-briefcase" style="--fa-animation-duration: 2s;"></i> 프로젝트</a></li>
+						<li style="float:right; margin-right:70px;"><a href="${conPath}/group/register.do"><i class="fa-solid fa-square-plus" style="--fa-animation-duration: 2s;"></i> 새 글 쓰기</a></li>
 					</c:if>
 					<c:if test="${empty member }">
-						<li><a href="${conPath}/group/groupList.do?pageNum=1">전체</a></li>
-						<li><a href="${conPath}/group/studyList.do?pageNum=1">스터디</a></li>
-						<li><a href="${conPath}/group/projectList.do?pageNum=1">프로젝트</a></li>
+						<li><a href="${conPath}/group/groupList.do?pageNum=1"><i class="fa-solid fa-list"></i> 전체</a></li>
+						<li><a href="${conPath}/group/studyList.do?pageNum=1"><i class="fa-solid fa-graduation-cap" style="--fa-animation-duration: 2s;"></i> 스터디</a></li>
+						<li><a href="${conPath}/group/projectList.do?pageNum=1"><i class="fa-solid fa-briefcase" style="--fa-animation-duration: 2s;"></i> 프로젝트</a></li>
 					</c:if>
 				</ul>
 				<div class="search_div">

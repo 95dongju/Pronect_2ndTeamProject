@@ -12,6 +12,7 @@ DROP TABLE GCOMMENT;
 DROP TABLE MYGROUP;
 DROP TABLE NBOARD;
 DROP TABLE QBOARD;
+DROP TABLE FLIKE;
 DROP TABLE FCOMMENT;
 DROP TABLE FBOARD;
 DROP TABLE MEMBER CASCADE CONSTRAINTS;
@@ -26,6 +27,7 @@ DROP SEQUENCE SCH_CMT_SEQ;
 DROP SEQUENCE GCOMMENT_SEQ;
 DROP SEQUENCE NBOARD_SEQ;
 DROP SEQUENCE QBOARD_SEQ;
+DROP SEQUENCE FLIKE_SEQ;
 DROP SEQUENCE FCOMMENT_SEQ;
 DROP SEQUENCE FBOARD_SEQ;
 ----------------------------------------------------------------------
@@ -83,6 +85,17 @@ CREATE TABLE FCOMMENT(
 );
 -- SEQUENCE
 CREATE SEQUENCE FCOMMENT_SEQ MAXVALUE 99999 NOCACHE NOCYCLE;
+----------------------------------------------------------------------
+-------------------------  FBOARD_LIKE  ------------------------------
+----------------------------------------------------------------------
+-- TABLE
+CREATE TABLE FLIKE(
+    FLIKEID NUMBER(5) PRIMARY KEY,
+    MID     VARCHAR2(100) REFERENCES MEMBER(MID) NOT NULL,
+    FID     NUMBER(5)  REFERENCES FBOARD(FID) NOT NULL
+);
+-- SEQUENCE
+CREATE SEQUENCE FLIKE_SEQ MAXVALUE 99999 NOCACHE NOCYCLE;
 ----------------------------------------------------------------------
 ----------------------------  QNABOARD  -----------------------------
 ----------------------------------------------------------------------
