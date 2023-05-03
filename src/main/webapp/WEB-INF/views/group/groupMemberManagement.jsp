@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@
 									<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
 								</div>
 								<div class="groupJoin_acceptBtn">
-									<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }'">수락</button>
+									<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }&pageNum=${param.pageNum }'">수락</button>
 								</div>
 							</c:forEach>
 						</c:if>
@@ -40,7 +41,7 @@
 							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
 						</div>
 						<div class="groupJoin_acceptBtn">
-							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }'">퇴출</button>
+							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }&pageNum=${param.pageNum }'">퇴출</button>
 						</div>
 					</c:forEach>
 				</c:if>

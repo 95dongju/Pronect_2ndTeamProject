@@ -21,7 +21,10 @@
   	</selectKey>
 	</insert>
 	<select id="commentContent" parameterType="int" resultMap="GCommentResult">
-		SELECT GID, GCID, MIMAGE, MNICKNAME, GCRDATE, GCCONTENT FROM MEMBER M, GCOMMENT C WHERE M.MID = C.MID AND GID = #{gid}
+		SELECT GID, C.MID MID, GCID, MIMAGE, MNICKNAME, GCRDATE, GCCONTENT FROM MEMBER M, GCOMMENT C WHERE M.MID = C.MID AND GID = #{gid}
+	</select>
+	<select id="getCommentContent" parameterType="int" resultType="GComment">
+		SELECT * FROM GCOMMENT WHERE GCID = ${gcid}
 	</select>
 	<update id="commentModify" parameterType="GComment">
 		UPDATE GCOMMENT SET GCCONTENT = #{gccontent} WHERE GCID = #{gcid}
