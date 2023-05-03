@@ -1,5 +1,6 @@
 package com.google.pronect.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.pronect.service.GCommentService;
 import com.google.pronect.service.GroupService;
 import com.google.pronect.util.Paging;
+import com.google.pronect.vo.GComment;
 import com.google.pronect.vo.Group;
 
 @Controller
@@ -51,13 +53,12 @@ public class GroupController {
 	    model.addAttribute("groupRegisterResult",groupService.registerGroup(group, glanguage, session));
 		return "forward:groupList.do";
 	}
-	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detail(int gid, Model model, String name,String pageNum, HttpSession session){
+	@RequestMapping(value="detail", method= {RequestMethod.GET,RequestMethod.POST})
+	public String detail(int gid, Model model,String pageNum, HttpSession session){
 		if(pageNum.equals(null)) {
 			pageNum = (String) model.getAttribute("pageNum");
 		}
-		model.addAttribute("name",name);
-		//model.addAttribute("groupMember",groupService.groupMember(gid));
+		model.addAttribute("groupMember",groupService.groupMember(gid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
@@ -81,9 +82,17 @@ public class GroupController {
 		return "forward:groupList.do";
 	}
 	@RequestMapping(value="join", method=RequestMethod.GET)
-	public String join(int gid, String mid, String pageNum, Model model){
+	public String join(int gid, String mid, String pageNum, Model model,HttpSession session){
+		int joinChkCnt = groupService.joinCheckCnt(mid, gid);
+		int joinStatus = groupService.joinGroup(gid, mid);
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("joinResult", groupService.joinGroup(gid, mid));
+		if(joinChkCnt > 0 && joinStatus!=0) {
+			model.addAttribute("alreadyJoin","이미 신청하였습니다");
+		}else if(joinChkCnt > 0 && joinStatus==0) {
+			model.addAttribute("joinDeny", "퇴출 이력이 있어 가입 신청이 불가능합니다");
+		}else if(joinChkCnt == 0){
+			model.addAttribute("joinResult", groupService.joinGroup(gid, mid));
+		}
 		return "forward:detail.do";
 	}
 	@RequestMapping(value="unJoin", method=RequestMethod.GET)
@@ -94,8 +103,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="accept", method=RequestMethod.GET)
-	public String accept(String mid, int gid, Model model){
+	public String accept(String mid, int gid, String pageNum, Model model){
 		model.addAttribute("acceptResult", groupService.acceptGroup(gid, mid));
+		model.addAttribute("pageNum",pageNum);
 		return "forward:detail.do";
 	}
 	@RequestMapping(value="memberOut", method=RequestMethod.GET)
@@ -109,7 +119,9 @@ public class GroupController {
 		return "forward:detail.do";
 	}
 	@RequestMapping(value="memberInfo", method=RequestMethod.GET)
-	public String memberInfo(int gid, Model model){
+	public String memberInfo(int gid, Model model, HttpSession session){
+		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
+		model.addAttribute("joinList",groupService.joinList(gid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupMember",groupService.groupMember(gid));
 		return "group/groupMemberManagement";
@@ -122,5 +134,26 @@ public class GroupController {
 		model.addAttribute("groupComment",gCommentService.commentContent(gid));
 		model.addAttribute("joinList",groupService.joinList(gid));
 		return "group/groupInfo";
+	}
+	
+	@RequestMapping(value="comment", method=RequestMethod.GET)
+	public String comment(GComment gcomment, Model model, HttpServletRequest request){
+		model.addAttribute("commentResult", gCommentService.comment(gcomment, request));
+		return "forward:detail.do?gid="+gcomment.getGid();
+	}
+	@RequestMapping(value ="commentModify", method = RequestMethod.GET)
+	public String commentModify(int gcid, Model model) {
+		model.addAttribute("gcomment", gCommentService.getCommentContent(gcid));
+		return "group/commentModify";
+	}
+	@RequestMapping(value="commentModify", method=RequestMethod.POST)
+	public String commentModify(GComment gcomment, Model model){
+		model.addAttribute("commentResult", gCommentService.commentModify(gcomment));
+		return "forward:detail.do?gid="+gcomment.getGid();
+	}
+	@RequestMapping(value="commentDelete", method=RequestMethod.GET)
+	public String commentDelete(int gcid,int gid, Model model){
+		model.addAttribute("commentDeleteResult", gCommentService.commentDelete(gcid));
+		return "forward:detail.do?gid="+gid;
 	}
 }

@@ -60,7 +60,7 @@ public class MemberController {
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession httpSession) {
 		httpSession.invalidate();
-		return "main/main";
+		return "forward:/main.do";
 	}
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String mypage() {

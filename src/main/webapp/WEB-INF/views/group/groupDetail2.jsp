@@ -18,69 +18,80 @@
 	<!-- FullCalendar Script -->
 	
 	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			$(function () {
-				var request = $.ajax({
-					url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
-					method: "GET",
-					dataType: "json",
+	document.addEventListener('DOMContentLoaded', function () {
+		$(function () {
+			var request = $.ajax({
+				url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
+				method: "GET",
+				dataType: "json",
+			});
+		
+			request.done(function (data) {
+				console.log(data);
+				
+				var calendarEl = document.getElementById('calendar');
+				
+				var calendar = new FullCalendar.Calendar(calendarEl, {
+					initialView: 'dayGridMonth',
+					headerToolbar: {
+						left: 'prev,next',
+						center: 'title',
+						right: 'today',
+					},
+					titleFormat : function(date) {
+					  return date.date.year +"년 "+(date.date.month +1)+"월"; 
+					}, 
+					editable: true,
+					droppable: true,
+					drop: function (arg) {
+					if (document.getElementById('drop-remove').checked) {
+						arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+						}
+					},
+					events: data,
+					dateClick: function(info) {
+						alert('ee');
+					}, 
+					eventClick: function(info) {
+			    	let today = new Date();   
+			    	let year = today.getFullYear();
+			    	let month = ('0' + (today.getMonth() + 1)).slice(-2);
+			    	let day = ('0' + today.getDate()).slice(-2);
+			    	let todayStr = year + '-' + month + '-' + day;
+						if (!confirm(info.event.startStr+" 일정 ("+info.event.title+")에 참여하셨습니까?")) {
+				    		alert("취소(아니오)를 누르셨습니다.");
+					    }else {
+					    	if (info.event.startStr == todayStr) {
+					    		alert("확인(예)을 누르셨습니다.");
+					    		// location.href='group/schedule/';
+					    	}else {
+					    		alert("스터디 당일에만 참석이 가능합니다.");
+					    	}
+					    }
+						    alert('그룹아이디: ' + info.event.groupId);
+						    alert('아이디: ' + info.event.id);
+						  }
 				});
-			
-				request.done(function (data) {
-					console.log(data);
-					
-					var calendarEl = document.getElementById('calendar');
-					
-					var calendar = new FullCalendar.Calendar(calendarEl, {
-						initialView: 'dayGridMonth',
-						headerToolbar: {
-							left: 'prev,next',
-							center: 'title',
-							right: 'today',
-						},
-						titleFormat : function(date) {
-						  return date.date.year +"년 "+(date.date.month +1)+"월"; 
-						}, 
-						editable: true,
-						droppable: true,
-						drop: function (arg) {
-						if (document.getElementById('drop-remove').checked) {
-							arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-							}
-						},
-						events: data,
-						dateClick: function(info) {
-							alert('ee');
-						}, 
-						eventClick: function(info) {
-				    	let today = new Date();   
-				    	let year = today.getFullYear();
-				    	let month = ('0' + (today.getMonth() + 1)).slice(-2);
-				    	let day = ('0' + today.getDate()).slice(-2);
-				    	let todayStr = year + '-' + month + '-' + day;
-							if (!confirm(info.event.startStr+" 일정 ("+info.event.title+")에 참여하셨습니까?")) {
-					    		alert("취소(아니오)를 누르셨습니다.");
-						    }else {
-						    	if (info.event.startStr == todayStr) {
-						    		alert("확인(예)을 누르셨습니다.");
-						    		// location.href='group/schedule/';
-						    	}else {
-						    		alert("스터디 당일에만 참석이 가능합니다.");
-						    	}
-						    }
-							    alert('그룹아이디: ' + info.event.groupId);
-							    alert('아이디: ' + info.event.id);
-							  }
-					});
-					calendar.render();
-				});
+				calendar.render();
 			});
 		});
-	</script>
-	<!-- NAV Ajax Script -->
-	<script>
-	$(document).ready(function(){
+	});
+</script>
+<!-- NAV Ajax Script -->
+<script>
+$(document).ready(function(){
+	document.getElementById('calendar').style.display = 'none';
+	$.ajax({
+		url : '${conPath}/group/groupInfo.do',
+		datatype : 'html',
+		data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+		success : function(data, status){
+			$('.groupDetail').html(data);
+		}
+	});
+	$('#groupDetail_info').click(function(){
 		document.getElementById('calendar').style.display = 'none';
+		$('.groupDetail').html('');
 		$.ajax({
 			url : '${conPath}/group/groupInfo.do',
 			datatype : 'html',
@@ -89,70 +100,59 @@
 				$('.groupDetail').html(data);
 			}
 		});
-		$('#groupDetail_info').click(function(){
-			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/group/groupInfo.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
-		});
-		$('#groupDetail_schedule').click(function(){
-			$('.groupDetail').html('');
-			document.getElementById('calendar').style.display = 'block';
-			document.getElementsByClassName('fc-prev-button fc-button fc-button-primary')[0].click();
-			document.getElementsByClassName('fc-next-button fc-button fc-button-primary')[0].click();
-			$.ajax({
-				url : '${conPath}/group/schedule/myGroupSchedule.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
-		});
-		$('#groupDetail_memberInfo').click(function(){
-			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/group/memberInfo.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
-		});
-		$('#groupDetail_gantt').click(function(){
-			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/group/schedule/gantt.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
-		});
-		$('#groupDetail_board').click(function(){
-			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/groupBoard/list.do?',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
+	});
+	$('#groupDetail_schedule').click(function(){
+		$('.groupDetail').html('');
+		document.getElementById('calendar').style.display = 'block';
+		document.getElementsByClassName('fc-prev-button fc-button fc-button-primary')[0].click();
+		document.getElementsByClassName('fc-next-button fc-button fc-button-primary')[0].click();
+		$.ajax({
+			url : '${conPath}/group/schedule/myGroupSchedule.do',
+			datatype : 'html',
+			data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+			success : function(data, status){
+				$('.groupDetail').html(data);
+			}
 		});
 	});
-	</script>
+	$('#groupDetail_memberInfo').click(function(){
+		document.getElementById('calendar').style.display = 'none';
+		$('.groupDetail').html('');
+		$.ajax({
+			url : '${conPath}/group/memberInfo.do',
+			datatype : 'html',
+			data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+			success : function(data, status){
+				$('.groupDetail').html(data);
+			}
+		});
+	});
+	$('#groupDetail_gantt').click(function(){
+		document.getElementById('calendar').style.display = 'none';
+		$('.groupDetail').html('');
+		$.ajax({
+			url : '${conPath}/group/schedule/gantt.do',
+			datatype : 'html',
+			data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+			success : function(data, status){
+				$('.groupDetail').html(data);
+			}
+		});
+	});
+	$('#groupDetail_board').click(function(){
+		document.getElementById('calendar').style.display = 'none';
+		$('.groupDetail').html('');
+		$.ajax({
+			url : '${conPath}/groupBoard/list.do?',
+			datatype : 'html',
+			data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+			success : function(data, status){
+				$('.groupDetail').html(data);
+			}
+		});
+	});
+});
+</script>
 <style>
 	#main{
 		width:1000px;
