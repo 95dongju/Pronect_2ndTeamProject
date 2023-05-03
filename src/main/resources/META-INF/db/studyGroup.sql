@@ -1,4 +1,8 @@
 --getGroupList()
+
+SELECT * FROM MYGROUP;
+select * from gstatus;
+delete from gstatus where gid = 17 and mid = 'teemo';
 -- MYGROUPList() TOP-N
 SELECT * FROM 
     (SELECT ROWNUM RN, A.* FROM

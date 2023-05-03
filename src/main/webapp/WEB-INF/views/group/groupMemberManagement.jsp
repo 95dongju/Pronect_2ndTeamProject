@@ -27,7 +27,7 @@
 						</c:if>
 					</div>
 
-<!---------------------------------------------------그룹원 정보----------------------------------------------------------------->				
+<!---------------------------------------------------그룹원 정보(그룹장 자신 퇴출 가능하게 보이는것 고쳐야함)----------------------------------------------------------------->				
 			<h2>그룹원 정보</h2>
 			<div class="groupMember_inf">
 				<c:if test="${empty groupMember }">
@@ -35,15 +35,13 @@
 				</c:if>
 				<c:if test="${not empty groupMember }">
 					<c:forEach var="dto" items="${groupMember }">
-						<%-- <c:if test="${ }"> --%>
-							<div class="groupJoin_memberInfo">
-								<div class="groupJoin_memberInfo_img">${dto.mimage }</div>
-								<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
-							</div>
-							<div class="groupJoin_acceptBtn">
-								<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }'">퇴출</button>
-							</div>
-						<%-- </c:if> --%>
+						<div class="groupJoin_memberInfo">
+							<div class="groupJoin_memberInfo_img">${dto.mimage }</div>
+							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
+						</div>
+						<div class="groupJoin_acceptBtn">
+							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }'">퇴출</button>
+						</div>
 					</c:forEach>
 				</c:if>
 			</div>
