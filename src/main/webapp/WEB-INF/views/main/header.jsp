@@ -54,16 +54,16 @@
 		<nav>
 			<c:if test="${empty member}">
 				<ul>
-					<li><a href="${conPath }/member/join.do"><i class="fa-solid fa-pen-nib fa-bounce"></i> 회원가입</a></li>
-					<li><a href="${conPath }/member/login.do"><i class="fa-solid fa-user fa-flip"></i> 로그인</a></li>
+					<li><a href="${conPath }/member/join.do"><i class="fa-solid fa-pen-nib fa-bounce" style="--fa-animation-duration: 2s;"></i> 회원가입</a></li>
+					<li><a href="${conPath }/member/login.do"><i class="fa-solid fa-user fa-bounce" style="--fa-animation-duration: 2s;"></i> 로그인</a></li>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
 			<c:if test="${not empty member}">
 				<ul>
-					<li><a href="${conPath }/group/register.do"><i class="fa-solid fa-square-plus"></i> 스터디/프로젝트  등록</a></li>
-					<li><a href="${conPath }/member/logout.do"  onclick="return logout()"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a></li>
-					<li><a href="${conPath}/member/mypage.do"><i class="fa-solid fa-user-tie"></i> ${member.mnickname }님</a></li>
+					<li><a href="${conPath }/group/register.do"><i class="fa-solid fa-square-plus fa-shake" style="--fa-animation-duration: 2s;"></i> 스터디/프로젝트  등록</a></li>
+					<li><a href="${conPath }/member/logout.do"  onclick="return logout()"><i class="fa-solid fa-right-from-bracket fa-fade" style="--fa-animation-duration: 3s;"></i> 로그아웃</a></li>
+					<li><a href="${conPath}/member/mypage.do"><i class="fa-solid fa-user-tie fa-beat"></i> ${member.mnickname }님</a></li>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
@@ -73,12 +73,12 @@
 	<nav id="menu">
 		<h2>Menu</h2>
 		<ul>
-			<li><a href="${conPath}/main.do">Home</a></li>
-			<li><a href="../group/myStudy.jsp">MyStudy</a></li>
-			<li><a href="../group/myProject.jsp">MyProject</a></li>
-			<li><a href="${conPath }/fboard/list.do?pageNum=1"><i class="fa-solid fa-comment"></i> 자유게시판</a></li>
-			<li><a href="${conPath }/qboard/list.do?pageNum=1"><i class="fa-regular fa-circle-question"></i> 문의게시판</a></li>
-			<li><a href="${conPath }/nboard/list.do?pageNum=1"><i class="fa-solid fa-bullhorn"></i> 공지게시판</a></li>
+			<li><a href="${conPath}/main.do"><i class="fa-solid fa-house-chimney fa-beat" style="--fa-animation-duration: 2s;"></i> Home</a></li>
+			<li><a href="../group/myStudy.jsp"><i class="fa-solid fa-graduation-cap fa-bounce" style="--fa-animation-duration: 2s;"></i> MyStudy</a></li>
+			<li><a href="../group/myProject.jsp"><i class="fa-solid fa-briefcase fa-bounce" style="--fa-animation-duration: 2s;"></i> MyProject</a></li>
+			<li><a href="${conPath }/fboard/list.do?pageNum=1"><i class="fa-solid fa-comment fa-beat-fade" style="--fa-beat-fade-opacity: 0.5; --fa-animation-duration: 2s;"></i> 자유게시판</a></li>
+			<li><a href="${conPath }/qboard/list.do?pageNum=1"><i class="fa-regular fa-circle-question fa-flip" style="--fa-animation-duration: 3s;"></i> 문의게시판</a></li>
+			<li><a href="${conPath }/nboard/list.do?pageNum=1"><i class="fa-solid fa-bullhorn fa-shake" style="--fa-animation-duration: 3s;"></i> 공지게시판</a></li>
 			<c:if test="${member.manager eq 'Y' }">
 				<li><a href="${conPath }/member/list.do?pageNum=1"><i class="fa-solid fa-users"></i> 회원목록(관리자 전용)</a></li>
 			</c:if>

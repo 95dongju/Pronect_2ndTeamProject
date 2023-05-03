@@ -12,8 +12,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.pronect.service.FboardService;
 import com.google.pronect.service.FcommentService;
+import com.google.pronect.service.FlikeService;
 import com.google.pronect.util.Paging;
 import com.google.pronect.vo.Fboard;
+import com.google.pronect.vo.Flike;
 
 @Controller
 @RequestMapping("fboard")
@@ -22,6 +24,8 @@ public class FboardController {
 	private FboardService fboardService;
 	@Autowired
 	private FcommentService fcommentService;
+	@Autowired
+	private FlikeService flikeService;
 	
 	@RequestMapping(value = "list", method = {RequestMethod.GET, RequestMethod.POST})
 	public String list(Fboard fboard, Model model, String pageNum) {
@@ -43,7 +47,9 @@ public class FboardController {
 	public String content(int fid, Model model, String commentPageNum) {
 		model.addAttribute("fDto", fboardService.contentFboard(fid));
 		model.addAttribute("fcommentList", fcommentService.fcommentList(fid, commentPageNum, model));
-		//TODO 여기에 댓글 로직 추가
+		Flike flike = new Flike();
+		model.addAttribute("like", flikeService.findLike(flike));
+		model.addAttribute("getLike", flikeService.getLike(flike));
 		return "fboard/content";
 	}
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
@@ -73,5 +79,13 @@ public class FboardController {
 			MultipartHttpServletRequest mRequest) {
 		model.addAttribute("replyResult", fboardService.replyFboard(fboard, mRequest));
 		return "forward:list.do";
+	}
+	@RequestMapping(value = "likeUp", method = RequestMethod.GET)
+	public void likeUp(Flike flike) {
+		flikeService.likeUp(flike);
+	}
+	@RequestMapping(value = "likeDown", method = RequestMethod.GET)
+	public void likeDown(Flike flike) {
+		flikeService.likeDown(flike);
 	}
 }
