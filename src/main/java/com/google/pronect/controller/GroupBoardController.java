@@ -24,9 +24,9 @@ public class GroupBoardController {
 	private GroupBoardReplyService groupBoardReplyService;
 	
 	@RequestMapping(value="list", method={RequestMethod.GET, RequestMethod.POST})
-	public String groupBoardList(GroupBoard groupboard, int gid, String pageNum, Model model) {
-		model.addAttribute("groupBoard", groupBoardService.groupBoardList(groupboard, pageNum, model));
-		model.addAttribute("paging", new Paging(groupBoardService.totCntFboard(groupboard), pageNum));
+	public String groupBoardList(GroupBoard groupboard, int gid, String boardPageNum, Model model) {
+		model.addAttribute("groupBoard", groupBoardService.groupBoardList(groupboard, boardPageNum, model));
+		model.addAttribute("paging", new Paging(groupBoardService.totCntGroupBoard(groupboard), boardPageNum));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		return "group/groupBoard/groupBoard";
 	}
@@ -34,12 +34,18 @@ public class GroupBoardController {
 	public String detailGroupBoard(int group_bid, String replyPageNum, Model model) {
 		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
 		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(group_bid, replyPageNum, model));
-		System.out.println(groupBoardReplyService.groupBoardReplyList(group_bid, replyPageNum, model));
 		return "group/groupBoard/groupBoardDetail";
 	}
 	@RequestMapping(value="write", method=RequestMethod.GET)
 	public String writeGroupBoard(int gid, Model model) {
 		model.addAttribute("gid", gid);
 		return "group/groupBoard/groupBoardWrite";
+	}
+	@RequestMapping(value="delete", method=RequestMethod.GET)
+	public String deleteGroupBoard(int gid, int group_bid, Model model) {
+		model.addAttribute("deleteCmtResult", groupBoardReplyService.deleteAllGroupBoardReply(group_bid));
+		model.addAttribute("deleteResult", groupBoardService.deleteGroupBoard(group_bid));
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		return "group/groupDetail2";
 	}
 }

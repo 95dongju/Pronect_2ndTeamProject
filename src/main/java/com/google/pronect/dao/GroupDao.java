@@ -21,7 +21,7 @@ public interface GroupDao {
 	public int 		groupHitUp(int gid);
 	public Group 	getGroupDetail(int gid);
 	public Group 	getAfterModifyView(int gid);
-	public int	modifyGroup(Group group);
+	public int		modifyGroup(Group group);
 	public int 		deleteHistory(int gid);
 	public int 		deleteGroup(int gid);
 	public int 		joinCheckCnt(Group group);
@@ -43,4 +43,8 @@ public interface GroupDao {
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
 	public List<Group> hitGroup();
+	public List<Group> getMemberId(int gid);
+	public Group	myStudyList(@Param("mid") String mid);
+	public Group	myProjectList(@Param("mid") String mid);
+	public Group	myHistory(@Param("mid") String mid);
 }

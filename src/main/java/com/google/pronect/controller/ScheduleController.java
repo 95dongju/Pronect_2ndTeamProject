@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.pronect.service.AchiveService;
+import com.google.pronect.service.GroupService;
 import com.google.pronect.service.ScheduleService;
+import com.google.pronect.vo.Achive;
+import com.google.pronect.vo.Group;
 import com.google.pronect.vo.Schedule;
 
 @Controller
@@ -25,7 +29,10 @@ public class ScheduleController {
 	private static final Logger log = LoggerFactory.getLogger(ScheduleController.class);
 	@Autowired
 	private ScheduleService scheduleService;
-
+	@Autowired
+	private GroupService groupService;
+	@Autowired
+	private AchiveService achiveService;
 	@GetMapping("list")
 	@ResponseBody
 	public List<Map<String, Object>> totalSchedule(int gid) throws Exception {
@@ -49,6 +56,8 @@ public class ScheduleController {
 	}
 	@RequestMapping(value="myGroupSchedule", method=RequestMethod.GET)
 	public String myGroup(int gid, Model model) {
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		model.addAttribute("groupSchedule", scheduleService.totalSchedule(gid));
 		model.addAttribute("gid", gid);
 		return "group/schedule/groupCalendar";
 	}
@@ -59,5 +68,18 @@ public class ScheduleController {
 	@RequestMapping(value="gantt", method=RequestMethod.GET)
 	public String gantt() {
 		return "group/ganttChart/gantt";
+	}
+	@RequestMapping(value="insertGroupSchedule", method=RequestMethod.GET)
+	public String insertGroupSchedule(int gid, Achive achive, Schedule schedule, Group group, Model model) {
+		scheduleService.insertGroupSchedule(schedule, group);
+		achiveService.insertAchive(achive, gid);
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		return "group/groupDetail2";
+	}
+	@RequestMapping(value="insertSchedule", method=RequestMethod.GET)
+	public String insertSchedule(int gid, Schedule schedule, Group group, Model model) {
+		scheduleService.insertSchedule(schedule, group);
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		return "group/groupDetail2";
 	}
 }

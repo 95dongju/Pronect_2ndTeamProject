@@ -1,28 +1,68 @@
 @charset "UTF-8";
+#groupBoardList h2 {
+	text-align: center;
+}
+#groupBoardList #div_search {
+	padding-top: 20px;
+	margin: 10px auto;
+	text-align: center;
+}
+#groupBoardList #div_search #searchGroupBoard {
+	height: 40px;
+}
 
 .boardDetail {
 	margin: 10px auto;
 	padding: 10px;
 }
-.boardDetail h2 {
+.boardDetail #boardTitle {
 	font-size: 1.5em;
 	margin: 0;
 }
-.boardDetail h5 {
+.boardDetail #boardWriter {
 	font-size: 1em;
 	border-bottom: 1px solid #eeeeee;
 	font-weight: 100;
 	margin: 0;
 	padding: 5px;
 }
-.boardDetail h4 {
-	font-size: 1.2em;
+.boardDetail #boardRdate, #boardCommentRdate {
+	float: right;
+	font-size: 0.8em;
+	margin: 5px;
 }
-.boardDetail p {
+.boardDetail #boardComment {
+	font-size: 1.2em;
+	margin: 0;
+}
+.boardDetail #boardContent {
 	margin: 0;
 	padding: 50px 30px;
 	border-bottom: 1px solid #eeeeee;
 }
+.boardDetail #div_comment {
+	width: 95%;
+	margin: 10px auto;
+	
+}
+.boardDetail #div_comment #boardCommentContent {
+	border-bottom: 1px solid #eeeeee;
+}
+.boardDetail #div_comment #boardCommentWriter {
+	margin: 10px;
+	padding: 0;
+}
+
+.boardDetail pre {
+	float: right;
+	margin: 0;
+}
+
+.boardDetail pre:hover {
+	color: #f2849e !important;
+	cursor: pointer;
+}
+
 .boardDetail textarea {
 	width: 90%;
 	margin: auto;

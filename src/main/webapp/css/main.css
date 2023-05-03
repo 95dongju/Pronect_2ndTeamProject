@@ -3096,7 +3096,7 @@ textarea {
 		opacity: 0.6;
 		cursor: pointer;
 	}
-	#wrapper #main .inner #div_paging {
+	#div_paging {
 		text-align: center;
 		margin: 20px;
 	}

@@ -28,8 +28,8 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 	private GroupBoardDao gboardDao;
 	String backupPath = "C:\\JU\\WebProgramming\\source\\10_2ndTeamProject\\pronect\\src\\main\\webapp\\groupBoardFileUpload\\";
 	@Override
-	public List<GroupBoard> groupBoardList(GroupBoard groupboard, String pageNum, Model model) {
-		Paging paging = new Paging(gboardDao.totCntGroupBoard(groupboard), pageNum);
+	public List<GroupBoard> groupBoardList(GroupBoard groupboard, String boardPageNum, Model model) {
+		Paging paging = new Paging(gboardDao.totCntGroupBoard(groupboard), boardPageNum);
 		model.addAttribute("paging", paging);
 		groupboard.setStartRow(paging.getStartRow());
 		groupboard.setEndRow(paging.getEndRow());
@@ -136,8 +136,7 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 	}
 
 	@Override
-	public int totCntFboard(GroupBoard groupboard) {
-		// TODO Auto-generated method stub
+	public int totCntGroupBoard(GroupBoard groupboard) {
 		return gboardDao.totCntGroupBoard(groupboard);
 	}
 }

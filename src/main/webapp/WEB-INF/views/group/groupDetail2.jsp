@@ -13,10 +13,17 @@
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
 	<link href="${conPath}/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
 	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
+	<!-- SweetAlert -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+		function alert(msg) {
+			Swal.fire(msg);
+		}
+	</script>
+	<!-- FullCalendar -->
 	<link href="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@main/dist/jquery.timeline.min.js"></script>
-	<!-- FullCalendar Script -->
-	
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 			$(function () {
@@ -41,7 +48,6 @@
 						titleFormat : function(date) {
 						  return date.date.year +"년 "+(date.date.month +1)+"월"; 
 						}, 
-						editable: true,
 						droppable: true,
 						drop: function (arg) {
 						if (document.getElementById('drop-remove').checked) {
@@ -49,28 +55,29 @@
 							}
 						},
 						events: data,
-						dateClick: function(info) {
-							alert('ee');
-						}, 
 						eventClick: function(info) {
 				    	let today = new Date();   
 				    	let year = today.getFullYear();
 				    	let month = ('0' + (today.getMonth() + 1)).slice(-2);
 				    	let day = ('0' + today.getDate()).slice(-2);
 				    	let todayStr = year + '-' + month + '-' + day;
-							if (!confirm(info.event.startStr+" 일정 ("+info.event.title+")에 참여하셨습니까?")) {
-					    		alert("취소(아니오)를 누르셨습니다.");
-						    }else {
-						    	if (info.event.startStr == todayStr) {
-						    		alert("확인(예)을 누르셨습니다.");
-						    		// location.href='group/schedule/';
-						    	}else {
-						    		alert("스터디 당일에만 참석이 가능합니다.");
-						    	}
-						    }
-							    alert('그룹아이디: ' + info.event.groupId);
-							    alert('아이디: ' + info.event.id);
-							  }
+					    	Swal.fire({
+						        title: info.event.startStr+' 일정 ('+info.event.title+')에 참여하셨습니까?',
+						        showDenyButton: true,
+						        confirmButtonText: '네',
+						        denyButtonText: '아니요',
+						        icon: 'warning'
+						    }).then((result) => {
+						    	if (result.isConfirmed) {
+						    		if(todayStr != info.event.startStr){
+						    			alert('출석은 당일에만 가능합니다.');
+						    		}else if(todayStr === info.event.startStr) {
+							        	location.href = '${conPath}/group/schedule/achive.do?';	
+						    		}
+						        }
+						    });
+						    return false;
+						}
 					});
 					calendar.render();
 				});
@@ -102,54 +109,165 @@
 			});
 		});
 		$('#groupDetail_schedule').click(function(){
-			$('.groupDetail').html('');
-			document.getElementById('calendar').style.display = 'block';
-			document.getElementsByClassName('fc-prev-button fc-button fc-button-primary')[0].click();
-			document.getElementsByClassName('fc-next-button fc-button fc-button-primary')[0].click();
-			$.ajax({
-				url : '${conPath}/group/schedule/myGroupSchedule.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
+			if(${empty member}){
+				$('.groupDetail').html('');
+				location.href="${conPath}/member/login.do";
+			}
+			else if(${not empty member}){
+				if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					$('.groupDetail').html('');
+					alert('그룹 가입 후 이용 가능합니다');
+					$.ajax({
+						url : '${conPath}/group/groupInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+					$('.groupDetail').html('');
+					alert('그룹 승인 대기 중입니다');
+					$.ajax({
+						url : '${conPath}/group/groupInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+					$('.groupDetail').html('');
+					document.getElementById('calendar').style.display = 'block';
+					document.getElementsByClassName('fc-prev-button fc-button fc-button-primary')[0].click();
+					document.getElementsByClassName('fc-next-button fc-button fc-button-primary')[0].click();
+					$.ajax({
+						url : '${conPath}/group/schedule/myGroupSchedule.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+					$('.groupDetail').html('');
+					document.getElementById('calendar').style.display = 'block';
+					document.getElementsByClassName('fc-prev-button fc-button fc-button-primary')[0].click();
+					document.getElementsByClassName('fc-next-button fc-button fc-button-primary')[0].click();
+					$.ajax({
+						url : '${conPath}/group/schedule/myGroupSchedule.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				};
+			}
 		});
 		$('#groupDetail_memberInfo').click(function(){
 			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/group/memberInfo.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
-		});
-		$('#groupDetail_gantt').click(function(){
-			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/group/schedule/gantt.do',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
+			if(${empty member}){
+				$('.groupDetail').html('');
+				location.href="${conPath}/member/login.do";
+			}
+			else if(${not empty member}){
+				if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					$('.groupDetail').html('');
+					alert('그룹 가입 후 이용 가능합니다');
+					$.ajax({
+						url : '${conPath}/group/groupInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+					$('.groupDetail').html('');
+					alert('그룹 승인 대기 중입니다');
+					$.ajax({
+						url : '${conPath}/group/groupInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+					$('.groupDetail').html('');
+					$.ajax({
+						url : '${conPath}/group/memberInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+					$('.groupDetail').html('');
+					$.ajax({
+						url : '${conPath}/group/memberInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				};
+			}
 		});
 		$('#groupDetail_board').click(function(){
 			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
-			$.ajax({
-				url : '${conPath}/groupBoard/list.do?',
-				datatype : 'html',
-				data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
-				success : function(data, status){
-					$('.groupDetail').html(data);
-				}
-			});
+			if(${empty member}){
+				$('.groupDetail').html('');
+				location.href="${conPath}/member/login.do";
+			}
+			else if(${not empty member}){
+				if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					$('.groupDetail').html('');
+					alert('그룹 가입 후 이용 가능합니다');
+					$.ajax({
+						url : '${conPath}/group/groupInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+					$('.groupDetail').html('');
+					alert('그룹 승인 대기 중입니다');
+					$.ajax({
+						url : '${conPath}/group/groupInfo.do',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+					$('.groupDetail').html('');
+					$.ajax({
+						url : '${conPath}/groupBoard/list.do?',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+					$('.groupDetail').html('');
+					$.ajax({
+						url : '${conPath}/groupBoard/list.do?',
+						datatype : 'html',
+						data : "gid="+${groupDetail.gid}+"&pageNum="+${param.pageNum},
+						success : function(data, status){
+							$('.groupDetail').html(data);
+						}
+					});
+				};
+			}
 		});
 	});
 	</script>
@@ -306,9 +424,6 @@
 						<li>
 							<p id="groupDetail_schedule"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
 						</li>
-						<c:if test="${groupDetail.gcharacter eq 'P' }">
-						<li><p id="groupDetail_gantt">Gantt 계획표</p></li>
-						</c:if>
 						<li><p id="groupDetail_board">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판</p></li>
 						<c:if test="${groupDetail.mid eq member.mid }">
 							<li><p id="groupDetail_memberInfo">멤버 정보</p></li>

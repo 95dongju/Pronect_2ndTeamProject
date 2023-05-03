@@ -31,4 +31,7 @@
 	<delete id="deleteGroupBoardReply" parameterType="int">
 		DELETE FROM GROUP_BOARD_REPLY WHERE GROUP_REPID = #{group_repid}
 	</delete>
+	<delete id="deleteAllGroupBoardReply" parameterType="int">
+		DELETE FROM GROUP_BOARD_REPLY WHERE GROUP_BID = #{group_bid}
+	</delete>
 </mapper>

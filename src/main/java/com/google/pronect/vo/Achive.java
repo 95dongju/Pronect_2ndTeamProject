@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Achive {
-	private int sdc_id;
+	private int scd_id;
 	private String mid;
 	private String sch_achive;
 }

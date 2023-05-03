@@ -35,4 +35,5 @@ public class Group {
 	private String	mnickname;	//작성자 닉네임
 	private int		gsid;
 	private int 	comment_count;
+	private int		gsstatus;
 }

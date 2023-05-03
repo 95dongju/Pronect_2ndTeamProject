@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.pronect.service.GCommentService;
 import com.google.pronect.service.GroupService;
+import com.google.pronect.service.ScheduleService;
 import com.google.pronect.util.Paging;
 import com.google.pronect.vo.Group;
 
@@ -20,6 +21,8 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private GCommentService gCommentService;
+	@Autowired
+	private ScheduleService scheduleService;
 	@RequestMapping(value="groupList", method= {RequestMethod.GET, RequestMethod.POST})
 	public String goupList(String pageNum, Model model) {
 		model.addAttribute("list",groupService.groupList(pageNum));
@@ -59,6 +62,7 @@ public class GroupController {
 		model.addAttribute("name",name);
 		//model.addAttribute("groupMember",groupService.groupMember(gid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		model.addAttribute("joincheck", groupService.joinCheck(gid, session));
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
 		model.addAttribute("hitGroup",groupService.hitGroup());

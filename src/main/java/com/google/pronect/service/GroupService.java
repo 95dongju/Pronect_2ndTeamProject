@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.google.pronect.vo.Group;
 
 public interface GroupService {
@@ -38,4 +40,8 @@ public interface GroupService {
 	public String 	endDate(int gid);
 	public int 		getCommentCnt(int gid);
 	public List<Group> hitGroup();
+	public List<Group> getMemberId(int gid);
+	public Group	myStudyList(String mid);
+	public Group	myProjectList(String mid);
+	public Group	myHistory(String mid);
 }

@@ -282,5 +282,25 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.joinCheckCnt(group);
 	}
 
+	@Override
+	public List<Group> getMemberId(int gid) {
+		return groupDao.getMemberId(gid);
+	}
+
+	@Override
+	public Group myStudyList(String mid) {
+		return groupDao.myStudyList(mid);
+	}
+
+	@Override
+	public Group myProjectList(String mid) {
+		return groupDao.myProjectList(mid);
+	}
+
+	@Override
+	public Group myHistory(String mid) {
+		return groupDao.myHistory(mid);
+	}
+
 
 }

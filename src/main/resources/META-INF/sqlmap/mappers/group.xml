@@ -27,6 +27,7 @@
 		<result property="mimage" column="mimage"/>
 		<result property="gsid" column="gsid"/>
 		<result property="mnickname" column="mnickname"/>
+		<result property="gsstatus" column="gsstatus"/>
 	</resultMap>
 <!--//////////////////////////////////goupList.do//////////////////////////////////// -->
 	<select id="groupList" parameterType="Group" resultMap="GroupResult">
@@ -208,4 +209,23 @@
 	<delete id="joinDelete" parameterType="int">
 		DELETE FROM GSTATUS WHERE GID = #{gid} AND GSSTATUS = 1
 	</delete>
+<!--//////////////////////////////달성도 insert용/////////////////////////  -->
+	<select id="getMemberId" parameterType="int" resultType="int">
+		SELECT MID FROM MYGROUP WHERE GID = #{gid}
+	</select>
+	<select id="myStudyHistory" parameterType="String" resultMap="GroupResult">
+		SELECT S.GID, S.GTITLE, S.GSDATE, S.GFDATE, H.GSSTATUS GSSTATUS 
+			FROM MYGROUP S, GSTATUS H 
+			WHERE S.GID = H.GID AND (H.GSSTATUS = 2 OR H.GSSTATUS = 1) AND S.GCHARACTER = 'S' AND H.MID = #{mid}
+	</select>
+	<select id="myProjectHistory" parameterType="String" resultMap="GroupResult">
+		SELECT S.GID, S.GTITLE, S.GSDATE, S.GFDATE, H.GSSTATUS GSSTATUS 
+			FROM MYGROUP S, GSTATUS H 
+			WHERE S.GID = H.GID AND (H.GSSTATUS = 2 OR H.GSSTATUS = 1) AND S.GCHARACTER = 'P' AND H.MID = #{mid}
+	</select>
+	<select id="myHistory" parameterType="String" resultMap="GroupResult">
+		SELECT S.GCHARACTER, S.GID, S.GTITLE, S.GSDATE, S.GFDATE, H.GSSTATUS 
+			FROM MYGROUP S, GSTATUS H 
+			WHERE S.GID = H.GID AND (H.GSSTATUS = 3) AND H.MID = #{mid}
+	</select>
 </mapper>

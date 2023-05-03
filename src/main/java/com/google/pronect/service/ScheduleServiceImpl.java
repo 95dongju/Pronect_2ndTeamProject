@@ -2,6 +2,7 @@ package com.google.pronect.service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,17 +17,12 @@ import com.google.pronect.vo.Group;
 public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	private ScheduleDao scheduleDao;
-	@Autowired
-	private GroupService groupService;
 	@Override
-	public void insertSchedule(Schedule schedule, Group group, int gid) {
-		group.setGsdate(groupService.startDate(gid));
-		group.setGfdate(groupService.endDate(gid));
+	public void insertGroupSchedule(Schedule schedule, Group group) {
 		int selected_date = schedule.getSelected_date();
 		String startDateStr = group.getGsdate();
 		String endDateStr = group.getGfdate();
-		Date startDate = null;
-		Date endDate = null;
+		Date startDate, endDate = null;
 		startDate = Date.valueOf(startDateStr); 
 		endDate = Date.valueOf(endDateStr);
 		Calendar cal1 = Calendar.getInstance();
@@ -43,7 +39,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 				String date = fm.format(calDate);
 				schedule.setScd_start(date);
 				schedule.setScd_end(date);
-				scheduleDao.insertSchedule(schedule);
+				scheduleDao.insertGroupSchedule(schedule);
 				cal1.add(Calendar.DATE, 1);
 			}else {
 				cal1.add(Calendar.DATE, 1);				
@@ -58,5 +54,31 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public Schedule detailSchedule(int scd_id) {
 		return scheduleDao.detailSchedule(scd_id);
 	}
-
+	@Override
+	public void insertSchedule(Schedule schedule, Group group) {
+		String startDateStr = schedule.getScd_start();
+		String endDateStr = schedule.getScd_end();
+		Date startDate, endDate = null;
+		startDate = Date.valueOf(startDateStr); 
+		endDate = Date.valueOf(endDateStr);
+		Calendar cal1 = Calendar.getInstance();
+		java.util.Date utilSDate = new java.util.Date(startDate.getTime());
+		java.util.Date utilEDate = new java.util.Date(endDate.getTime());
+		cal1.setTime(utilSDate);
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(utilEDate);
+		int dayOfWeekNum = cal1.get(Calendar.DAY_OF_WEEK);
+		java.util.Date calDate1 = cal1.getTime();
+		java.util.Date calDate2 = cal2.getTime();
+		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+		String date1 = fm.format(calDate1);
+		String date2 = fm.format(calDate2);
+		schedule.setScd_start(date1);
+		schedule.setScd_end(date2);
+		scheduleDao.insertGroupSchedule(schedule);
+	}
+	@Override
+	public ArrayList<Schedule> getScdIdList(int gid) {
+		return scheduleDao.getScdIdList(gid);
+	}
 }
