@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="${conPath }/css/main.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script src="https://kit.fontawesome.com/4626b7e71c.js" crossorigin="anonymous"></script>
 	<script>
 		function alert(msg) {
 			Swal.fire(msg);
@@ -40,6 +41,8 @@
 		    return false;
 		}
 	</script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body class="is-preload">
 	<header id="header">
@@ -51,16 +54,16 @@
 		<nav>
 			<c:if test="${empty member}">
 				<ul>
-					<li><a href="${conPath }/member/join.do">회원가입</a></li>
-					<li><a href="${conPath }/member/login.do">로그인</a></li>
+					<li><a href="${conPath }/member/join.do"><i class="fa-solid fa-pen-nib fa-bounce"></i> 회원가입</a></li>
+					<li><a href="${conPath }/member/login.do"><i class="fa-solid fa-user fa-flip"></i> 로그인</a></li>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
 			<c:if test="${not empty member}">
 				<ul>
-					<li><a href="${conPath }/group/register.do">스터디/프로젝트  등록</a></li>
-					<li><a href="${conPath }/member/logout.do"  onclick="return logout()">로그아웃</a></li>
-					<li><a href="${conPath}/member/mypage.do">${member.mnickname }님</a></li>
+					<li><a href="${conPath }/group/register.do"><i class="fa-solid fa-square-plus"></i> 스터디/프로젝트  등록</a></li>
+					<li><a href="${conPath }/member/logout.do"  onclick="return logout()"><i class="fa-solid fa-right-from-bracket"></i> 로그아웃</a></li>
+					<li><a href="${conPath}/member/mypage.do"><i class="fa-solid fa-user-tie"></i> ${member.mnickname }님</a></li>
 					<li><a href="#menu">메뉴</a></li>
 				</ul>
 			</c:if>
@@ -73,11 +76,11 @@
 			<li><a href="${conPath}/main.do">Home</a></li>
 			<li><a href="../group/myStudy.jsp">MyStudy</a></li>
 			<li><a href="../group/myProject.jsp">MyProject</a></li>
-			<li><a href="${conPath }/fboard/list.do?pageNum=1">자유게시판</a></li>
-			<li><a href="${conPath }/qboard/list.do?pageNum=1">문의게시판</a></li>
-			<li><a href="${conPath }/nboard/list.do?pageNum=1">공지게시판</a></li>
+			<li><a href="${conPath }/fboard/list.do?pageNum=1"><i class="fa-solid fa-comment"></i> 자유게시판</a></li>
+			<li><a href="${conPath }/qboard/list.do?pageNum=1"><i class="fa-regular fa-circle-question"></i> 문의게시판</a></li>
+			<li><a href="${conPath }/nboard/list.do?pageNum=1"><i class="fa-solid fa-bullhorn"></i> 공지게시판</a></li>
 			<c:if test="${member.manager eq 'Y' }">
-				<li><a href="${conPath }/member/list.do?pageNum=1">회원목록(관리자 전용)</a></li>
+				<li><a href="${conPath }/member/list.do?pageNum=1"><i class="fa-solid fa-users"></i> 회원목록(관리자 전용)</a></li>
 			</c:if>
 		</ul>
 	</nav>

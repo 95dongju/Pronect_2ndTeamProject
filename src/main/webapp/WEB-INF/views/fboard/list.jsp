@@ -8,13 +8,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/main.css" rel="stylesheet">
-	<style>
-		#content {width: 800px; height:1200px;margin: 50px auto; }
-		img{width: 100px;}
-		a {text-decoration: none; color:black;}
-		b {color:red;}
-	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
@@ -132,11 +125,11 @@
 					>제목+내용+글쓴이</option>
 				</select>
 				<input type="text" name="schWord" value="${param.schWord }">
-				<input type="submit" value="검색">
+				<button type="submit"><i class="fa-solid fa-magnifying-glass"></i>검색</button>
 			</form>
-			<button type="button" onclick="location.href='${conPath}/fboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">글쓰기</button>
+			<button type="button" onclick="location.href='${conPath}/fboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'"><i class="fa-solid fa-pen"></i> 글쓰기</button>
 		</div>
-		<table>
+		<table id="boardTable">
 			<caption>자유게시판</caption>
 			<tr>
 				<th>글번호</th><th>글쓴이</th><th>제목</th><th>작성일</th>
