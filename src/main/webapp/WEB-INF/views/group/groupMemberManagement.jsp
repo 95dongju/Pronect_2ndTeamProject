@@ -6,8 +6,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+	<jsp:include page="../main/header.jsp"/>
 		<!-------------------------------------------------참가 신청자 정보--------------------------------------------------------------->				
 			<c:if test="${groupDetail.mid eq member.mid }">
 				<h2>참가 신청자 정보</h2>
@@ -47,5 +49,6 @@
 				</c:if>
 			</div>
 		</c:if>
+	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>

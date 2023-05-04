@@ -8,13 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link href="${conPath}/css/boardDetail.css" rel="stylesheet" />
+<link href="${conPath}/css/groupDetail.css" rel="stylesheet" />
 <script>
 	$(document).ready(function(){
 		$('tr:not(:first-child)').click(function(){
 			var group_bid = Number($(this).children().eq(0).text());
-			document.getElementById('calendar').style.display = 'none';
-			$('.groupDetail').html('');
 			$.ajax({
 				url : '${conPath}/groupBoard/detail.do?',
 				datatype : 'html',

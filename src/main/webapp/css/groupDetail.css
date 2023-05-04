@@ -5,7 +5,57 @@
 }
 #main {
 	max-width: 1000px;
+	min-width: 600px;
 	margin: auto;
+}
+#back {
+	margin: 0 auto;
+}
+#groupDetail{
+	width: 80%;
+	margin: 0 auto;
+}
+#sideBanner{
+	width:200px;
+	position:fixed;
+	top:200px;
+	right:200px;
+}
+#sideBanner_hitGroup{
+	display: block;
+	white-space:nowrap;
+	overflow:hidden;
+}
+#sideBanner_hitGroup li::marker{
+	color : blue;
+	
+}
+#sideBanner_hitGroup_border{
+	border-radius: 10px;
+	border:solid gray 2px;
+}
+#groupInfo_title{
+	margin-right:20px;
+}
+.back{
+	width : 30px;
+	text-align: left;
+}
+button{
+	text-align: center;
+}
+#commentContent{
+	border-radius: 10px;
+}
+#submitBtn{
+	border-radius: 20px;
+	background-color:black;
+	color:white;
+}
+#rank{
+	font-style: italic;
+	font-weight: bold;
+	color:blue;
 }
 #main .groupContent_detailHeader .groupDetail_title{
 	margin: 10px;
