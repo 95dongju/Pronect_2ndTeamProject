@@ -57,10 +57,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public void insertSchedule(Schedule schedule, Group group) {
 		String startDateStr = schedule.getScd_start();
+		System.out.println(schedule.getScd_start());
 		String endDateStr = schedule.getScd_end();
+		System.out.println(schedule.getScd_end());
 		Date startDate, endDate = null;
 		startDate = Date.valueOf(startDateStr); 
 		endDate = Date.valueOf(endDateStr);
+		System.out.println(startDate+"/ "+endDate);
 		Calendar cal1 = Calendar.getInstance();
 		java.util.Date utilSDate = new java.util.Date(startDate.getTime());
 		java.util.Date utilEDate = new java.util.Date(endDate.getTime());
@@ -68,14 +71,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 		Calendar cal2 = Calendar.getInstance();
 		cal2.setTime(utilEDate);
 		int dayOfWeekNum = cal1.get(Calendar.DAY_OF_WEEK);
-		java.util.Date calDate1 = cal1.getTime();
-		java.util.Date calDate2 = cal2.getTime();
+		java.util.Date calDate = cal1.getTime();
 		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-		String date1 = fm.format(calDate1);
-		String date2 = fm.format(calDate2);
-		schedule.setScd_start(date1);
-		schedule.setScd_end(date2);
-		scheduleDao.insertGroupSchedule(schedule);
+		String date = fm.format(calDate);
+		schedule.setScd_start(date);
+		schedule.setScd_end(date);
+		scheduleDao.insertSchedule(schedule);
 	}
 	@Override
 	public ArrayList<Schedule> getScdIdList(int gid) {

@@ -62,8 +62,8 @@ button{
 	font-size: 2em;
 	font-weight: bold;
 	white-space: no-wrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 #main .groupContent_detailHeader .groupDetail_writer .mimage img {
 	width: 40px;
@@ -95,7 +95,6 @@ button{
 #main .groupContent_detailHeader .groupDetail_writer .grdate:before {
 	clear: both;
 	display: block;
-	content: '';
 }
 #main .groupContent_detailHeader .groupContent_detail {
 }
@@ -109,19 +108,44 @@ button{
 	display: block;
 	content: '';
 }
-#main .groupContent_detailHeader #mygroup_nav ul li p {
+#main .groupContent_detailHeader #mygroup_nav {
+	width: 100%;
+	margin: 0;
 	padding: 0;
-	margin: 0 2.5%;
+}
+#main .groupContent_detailHeader #mygroup_nav ul {
+	margin: 0;
+	padding: 0;
+}
+#main .groupContent_detailHeader #mygroup_nav ul li {
+	margin: 0;
+	padding: 0;
+}
+#main .groupContent_detailHeader #mygroup_nav ul li p {
+	margin: 0;
+	padding: 10px;
+	width: 25%;
 	float: left;
-	width: 20%;
 	text-align: center;
-	background-color: #eeeeee;
 }
 #main .groupContent_detailHeader #mygroup_nav ul li p:hover {
 	cursor: pointer;
+	background-clip: #F4F4F4;
+	background-color: #F4F4F4;
+	border-radius: 30px 30px 0 0;
+}
+#main .groupContent_detailHeader #mygroup_nav ul li .active {
+	background-clip: #eeeeee;
+	border-radius: 30px 30px 0 0;
 }
 #main .groupContent_detailContentWrapper {
 	width: 100%;
+}
+#main #writeGroupBoard{
+	margin-top: 50px;
+}
+#main #writeGroupBoard h2 {
+	padding: 20px;
 }
 .groupContent_detailContentWrapper pre {
 	white-space: normal;
@@ -132,11 +156,152 @@ button{
 }
 #main .groupContent_detail {
 	padding-top: 30px;
-	background-color: #F4F4F4;
 }
 .contentInput_buttonWrapper {
 	text-align: center;
 	margin-top: 20px;
+}
+.InsertScheduleDiv .emptySchedule {
+	text-align: center;
+	margin: 80px 10px;
+}
+.InsertScheduleDiv .insertScheduleDiv button {
+	margin: 10px;
+}
+#main .InsertSchedule {
+	width: 300px;
+	margin: auto;
+	margin-top: 30px;
+}
+#main .InsertSchedule form {
+	width: 300px;
+	margin: auto;
+}
+#main .InsertSchedule form h2 {
+	text-align: center;
+}
+#main .InsertSchedule form div {
+	margin: 10px auto;
+}
+#main .InsertSchedule form div .inputBox {
+	width: 200px;
+}
+#main .InsertSchedule form div span {
+	display: inline-block;
+	width: 50px;
+}
+#main .InsertSchedule #insertSchedule {
+	text-align: center;
+	margin: 30px auto;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	background-color: transparent;
+	border-radius: 4px;
+	border: 0;
+	box-shadow: inset 0 0 0 2px #585858;
+	color: #585858 !important;
+	cursor: pointer;
+	display: block;
+	font-size: 0.8em;
+	font-weight: 900;
+	height: 3.5em;
+	letter-spacing: 0.35em;
+	line-height: 3.45em;
+	overflow: hidden;
+	padding: 0 1.25em 0 1.6em;
+	text-align: center;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+.insertScheduleForm {
+	width: 600px;
+	margin: auto;
+}
+.insertScheduleForm fieldset {
+	display: block;
+	border: 3px solid #eeeeee;
+	padding: 20px;
+	margin: 10px;
+}
+.insertScheduleForm fieldset legend {
+    border: none;
+    text-align: center;
+}
+#groupBoardList h2 {
+	text-align: center;
+}
+#groupBoardList #div_search {
+	padding-top: 20px;
+	margin: 10px auto;
+	text-align: center;
+}
+#groupBoardList #div_search #searchGroupBoard {
+	height: 40px;
+}
+
+.boardDetail {
+	margin: 10px auto;
+	padding: 10px;
+}
+.boardDetail #boardTitle {
+	font-size: 1.5em;
+	margin: 0;
+}
+.boardDetail #boardWriter {
+	font-size: 1em;
+	border-bottom: 1px solid #eeeeee;
+	font-weight: 100;
+	margin: 0;
+	padding: 5px;
+}
+.boardDetail #boardRdate, #boardCommentRdate {
+	float: right;
+	font-size: 0.8em;
+	margin: 5px;
+}
+.boardDetail #boardComment {
+	font-size: 1.2em;
+	margin: 0;
+}
+.boardDetail #boardContent {
+	margin: 0;
+	padding: 50px 30px;
+	border-bottom: 1px solid #eeeeee;
+}
+.boardDetail #div_comment {
+	width: 95%;
+	margin: 10px auto;
+	
+}
+.boardDetail #div_comment #boardCommentContent {
+	border-bottom: 1px solid #eeeeee;
+}
+.boardDetail #div_comment #boardCommentWriter {
+	margin: 10px;
+	padding: 0;
+}
+
+.boardDetail pre {
+	float: right;
+	margin: 0;
+}
+
+.boardDetail pre:hover {
+	color: #f2849e !important;
+	cursor: pointer;
+}
+
+.boardDetail textarea {
+	width: 90%;
+	margin: auto;
+	text-align: left;
+	padding: 2px;
 }
 @media screen and (max-width: 760px) {
 		#main .groupContent_detailHeader .groupContent_detail {

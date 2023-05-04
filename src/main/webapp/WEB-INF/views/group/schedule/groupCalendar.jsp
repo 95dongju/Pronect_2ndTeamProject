@@ -8,72 +8,176 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>Pronect</title>
+	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- GroupDetailNav (네비게이션바 Script) -->
 	<script>
 		$(document).ready(function(){
+			if(${empty groupSchedule}){
+				document.getElementById('calendar').style.display = 'none';
+			}else if(${not empty groupSchedule}){
+				document.getElementById('calendar').style.display = 'block';
+			}
+			var pageNum = ${param.pageNum};
+			if(pageNum == null || pageNum == ''){
+				pageNum = 1;
+			}
 			$('#groupDetail_info').click(function(){
-				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 			});
 			$('#groupDetail_schedule').click(function(){
 				if(${empty member}){
-					alert('로그인 후 이용 가능합니다');
-					location.href="${conPath}/member/login.do";
+					Swal.fire({
+				        title: '로그인 후 이용 가능합니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href="${conPath}/member/login.do";
+				        }
+				    });
+				    return false;
 				}else if(${not empty member}){
 					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-						alert('그룹 가입 후 이용 가능합니다');
-						location.href="history.back()";
+						Swal.fire({
+					        title: '그룹 가입 후 이용 가능합니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						alert('그룹 승인 대기 중입니다');
-						location.href="history.back()";
+						Swal.fire({
+					        title: '그룹 승인 대기 중입니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 					}
 				}
 			});
-			$('#groupDetail_board').click(function(){
-				if(${empty member}){
-					alert('로그인 후 이용 가능합니다');
-					location.href="${conPath}/member/login.do";
+		$('#groupDetail_board').click(function(){
+			if(${empty member}){
+				Swal.fire({
+			        title: '로그인 후 이용 가능합니다',
+			        confirmButtonText: '확인',
+			        icon: 'warning',
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			        	location.href="${conPath}/member/login.do";
+			        }
+			    });
+			    return false;
 				}else if(${not empty member}){
 					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-						alert('그룹 가입 후 이용 가능합니다');
-						location.href="history.back()";
+						Swal.fire({
+					        title: '그룹 가입 후 이용 가능합니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						alert('그룹 승인 대기 중입니다');
-						location.href="history.back()";
+						Swal.fire({
+					        title: '그룹 승인 대기 중입니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 					}
 				}
 			});
-			$('#groupDetail_memberInfo').click(function(){
-				if(${empty member}){
-					alert('로그인 후 이용 가능합니다');
-					location.href="${conPath}/member/login.do";
-				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-						alert('그룹 가입 후 이용 가능합니다');
-						location.href="history.back()";
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						alert('그룹 승인 대기 중입니다');
-						location.href="history.back()";
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
-					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
-					}
+		$('#groupDetail_memberInfo').click(function(){
+			if(${empty member}){
+				Swal.fire({
+			        title: '로그인 후 이용 가능합니다',
+			        confirmButtonText: '확인',
+			        icon: 'warning',
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			        	location.href="${conPath}/member/login.do";
+			        }
+			    });
+			    return false;
+			}else if(${not empty member}){
+				if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					Swal.fire({
+				        title: '그룹장만 확인할 수 있습니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+					Swal.fire({
+				        title: '그룹장만 확인할 수 있습니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+					Swal.fire({
+				        title: '그룹장만 확인할 수 있습니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 				}
-			});
+			}
 		});
+	});
+	</script>
+	<script>
+		var popupWidth = 630;
+		var popupHeight = 370;
+	
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		var popupY= (window.screen.height / 2) - (popupHeight / 2);
+		function popupGroup(){
+	  		window.open('${conPath}/group/schedule/insertGroupSchedulePopup.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}','그룹 스케쥴 등록','status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);                 
+	    };
+	    function popupDay(){
+   	  		window.open('${conPath}/group/schedule/insertSchedulePopup.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}','스케쥴 등록','status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);                 
+   	    };
 	</script>
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/main.js"></script>
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
 	<link href="${conPath}/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
-	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	<!-- FullCalendar -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
@@ -219,47 +323,36 @@
 					</c:if>
 				</ul>
 				<p style=clear:both;></p>
-				<div id='calendar'></div>
 			</nav>
 		</div>
+	 	<c:if test="${groupDetail.mid eq member.mid and empty groupSchedule}">
+			<div class="InsertScheduleDiv">
+				<div class="emptySchedule">
+					<h2>등록된 일정이 없습니다. 새로운 일정을 추가하세요. </h2>
+					<div class="insertScheduleDiv">
+						<button onclick="popupGroup();">매주 일정 추가하기</button><button onclick="popupDay();">하루 일정 추가하기</button>
+					</div>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${groupDetail.mid ne member.mid and empty groupSchedule}">
+			<div class="InsertScheduleDiv">
+				<div class="emptySchedule">
+					<h2>등록된 일정이 없습니다. </h2>
+				</div>
+			</div>
+		</c:if>
+		<div id='calendar'></div>
+		<c:if test="${groupDetail.mid eq member.mid and not empty groupSchedule}">
+			<div class="InsertScheduleDiv">
+				<div class="emptySchedule">
+					<div class="insertScheduleDiv">
+						<button onclick="popupGroup();">매주 일정 추가하기</button><button onclick="popupDay();">하루 일정 추가하기</button>
+					</div>
+				</div>
+			</div>
+		</c:if>
 	</div>
- 	<c:if test="${groupDetail.mid eq member.mid and empty groupSchedule}">
-		<div class="InsertSchedule">
-			<h2>등록된 일정이 없습니다. 새로운 일정을 추가하세요. </h2>
-			<form action="${conPath }/group/schedule/insertGroupSchedule.do">
-				<input type="hidden" name="gid" value="${groupDetail.gid }">
-				<input type="hidden" name="mid" value="${groupDetail.mid }">
-				<input type="hidden" name="gsdate" value="${groupDetail.gsdate }">
-				<input type="hidden" name="gfdate" value="${groupDetail.gfdate }">
-				<h2>일정 추가</h2>
-				<select name="selected_date" class="inputBox">
-					<option value="1">매주 일요일</option>
-					<option value="2">매주 월요일</option>
-					<option value="3">매주 화요일</option>
-					<option value="4">매주 수요일</option>
-					<option value="5">매주 목요일</option>
-					<option value="6">매주 금요일</option>
-					<option value="7">매주 토요일</option>
-				</select>
-				<h3>일정명</h3><input type="text" name="scd_title" class="inputBox">
-				<h3>메모</h3><input type="text" name="scd_memo" class="inputBox">
-				<input type="submit" id="insertSchedule" value="일정 등록하기">
-			</form>
-		</div>
-	</c:if>
-	<c:if test="${groupDetail.mid eq member.mid and not empty groupSchedule}">
-		<div class="InsertSchedule">
-			<form action="${conPath }/group/schedule/insertSchedule.do">
-				<input type="hidden" name="gid" value="${groupDetail.gid }">
-				<input type="hidden" name="mid" value="${groupDetail.mid }">
-			 	<h2>일정 추가</h2>
-			 	<h3>시작일</h3> <input type="date" name="scd_start"> <h3>종료일</h3> <input type="date" name="scd_end">
-			 	<h3>일정명</h3> <input type="text" name="scd_title" class="inputBox" style="width: 40%;">
-			 	<h3>메모</h3> <input type="text" name="scd_memo" class="inputBox" style="width: 40%;">
-			 	<input type="submit" id="insertSchedule" value="일정 등록하기">
-			</form>
-		</div>
-	</c:if>
 	<jsp:include page="../../main/footer.jsp"/>
  </body>
 </html>

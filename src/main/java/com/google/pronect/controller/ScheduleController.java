@@ -69,17 +69,27 @@ public class ScheduleController {
 	public String gantt() {
 		return "group/ganttChart/gantt";
 	}
-	@RequestMapping(value="insertGroupSchedule", method=RequestMethod.GET)
-	public String insertGroupSchedule(int gid, Achive achive, Schedule schedule, Group group, Model model) {
-		scheduleService.insertGroupSchedule(schedule, group);
-		achiveService.insertAchive(achive, gid);
+	@RequestMapping(value="insertGroupSchedulePopup", method=RequestMethod.GET)
+	public String insertGroupScheduleView(int gid, Model model) {
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/groupDetail2";
+		return "group/schedule/insertGroupSchedule";
+	}
+	@RequestMapping(value="insertGroupSchedule", method=RequestMethod.GET)
+	public String insertGroupSchedule(int gid, Schedule schedule, Group group, Model model /*Achive achive,*/) {
+		scheduleService.insertGroupSchedule(schedule, group);
+		// achiveService.insertAchive(achive, gid);
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		return "group/schedule/groupCalendar";
+	}
+	@RequestMapping(value="insertSchedulePopup", method=RequestMethod.GET)
+	public String insertScheduleView(int gid, Model model) {
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		return "group/schedule/insertSchedule";
 	}
 	@RequestMapping(value="insertSchedule", method=RequestMethod.GET)
 	public String insertSchedule(int gid, Schedule schedule, Group group, Model model) {
 		scheduleService.insertSchedule(schedule, group);
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/groupDetail2";
+		return "group/schedule/groupCalendar";
 	}
 }
