@@ -24,7 +24,7 @@
 		SELECT GID, C.MID MID, GCID, MIMAGE, MNICKNAME, GCRDATE, GCCONTENT FROM MEMBER M, GCOMMENT C WHERE M.MID = C.MID AND GID = #{gid}
 	</select>
 	<select id="getCommentContent" parameterType="int" resultType="GComment">
-		SELECT * FROM GCOMMENT WHERE GCID = ${gcid}
+		SELECT GCID, M.MID MID,MIMAGE, GCCONTENT, GCIP, GCRDATE, GID, MNICKNAME FROM GCOMMENT C,MEMBER M WHERE C.MID = M.MID AND GCID = #{gcid}
 	</select>
 	<update id="commentModify" parameterType="GComment">
 		UPDATE GCOMMENT SET GCCONTENT = #{gccontent} WHERE GCID = #{gcid}

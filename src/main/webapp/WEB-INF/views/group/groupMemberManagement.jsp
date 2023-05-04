@@ -24,7 +24,9 @@
 									<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
 								</div>
 								<div class="groupJoin_acceptBtn">
-									<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }&pageNum=${param.pageNum }'">수락</button>
+									<c:if test="${groupDetail.mid ne dto.mid }">
+										<button onclick="location.href='${conPath}/group/accept.do?mid=${dto.mid }&gid=${dto.gid }&pageNum=${param.pageNum }'">수락</button>
+									</c:if>
 								</div>
 							</c:forEach>
 						</c:if>
@@ -43,7 +45,12 @@
 							<div class="groupJoin_memberInfo_nickname">${dto.mnickname }</div>
 						</div>
 						<div class="groupJoin_acceptBtn">
-							<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }&pageNum=${param.pageNum }'">퇴출</button>
+							<c:if test="${groupDetail.mid eq dto.mid }">
+								<p><b>★그룹장</b></p>
+							</c:if>
+							<c:if test="${groupDetail.mid ne dto.mid }">
+								<button onclick="location.href='${conPath}/group/memberOut.do?mid=${dto.mid }&gid=${dto.gid }&pageNum=${param.pageNum }'">퇴출</button>
+							</c:if>
 						</div>
 					</c:forEach>
 				</c:if>

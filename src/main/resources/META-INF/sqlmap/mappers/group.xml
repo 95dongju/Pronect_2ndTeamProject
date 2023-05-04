@@ -143,9 +143,9 @@
 	<update id="groupHitUp" parameterType="int">
 		UPDATE MYGROUP SET GHIT=GHIT+1 WHERE GID = #{gid}
 	</update>
-	<select id="groupLeader" parameterType="String" resultType="int">
+<!-- 	<select id="groupLeader" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MYGROUP WHERE MID = #{mid} AND GCOMPLETE='N'
-	</select>
+	</select> ///////////////그룹리더 체크용////////-->
 	<select id="hitGroup" resultMap="GroupResult">
 		SELECT ROWNUM, GTITLE, GID FROM (SELECT * FROM MYGROUP WHERE GCOMPLETE='N' ORDER BY GHIT DESC) A WHERE ROWNUM BETWEEN 1 AND 10
 	</select>
@@ -157,10 +157,15 @@
                 GLANGUAGE1 = #{glanguage1},
                 GLANGUAGE2 = #{glanguage2},
                 GLANGUAGE3 = #{glanguage3},
-   <if test="gcharacter=='P'">
+   <if test="gcharacter=='P'.toString()">
                 GDEV = #{gdev}, 
                 GDESIGN = #{gdesign}, 
                 GPM = #{gpm},
+   </if>
+   <if test="gcharacter=='S'.toString()">
+                GDEV = 'N', 
+                GDESIGN = 'N', 
+                GPM = 'N',
    </if>
                 GSDATE = TO_DATE(TO_CHAR(#{gsdate}), 'YYYY-MM-DD'),
                 GFDATE = TO_DATE(TO_CHAR(#{gfdate}), 'YYYY-MM-DD'),
@@ -210,12 +215,15 @@
 		UPDATE MYGROUP SET GCOMPLETE = 'N' WHERE GID = #{gid}
 	</update>
 <!--//////////////////////////////////////////complete.do/////////////////////////  -->
-	<update id="completeGroup" parameterType="int">
-		UPDATE GSTATUS SET GSSTATUS = 3 WHERE GID = #{gid} AND GSSTATUS = 2
-	</update>
 	<delete id="joinDelete" parameterType="int">
 		DELETE FROM GSTATUS WHERE GID = #{gid} AND GSSTATUS = 1
 	</delete>
+	<update id="historyComplete" parameterType="int">
+		UPDATE GSTATUS SET GSSTATUS = 3 WHERE GID = #{gid} AND GSSTATUS = 2
+	</update>
+	<update id="completeGroup" parameterType="int">
+		UPDATE MYGROUP SET GCOMPLETE = 'C' WHERE GID = #{gid} AND GSSTATUS = 3
+	</update>
 <!--//////////////////////////////달성도 insert용/////////////////////////  -->
 	<select id="getMemberId" parameterType="int" resultType="int">
 		SELECT MID FROM MYGROUP WHERE GID = #{gid}
