@@ -6,8 +6,9 @@
  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Pronect</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<title>Pronect</title>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	<!-- SweetAlert -->
@@ -20,6 +21,17 @@
 	</script>
 	<script>
 		$(document).ready(function(){
+			$('#groupDetail_info').click(function(){
+				if(${empty member}){
+					location.href="${conPath}/member/login.do";
+				}else if(${not empty member}){
+					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+						alert('그룹 가입 후 이용 가능합니다');
+						location.href="${conPath}/member/login.do";
+					}
+				}
+				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+			});
 			$('#groupDetail_schedule').click(function(){
 				location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
 			});

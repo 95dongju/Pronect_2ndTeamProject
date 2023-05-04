@@ -5,7 +5,26 @@
 <c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<title>Pronect</title>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#groupDetail_info').click(function(){
+				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+			});
+			$('#groupDetail_schedule').click(function(){
+				location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+			});
+			$('#groupDetail_board').click(function(){
+				location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+			});
+			$('#groupDetail_memberInfo').click(function(){
+				location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+			});
+		});
+	</script>
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/main.js"></script>
 	<script src="${conPath}/js/fullcalendar-5.0.1/lib/locales/ko.js"></script>
 	<link href="${conPath}/js/fullcalendar-5.0.1/lib/main.css" rel="stylesheet" />
@@ -155,6 +174,7 @@
 					</c:if>
 				</ul>
 				<p style=clear:both;></p>
+				<div id='calendar'></div>
 			</nav>
 		</div>
 	</div>
