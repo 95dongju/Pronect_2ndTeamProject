@@ -22,24 +22,61 @@
 	<script>
 		$(document).ready(function(){
 			$('#groupDetail_info').click(function(){
+				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+			});
+			$('#groupDetail_schedule').click(function(){
 				if(${empty member}){
+					alert('로그인 후 이용 가능합니다');
 					location.href="${conPath}/member/login.do";
 				}else if(${not empty member}){
 					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
 						alert('그룹 가입 후 이용 가능합니다');
-						location.href="${conPath}/member/login.do";
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+						alert('그룹 승인 대기 중입니다');
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
 					}
 				}
-				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
-			});
-			$('#groupDetail_schedule').click(function(){
-				location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
 			});
 			$('#groupDetail_board').click(function(){
-				location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+				if(${empty member}){
+					alert('로그인 후 이용 가능합니다');
+					location.href="${conPath}/member/login.do";
+				}else if(${not empty member}){
+					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+						alert('그룹 가입 후 이용 가능합니다');
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+						alert('그룹 승인 대기 중입니다');
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+					}
+				}
 			});
 			$('#groupDetail_memberInfo').click(function(){
-				location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+				if(${empty member}){
+					alert('로그인 후 이용 가능합니다');
+					location.href="${conPath}/member/login.do";
+				}else if(${not empty member}){
+					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+						alert('그룹 가입 후 이용 가능합니다');
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+						alert('그룹 승인 대기 중입니다');
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+					}
+				}
 			});
 		});
 	</script>
