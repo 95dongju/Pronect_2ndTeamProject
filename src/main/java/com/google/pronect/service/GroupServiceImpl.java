@@ -7,70 +7,81 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.pronect.dao.GCommentDao;
 import com.google.pronect.dao.GroupDao;
 import com.google.pronect.util.Paging;
+import com.google.pronect.vo.GComment;
 import com.google.pronect.vo.Group;
 import com.google.pronect.vo.Member;
 @Service
 public class GroupServiceImpl implements GroupService {
 	@Autowired
 	private GroupDao groupDao;
-	@Override
+	@Autowired
+	private GCommentDao gcommentDao;
+	/////////////////////////groupList.do//////////////////////////////////////////
+	@Override //전체 그룹 페이징용 startRow,endRow//
 	public List<Group> groupList(String pageNum) {
-		Paging paging = new Paging(groupDao.groupTotCnt(), pageNum, 12, 10);
-		Group group = new Group();
-		group.setStartRow(paging.getStartRow());
-		group.setEndRow(paging.getEndRow());
-		return groupDao.groupList(group);
+		if( pageNum!=null) {
+			Paging paging = new Paging(groupDao.groupTotCnt(), pageNum, 12, 10);
+			Group group = new Group();
+			group.setStartRow(paging.getStartRow());
+			group.setEndRow(paging.getEndRow());
+			return groupDao.groupList(group);
+		}
+		System.out.println(pageNum);
+		System.out.println("studyList 오류");
+		return null;
 	}
 
-	@Override
+	@Override //전체 그룹 수//
 	public int groupTotCnt() {
 		return groupDao.groupTotCnt();
 	}
 	
-	@Override
+	/////////////////////////studyList.do//////////////////////////////////////////
+	@Override //스터디 페이징용 startRow,endRow//
 	public List<Group> studyList(String pageNum) {
-		Paging paging = new Paging(groupDao.studyTotCnt(), pageNum, 12, 10);
-		Group group = new Group();
-		group.setStartRow(paging.getStartRow());
-		group.setEndRow(paging.getEndRow());
-		return groupDao.studyList(group);
+		if( pageNum!=null) {
+			Paging paging = new Paging(groupDao.studyTotCnt(), pageNum, 12, 10);
+			Group group = new Group();
+			group.setStartRow(paging.getStartRow());
+			group.setEndRow(paging.getEndRow());
+			return groupDao.studyList(group);
+		}
+		System.out.println(pageNum);
+		System.out.println("studyList 오류");
+		return null;
 	}
 	
-	@Override
+	@Override //스터디 전체 수//
 	public int studyTotCnt() {
 		return groupDao.studyTotCnt();
 	}
 	
-	@Override
+	/////////////////////////projectList.do//////////////////////////////////////////
+	@Override //프로젝트 페이징용 startRow,endRow//
 	public List<Group> projectList(String pageNum) {
-		Paging paging = new Paging(groupDao.projectTotCnt(), pageNum, 12, 10);
-		Group group = new Group();
-		group.setStartRow(paging.getStartRow());
-		group.setEndRow(paging.getEndRow());
-		return groupDao.projectList(group);
+		if( pageNum!=null) {
+			Paging paging = new Paging(groupDao.projectTotCnt(), pageNum, 12, 10);
+			Group group = new Group();
+			group.setStartRow(paging.getStartRow());
+			group.setEndRow(paging.getEndRow());
+			return groupDao.projectList(group);
+		}
+		System.out.println(pageNum);
+		System.out.println("projectList 오류");
+		return null;
 	}
 	
-	@Override
+	@Override //프로젝트 전체 수//
 	public int projectTotCnt() {
 		return groupDao.projectTotCnt();
 	}
-	@Override
-	public int groupLeader(HttpSession session) {
-		// 세션 객체에서 "member" 속성의 값을 가져오기
-		Object memberObj = session.getAttribute("member");
-		String mid="";
-		// 가져온 값을 원하는 데이터 타입으로 형변환
-		if (memberObj != null && memberObj instanceof Member) {
-		    Member member = (Member) memberObj;
-		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
-		    // id 값 사용
-		}
-		return groupDao.groupLeader(mid);
-	}
 
-	@Override
+
+	/////////////////////////register.do//////////////////////////////////////////
+	@Override //그룹 등록(사용언어 배열로 받아 for문 돌림)//
 	public int registerGroup(Group group, String[] glanguage, HttpSession session) {
 		group.setGlanguage1("");
 		group.setGlanguage2("");
@@ -95,18 +106,63 @@ public class GroupServiceImpl implements GroupService {
 	    groupDao.registerGroup(group);
 		return groupDao.insertHistory(group);
 	}
-
-	@Override
+	
+	/////////////////////////detail.do//////////////////////////////////////////
+	@Override //그룹 멤버 정보 전달//
+	public List<Group> groupMember(int gid) {
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.groupMember(gid);
+		}
+		System.out.println(gid);
+		System.out.println("groupMember 오류");
+		return null;
+	}	
+	
+	@Override //그룹의 상세정보 전달//
 	public Group getGroupDetail(int gid) {
-		groupDao.groupHitUp(gid);
-		return groupDao.getGroupDetail(gid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			groupDao.groupHitUp(gid);
+			return groupDao.getGroupDetail(gid);
+		}
+		System.out.println(gid);
+		System.out.println("getGroupDetail 오류");
+		return null;
 	}
-	@Override
+	@Override //가입 여부 확인 & 가입시 가입 형태 확인//
+	public int joinCheck(int gid, String mid) {
+		Group group = new Group();
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null && mid != null) {
+			group.setGid(gid);
+			group.setMid(mid);
+			return groupDao.joinCheck(group); // 가입 이력 있으면 1~3중 리턴
+		}
+		System.out.println(gid + "///" + mid);
+		System.out.println("joinCheck 오류");
+		return 500;
+	}	
+	
+	@Override //인기 그룹 출력//
+	public List<Group> hitGroup() {
+		return groupDao.hitGroup();
+	}
+	
+	/////////////////////////modify.do GET//////////////////////////////////////////
+	@Override //그룹 정보 수정을 위한 정보 가져오기(조회수 UP 기능 x)
 	public Group getAfterModifyView(int gid) {
-		return groupDao.getGroupDetail(gid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.getGroupDetail(gid);
+		}
+		System.out.println(gid);
+		System.out.println("getAfterModifyView 오류");
+		return null;
 	}
 
-	@Override
+	/////////////////////////modify.do POST//////////////////////////////////////////
+	@Override //그룹 정보 수정//
 	public int modifyGroup(Group group, String[] glanguage) {
 		group.setGlanguage1("");
 		group.setGlanguage2("");
@@ -124,99 +180,140 @@ public class GroupServiceImpl implements GroupService {
 	    }
 		return groupDao.modifyGroup(group);
 	}
-
-	@Override
-	public int deleteHistory(int gid) {
-		return groupDao.deleteHistory(gid);
-	}
-
-	@Override
-	public int deleteGroup(int gid) {
-		return groupDao.deleteGroup(gid);
-	}
-
-	@Override
-	public int joinCheck(int gid, HttpSession session) {
-		int notJoined = 0;
-		Object memberObj = session.getAttribute("member");
-		Group group = new Group();
-		String mid="null";
-		// 가져온 값을 원하는 데이터 타입으로 형변환
-		if (memberObj != null && memberObj instanceof Member) {
-		    Member member = (Member) memberObj;
-		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
-		    // id 값 사용
-		}
-		group.setMid(mid);
-		group.setGid(gid);
-		if(notJoined == groupDao.joinCheckCnt(group)) {
-			return 0; //가입 안했으면 0 리턴
-		} else {
-			return groupDao.joinCheck(group); // 가입 이력 있으면 1~3중 리턴
-		}
-	}
 	
-	@Override
+	/////////////////////////delete.do //////////////////////////////////////////
+	@Override //히스토리에 포기 이력 남김 (gsstatus='4')
+	public int deleteHistory(int gid) {
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.deleteHistory(gid);
+		}
+		System.out.println(gid);
+		System.out.println("deleteHistory 오류");
+		return 500;
+	}
+
+	@Override //등록된 그룹 중도 포기 or 삭제(gcomplete='D') //
+	public int deleteGroup(int gid) {
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.deleteGroup(gid);
+		}
+		System.out.println(gid);
+		System.out.println("deleteGroup 오류");
+		return 500;
+	}
+
+	/////////////////////////join.do //////////////////////////////////////////
+	@Override //그룹에 가입 신청 //
 	public int joinGroup(int gid, String mid) {
 		Group group = new Group();
 		String gidTemp = Integer.toString(gid);
 		if(gidTemp != null && mid != null) {
 			group.setGid(gid);
 			group.setMid(mid);
+			int joinCnt = groupDao.joinCheckCnt(group);
+			if(joinCnt == 0) {
+				groupDao.joinGroup(group);
+				return 300; //가입 신청 성공시 반환할 임의의 숫자
+			} else {
+				int joinStatus = groupDao.joinCheck(group);
+				return joinStatus; //이미 가입된 상태 -> 0:강퇴자 / 1:신청자 / 2:그룹원 / 3:완료된그룹
+			}
 		}
-		return groupDao.joinGroup(group);
+		System.out.println(gid+"///"+mid);
+		System.out.println("joinGroup 오류");
+		return 500;
 	}
 	
-	@Override
-	public List<Group> groupMember(int gid) {
-		return groupDao.groupMember(gid);
-	}
+	@Override //특정 그룹에 가입신청 했는지 여부 (가입 미신청시 0, 신청시 1 이상)
+	public int joinCheckCnt(int gid, String mid) {
+		Group group = new Group();
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null && mid != null) {
+			group.setGid(gid);
+			group.setMid(mid);
+			return groupDao.joinCheckCnt(group);
+		}
+		System.out.println(gid+"///"+mid);
+		System.out.println("joinCheckCnt 오류");
+		return 500;
+	}	
 
-	@Override
+	/////////////////////////unJoin.do //////////////////////////////////////////
+	@Override //그룹 신청 취소 //
 	public int unJoinGroup(int gid, String mid) {
-		return groupDao.unJoinGroup(gid, mid);
+		Group group = new Group();
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null && mid != null) {
+			group.setGid(gid);
+			group.setMid(mid);
+			return groupDao.unJoinGroup(group);
+		}
+		System.out.println(gid+"///"+mid);
+		System.out.println("unJoinGroup 오류");
+		return 500;
 	}
 	
-	@Override
+	/////////////////////////accept.do //////////////////////////////////////////
+	@Override //가입 신청자를 그룹원으로(gstatus = 1 -> 0), 현재멤버 +1, 그룹 최대인원 도달시-> gcomplete='F' 
 	public String acceptGroup(int gid, String mid) {
-		String msg="";
+		String alertMsg="";
 		String gidTemp = Integer.toString(gid);
 		if(gidTemp != null && mid != null) {
 			Group group = groupDao.memberFullCheck(gid);
 			int gpeople = group.getGpeople();
 			int gcurpeople = group.getGcurpeople();
 			if(gpeople == gcurpeople) {
-				msg="그룹 멤버가 모두 모여 더이상 그룹원을 받을 수 없습니다";
-				return msg;
+				alertMsg="그룹 멤버가 모두 모여 더이상 그룹원을 받을 수 없습니다";
+				return alertMsg;
 			}else if(gpeople - gcurpeople == 1) {
 				groupDao.peopleFull(gid);
-				msg="모든 그룹원이 모였습니다.";
+				alertMsg="모든 그룹원이 모였습니다.";
 			}
 			groupDao.memberPlus(gid);
 			group.setGid(gid);
 			group.setMid(mid);
 			groupDao.acceptGroup(group);
 		}
-		return msg;
+		return alertMsg;
 	}
 	
-	@Override
+	@Override // 현재그룹원(gcurpeople) +1 //
 	public int memberPlus(int gid) {
-		return groupDao.memberPlus(gid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.memberPlus(gid);
+		}
+		System.out.println(gid);
+		System.out.println("memberPlus 오류");
+		return 500;
 	}
 	
-	@Override
+	@Override // 만원 그룹인지 체크(gcomplete가 f인지)//
 	public Group memberFullCheck(int gid) {
-		
-		return groupDao.memberFullCheck(gid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.memberFullCheck(gid);
+		}
+		System.out.println(gid);
+		System.out.println("memberFullCheck 오류");
+		return null;
 	}
 	
-	@Override
+	@Override //그룹 gcomplete 'N' -> 'F' //
 	public int peopleFull(int gid) {
-		return groupDao.peopleFull(gid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.peopleFull(gid);
+		}
+		System.out.println(gid);
+		System.out.println("peopleFull 오류");
+		return 500;
 	}
 	
-	@Override
+	/////////////////////////memberOut.do //////////////////////////////////////////
+	@Override //그룹원 강퇴(gstatus = 2 -> 0), 현재멤버 -1, 만원그룹인경우 비만원으로 
 	public int memberOut(int gid, String mid) {
 		Group group = new Group();
 		String gidTemp = Integer.toString(gid);
@@ -230,17 +327,64 @@ public class GroupServiceImpl implements GroupService {
 			groupDao.memberMinus(gid);
 			group.setGid(gid);
 			group.setMid(mid);
+			return groupDao.memberOut(group);
 		}
-		return groupDao.memberOut(group);
+		System.out.println(gid+"////"+mid);
+		System.out.println("memberOut 오류");
+		return 500;
+	}
+	
+	@Override // 현재그룹원(gcurpeople) -1 //
+	public int memberMinus(int gid) {
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.memberMinus(gid);
+		}
+		System.out.println(gid);
+		System.out.println("memberMinus 오류");
+		return 500;
 	}
 
-	@Override
+	@Override //그룹 gcomplete 'F' -> 'N' //
+	public int peopleUnFull(int gid) { 
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.peopleUnFull(gid);
+		}
+		System.out.println(gid);
+		System.out.println("peopleUnFull 오류");
+		return 500;
+	}
+
+	/////////////////////////complete.do //////////////////////////////////////////
+	@Override //특정 그룹 완료(신청자 삭제, 그룹 히스토리의 그룹원 상태 2->3로 변경, 그룹 gcomplete 'F' or 'N' -> 'C')//
 	public int completeGroup(int gid) {
-		groupDao.joinDelete(gid);
-		groupDao.groupHitUp(gid);
-		return groupDao.completeGroup(gid);
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			groupDao.joinDelete(gid);
+			groupDao.historyComplete(gid);
+			groupDao.completeGroup(gid);
+		}
+		System.out.println(gid);
+		System.out.println("completeGroup 오류");
+		return 500;
 	}
 
+	/////////////////////////memberInfo.do //////////////////////////////////////////
+	@Override //특정 그룹 가입 신청자 리스트//
+	public List<Group> joinList(int gid) {
+		String gidTemp = Integer.toString(gid);
+		if(gidTemp != null) {
+			return groupDao.joinList(gid);
+		}
+		System.out.println(gid);
+		System.out.println("joinList 오류");
+		return null;
+	}
+	
+	/////////////////////////   ??????   //////////////////////////////////////////
+	
+	
 	@Override
 	public String startDate(int gid) {
 		return groupDao.startDate(gid);
@@ -251,37 +395,10 @@ public class GroupServiceImpl implements GroupService {
 		return groupDao.endDate(gid);
 	}
 
-	@Override
-	public List<Group> joinList(int gid) {
-		return groupDao.joinList(gid);
-	}
 
-	@Override
-	public int getCommentCnt(int gid) {
-		return groupDao.getCommentCnt(gid);
-	}
 
-	@Override
-	public int memberMinus(int gid) {
-		return groupDao.memberMinus(gid);
-	}
 
-	@Override
-	public int peopleUnFull(int gid) {
-		return groupDao.peopleUnFull(gid);
-	}
-
-	@Override
-	public List<Group> hitGroup() {
-		return groupDao.hitGroup();
-	}
-
-	@Override
-	public int joinCheckCnt(String mid, int gid) {
-		Group group = new Group();
-		return groupDao.joinCheckCnt(group);
-	}
-
+	/////////////////////////달성도 insert용//////////////////////////////////////////
 	@Override
 	public List<Group> getMemberId(int gid) {
 		return groupDao.getMemberId(gid);
@@ -301,6 +418,19 @@ public class GroupServiceImpl implements GroupService {
 	public Group myHistory(String mid) {
 		return groupDao.myHistory(mid);
 	}
-
+	
+//	@Override
+//	public int groupLeader(HttpSession session) {
+//		// 세션 객체에서 "member" 속성의 값을 가져오기
+//		Object memberObj = session.getAttribute("member");
+//		String mid="";
+//		// 가져온 값을 원하는 데이터 타입으로 형변환
+//		if (memberObj != null && memberObj instanceof Member) {
+//		    Member member = (Member) memberObj;
+//		    mid = member.getMid(); // Member 클래스에서 id 필드에 해당하는 getter 메서드를 사용하여 id 값을 가져옴
+//		    // id 값 사용
+//		}
+//		return groupDao.groupLeader(mid);
+//	}
 
 }

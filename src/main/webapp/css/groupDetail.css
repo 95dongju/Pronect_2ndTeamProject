@@ -151,6 +151,12 @@ button{
 	white-space: normal;
 	font-size: 1em;
 }
+#main .language{
+	width:40px;
+	height:40px;
+	display: inline;
+	border-radius: 50px;
+}
 #main .groupContent_btns {
 	text-align: center;
 }
@@ -303,6 +309,16 @@ button{
 	text-align: left;
 	padding: 2px;
 }
+.commentList 
+	.commentItem_commentHeader 
+		.commentItem_writer img{
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+			margin-right: 20px;
+		}
+		.commentItem_writer{display:flex; align-items: center;}
+		.commentItem_title {display:flext; flex-direction: column;}
 @media screen and (max-width: 760px) {
 		#main .groupContent_detailHeader .groupContent_detail {
 		 font-size: 0.8em;

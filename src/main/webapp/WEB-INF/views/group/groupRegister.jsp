@@ -47,7 +47,7 @@
 				</tr>
 				<tr>
 					<th id="registerInfo">내용<b id="mandatory">*</b></th>
-					<td><textarea rows="10" autocomplete="off" cols="10" name="gcontent" required="required"></textarea></td>
+					<td><textarea rows="10" autocomplete="off" spellcheck="false" cols="10" name="gcontent" required="required"></textarea></td>
 				</tr>
 				<tr>
 					<th rowspan="2" id="registerInfo">모집 구분<b id="mandatory">*</b></th>
@@ -83,7 +83,7 @@
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="C++">C++</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="PHP">PHP</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Spring">Spring</label>
-						<label id="checkbox"><input type="checkbox" name="glanguage" value="REACT">REACT</label>
+						<label id="checkbox"><input type="checkbox" name="glanguage" value="React">React</label>
 					</td>
 				</tr>
 				<tr>

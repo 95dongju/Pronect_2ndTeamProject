@@ -13,7 +13,7 @@
   <style>
   	.back{width : 30px; text-align: left;}
 		#content{width:1000px;	margin:0 auto;}
-  	#qnaInfo {
+  	table td #qnaInfo {
 			width:150px;
 			font-size: 0.9em;
 			font-weight: 900;
@@ -25,7 +25,9 @@
 		#btn{ margin:0 10px 0 10px;}
 		#title{font-size: 2em; margin: 15px auto;}
 		#mimage, #grdate, #mid{diplay:	inline}
-		#mimage{width:30px;}
+		.mimage{width:30px; margin-right:20px;}
+		.groupDetail_writer{display:flex; align-items: center;}
+		.groupDetail_title {display:flext; flex-direction: column;}
 	</style>
 </head>
 <body>
@@ -42,12 +44,11 @@
 			</c:if>
 			<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
 			<h2 id="title">${nDto.ntitle}</h2>
-				<div class="groupDetail_writer">
-					<div><img class="mimage" style="width:60px; display:inline-block; border-radius: 30px;" src="${conPath}/memberFile/${nDto.mimage}" alt="사용자 이미지"></div><div class="mid">${nDto.mnickname }</div>
-					<br><div class="grdate">작성일: ${nDto.nrdate }</div>
-					<c:if test=" ${empty nDto.mimage}">
-						이미지 비어있음
-					</c:if>
+				<div class="groupDetail_writer"><img class="mimage" style="width:60px; display:inline-block; border-radius: 30px;" src="${conPath}/memberFile/${nDto.mimage}" alt="사용자 이미지">
+					<div class="groupDetail_title">
+						<div class="groupDetail_userNickname">${nDto.mnickname } 님</div>
+						<div class="groupDetail_registerDate">작성일: ${nDto.nrdate }</div>
+					</div>
 				</div>
 				<p style=clear:both;></p>
 			<table>
