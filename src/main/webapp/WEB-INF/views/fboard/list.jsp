@@ -185,7 +185,7 @@
 								</td>
 								<td><fmt:formatDate value="${fboard.frdate }" type="date" dateStyle="short"/></td>
 								<td>${fboard.fhit }</td>
-								<td>${fboard.flike }</td>
+								<td>${fboard.likeCnt }</td>
 							</tr>
 						</c:forEach>
 					</table><br>

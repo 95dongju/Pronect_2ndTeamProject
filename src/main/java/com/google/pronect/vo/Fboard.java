@@ -17,8 +17,8 @@ public class Fboard {
 	private int 	  findent;
 	private String 	  fip;
 	private int 	  fhit;
-	private int 	  flike;
 	private int 	  commentCnt;
+	private int 	  likeCnt;
 	private int    	  startRow;
 	private int       endRow;
 	private String    schItem;

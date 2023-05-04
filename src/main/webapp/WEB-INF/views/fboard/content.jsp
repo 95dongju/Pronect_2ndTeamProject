@@ -46,6 +46,13 @@
 			    });
 			    return false;
 	  		});
+	  		
+	  		$('.liked').click(function(){
+  				location.href = '${conPath}/fboard/likeDown.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+			});
+			$('.unliked').click(function(){
+				location.href = '${conPath}/fboard/likeUp.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+			});
 	  	});
 	  	
 		function modifyComment(fcid, pageNum, fid, commentPageNum){
@@ -219,7 +226,7 @@
 		</tr>
 		<tr><th>IP</th><td>${fDto.fip }</td></tr>
 		<tr><th>조회수</th><td>${fDto.fhit }</td></tr>
-		<tr><th>좋아요</th><td>${fDto.flike }</td></tr>
+		<tr><th>좋아요</th><td>${getLike }</td></tr>
 		<tr>
 			<td colspan="2">
 				<c:if test="${member.mid eq fDto.mid}">
@@ -236,6 +243,8 @@
 			</td>
 		</tr>
 	</table>
+		<c:if test="${like != 0}"><button  class="liked"><i class="fa-solid fa-thumbs-up fa-2xl"></i> 취소${getLike }</button></c:if>
+		<c:if test="${like eq 0}"><button  class="unliked"><i class="fa-regular fa-thumbs-up fa-2xl"></i> 좋아요${getLike }</button></c:if>
 	
 	
 	<h3>댓글</h3>

@@ -1,6 +1,7 @@
 package com.google.pronect.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,10 @@ public class FboardController {
 	private FlikeService flikeService;
 	
 	@RequestMapping(value = "list", method = {RequestMethod.GET, RequestMethod.POST})
-	public String list(Fboard fboard, Model model, String pageNum) {
+	public String list(Fboard fboard, Model model, String pageNum, Flike flike) {
 		model.addAttribute("fboardList", fboardService.fboardList(fboard, pageNum));
 		model.addAttribute("paging", new Paging(fboardService.totCntFboard(fboard), pageNum));
+		model.addAttribute("getLike", flikeService.getLike(flike));
 		return "fboard/list";
 	}
 	@RequestMapping(value = "write", method = RequestMethod.GET)
@@ -44,11 +46,10 @@ public class FboardController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value = "content", method = {RequestMethod.GET, RequestMethod.POST})
-	public String content(int fid, Model model, String commentPageNum) {
+	public String content(int fid, Model model, String commentPageNum, HttpSession session, Flike flike) {
 		model.addAttribute("fDto", fboardService.contentFboard(fid));
 		model.addAttribute("fcommentList", fcommentService.fcommentList(fid, commentPageNum, model));
-		Flike flike = new Flike();
-		model.addAttribute("like", flikeService.findLike(flike));
+		model.addAttribute("like", flikeService.findLike(flike, session, model));
 		model.addAttribute("getLike", flikeService.getLike(flike));
 		return "fboard/content";
 	}
@@ -81,11 +82,13 @@ public class FboardController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value = "likeUp", method = RequestMethod.GET)
-	public void likeUp(Flike flike) {
-		flikeService.likeUp(flike);
+	public String likeUp(Flike flike, HttpSession session, Model model) {
+		flikeService.likeUp(flike, session, model);
+		return "forward:content.do";
 	}
 	@RequestMapping(value = "likeDown", method = RequestMethod.GET)
-	public void likeDown(Flike flike) {
-		flikeService.likeDown(flike);
+	public String likeDown(Flike flike, HttpSession session, Model model) {
+		flikeService.likeDown(flike, session, model);
+		return "forward:content.do";
 	}
 }
