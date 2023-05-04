@@ -501,8 +501,9 @@ INSERT INTO GROUP_BOARD_REPLY VALUES (GROUP_BOARD_REP_SEQ.NEXTVAL, '11126', 'tes
 -------------------------------------------------------------------------------
 -------------------------  MIMAGE CHANGE  -------------------------------------
 -------------------------------------------------------------------------------
-UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE = 'test.jpg';
+UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE ='test.jpg';
 UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE is null;
+UPDATE MEMBER SET MIMAGE='noprofile.jpg' WHERE MIMAGE='manager.jpg';
 COMMIT;
 SELECT * FROM GSTATUS;
 SELECT MIMAGE, M.MID, GID, GSSTATUS, MNICKNAME FROM MEMBER M, GSTATUS S 

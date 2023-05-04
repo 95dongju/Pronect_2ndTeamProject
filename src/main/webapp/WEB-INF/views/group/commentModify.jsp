@@ -30,6 +30,16 @@
 		    return false;
 		}
 	</script>
+	<style>
+		.commentItem_writer img{
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+			margin-right: 20px;
+		}
+		.commentItem_writer{display:flex; align-items: center; margin-bottom:20px;}
+		.commentItem_title {display:flext; flex-direction: column;}
+	</style>
 </head>
 <body>
 	<br>
@@ -38,9 +48,11 @@
 			<input type="hidden" name="gcid" value="${gcomment.gcid }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="gid" value="${gcomment.gid}">
-			<span style="display:block; height:30px; float:left; margin: 5px;">${gcomment.gcid }.</span>
-			<textarea rows="2" cols="5" name="gccontent" style="width:50%; height:30px; float:left; margin: 5px;">${gcomment.gccontent }</textarea>
-			<input type="submit" value="수정" class="btn" style="height:30px; float:left; margin: 5px;">
+			<div class="commentItem_writer"><img src="${conPath }/memberFile/${gcomment.mimage}" id="img" class="commentItem_userImg" alt="사용자 이미지">
+				<div class="commentItem_userNickname">${gcomment.mnickname } 님</div>
+			</div>
+			<textarea rows="2" cols="5" name="gccontent" spellcheck="false" style="width:50%; height:30px; float:left; margin: 5px;">${gcomment.gccontent }</textarea>
+			<input type="submit" value="수정" class="btn" style="line-height:30px; height:30px; float:left; margin: 5px;">
 		</form>
 	</div>
 	<p style="clear:both;"></p>

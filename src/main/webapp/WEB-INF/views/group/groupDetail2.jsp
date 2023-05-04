@@ -65,16 +65,19 @@
 					alert('로그인 후 이용 가능합니다');
 					location.href="${conPath}/member/login.do";
 				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
 						alert('그룹 가입 후 이용 가능합니다');
+						location.href="history.back()";
+					}else if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+						alert('퇴출/탈퇴 멤버는 이용 불가합니다');
 						location.href="history.back()";
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
 						alert('그룹 승인 대기 중입니다');
 						location.href="history.back()";
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}&mid=${member.mid}";
 					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}&mid=${member.mid}";
 					}
 				}
 			});
@@ -91,7 +94,7 @@
 			        icon: 'warning',
 			    }).then((result) => {
 			        if (result.isConfirmed) {
-			        	location.href = '${conPath}/group/commentDelete.do?gid=${param.gid }&pageNum=${param.pageNum}';
+			        	location.href = '${conPath}/group/delete.do?gid=${param.gid }&pageNum=${param.pageNum}';
 			        }
 			    });
 			    return false;
@@ -125,13 +128,26 @@
 		    return false;
 		}
 	</script>
+	<style>
+		.image{
+			width:30px;
+			height:30px;
+		}
+		#groupInfo_groupGrid li{margin-top:10px;}
+	</style>
 </head>
+<c:if test="${not empty msg }">
+	<script>
+		alert('${msg}');
+		return false;
+	</script>
+</c:if>
+<body>
 <c:if test="${not empty acceptResult }">
 	<script>
 		alert('${acceptResult}');
 	</script>
 </c:if>
-<body>
 	<jsp:include page="../main/header.jsp"/>
 <!-- ---------------------------------------------------추천글(사이드배너)-------------------------------------------------------------------- -->
 	<div id="sideBanner">
@@ -178,6 +194,7 @@
 							</span>
 						</li>
 						<li>
+						<P>acceptResult${acceptResult }${acceptResult }${acceptResult }
 							<span class="groupInfo_title">모집 인원&nbsp;&nbsp;</span>
 							<span class="groupInfo_content">${groupDetail.gpeople }명 </span>
 						</li>
@@ -200,13 +217,13 @@
 									-
 								</c:if>
 								<c:if test="${not empty groupDetail.glanguage1 }">
-										${groupDetail.glanguage1 }
+										<img class="language" src="${conPath }/logos/${groupDetail.glanguage1}.png" title="${groupDetail.glanguage1}" alt="${groupDetail.glanguage1}">
 								</c:if>
 								<c:if test="${not empty groupDetail.glanguage2 }">
-										 / ${groupDetail.glanguage2 }
+										/ <img class="language" src="${conPath }/logos/${groupDetail.glanguage2}.png" title="${groupDetail.glanguage2}" alt="${groupDetail.glanguage2}">
 								</c:if>
 								<c:if test="${not empty groupDetail.glanguage3 }">
-										 / ${groupDetail.glanguage3 }
+										/ <img class="language" src="${conPath }/logos/${groupDetail.glanguage3}.png" title="${groupDetail.glanguage3}" alt="${groupDetail.glanguage3}">
 								</c:if>
 							</span>
 						</li>
@@ -235,12 +252,13 @@
 					<h2 class="groupContent_detailInfo">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 소개</h2>
 					<pre>${groupDetail.gcontent }</pre>
 		</div>
+		<p>joincheck${joincheck }///////joincheckCnt${joincheckCnt }
 		<div class="groupContent_btns">
 			<c:if test="${not empty member}">
-				<c:if test="${groupDetail.mid ne member.mid and joincheck eq 9}">
-					<p>그룹장에 의해 퇴출되어 재가입 불가능합니다</p>
-				</c:if>
 				<c:if test="${groupDetail.mid ne member.mid and joincheck eq 0}">
+					<p>퇴출/탈퇴 그룹원은 재참가 불가능합니다</p>
+				</c:if>
+				<c:if test="${groupDetail.mid ne member.mid and joincheckCnt eq 0}">
 					<button onclick="location='${conPath }/group/join.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">참가 신청</button>
 				</c:if>
 				<c:if test="${groupDetail.mid ne member.mid and joincheck eq 1}">
@@ -251,7 +269,7 @@
 				</c:if>
 				<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 					<button onclick="location='${conPath }/group/modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
-					<button id="deleteBtn" onclick="location='${conPath }/group/delete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">삭제</button>
+					<button id="deleteBtn">삭제</button>
 					<button onclick="location='${conPath }/group/complete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">그룹 종료</button>
 				</c:if>
 			</c:if>
@@ -294,9 +312,7 @@
 										</div>
 									</div>
 									<c:if test="${(not empty member and dto.mid eq member.mid) or (member.manager eq 'Y')}">
-										<%-- <span><a class="comment_modify" style="color : black; text-decoration:none; cursor:pointer">수정 </a></span> --%>
-										<span class="comment_modify" class="btn" onclick="modifyComment(${dto.gcid}, ${param.pageNum}, ${groupDetail.gid})">수정 </span>
-										<%-- <span><a href="${conPath}/GCommentDelete.do?gid=${dto.gid}&gcid=${dto.gcid}" >삭제</a></span><br> --%>
+										<span class="comment_modify" class="btn" style="cursor:pointer;" onclick="modifyComment(${dto.gcid}, ${param.pageNum}, ${groupDetail.gid})">수정 </span>
 										<span style="color : black; text-decoration:none;" onclick="Swal.fire({
 										  title: '삭제하시겠습니까?',
 										  text: '삭제된 댓글은 복구할 수 없습니다.',
@@ -306,7 +322,7 @@
 										  cancelButtonText: '취소'
 										}).then((result) => {
 										  if (result.isConfirmed) {
-										    location='${conPath}/group/commentDelete.do?gid=${dto.gid}&gcid=${dto.gcid}&pageNum=${param.pageNum }';
+										    location='${conPath}/group/commentDelete.do?gid=${dto.gid}&gcid=${dto.gcid}&pageNum=${param.pageNum }&mid=${member.mid }';
 										  }
 										})" class="btn">삭제 </span><br>
 									</c:if>

@@ -34,15 +34,13 @@
 		.language{
 			width:40px;
 			height:40px;
+			display: inline;
 		}
 		.commentCnt, .hit{
 			width:15px;
 			height:15px;
 		}
 		
-		.language{
-			display: inline;
-		}
 		#hitCnt{
 			color:gray;
 			text-decoration: none;
@@ -184,7 +182,7 @@
 						<c:forEach var="dto" items="${list }">
 							<article class="style">
 								<div>
-									<a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}" title="${dto.gtitle }">
+									<a href="${conPath}/group/detail.do?name=${name }&gid=${dto.gid}&pageNum=${paging.currentPage}&mid=${member.mid}" title="${dto.gtitle }">
 										<div class="content">
 											<div class="titleContent">
 												<h2 class="gtitle">${dto.gtitle }</h2>

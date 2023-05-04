@@ -49,10 +49,10 @@
 				</tr>
 				<tr>
 					<th id="registerInfo" >내용<b id="mandatory">*</b></th>
-					<td><textarea rows="10" cols="10" autocomplete="off" name="gcontent" required="required">${groupDetail.gcontent}</textarea></td>
+					<td><textarea rows="10" cols="10" autocomplete="off" spellcheck="false" name="gcontent" required="required">${groupDetail.gcontent}</textarea></td>
 				</tr>
 				<tr>
-					<th id="registerInfo">모집 구분<b id="mandatory">*</b></th>
+					<th rowspan="2" id="registerInfo">모집 구분<b id="mandatory">*</b></th>
 					<td>
 						<select name="gcharacter" required="required">
 							<option value="S" <c:if test="${groupDetail.gcharacter eq 'S'}">selected="selected"</c:if>>스터디</option>						
@@ -73,7 +73,7 @@
 					<th id="registerInfo" >모집 인원<b id="mandatory">*</b></th>
 					<td>
 						<input type="number" autocomplete="off" name="gpeople" required="required" value="${groupDetail.gpeople}">명
-						<span id="peopleInfo">최소 2명부터 입력 가능</span>
+						<span id="peopleInfo"><c:if test="${groupDetail.gcurpeople>=2}"></c:if>최소  ${groupDetail.gcurpeople}명부터 입력 가능</span>
 					</td>
 				<tr>
 					<th id="registerInfo"  class="exception" rowspan="2">사용 언어</th>
@@ -248,7 +248,8 @@ $(document).ready(function(){
 	    }
 	  });
 	  $("form").on("submit", function(event) {
-		  if(!$("#gdev-checkbox").prop("checked") && !$("#gdesign-checkbox").prop("checked") && !$("#gpm-checkbox").prop("checked")) {
+		  let position = $("select[name='gcharacter']").val();
+		  if (position === "P" && !$("#gdev-checkbox").prop("checked") && !$("#gdesign-checkbox").prop("checked") && !$("#gpm-checkbox").prop("checked")) {
 		    alert("한 가지 이상의 직군을 선택해야 합니다.");
 		    event.preventDefault();
 		  }
@@ -265,6 +266,26 @@ $(document).ready(function(){
           $('.position').prop('checked', false)
         }
     });
+    $("input[name='gpeople']").on("input", function() {
+    	let min = 2;
+   		let member = parseInt("${groupDetail.gcurpeople}");
+   	  let value = parseInt($(this).val());
+   	  if (member>min && value<member) {
+   	    $(this).val(member);
+   	  }else if(member<min && value<min){
+   		  $(this).val(min);
+   	  } else if (member=min && value<member) {
+   	    $(this).val(member);
+   	  }else{
+   			$(this).val(value);  
+   	  }
+   	});
+
+   	$("input[name='gpeople']").on("keypress", function(event) {
+   	  if (event.keyCode < 48 || event.keyCode > 57) {
+   	    event.preventDefault();
+   		}
+ 		});
 	});
 </script>
 </html>

@@ -9,42 +9,58 @@ import com.google.pronect.vo.Group;
 
 @Mapper
 public interface GroupDao {
+	/////////////////////groupList.do//////////////////////////////////////////
 	public List<Group> groupList(Group group);
 	public int 		groupTotCnt();
+	/////////////////////studyList.do//////////////////////////////////////////
 	public List<Group> studyList(Group group);
 	public int 		studyTotCnt();
+	/////////////////////projectList.do//////////////////////////////////////////
 	public List<Group> projectList(Group group);
 	public int 		projectTotCnt();
+	/////////////////////register.do//////////////////////////////////////////
 	public int 		registerGroup(Group group);
-	public int 		groupLeader(String mid);
 	public int 		insertHistory(Group group);
+	/////////////////////detail.do//////////////////////////////////////////
+	public List<Group>	groupMember(int gid);
 	public int 		groupHitUp(int gid);
 	public Group 	getGroupDetail(int gid);
+	public int 		joinCheck(Group group); //join.do에서도 사용
+	public int 		joinCheckCnt(Group group); //join.do에서도 사용
+	public List<Group> hitGroup();
+	/////////////////////modify.do  GET//////////////////////////////////////
 	public Group 	getAfterModifyView(int gid);
+	/////////////////////modify.do  POST//////////////////////////////////////
 	public int		modifyGroup(Group group);
+	/////////////////////delete.do//////////////////////////////////////////
 	public int 		deleteHistory(int gid);
 	public int 		deleteGroup(int gid);
-	public int 		joinCheckCnt(Group group);
-	public int 		joinCheck(Group group);
+	/////////////////////join.do//////////////////////////////////////////
 	public int 		joinGroup(Group group);
-	public List<Group>	groupMember(int gid);
-	public int 		unJoinGroup(@Param("gid") int gid, @Param("mid") String mid);
-	public List<Group> 	joinList(int gid);
+	/////////////////////unJoin.do//////////////////////////////////////////
+	public int 		unJoinGroup(Group group);
+	/////////////////////accept.do//////////////////////////////////////////
 	public int 		acceptGroup(Group group);
-	public int		memberPlus(int gid);
-	public Group	memberFullCheck(int gid);
+	public Group	memberFullCheck(int gid); //memberOut.do 에서도 사용
 	public int		peopleFull(int gid);
+	public int		memberPlus(int gid);
+	/////////////////////memberOut.do//////////////////////////////////////////
 	public int		memberOut(Group group);
-	public int		memberMinus(int gid);
 	public int 		peopleUnFull(int gid);
-	public int 		completeGroup(int gid);
+	public int		memberMinus(int gid);
+	/////////////////////complete.do//////////////////////////////////////////
 	public int 		joinDelete(int gid);
-	public String 	startDate(int gid);
-	public String 	endDate(int gid);
-	public int 		getCommentCnt(int gid);
-	public List<Group> hitGroup();
+	public int		historyComplete(int gid);
+	public int 		completeGroup(int gid);
+	/////////////////////memberInfo.do//////////////////////////////////////////
+	public List<Group> 	joinList(int gid);
+	/////////////////////달성도 insert용//////////////////////////////////////////
 	public List<Group> getMemberId(int gid);
 	public Group	myStudyList(@Param("mid") String mid);
 	public Group	myProjectList(@Param("mid") String mid);
 	public Group	myHistory(@Param("mid") String mid);
+	/////////////////////    ?????   //////////////////////////////////////////
+	public String 	startDate(int gid);
+	public String 	endDate(int gid);
+//	public int 		groupLeader(String mid);
 }
