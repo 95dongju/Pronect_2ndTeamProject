@@ -26,15 +26,20 @@ public class AchiveServiceImpl implements AchiveService {
 		List<Group> arrMid = groupDao.getMemberId(gid);
 		for(int j=0; j<arrScdId.size(); j++) {
 			for(int i=0; i<arrMid.size(); i++) {
-				achive.setScd_id(arrScdId.get(i).getScd_id());
-				achiveDao.insertAchive(achive);
+				achive.setScd_id(arrScdId.get(j).getScd_id());
+				achive.setMid(arrMid.get(i).getMid());
+				System.out.println(arrScdId.get(j).getScd_id());
+				System.out.println(arrMid.get(i).getMid());
+				if(achiveDao.checkAchive(achive) == 0) {					
+					achiveDao.insertAchive(achive);
+				}
 			}
 		}
 	}
 
 	@Override
-	public int updateAchive(int scd_id) {
-		return achiveDao.updateAchive(scd_id);
+	public int updateAchive(int scd_id, String mid) {
+		return achiveDao.updateAchive(scd_id, mid);
 	}
 
 }

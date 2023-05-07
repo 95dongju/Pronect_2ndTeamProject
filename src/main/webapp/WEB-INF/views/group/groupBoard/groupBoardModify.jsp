@@ -315,8 +315,8 @@
 			<form action="${conPath }/groupBoard/write.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="gid" value="${groupDetail.gid }">
 				<input type="hidden" name="mid" value="${member.mid }">
-				<input type="text" name="group_board_title" placeholder="제목을 입력하세요" required="required">
-				<textarea id="summernote" name="group_board_content" class="inputBox" required="required"></textarea>
+				<input type="text" name="group_board_title" value="${groupBoardDetail.group_board_title }" required="required">
+				<textarea id="summernote" name="group_board_content" class="inputBox" required="required">${groupBoardDetail.group_board_content }</textarea>
 				<div id="div_writeBtn">
 				<input type="submit" value="작성"><input type="button" value="목록" id="groupBoardListBtn">
 				</div>

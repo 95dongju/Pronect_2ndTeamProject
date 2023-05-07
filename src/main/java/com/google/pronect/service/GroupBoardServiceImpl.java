@@ -43,17 +43,14 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 		Iterator<String> params = mRequest.getFileNames();
 		String gfile = "";
 		String param = params.next();
-		MultipartFile mFile = mRequest.getFile(param); // 파라미터에 첨부된 파일 객체
+		MultipartFile mFile = mRequest.getFile(param);
 		gfile = mFile.getOriginalFilename();
-		if(gfile!=null && !gfile.equals("")) { // 첨부함
+		if(gfile!=null && !gfile.equals("")) {
 			if(new File(uploadPath + gfile).exists()) {
-				// 서버에 같은 파일이름이 있을 경우(첨부파일과)
 				gfile = System.currentTimeMillis() + "_" + gfile;
-			}//if
+			}
 			try {
-				mFile.transferTo(new File(uploadPath + gfile)); // 서버에 저장
-				System.out.println("서버파일 : " + uploadPath + gfile);
-				System.out.println("백업파일 : " + backupPath + gfile);
+				mFile.transferTo(new File(uploadPath + gfile));
 				boolean result = fileCopy(uploadPath + gfile, backupPath + gfile);
 				System.out.println(result ?"백업성공":"백업실패");
 			} catch (IOException e) {
@@ -61,7 +58,7 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 			}
 		}else {
 			gfile="";
-		}// if
+		}
 		groupboard.setGroup_board_file(gfile);
 		groupboard.setGroup_board_ip(request.getRemoteAddr());
 		return gboardDao.writeGroupBoard(groupboard);
@@ -106,17 +103,14 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 		Iterator<String> params = mRequest.getFileNames();
 		String gfile = "";
 		String param = params.next();
-		MultipartFile mFile = mRequest.getFile(param); // 파라미터에 첨부된 파일 객체
+		MultipartFile mFile = mRequest.getFile(param);
 		gfile = mFile.getOriginalFilename();
-		if(gfile!=null && !gfile.equals("")) { // 첨부함
+		if(gfile!=null && !gfile.equals("")) {
 			if(new File(uploadPath + gfile).exists()) {
-				// 서버에 같은 파일이름이 있을 경우(첨부파일과)
 				gfile = System.currentTimeMillis() + "_" + gfile;
 			}//if
 			try {
-				mFile.transferTo(new File(uploadPath + gfile)); // 서버에 저장
-				System.out.println("서버파일 : " + uploadPath + gfile);
-				System.out.println("백업파일 : " + backupPath + gfile);
+				mFile.transferTo(new File(uploadPath + gfile));
 				boolean result = fileCopy(uploadPath + gfile, backupPath + gfile);
 				System.out.println(result ?"백업성공":"백업실패");
 			} catch (IOException e) {
@@ -124,7 +118,7 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 			}
 		}else {
 			gfile="";
-		}// if
+		}
 		groupboard.setGroup_board_file(gfile);
 		groupboard.setGroup_board_ip(request.getRemoteAddr());
 		return gboardDao.modifyGroupBoard(groupboard);
@@ -138,5 +132,10 @@ public class GroupBoardServiceImpl implements GroupBoardService {
 	@Override
 	public int totCntGroupBoard(GroupBoard groupboard) {
 		return gboardDao.totCntGroupBoard(groupboard);
+	}
+
+	@Override
+	public GroupBoard modifyViewGroupBoard(int group_bid) {
+		return gboardDao.detailGroupBoard(group_bid);
 	}
 }

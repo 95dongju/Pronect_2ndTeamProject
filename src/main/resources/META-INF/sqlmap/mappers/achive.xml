@@ -8,10 +8,13 @@
 		<result property="mid" column="MID"/>
 		<result property="scd_achive" column="SCD_ACHIVE"/>
 	</resultMap>
+	<select id="checkAchive" parameterType="Achive" resultType="int">
+		SELECT COUNT(*) FROM SCD_ACHIVE A, SCHEDULE S WHERE A.SCD_ID = S.SCD_ID AND A.SCD_ID = #{scd_id} AND A.MID = #{mid} AND S.SCD_START >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
 	<insert id="insertAchive" parameterType="Achive">
 		INSERT INTO SCD_ACHIVE VALUES (#{scd_id}, #{mid}, 'N')
 	</insert>
 	<update id="updateAchive" parameterType="int">
-		UPDATE SCD_ACHIVE SET SCD_ACHIVE = 'Y' WHERE SCD_ID = #{scd_id}
+		UPDATE SCD_ACHIVE SET SCD_ACHIVE = 'Y' WHERE SCD_ID = #{scd_id} AND MID = #{mid}
 	</update>
 </mapper>

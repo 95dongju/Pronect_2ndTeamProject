@@ -51,7 +51,7 @@ public class ScheduleController {
 			jsonObj = new JSONObject(hash); 
 			jsonArr.add(jsonObj); 
 		}
-		//log.info("jsonArrCheck: {}", jsonArr);
+		log.info("jsonArrCheck: {}", jsonArr);
 		return jsonArr;
 	}
 	@RequestMapping(value="myGroupSchedule", method=RequestMethod.GET)
@@ -75,9 +75,9 @@ public class ScheduleController {
 		return "group/schedule/insertGroupSchedule";
 	}
 	@RequestMapping(value="insertGroupSchedule", method=RequestMethod.GET)
-	public String insertGroupSchedule(int gid, Schedule schedule, Group group, Model model /*Achive achive,*/) {
+	public String insertGroupSchedule(int gid, Schedule schedule, Group group, Model model, Achive achive) {
 		scheduleService.insertGroupSchedule(schedule, group);
-		// achiveService.insertAchive(achive, gid);
+		achiveService.insertAchive(achive, gid);
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		return "group/schedule/groupCalendar";
 	}
@@ -87,9 +87,16 @@ public class ScheduleController {
 		return "group/schedule/insertSchedule";
 	}
 	@RequestMapping(value="insertSchedule", method=RequestMethod.GET)
-	public String insertSchedule(int gid, Schedule schedule, Group group, Model model) {
+	public String insertSchedule(int gid, Schedule schedule, Group group, Model model, Achive achive) {
 		scheduleService.insertSchedule(schedule, group);
+		achiveService.insertAchive(achive, gid);
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		return "group/schedule/groupCalendar";
+	}
+	@RequestMapping(value="achive", method=RequestMethod.GET)
+	public String achiveSchedule(int scd_id, String mid, Model model) {
+		model.addAttribute("achiveResult", achiveService.updateAchive(scd_id, mid));
+		System.out.println("업데이트 완료");
+		return "forward:myGroupSchedule.do";
 	}
 }

@@ -225,7 +225,7 @@
 		UPDATE MYGROUP SET GCOMPLETE = 'C' WHERE GID = #{gid} AND GSSTATUS = 3
 	</update>
 <!--//////////////////////////////달성도 insert용/////////////////////////  -->
-	<select id="getMemberId" parameterType="int" resultType="int">
+	<select id="getMemberId" parameterType="int" resultMap="GroupResult">
 		SELECT MID FROM MYGROUP WHERE GID = #{gid}
 	</select>
 	<select id="myStudyHistory" parameterType="String" resultMap="GroupResult">

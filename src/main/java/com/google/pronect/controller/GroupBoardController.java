@@ -33,15 +33,14 @@ public class GroupBoardController {
 		return "group/groupBoard/groupBoard";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detailGroupBoard(int gid, int group_bid, String replyPageNum, Model model) {
+	public String detailGroupBoard(int gid, int group_bid, String boardPageNum, String commentPageNum, Model model) {
 		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(group_bid, replyPageNum, model));
+		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(group_bid, commentPageNum, model));
 		return "group/groupBoard/groupBoardDetail";
 	}
 	@RequestMapping(value="write", method=RequestMethod.GET)
 	public String writeGroupBoardView(int gid, Model model) {
-		model.addAttribute("gid", gid);
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		return "group/groupBoard/groupBoardWrite";
 	}
@@ -51,10 +50,10 @@ public class GroupBoardController {
 		return "forward:list.do";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)
-	public String modifyGroupBoardView(int gid, Model model) {
-		model.addAttribute("gid", gid);
+	public String modifyGroupBoardView(int gid, int group_bid, Model model) {
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/groupBoard/groupBoardWrite";
+		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
+		return "group/groupBoard/groupBoardModify";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.POST)
 	public String modifyGroupBoard(GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {

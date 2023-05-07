@@ -18,7 +18,7 @@
 	<select id="groupBoardList" parameterType="GroupBoard" resultMap="Map">
 		<if test='searchGroupBoard==null or searchGroupBoard==""'>
 			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
-    		FROM (SELECT * FROM GROUP_BOARD WHERE gid = #{gid} ORDER BY GROUP_BOARD_RDATE) A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    		FROM (SELECT * FROM GROUP_BOARD WHERE gid = #{gid} ORDER BY GROUP_BOARD_RDATE DESC) A) WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="searchGroupBoard=='SearchAll'">
 			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT

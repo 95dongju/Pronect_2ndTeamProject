@@ -194,10 +194,9 @@
 					}
 				});
 			});
-		});
-	</script>
-	<script>
-		$(document).ready(function(){
+			$('#editGroupBoardContent').click(function(){
+				location.href = '${conPath}/groupBoard/modify.do?group_bid=${param.group_bid}&gid=${param.gid }&pageNum='+pageNum;
+			});
 	  		$('#deleteGroupBoardContent').click(function(){
 	  			Swal.fire({
 			        title: '정말로 글을 삭제하시겠습니까?',
@@ -207,12 +206,12 @@
 			        icon: 'warning'
 			    }).then((result) => {
 			        if (result.isConfirmed) {
-			        	location.href = '${conPath}/groupBoard/delete.do?group_bid=${param.group_bid}&gid=${param.gid }&pageNum=${param.pageNum}';
+			        	location.href = '${conPath}/groupBoard/delete.do?group_bid=${param.group_bid}&gid=${param.gid }&pageNum='+pageNum;
 			        }
 			    });
 			    return false;
 	  		});
-	  	});
+		});
 	</script>
 </head>
 <body>
@@ -328,18 +327,18 @@
 				<textarea class="inputBox"></textarea><input type="submit" value="등록">	
 				<div id="div_paging">
 					<c:if test="${commentPaging.startPage > commentPaging.blockSize }">
-						[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&boardPageNum=${param.boardPageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
+						[ <a href="${conPath }/groupBoard/detail.do?gid=${param.gid}&boardPageNum=${param.boardPageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
 					</c:if>
 					<c:forEach var="i" begin="${commentPaging.startPage }" end="${commentPaging.endPage }">
 						<c:if test="${i eq commentPaging.currentPage }">
 							[ <b> ${i } </b> ]
 						</c:if>
 						<c:if test="${i != commentPaging.currentPage }">
-							[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${i}">${i }</a> ]
+							[ <a href="${conPath }/groupBoard/detail.do?gid=${param.gid}&boardPageNum=${param.boardPageNum }&commentPageNum=${i}">${i }</a> ]
 						</c:if>
 					</c:forEach>
 					<c:if test="${paging.endPage < paging.pageCnt }">
-						[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.endPage+1}">다음</a> ]
+						[ <a href="${conPath }/groupBoard/detail.do?gid=${param.gid}&boardPageNum=${param.boardPageNum }&commentPageNum=${commentPaging.endPage+1}">다음</a> ]
 					</c:if>
 				</div>
 			</c:if>		
