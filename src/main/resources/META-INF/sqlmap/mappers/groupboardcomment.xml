@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.pronect.dao.GroupBoardCommentDao">
+	<resultMap type="GroupBoardComment" id="Map">
+		<result property="group_cmtid" column="GROUP_CMTID"/>
+		<result property="group_bid" column="GROUP_BID"/>
+		<result property="mid" column="MID"/>
+		<result property="group_board_cmt_content" column="GROUP_BOARD_CMT_CONTENT"/>
+		<result property="group_board_cmt_like" column="GROUP_BOARD_CMT_LIKE"/>
+		<result property="group_board_cmt_rdate" column="GROUP_BOARD_CMT_RDATE"/>
+	</resultMap>
+	<select id="groupBoardCommentList" parameterType="GroupBoardComment" resultMap="Map">
+			SELECT * FROM (SELECT ROWNUM RN, A.*
+    		FROM (SELECT * FROM GROUP_BOARD_COMMENT
+    		WHERE GROUP_BID = #{group_bid} ORDER BY GROUP_BOARD_CMT_RDATE DESC) A)
+			    WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntGroupBoardComment" resultType="int">
+			SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = #{group_bid}
+	</select>
+	<insert id="writeGroupBoardComment" parameterType="GroupBoardComment">
+		INSERT INTO GROUP_BOARD_COMMENT VALUES (GROUP_BOARD_CMT_SEQ.NEXTVAL, #{group_bid}, #{mid}, #{group_board_cmt_content}, 0, SYSDATE)
+	</insert>
+	<update id="modifyGroupBoardComment" parameterType="GroupBoardComment">
+		UPDATE GROUP_BOARD_COMMENT SET GROUP_BOARD_CMT_CONTENT = #{group_board_cmt_content},
+                            GROUP_BOARD_CMT_RDATE = SYSDATE 
+                        WHERE GROUP_CMTID = #{group_cmtid}
+	</update>
+	<delete id="deleteGroupBoardComment" parameterType="int">
+		DELETE FROM GROUP_BOARD_COMMENT WHERE GROUP_CMTID = #{group_cmtid}
+	</delete>
+	<delete id="deleteAllGroupBoardComment" parameterType="int">
+		DELETE FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = #{group_bid}
+	</delete>
+</mapper>

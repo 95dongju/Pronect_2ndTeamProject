@@ -181,7 +181,6 @@
 	<!-- FullCalendar -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
-			var mid = ${member.mid};
 			$(function () {
 				var request = $.ajax({
 					url: "${conPath}/group/schedule/list.do?gid="+${groupDetail.gid},
@@ -228,7 +227,15 @@
 						    		if(todayStr != info.event.startStr){
 						    			alert('출석은 당일에만 가능합니다.');
 						    		}else if(todayStr === info.event.startStr) {
-							    		location.href = '${conPath}/group/schedule/achive.do?scd_id='+info.event.id+"&mid="+mid;	
+						    			Swal.fire({
+									        title: '출석되었습니다.',
+									        confirmButtonText: '확인',
+									        icon: 'success',
+									    }).then((result) => {
+									        if (result.isConfirmed) {
+									        	location.href = '${conPath}/group/schedule/achive.do?scd_id='+info.event.id+'&mid=${member.mid}&gid=${groupDetail.gid}&pageNum=${param.pageNum}';
+									        }
+									    });
 						    		}
 						        }
 						    });

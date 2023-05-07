@@ -17,11 +17,11 @@
 	</resultMap>
 	<select id="groupBoardList" parameterType="GroupBoard" resultMap="Map">
 		<if test='searchGroupBoard==null or searchGroupBoard==""'>
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE gid = #{gid} ORDER BY GROUP_BOARD_RDATE DESC) A) WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test="searchGroupBoard=='SearchAll'">
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE GID = #{gid} 
                                     OR MID LIKE '%'||#{searchGroupBoard_Word}||'%' 
                                     OR GROUP_BOARD_TITLE LIKE '%'||#{searchGroupBoard_Word}||'%' 
@@ -30,34 +30,34 @@
                             WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='searchGroupBoard=="mid"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE GID = #{gid} 
                                     AND MID LIKE '%'||#{searchGroupBoard_Word}||'%' 
                             ORDER BY GROUP_BOARD_RDATE) A)
 			    									WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='searchGroupBoard=="title"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE GID = #{gid} 
                                     AND GROUP_BOARD_TITLE LIKE '%'||#{searchGroupBoard_Word}||'%' 
                             ORDER BY GROUP_BOARD_RDATE) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='searchGroupBoard=="content"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE GID = #{gid}  
                                     AND GROUP_BOARD_CONTENT LIKE '%'||#{searchGroupBoard_Word}||'%' 
                             ORDER BY GROUP_BOARD_RDATE) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='searchGroupBoard=="hit"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE GID = #{gid}  
                             ORDER BY GROUP_BOARD_HIT DESC) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</if>
 		<if test='searchGroupBoard=="like"'>
-			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_REPLY WHERE GROUP_BID = A.GROUP_BID) REP_CNT
+			SELECT * FROM (SELECT ROWNUM RN, A.*, (SELECT COUNT(*) FROM GROUP_BOARD_COMMENT WHERE GROUP_BID = A.GROUP_BID) CMT_CNT
     		FROM (SELECT * FROM GROUP_BOARD WHERE GID = #{gid}  
                             ORDER BY GROUP_BOARD_LIKE DESC) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.pronect.service.GroupBoardReplyService;
+import com.google.pronect.service.GroupBoardCommentService;
 import com.google.pronect.service.GroupBoardService;
 import com.google.pronect.service.GroupService;
 import com.google.pronect.util.Paging;
@@ -23,10 +23,10 @@ public class GroupBoardController {
 	@Autowired
 	private GroupBoardService groupBoardService;
 	@Autowired 
-	private GroupBoardReplyService groupBoardReplyService;
+	private GroupBoardCommentService groupBoardReplyService;
 	
 	@RequestMapping(value="list", method={RequestMethod.GET, RequestMethod.POST})
-	public String groupBoardList(GroupBoard groupboard, int gid, String boardPageNum, Model model) {
+	public String groupBoardList(GroupBoard groupboard, int gid, String pageNum, String boardPageNum, Model model) {
 		model.addAttribute("groupBoard", groupBoardService.groupBoardList(groupboard, boardPageNum, model));
 		model.addAttribute("paging", new Paging(groupBoardService.totCntGroupBoard(groupboard), boardPageNum));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
@@ -36,7 +36,7 @@ public class GroupBoardController {
 	public String detailGroupBoard(int gid, int group_bid, String boardPageNum, String commentPageNum, Model model) {
 		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardReplyList(group_bid, commentPageNum, model));
+		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardCommentList(group_bid, commentPageNum, model));
 		return "group/groupBoard/groupBoardDetail";
 	}
 	@RequestMapping(value="write", method=RequestMethod.GET)
@@ -45,7 +45,7 @@ public class GroupBoardController {
 		return "group/groupBoard/groupBoardWrite";
 	}
 	@RequestMapping(value="write", method=RequestMethod.POST)
-	public String writeGroupBoard(GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {
+	public String writeGroupBoard(String pageNum, GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {
 		model.addAttribute("writeResult", groupBoardService.writeGroupBoard(groupboard, mRequest, request));
 		return "forward:list.do";
 	}
@@ -62,7 +62,7 @@ public class GroupBoardController {
 	}
 	@RequestMapping(value="delete", method=RequestMethod.GET)
 	public String deleteGroupBoard(int gid, int group_bid, Model model) {
-		groupBoardReplyService.deleteAllGroupBoardReply(group_bid);
+		groupBoardReplyService.deleteAllGroupBoardComment(group_bid);
 		model.addAttribute("deleteResult", groupBoardService.deleteGroupBoard(group_bid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		return "group/groupDetail2";

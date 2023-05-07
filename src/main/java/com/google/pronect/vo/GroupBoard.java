@@ -20,7 +20,7 @@ public class GroupBoard {
 	private String group_board_ip;
 	private int group_board_like;
 	private Date group_board_rdate;
-	private int rep_cnt;	
+	private int cmt_cnt;	
 	private int startRow;
 	private int endRow;
 	private String searchGroupBoard;

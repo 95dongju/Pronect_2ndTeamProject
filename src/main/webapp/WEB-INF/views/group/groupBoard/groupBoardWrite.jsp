@@ -194,8 +194,8 @@
 	 				    ['insert',['picture']],
 	 				  ],
 	 				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-	 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-	 	            callbacks : { 
+	 				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+	 	            /* callbacks : { 
 	 	            	onImageUpload : function(files, editor, welEditable) {
 	 	            		if(files[0].size > 1024*1024*5){
 	 	            			alert("5MB 이상의 파일은 업로드 불가능합니다.");
@@ -204,11 +204,11 @@
 				 	            uploadSummernoteImageFile(files[0], this);
 	 	            		}
  	            		}
- 	            	}
+ 	            	} */
          	};
         	$('#summernote').summernote(setting);
 		});
-		function uploadSummernoteImageFile(file, editor) {
+		/* function uploadSummernoteImageFile(file, editor) {
 			data = new FormData();
 			data.append("file", file);
 			$.ajax({
@@ -222,7 +222,7 @@
 					$(editor).summernote('insertImage', data.url);
 				}
 			});
-		}
+		}*/
 	 </script>
 </head>
 <body>
@@ -312,7 +312,7 @@
 		</div>
 		<div id="writeGroupBoard">
 		<h2>그룹게시판 글쓰기</h2>
-			<form action="${conPath }/groupBoard/write.do" method="post" enctype="multipart/form-data">
+			<form action="${conPath }/groupBoard/write.do?pageNum=${param.pageNum}" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="gid" value="${groupDetail.gid }">
 				<input type="hidden" name="mid" value="${member.mid }">
 				<input type="text" name="group_board_title" placeholder="제목을 입력하세요" required="required">

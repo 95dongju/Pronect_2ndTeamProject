@@ -297,8 +297,8 @@
 							<td>${groupBoard.group_bid }</td>
 							<td class="boardTitle">
 								${groupBoard.group_board_title }
-								<c:if test="${groupBoard.rep_cnt != 0 }">
-								&nbsp; ( <b>${groupBoard.rep_cnt }</b> )
+								<c:if test="${groupBoard.cmt_cnt != 0 }">
+								&nbsp; ( <b>${groupBoard.cmt_cnt }</b> )
 								</c:if>
 							</td>
 							<td>${groupBoard.mid }</td>

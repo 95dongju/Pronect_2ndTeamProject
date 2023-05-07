@@ -18,7 +18,7 @@
 		<typeAlias type="com.google.pronect.vo.Schedule" alias="Schedule"/>
 		<typeAlias type="com.google.pronect.vo.Achive" alias="Achive"/>
 		<typeAlias type="com.google.pronect.vo.GroupBoard" alias="GroupBoard"/>
-		<typeAlias type="com.google.pronect.vo.GroupBoardReply" alias="GroupBoardReply"/>
+		<typeAlias type="com.google.pronect.vo.GroupBoardComment" alias="GroupBoardComment"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mappers/member.xml"/>
@@ -32,6 +32,6 @@
 		<mapper resource="META-INF/sqlmap/mappers/schedule.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/achive.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/groupboard.xml"/>
-		<mapper resource="META-INF/sqlmap/mappers/groupboardreply.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/groupboardcomment.xml"/>
 	</mappers>
 </configuration>

@@ -14,7 +14,7 @@
 	<insert id="insertAchive" parameterType="Achive">
 		INSERT INTO SCD_ACHIVE VALUES (#{scd_id}, #{mid}, 'N')
 	</insert>
-	<update id="updateAchive" parameterType="int">
+	<update id="updateAchive" parameterType="Achive">
 		UPDATE SCD_ACHIVE SET SCD_ACHIVE = 'Y' WHERE SCD_ID = #{scd_id} AND MID = #{mid}
 	</update>
 </mapper>

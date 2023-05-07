@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -58,7 +59,6 @@ public class ScheduleController {
 	public String myGroup(int gid, Model model) {
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupSchedule", scheduleService.totalSchedule(gid));
-		model.addAttribute("gid", gid);
 		return "group/schedule/groupCalendar";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
@@ -94,8 +94,10 @@ public class ScheduleController {
 		return "group/schedule/groupCalendar";
 	}
 	@RequestMapping(value="achive", method=RequestMethod.GET)
-	public String achiveSchedule(int scd_id, String mid, Model model) {
-		model.addAttribute("achiveResult", achiveService.updateAchive(scd_id, mid));
+	public String achiveSchedule(@Param("scd_id") int scd_id, @Param("mid") String mid, int gid, Model model) {
+		System.out.println(scd_id);
+		System.out.println(mid);
+		achiveService.updateAchive(scd_id, mid);
 		System.out.println("업데이트 완료");
 		return "forward:myGroupSchedule.do";
 	}

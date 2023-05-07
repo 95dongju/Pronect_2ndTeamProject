@@ -316,15 +316,20 @@
 					</c:if>
 					<c:if test="${not empty groupBoardComment }">
 						<c:forEach var="gbComment" items="${groupBoardComment }">
-							<p id="boardCommentWriter">${gbComment.mid } <span id="boardCommentRdate">${gbComment.group_board_rep_rdate }</span> </p>
+							<p id="boardCommentWriter">${gbComment.mid } <span id="boardCommentRdate">${gbComment.group_board_cmt_rdate }</span> </p>
 							<c:if test="${gbComment.mid eq member.mid}">
 								<pre> 삭제 </pre> <pre> 수정 </pre>
 							</c:if>
-							<p id="boardCommentContent">${gbComment.group_board_rep_content }</p>
+							<p id="boardCommentContent">${gbComment.group_board_cmt_content }</p>
 						</c:forEach>
 					</c:if>
 				</div>
-				<textarea class="inputBox"></textarea><input type="submit" value="등록">	
+				<form action="${conPath }/groupBoardComment/write.do?group_bid=${groupBoardDetail.group_bid}">
+					<input type="text" name="mid" value="${member.mid }">
+					<input type="text" name="mid" value="${groupBoardDetail.group_bid}">
+					<textarea class="inputBox" name="group_board_cmt_content"></textarea>
+					<input type="submit" value="등록">	
+				</form>
 				<div id="div_paging">
 					<c:if test="${commentPaging.startPage > commentPaging.blockSize }">
 						[ <a href="${conPath }/groupBoard/detail.do?gid=${param.gid}&boardPageNum=${param.boardPageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
