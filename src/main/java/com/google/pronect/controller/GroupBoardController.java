@@ -14,7 +14,6 @@ import com.google.pronect.service.GroupBoardService;
 import com.google.pronect.service.GroupService;
 import com.google.pronect.util.Paging;
 import com.google.pronect.vo.GroupBoard;
-import com.google.pronect.vo.GroupBoardReply;
 
 @Controller
 @RequestMapping("groupBoard")
@@ -49,7 +48,18 @@ public class GroupBoardController {
 	@RequestMapping(value="write", method=RequestMethod.POST)
 	public String writeGroupBoard(GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {
 		model.addAttribute("writeResult", groupBoardService.writeGroupBoard(groupboard, mRequest, request));
-		return "group/groupBoard/groupBoard";
+		return "forward:list.do";
+	}
+	@RequestMapping(value="modify", method=RequestMethod.GET)
+	public String modifyGroupBoardView(int gid, Model model) {
+		model.addAttribute("gid", gid);
+		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
+		return "group/groupBoard/groupBoardWrite";
+	}
+	@RequestMapping(value="modify", method=RequestMethod.POST)
+	public String modifyGroupBoard(GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {
+		model.addAttribute("writeResult", groupBoardService.writeGroupBoard(groupboard, mRequest, request));
+		return "forward:list.do";
 	}
 	@RequestMapping(value="delete", method=RequestMethod.GET)
 	public String deleteGroupBoard(int gid, int group_bid, Model model) {

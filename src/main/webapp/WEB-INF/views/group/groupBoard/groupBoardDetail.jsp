@@ -10,6 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>Pronect</title>
 	<link href="${conPath}/css/groupDetail.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
@@ -163,6 +164,37 @@
 			}
 		});
 	});
+	</script>
+	<script>
+		$(document).ready(function(){
+			var pageNum = ${param.pageNum};
+			if(pageNum == null || pageNum == ''){
+				pageNum = 1;
+			}
+			$('tr:not(:first-child)').click(function(){
+				if(${not empty groupBoard}){
+					var group_bid = Number($(this).children().eq(0).text());
+					location.href='${conPath}/groupBoard/detail.do?group_bid='+group_bid+'&gid='+${groupDetail.gid}+'&pageNum='+pageNum;
+				}
+			});
+			$('#groupBoard_writeBtn').click(function(){
+				location.href='${conPath}/groupBoard/write.do?gid='+${groupDetail.gid}+'&pageNum='+pageNum;
+			});
+			$('#groupBoard_searchBtn').click(function(){
+				let searchGroupBoard_Word = $('#searchGroupBoard_Word').val();
+				let searchGroupBoard = $('#searchGroupBoard').val();
+				document.getElementById('calendar').style.display = 'none';
+				$('.groupDetail').html('');
+				$.ajax({
+					url : '${conPath}/groupBoard/list.do?',
+					datatype : 'html',
+					data : "gid="+${groupDetail.gid }+"&pageNum="+pageNum+"&searchGroupBoard="+searchGroupBoard+"&searchGroupBoard_Word="+searchGroupBoard_Word,
+					success : function(data, status){
+						$('.groupDetail').html(data);
+					}
+				});
+			});
+		});
 	</script>
 	<script>
 		$(document).ready(function(){

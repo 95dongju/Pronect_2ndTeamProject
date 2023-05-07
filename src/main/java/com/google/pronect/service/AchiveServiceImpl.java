@@ -1,6 +1,5 @@
 package com.google.pronect.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class AchiveServiceImpl implements AchiveService {
 		List<Group> arrMid = groupDao.getMemberId(gid);
 		for(int j=0; j<arrScdId.size(); j++) {
 			for(int i=0; i<arrMid.size(); i++) {
-				//achive.setScd_id(arrScdId.get(i));
+				achive.setScd_id(arrScdId.get(i).getScd_id());
 				achiveDao.insertAchive(achive);
 			}
 		}
