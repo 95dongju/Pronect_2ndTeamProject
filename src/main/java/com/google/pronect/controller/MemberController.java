@@ -74,7 +74,7 @@ public class MemberController {
 	public String modify(@ModelAttribute("mDto") Member member, 
 			Model model, HttpSession httpSession, MultipartHttpServletRequest mRequest) {
 		model.addAttribute("modifyResult", memberService.modifyMember(member, httpSession, mRequest));
-		return "main/main";
+		return "forward:/main.do";
 	}
 	@RequestMapping(value = "deactivate", method = RequestMethod.GET)
 	public String deactivate() {
