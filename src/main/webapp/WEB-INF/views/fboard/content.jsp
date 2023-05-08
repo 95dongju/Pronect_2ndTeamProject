@@ -219,11 +219,25 @@
 			history.back();
 		</script>
 	</c:if>
+	<c:if test="${empty member}">
+	    <script>
+	        $(document).ready(function() {
+	            Swal.fire({
+	                icon: 'error',
+	                title: '로그인 후 이용해주세요',
+	                text: '로그인 페이지로 이동합니다.',
+	                footer: '<a href="${conPath}/member/join.do">회원이 아니세요?</a>'
+	            }).then(function() {
+	                location.href="${conPath}/member/login.do";
+	            });
+	        });
+	    </script>
+	</c:if>
 	<!-- ${bDto } ${param.fid } ${param.pageNum } 들어옴 -->
 	<jsp:include page="../main/header.jsp"/>
 	<div class="board_wrap">
         <div class="board_title">
-            <strong>자유게시판</strong>
+            <strong><i class="fa-solid fa-comment fa-beat" style="margin-right: 20px;"></i>자유게시판</strong>
             <p>ProNect에서 자유롭게 ConNect</p>
         </div>
         <div class="board_view_wrap">
@@ -286,7 +300,7 @@
             </div>
         </div>
         <br><br><br><br><br>
-		<h3>댓글</h3>
+		<h2 style="font-size: 1.6em;">댓글</h2>
 		<form id="frm" action="${conPath }/fcomment/write.do" onsubmit="return confirmSubmit();">
 			<input type="hidden" name="fid" value="${param.fid }">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
@@ -309,10 +323,12 @@
 					  		</c:if>
 						</c:forEach>
 						<span style="font-weight: blod; font-size: 1.3em; margin-right: 50px;">${comment.fccontent }</span> 
-						<i>작성자: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>&nbsp; &nbsp; 
-						<i onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})" class="fa-solid fa-eraser"></i>
-						<%-- <span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span> --%>
-						<i onclick="Swal.fire({
+						<i>작성자: ${comment.mid} &nbsp; - &nbsp; 작성일시:<fmt:formatDate type="both" value="${comment.fcrdate }" pattern="yyyy-MM-dd [E] hh:mm:ss" /> </i>&nbsp; &nbsp; 
+						<c:if test="${member.mid eq comment.mid}">
+							<i onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})" class="fa-solid fa-eraser"></i>
+						</c:if>
+						<c:if test="${member.mid eq comment.mid or member.manager eq 'Y'}">
+							<i onclick="Swal.fire({
 							  title: '삭제하시겠습니까?',
 							  text: '삭제된 댓글은 복구할 수 없습니다.',
 							  icon: 'warning',
@@ -324,6 +340,10 @@
 							    location='${conPath}/fcomment/delete.do?fcid=${comment.fcid}&fid=${param.fid}&pageNum=${param.pageNum}&commentPageNum=${commentPaging.currentPage}';
 							  }
 							})" class="fa-solid fa-trash-can"></i>
+						</c:if>
+						
+						<%-- <span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span> --%>
+						
 						<i id="${comment.fcid }" class="replyView fa-solid fa-reply fa-flip-vertical"></i>
 					</div>
 					<div class="replySpace${comment.fcid }"></div>
@@ -331,7 +351,7 @@
 				<br>
 			</c:forEach>
 		</c:if>
-		<div class="paging">
+		<div class="paging" style="text-align: center;">
 			<c:if test="${commentPaging.startPage > commentPaging.blockSize }">
 				[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
 			</c:if>

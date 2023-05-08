@@ -129,7 +129,7 @@
 			<div id="main">
 				<div id="inner">
 					<div id="titleBack">
-						<h2 id="listTitle">
+						<h2 id="listTitle" style="text-transform: none;">
 							<i class="fa-solid fa-comment fa-beat" style="margin-top: 50px;"></i> 자유게시판<br><br>
 							ProNect에서 자유롭게 ConNect
 						</h2>
