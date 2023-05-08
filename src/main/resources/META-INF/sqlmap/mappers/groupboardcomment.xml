@@ -14,7 +14,7 @@
 	<select id="groupBoardCommentList" parameterType="GroupBoardComment" resultMap="Map">
 			SELECT * FROM (SELECT ROWNUM RN, A.*
     		FROM (SELECT * FROM GROUP_BOARD_COMMENT
-    		WHERE GROUP_BID = #{group_bid} ORDER BY GROUP_BOARD_CMT_RDATE DESC) A)
+    		WHERE GROUP_BID = #{group_bid} ORDER BY GROUP_BOARD_CMT_RDATE) A)
 			    WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<select id="totCntGroupBoardComment" resultType="int">

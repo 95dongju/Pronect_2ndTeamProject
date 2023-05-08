@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.pronect.service.GCommentService;
 import com.google.pronect.service.GroupService;
-import com.google.pronect.service.ScheduleService;
 import com.google.pronect.util.Paging;
+import com.google.pronect.vo.Achive;
 import com.google.pronect.vo.GComment;
 import com.google.pronect.vo.Group;
 
@@ -23,12 +23,10 @@ public class GroupController {
 	private GroupService groupService;
 	@Autowired
 	private GCommentService gCommentService;
-	@Autowired
-	private ScheduleService scheduleService;
 	@RequestMapping(value="groupList", method= {RequestMethod.GET, RequestMethod.POST})
 	public String goupList(String pageNum, Model model) {
-		if(pageNum==null) {
-			pageNum="1";
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
 		}
 		model.addAttribute("list",groupService.groupList(pageNum));
 		model.addAttribute("name","group");
@@ -37,6 +35,9 @@ public class GroupController {
 	}
 	@RequestMapping(value="studyList", method= {RequestMethod.GET, RequestMethod.POST})
 	public String studyList(String pageNum, Model model) {
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
 		model.addAttribute("list",groupService.studyList(pageNum));
 		model.addAttribute("name","study");
 		model.addAttribute("paging",new Paging(groupService.studyTotCnt(),pageNum,12,10));
@@ -44,6 +45,9 @@ public class GroupController {
 	}
 	@RequestMapping(value="projectList", method= {RequestMethod.GET, RequestMethod.POST})
 	public String projectList(String pageNum, Model model) {
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
 		model.addAttribute("list",groupService.projectList(pageNum));
 		model.addAttribute("name","project");
 		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
@@ -120,8 +124,8 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value="accept", method=RequestMethod.GET)
-	public String accept(String mid, int gid, String pageNum, Model model){
-		model.addAttribute("acceptResult", groupService.acceptGroup(gid, mid));
+	public String accept(String mid, int gid, String pageNum, Achive achive, Model model){
+		model.addAttribute("acceptResult", groupService.acceptGroup(gid, mid, achive));
 		model.addAttribute("pageNum",pageNum);
 		return "forward:detail.do";
 	}
@@ -173,5 +177,24 @@ public class GroupController {
 		model.addAttribute("commentDeleteResult", gCommentService.commentDelete(gcid));
 		model.addAttribute("pageNum",pageNum);
 		return "forward:detail.do?gid="+gid+"&mid="+mid;
+	}
+	@RequestMapping(value="myGroupList", method=RequestMethod.GET)
+	public String groupList(String mid, String pageNum, Model model){
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
+		model.addAttribute("StudyList", groupService.myStudyList(mid, pageNum));
+		System.out.println(groupService.myStudyList(mid, pageNum));
+		model.addAttribute("studyPaging",new Paging(groupService.totCntMyStudy(mid),pageNum,12,10));
+		return "group/myGroupList";
+	}
+	@RequestMapping(value="myHistory", method=RequestMethod.GET)
+	public String projectList(String mid, String pageNum, Model model){
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
+		model.addAttribute("myHistory", groupService.myHistory(mid, pageNum));
+		model.addAttribute("historyPaging",new Paging(groupService.totCntMyHistory(mid),pageNum,12,10));
+		return "group/myHistory";
 	}
 }

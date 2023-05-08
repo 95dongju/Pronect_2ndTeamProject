@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.google.pronect.vo.Achive;
 import com.google.pronect.vo.Group;
 
 public interface GroupService {
@@ -40,7 +43,7 @@ public interface GroupService {
 	//////////////////join.do///////////////////////////////////////////
 	public int 		unJoinGroup(int gid, String mid);
 	//////////////////accept.do///////////////////////////////////////////
-	public String	acceptGroup(int gid, String mid);
+	public String	acceptGroup(int gid, String mid, Achive achive);
 	public int		memberPlus(int gid);
 	public Group	memberFullCheck(int gid);
 	public int		peopleFull(int gid);
@@ -52,7 +55,10 @@ public interface GroupService {
 	public int 		completeGroup(int gid);
 	//////////////////달성도 insert용///////////////////////////////////////////
 	public List<Group> getMemberId(int gid);
-	public Group	myStudyList(String mid);
-	public Group	myProjectList(String mid);
-	public Group	myHistory(String mid);
+	public List<Group>	myStudyList(String pageNum, String mid);
+	public int 			totCntMyStudy(String mid);
+	public List<Group>	myProjectList(String pageNum, String mid);
+	public int 			totCntMyProject(String mid);
+	public List<Group>	myHistory(String pageNum,  String mid);
+	public int 			totCntMyHistory(String mid);
 }

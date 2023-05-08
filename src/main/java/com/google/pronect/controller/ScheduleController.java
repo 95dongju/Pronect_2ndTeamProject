@@ -56,9 +56,11 @@ public class ScheduleController {
 		return jsonArr;
 	}
 	@RequestMapping(value="myGroupSchedule", method=RequestMethod.GET)
-	public String myGroup(int gid, Model model) {
+	public String myGroup(int gid, Model model, Schedule schedule) {
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupSchedule", scheduleService.totalSchedule(gid));
+		model.addAttribute("joinRate", scheduleService.checkMemberJoinRate(schedule));
+		model.addAttribute("groupAvgRate", scheduleService.checkGroupJoinAvgRate(schedule));
 		return "group/schedule/groupCalendar";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)

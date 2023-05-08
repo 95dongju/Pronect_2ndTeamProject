@@ -12,11 +12,12 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
   	.back{width : 30px; text-align: left;}
-		#content{width:1000px;	margin:0 auto;}
-  	table td #qnaInfo {
-			width:150px;
+		#content{max-width: 1000px;	margin:0 auto;}
+  	table tr #qnaInfo {
+			width:100px;
 			font-size: 0.9em;
 			font-weight: 900;
+			display: inline-block;
 			padding: 0 0.75em 0.75em 0.75em;
 			text-align: center;
 			vertical-align: middle;

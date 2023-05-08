@@ -7,18 +7,26 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.pronect.dao.AchiveDao;
 import com.google.pronect.dao.GCommentDao;
 import com.google.pronect.dao.GroupDao;
+import com.google.pronect.dao.ScheduleDao;
 import com.google.pronect.util.Paging;
+import com.google.pronect.vo.Achive;
 import com.google.pronect.vo.GComment;
 import com.google.pronect.vo.Group;
 import com.google.pronect.vo.Member;
+import com.google.pronect.vo.Schedule;
 @Service
 public class GroupServiceImpl implements GroupService {
 	@Autowired
 	private GroupDao groupDao;
 	@Autowired
 	private GCommentDao gcommentDao;
+	@Autowired
+	private AchiveDao achiveDao;
+	@Autowired
+	private ScheduleDao scheduleDao;
 	/////////////////////////groupList.do//////////////////////////////////////////
 	@Override //전체 그룹 페이징용 startRow,endRow//
 	public List<Group> groupList(String pageNum) {
@@ -257,9 +265,10 @@ public class GroupServiceImpl implements GroupService {
 	
 	/////////////////////////accept.do //////////////////////////////////////////
 	@Override //가입 신청자를 그룹원으로(gstatus = 1 -> 0), 현재멤버 +1, 그룹 최대인원 도달시-> gcomplete='F' 
-	public String acceptGroup(int gid, String mid) {
+	public String acceptGroup(int gid, String mid, Achive achive) {
 		String alertMsg="";
 		String gidTemp = Integer.toString(gid);
+		List<Schedule> arrScdId = scheduleDao.getScdIdList(gid);
 		if(gidTemp != null && mid != null) {
 			Group group = groupDao.memberFullCheck(gid);
 			int gpeople = group.getGpeople();
@@ -270,6 +279,15 @@ public class GroupServiceImpl implements GroupService {
 			}else if(gpeople - gcurpeople == 1) {
 				groupDao.peopleFull(gid);
 				alertMsg="모든 그룹원이 모였습니다.";
+			}
+			if(arrScdId.size() != 0) {
+				for(int j=0; j<arrScdId.size(); j++) {
+					achive.setScd_id(arrScdId.get(j).getScd_id());
+					achive.setMid(mid);
+					if(achiveDao.checkAchive(achive) == 0) {					
+						achiveDao.insertAchive(achive);
+					}
+				}
 			}
 			groupDao.memberPlus(gid);
 			group.setGid(gid);
@@ -405,18 +423,58 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public Group myStudyList(String mid) {
-		return groupDao.myStudyList(mid);
+	public List<Group> myStudyList(String mid, String pageNum) {
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
+		Paging paging = new Paging(groupDao.totCntMyStudy(mid), pageNum, 12, 10);
+		System.out.println(paging);
+		Group group = new Group();
+		group.setStartRow(paging.getStartRow());
+		group.setEndRow(paging.getEndRow());
+		return groupDao.myStudyList(group, mid);
 	}
 
 	@Override
-	public Group myProjectList(String mid) {
-		return groupDao.myProjectList(mid);
+	public List<Group> myProjectList(String mid, String pageNum) {
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
+		Paging paging = new Paging(groupDao.totCntMyProject(mid), pageNum, 12, 10);
+		Group group = new Group();
+		group.setStartRow(paging.getStartRow());
+		group.setEndRow(paging.getEndRow());
+		return groupDao.myProjectList(group, mid);
 	}
 
 	@Override
-	public Group myHistory(String mid) {
-		return groupDao.myHistory(mid);
+	public List<Group> myHistory(String mid, String pageNum) {
+		if(pageNum==null || pageNum=="") {
+			pageNum = "1";
+		}
+		Paging paging = new Paging(groupDao.totCntMyHistory(mid), pageNum, 12, 10);
+		Group group = new Group();
+		group.setStartRow(paging.getStartRow());
+		group.setEndRow(paging.getEndRow());
+		return groupDao.myHistory(group, mid);
+	}
+
+	@Override
+	public int totCntMyStudy(String mid) {
+		// TODO Auto-generated method stub
+		return groupDao.totCntMyStudy(mid);
+	}
+
+	@Override
+	public int totCntMyProject(String mid) {
+		// TODO Auto-generated method stub
+		return groupDao.totCntMyProject(mid);
+	}
+
+	@Override
+	public int totCntMyHistory(String mid) {
+		// TODO Auto-generated method stub
+		return groupDao.totCntMyHistory(mid);
 	}
 	
 //	@Override

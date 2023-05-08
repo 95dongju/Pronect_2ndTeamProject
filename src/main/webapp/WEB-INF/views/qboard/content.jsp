@@ -7,9 +7,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link href="${conPath }/css/main.css" rel="stylesheet">
+	<title>Pronect</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="${conPath}/css/groupDetail.css" rel="stylesheet" />
   <style>
   	.back{width : 30px; text-align: left;}
 		#content{width:1000px;	margin:0 auto;}

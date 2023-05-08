@@ -14,64 +14,151 @@
 	<!-- GroupDetailNav (네비게이션바 Script) -->
 	<script>
 		$(document).ready(function(){
+			var pageNum = ${param.pageNum};
+			if(pageNum == null || pageNum == ''){
+				pageNum = 1;
+			}
 			$('#groupDetail_info').click(function(){
-				location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+				location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
 			});
 			$('#groupDetail_schedule').click(function(){
 				if(${empty member}){
-					alert('로그인 후 이용 가능합니다');
-					location.href="${conPath}/member/login.do";
+					Swal.fire({
+				        title: '로그인 후 이용 가능합니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href="${conPath}/member/login.do";
+				        }
+				    });
+				    return false;
 				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-						alert('그룹 가입 후 이용 가능합니다');
-						location.href="history.back()";
+					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
+						Swal.fire({
+					        title: '그룹 가입 후 이용 가능합니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						alert('그룹 승인 대기 중입니다');
-						location.href="history.back()";
+						Swal.fire({
+					        title: '그룹 승인 대기 중입니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
 					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
 					}
 				}
 			});
-			$('#groupDetail_board').click(function(){
-				if(${empty member}){
-					alert('로그인 후 이용 가능합니다');
-					location.href="${conPath}/member/login.do";
+		$('#groupDetail_board').click(function(){
+			if(${empty member}){
+				Swal.fire({
+			        title: '로그인 후 이용 가능합니다',
+			        confirmButtonText: '확인',
+			        icon: 'warning',
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			        	location.href="${conPath}/member/login.do";
+			        }
+			    });
+			    return false;
 				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-						alert('그룹 가입 후 이용 가능합니다');
-						location.href="history.back()";
+					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
+						Swal.fire({
+					        title: '그룹 가입 후 이용 가능합니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						alert('그룹 승인 대기 중입니다');
-						location.href="history.back()";
+						Swal.fire({
+					        title: '그룹 승인 대기 중입니다',
+					        confirmButtonText: '확인',
+					        icon: 'warning',
+					    }).then((result) => {
+					        if (result.isConfirmed) {
+					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+					        }
+					    });
+					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
+						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
 					}
 				}
 			});
-			$('#groupDetail_memberInfo').click(function(){
-				if(${empty member}){
-					alert('로그인 후 이용 가능합니다');
-					location.href="${conPath}/member/login.do";
-				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-						alert('그룹 가입 후 이용 가능합니다');
-						location.href="history.back()";
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						alert('그룹 승인 대기 중입니다');
-						location.href="history.back()";
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
-					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}";
-					}
+		$('#groupDetail_memberInfo').click(function(){
+			if(${empty member}){
+				Swal.fire({
+			        title: '로그인 후 이용 가능합니다',
+			        confirmButtonText: '확인',
+			        icon: 'warning',
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			        	location.href="${conPath}/member/login.do";
+			        }
+			    });
+			    return false;
+			}else if(${not empty member}){
+				if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
+					Swal.fire({
+				        title: '그룹 가입 후 이용 가능합니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					Swal.fire({
+				        title: '퇴출/탈퇴 멤버는 이용할 수 없습니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
+					Swal.fire({
+				        title: '그룹 승인 대기 중입니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
+					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
 				}
-			});
+			}
 		});
+	});
 	</script>
 </head>
 <body>

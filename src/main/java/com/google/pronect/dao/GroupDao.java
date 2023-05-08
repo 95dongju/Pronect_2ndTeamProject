@@ -56,9 +56,12 @@ public interface GroupDao {
 	public List<Group> 	joinList(int gid);
 	/////////////////////달성도 insert용//////////////////////////////////////////
 	public List<Group> getMemberId(int gid);
-	public Group	myStudyList(@Param("mid") String mid);
-	public Group	myProjectList(@Param("mid") String mid);
-	public Group	myHistory(@Param("mid") String mid);
+	public List<Group>	myStudyList(Group group, @Param("mid") String mid);
+	public int 			totCntMyStudy(@Param("mid") String mid);
+	public List<Group>	myProjectList(Group group, @Param("mid") String mid);
+	public int 			totCntMyProject(@Param("mid") String mid);
+	public List<Group>	myHistory(Group group, @Param("mid") String mid);
+	public int 			totCntMyHistory(@Param("mid") String mid);
 	/////////////////////    ?????   //////////////////////////////////////////
 	public String 	startDate(int gid);
 	public String 	endDate(int gid);

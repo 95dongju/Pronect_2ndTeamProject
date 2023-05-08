@@ -41,7 +41,7 @@
 				    });
 				    return false;
 				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
 						Swal.fire({
 					        title: '그룹 가입 후 이용 가능합니다',
 					        confirmButtonText: '확인',
@@ -64,9 +64,9 @@
 					    });
 					    return false;
 					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
 					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
 					}
 				}
 			});
@@ -83,7 +83,7 @@
 			    });
 			    return false;
 				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
 						Swal.fire({
 					        title: '그룹 가입 후 이용 가능합니다',
 					        confirmButtonText: '확인',
@@ -125,9 +125,20 @@
 			    });
 			    return false;
 			}else if(${not empty member}){
-				if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+				if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
 					Swal.fire({
-				        title: '그룹장만 확인할 수 있습니다',
+				        title: '그룹 가입 후 이용 가능합니다',
+				        confirmButtonText: '확인',
+				        icon: 'warning',
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+				        }
+				    });
+				    return false;
+				}else if(${groupDetail.mid ne member.mid and joincheck eq 0}){
+					Swal.fire({
+				        title: '퇴출/탈퇴 멤버는 이용할 수 없습니다',
 				        confirmButtonText: '확인',
 				        icon: 'warning',
 				    }).then((result) => {
@@ -138,7 +149,7 @@
 				    return false;
 				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
 					Swal.fire({
-				        title: '그룹장만 확인할 수 있습니다',
+				        title: '그룹 승인 대기 중입니다',
 				        confirmButtonText: '확인',
 				        icon: 'warning',
 				    }).then((result) => {
@@ -148,18 +159,9 @@
 				    });
 				    return false;
 				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-					Swal.fire({
-				        title: '그룹장만 확인할 수 있습니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
 					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum="+pageNum;
+				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
+					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
 				}
 			}
 		});
@@ -325,8 +327,9 @@
 					</c:if>
 				</div>
 				<form action="${conPath }/groupBoardComment/write.do?group_bid=${groupBoardDetail.group_bid}">
-					<input type="text" name="mid" value="${member.mid }">
-					<input type="text" name="mid" value="${groupBoardDetail.group_bid}">
+					<input type="hidden" name="gid" value="${groupBoardDetail.gid }">
+					<input type="hidden" name="mid" value="${member.mid }">
+					<input type="hidden" name="group_bid" value="${groupBoardDetail.group_bid}">
 					<textarea class="inputBox" name="group_board_cmt_content"></textarea>
 					<input type="submit" value="등록">	
 				</form>

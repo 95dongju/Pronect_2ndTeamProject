@@ -82,4 +82,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 	public ArrayList<Schedule> getScdIdList(int gid) {
 		return scheduleDao.getScdIdList(gid);
 	}
+	@Override
+	public int checkMemberJoinRate(Schedule schedule) {
+		return scheduleDao.checkMemberJoinRate(schedule);
+	}
+	@Override
+	public int checkGroupJoinAvgRate(Schedule schedule) {
+		return scheduleDao.checkGroupJoinAvgRate(schedule);
+	}
 }

@@ -226,21 +226,72 @@
 	</update>
 <!--//////////////////////////////달성도 insert용/////////////////////////  -->
 	<select id="getMemberId" parameterType="int" resultMap="GroupResult">
-		SELECT MID FROM MYGROUP WHERE GID = #{gid}
+		SELECT MID FROM GSTATUS WHERE GID = #{gid}
 	</select>
-	<select id="myStudyHistory" parameterType="String" resultMap="GroupResult">
-		SELECT S.GID, S.GTITLE, S.GSDATE, S.GFDATE, H.GSSTATUS GSSTATUS 
-			FROM MYGROUP S, GSTATUS H 
-			WHERE S.GID = H.GID AND (H.GSSTATUS = 2 OR H.GSSTATUS = 1) AND S.GCHARACTER = 'S' AND H.MID = #{mid}
+	<select id="myStudyList" parameterType="Group" resultMap="GroupResult">
+	SELECT * FROM (SELECT ROWNUM RN, A.*, COALESCE(C.COMMENT_COUNT, 0) AS COMMENT_COUNT
+		FROM 
+		    (SELECT S.GSSTATUS, G.GID, G.GCHARACTER, M.MID, M.MIMAGE, M.MNICKNAME, G.GTITLE, G.GCONTENT, G.GPEOPLE, G.GCURPEOPLE,
+		           G.GLANGUAGE1, G.GLANGUAGE2, G.GLANGUAGE3, G.GDEV, G.GDESIGN, G.GPM, G.GRDATE, G.GSDATE, G.GFDATE, G.GHIT, G.GLOC, G.GCOMPLETE 
+		    FROM MYGROUP G
+		    INNER JOIN MEMBER M ON G.MID = M.MID 
+            INNER JOIN GSTATUS S ON S.GID = G.GID 
+		    WHERE G.GCOMPLETE = 'N' AND GCHARACTER = 'S'
+            AND M.MID = #{mid}
+            AND S.GSSTATUS = 2 OR S.GSSTATUS = 1
+		    ORDER BY G.GID DESC) A
+		LEFT JOIN 
+		    (SELECT GID, COUNT(*) AS COMMENT_COUNT
+		    FROM GCOMMENT
+		    GROUP BY GID) C
+		ON A.GID = C.GID)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
-	<select id="myProjectHistory" parameterType="String" resultMap="GroupResult">
-		SELECT S.GID, S.GTITLE, S.GSDATE, S.GFDATE, H.GSSTATUS GSSTATUS 
-			FROM MYGROUP S, GSTATUS H 
-			WHERE S.GID = H.GID AND (H.GSSTATUS = 2 OR H.GSSTATUS = 1) AND S.GCHARACTER = 'P' AND H.MID = #{mid}
+	<select id="totCntMyStudy" resultType="int">
+		SELECT COUNT(*) FROM GSTATUS S, MYGROUP G WHERE S.GID = G.GID AND S.MID = #{mid} AND GCHARACTER = 'S' AND (S.GSSTATUS = 2 OR S.GSSTATUS = 1)
 	</select>
-	<select id="myHistory" parameterType="String" resultMap="GroupResult">
-		SELECT S.GCHARACTER, S.GID, S.GTITLE, S.GSDATE, S.GFDATE, H.GSSTATUS 
-			FROM MYGROUP S, GSTATUS H 
-			WHERE S.GID = H.GID AND (H.GSSTATUS = 3) AND H.MID = #{mid}
+	<select id="myProjectList" parameterType="Group" resultMap="GroupResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.*, COALESCE(C.COMMENT_COUNT, 0) AS COMMENT_COUNT
+		FROM 
+		    (SELECT S.GSSTATUS, G.GID, G.GCHARACTER, M.MID, M.MIMAGE, M.MNICKNAME, G.GTITLE, G.GCONTENT, G.GPEOPLE, G.GCURPEOPLE,
+		           G.GLANGUAGE1, G.GLANGUAGE2, G.GLANGUAGE3, G.GDEV, G.GDESIGN, G.GPM, G.GRDATE, G.GSDATE, G.GFDATE, G.GHIT, G.GLOC, G.GCOMPLETE 
+		    FROM MYGROUP G
+		    INNER JOIN MEMBER M ON G.MID = M.MID 
+            INNER JOIN GSTATUS S ON S.GID = G.GID 
+		    WHERE G.GCOMPLETE = 'N' AND GCHARACTER = 'P'
+            AND M.MID = #{mid}
+            AND S.GSSTATUS = 2 OR S.GSSTATUS = 1
+		    ORDER BY G.GID DESC) A
+		LEFT JOIN 
+		    (SELECT GID, COUNT(*) AS COMMENT_COUNT
+		    FROM GCOMMENT
+		    GROUP BY GID) C
+		ON A.GID = C.GID)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntMyProject" resultType="int">
+		SELECT COUNT(*) FROM GSTATUS S, MYGROUP G WHERE S.GID = G.GID AND S.MID = #{mid} AND GCHARACTER = 'P' AND (S.GSSTATUS = 2 OR S.GSSTATUS = 1)
+	</select>
+	<select id="myHistory" parameterType="Group" resultMap="GroupResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.*, COALESCE(C.COMMENT_COUNT, 0) AS COMMENT_COUNT
+		FROM 
+		    (SELECT S.GSSTATUS, G.GID, G.GCHARACTER, M.MID, M.MIMAGE, M.MNICKNAME, G.GTITLE, G.GCONTENT, G.GPEOPLE, G.GCURPEOPLE,
+		           G.GLANGUAGE1, G.GLANGUAGE2, G.GLANGUAGE3, G.GDEV, G.GDESIGN, G.GPM, G.GRDATE, G.GSDATE, G.GFDATE, G.GHIT, G.GLOC, G.GCOMPLETE 
+		    FROM MYGROUP G
+		    INNER JOIN MEMBER M ON G.MID = M.MID 
+            INNER JOIN GSTATUS S ON S.GID = G.GID 
+		    WHERE G.GCOMPLETE = 'N'
+            AND M.MID = #{mid}
+            AND S.GSSTATUS = 3
+		    ORDER BY G.GID DESC) A
+		LEFT JOIN 
+		    (SELECT GID, COUNT(*) AS COMMENT_COUNT
+		    FROM GCOMMENT
+		    GROUP BY GID) C
+		ON A.GID = C.GID)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="totCntMyHistory" resultType="int">
+		SELECT COUNT(*) FROM GSTATUS S, MYGROUP G WHERE S.GID = G.GID AND S.MID = #{mid} AND S.GSSTATUS = 3
 	</select>
 </mapper>

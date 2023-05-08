@@ -14,4 +14,6 @@ public interface ScheduleDao {
 	public List<Schedule> totalSchedule(int gid);
 	public Schedule detailSchedule(int scd_id);
 	public ArrayList<Schedule> getScdIdList(int gid);
+	public int checkMemberJoinRate(Schedule schedule);
+	public int checkGroupJoinAvgRate(Schedule schedule);
 }
