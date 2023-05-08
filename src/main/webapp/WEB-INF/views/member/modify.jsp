@@ -50,11 +50,17 @@
 	<form action="${conPath }/member/modify.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="mid" value="${member.mid }">
 		<input type="hidden" name="mnickname" value="${member.mnickname }">
+		<input type="hidden" name="dbMpw" value="${member.mpw }">
+		<input type="hidden" name="dbMimage" value="${member.mimage }">
 		<table>
 			<tr><td>아이디</td><td>${member.mid }</td></tr>
 			<tr><td>닉네임</td><td>${member.mnickname }</td></tr>
 			<tr><td>현재 비밀번호</td><td><input type="password" name="oldMpw"></td></tr>
-			<tr><td>새 비밀번호</td><td><input type="password" name="mpw"></td></tr>
+			<tr><td>새 비밀번호</td>
+				<td>
+					<input type="password" name="mpw">
+				</td>
+			</tr>
 			<tr><td>이름</td><td><input type="text" name="mname" value="${member.mname }"></td></tr>
 			<tr><td>이메일</td><td><input type="text" name="mmail" value="${member.mmail }"></td></tr>
 			<tr><td>직업군</td><td><input type="text" name="mrole" value="${member.mrole }"></td></tr>

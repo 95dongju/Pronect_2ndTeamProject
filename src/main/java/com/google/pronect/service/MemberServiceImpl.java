@@ -175,6 +175,13 @@ public class MemberServiceImpl implements MemberService {
 			mimage="noprofile.jpg";
 		}// if
 		member.setMimage(mimage);
+		String mpw = mRequest.getParameter("mpw");
+		String dbMpw = mRequest.getParameter("dbMpw");
+		member.setMpw(mpw);
+		if(mpw.equals("")) { // 정보 수정시 새비밀번호를 입력하지 않을 경우, 현비밀번호(dbMpw)로 
+			mpw = dbMpw;
+			member.setMpw(dbMpw);
+		}
 		httpSession.setAttribute("member", member);
 		return memberDao.modifyMember(member);
 	}
