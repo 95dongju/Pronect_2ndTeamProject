@@ -2419,10 +2419,6 @@ textarea {
 			border-right: 0;
 		}
 
-			table:not(#boardTable) tbody tr:nth-child(2n + 1) {
-				background-color: rgba(144, 144, 144, 0.075);
-			}
-
 		table:not(#boardTablem,.ui-datepicker-calendar) td {
 			padding: 0.75em 0.75em;
 		}
@@ -3050,9 +3046,12 @@ textarea {
 		}
 
 /* Main */
+	#wrapper {
+		margin: 0 50px;
+	}
 
 	#main {
-		padding: 0em 0 6em 0 ;
+		padding: 0em 0 3em 0 ;
 	}
 	#main #banner img {
 		max-width: 100%;
@@ -3084,7 +3083,7 @@ textarea {
 	}
 	#wrapper #main #nav .search_div .searchtxt {
 		width: 93%;
-		margin: 0 100px;
+		margin: 0 50px;
 		display: inline-block;
 		margin: auto;
 	}

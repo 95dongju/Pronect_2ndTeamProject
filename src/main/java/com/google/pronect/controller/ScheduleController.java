@@ -56,16 +56,21 @@ public class ScheduleController {
 		return jsonArr;
 	}
 	@RequestMapping(value="myGroupSchedule", method=RequestMethod.GET)
-	public String myGroup(int gid, Model model, Schedule schedule) {
+	public String myGroup(int gid, String mid, Model model, Schedule schedule) {
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupSchedule", scheduleService.totalSchedule(gid));
 		model.addAttribute("joinRate", scheduleService.checkMemberJoinRate(schedule));
 		model.addAttribute("groupAvgRate", scheduleService.checkGroupJoinAvgRate(schedule));
+		if(mid != null) {
+			int joincheckCnt = groupService.joinCheckCnt(gid, mid);
+			model.addAttribute("joincheckCnt", joincheckCnt);
+			if(joincheckCnt != 0) {
+				model.addAttribute("joincheck", groupService.joinCheck(gid, mid));
+			}else if(joincheckCnt>0) {
+				model.addAttribute("msg","가입 이력 오류메세지");
+			}
+		}
 		return "group/schedule/groupCalendar";
-	}
-	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detailSchedule(int scd_id) {
-		return "group/detail";
 	}
 	@RequestMapping(value="gantt", method=RequestMethod.GET)
 	public String gantt() {
@@ -81,7 +86,7 @@ public class ScheduleController {
 		scheduleService.insertGroupSchedule(schedule, group);
 		achiveService.insertAchive(achive, gid);
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/schedule/groupCalendar";
+		return "forward:myGroupSchedule.do";
 	}
 	@RequestMapping(value="insertSchedulePopup", method=RequestMethod.GET)
 	public String insertScheduleView(int gid, Model model) {
@@ -93,7 +98,7 @@ public class ScheduleController {
 		scheduleService.insertSchedule(schedule, group);
 		achiveService.insertAchive(achive, gid);
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/schedule/groupCalendar";
+		return "forward:myGroupSchedule.do";
 	}
 	@RequestMapping(value="achive", method=RequestMethod.GET)
 	public String achiveSchedule(@Param("scd_id") int scd_id, @Param("mid") String mid, int gid, Model model) {

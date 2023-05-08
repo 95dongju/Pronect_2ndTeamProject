@@ -10,155 +10,6 @@
 	<title>Pronect</title>
 	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<!-- GroupDetailNav (네비게이션바 Script) -->
-	<script>
-		$(document).ready(function(){
-			var pageNum = ${param.pageNum};
-			if(pageNum == null || pageNum == ''){
-				pageNum = 1;
-			}
-			$('#groupDetail_info').click(function(){
-				location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-			});
-			$('#groupDetail_schedule').click(function(){
-				if(${empty member}){
-					Swal.fire({
-				        title: '로그인 후 이용 가능합니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href="${conPath}/member/login.do";
-				        }
-				    });
-				    return false;
-				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
-						Swal.fire({
-					        title: '그룹 가입 후 이용 가능합니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						Swal.fire({
-					        title: '그룹 승인 대기 중입니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
-					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
-					}
-				}
-			});
-		$('#groupDetail_board').click(function(){
-			if(${empty member}){
-				Swal.fire({
-			        title: '로그인 후 이용 가능합니다',
-			        confirmButtonText: '확인',
-			        icon: 'warning',
-			    }).then((result) => {
-			        if (result.isConfirmed) {
-			        	location.href="${conPath}/member/login.do";
-			        }
-			    });
-			    return false;
-				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
-						Swal.fire({
-					        title: '그룹 가입 후 이용 가능합니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						Swal.fire({
-					        title: '그룹 승인 대기 중입니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-					}
-				}
-			});
-		$('#groupDetail_memberInfo').click(function(){
-			if(${empty member}){
-				Swal.fire({
-			        title: '로그인 후 이용 가능합니다',
-			        confirmButtonText: '확인',
-			        icon: 'warning',
-			    }).then((result) => {
-			        if (result.isConfirmed) {
-			        	location.href="${conPath}/member/login.do";
-			        }
-			    });
-			    return false;
-			}else if(${not empty member}){
-				if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
-					Swal.fire({
-				        title: '그룹 가입 후 이용 가능합니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-					Swal.fire({
-				        title: '퇴출/탈퇴 멤버는 이용할 수 없습니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-					Swal.fire({
-				        title: '그룹 승인 대기 중입니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
-				}
-			}
-		});
-	});
-	</script>
 	<script>
 		var popupWidth = 630;
 		var popupHeight = 370;
@@ -244,92 +95,67 @@
 		});
 	});
 	</script>
+	<style>
+		#rate {
+			margin: auto;
+			text-align: center;
+		}
+		#joinRate {
+			width: 85%;
+			height: 30px;
+			margin: auto;
+			display: inline-box;
+		}
+		#joinRate div {
+			width: 4.5%;
+			margin: 1px;
+			display: inline-box;
+			height: 30px;
+			border: 1px solid grey;
+			float: left;
+		}
+		#groupAvgRate {
+			width: 85%;
+			height: 30px;
+			margin: auto;
+			display: inline-box;
+		}
+		#groupAvgRate div {
+			width: 4.5%;
+			margin: 1px;
+			display: inline-box;
+			height: 30px;
+			border: 1px solid grey;
+			float: left;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var joinRate = ${joinRate};
+			console.log(joinRate);
+			var groupAvgRate = ${groupAvgRate};
+			console.log(groupAvgRate);
+			var joinRateDiv = document.getElementsByClassName("joinRate");
+			var groupAvgRateDiv = document.getElementsByClassName("groupAvgRate");
+			for(let i=1; i<=20; i++){
+				if(Math.floor(joinRate/5) == i){
+					for(let j=0; j<i; j++){
+						joinRateDiv[j].style.backgroundColor = 'lightblue';
+					}
+				}if(Math.floor(groupAvgRate/5) == i){
+					for(let j=0; j<i; j++){
+						groupAvgRateDiv[j].style.backgroundColor = 'lightblue';
+					}
+				}
+			}
+		};
+	</script>
 </head>
 <body>
 	<jsp:include page="../../main/header.jsp"/>
+	<jsp:include page="../groupDetailHeader.jsp"/>
 	<!-----------------------------------------------------그룹 본문------------------------------------------------------------------->
 	<div id="main">
-		<div class="groupContent_detailHeader">
-			<div id="back">
-				<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
-			</div>
-				<div class="groupDetail_title">${groupDetail.gtitle }</div>
-<!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
-				<div class="groupDetail_writer">
-					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage}" alt="사용자 이미지"></div><div class="mid">${groupDetail.mnickname } |</div>
-					<div class="grdate">작성일: ${groupDetail.grdate }</div>
-					<c:if test=" ${empty groupDetail.mimage}">
-						이미지 비어있음
-					</c:if>
-				</div>
-				<p style=clear:both;></p>
-<!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
-				<div class="groupContent_detail">
-					<ul class="groupInfo_groupGrid">
-						<li>
-							<span class="groupInfo_title">모집 구분&nbsp;&nbsp; </span>
-							<span class="groupInfo_content">
-								<c:if test="${groupDetail.gcharacter eq 'P' }">
-									<b>프로젝트</b>
-								</c:if>
-								<c:if test="${groupDetail.gcharacter eq 'S'}">
-									<b>스터디</b>
-								</c:if>
-							</span>
-						</li>
-						<li>
-							<span class="groupInfo_title">모집 인원&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gpeople }명 </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">시작 예정&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gsdate }  </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">지역&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gloc } </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">완료 예정&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gfdate } </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">사용 언어&nbsp;&nbsp;</span>
-							<span class="groupInfo_content_lang">
-								<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
-									-
-								</c:if>
-								<c:if test="${not empty groupDetail.glanguage1 }">
-										${groupDetail.glanguage1 }
-								</c:if>
-								<c:if test="${not empty groupDetail.glanguage2 }">
-										 / ${groupDetail.glanguage2 }
-								</c:if>
-								<c:if test="${not empty groupDetail.glanguage3 }">
-										 / ${groupDetail.glanguage3 }
-								</c:if>
-							</span>
-						</li>
-					</ul>
-				<p style=clear:both;></p>
-			</div>
-			<nav id="mygroup_nav">
-				<ul>
-					<li>
-					<p id="groupDetail_info">
-							${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</p>
-					</li>
-					<li>
-						<p id="groupDetail_schedule"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
-					</li>
-					<li><p id="groupDetail_board">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판</p></li>
-					<c:if test="${groupDetail.mid eq member.mid }">
-						<li><p id="groupDetail_memberInfo">멤버 정보</p></li>
-					</c:if>
-				</ul>
-				<p style=clear:both;></p>
-			</nav>
-		</div>
 	 	<c:if test="${groupDetail.mid eq member.mid and empty groupSchedule}">
 			<div class="InsertScheduleDiv">
 				<div class="emptySchedule">
@@ -356,15 +182,30 @@
 				</div>
 			</div>
 		</c:if>
+		<div id='calendar'></div>
 		<c:if test="${not empty joinRate }">
-			<div>
+			<div id="rate">
 				<p>나의 참여율: ${joinRate }% / 100%</p>
+				<div id="joinRate">
+					<div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div>
+					<div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div>
+					<div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div>
+					<div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div>
+					<div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div><div class="joinRate"></div>
+				</div>
+				<p style=clear:both;></p>
 				<c:if test="${not empty groupAvgRate }">
 					<p>그룹원 평균 참여율 : ${groupAvgRate }% / 100%</p>
+					<div id="groupAvgRate">
+						<div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div>
+						<div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div>
+						<div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div>
+						<div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div>
+						<div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div><div class="groupAvgRate"></div>
+					</div>
 				</c:if>
 			</div>
 		</c:if>
-		<div id='calendar'></div>
 	</div>
 	<jsp:include page="../../main/footer.jsp"/>
  </body>

@@ -20,155 +20,6 @@
 			Swal.fire(msg);
 		}
 	</script>
-	<!-- GroupDetailNav (네비게이션바 Script) -->
-	<script>
-		$(document).ready(function(){
-			var pageNum = ${param.pageNum};
-			if(pageNum == null || pageNum == ''){
-				pageNum = 1;
-			}
-			$('#groupDetail_info').click(function(){
-				location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-			});
-			$('#groupDetail_schedule').click(function(){
-				if(${empty member}){
-					Swal.fire({
-				        title: '로그인 후 이용 가능합니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href="${conPath}/member/login.do";
-				        }
-				    });
-				    return false;
-				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
-						Swal.fire({
-					        title: '그룹 가입 후 이용 가능합니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						Swal.fire({
-					        title: '그룹 승인 대기 중입니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
-					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/group/schedule/myGroupSchedule.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
-					}
-				}
-			});
-		$('#groupDetail_board').click(function(){
-			if(${empty member}){
-				Swal.fire({
-			        title: '로그인 후 이용 가능합니다',
-			        confirmButtonText: '확인',
-			        icon: 'warning',
-			    }).then((result) => {
-			        if (result.isConfirmed) {
-			        	location.href="${conPath}/member/login.do";
-			        }
-			    });
-			    return false;
-				}else if(${not empty member}){
-					if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
-						Swal.fire({
-					        title: '그룹 가입 후 이용 가능합니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-						Swal.fire({
-					        title: '그룹 승인 대기 중입니다',
-					        confirmButtonText: '확인',
-					        icon: 'warning',
-					    }).then((result) => {
-					        if (result.isConfirmed) {
-					        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-					        }
-					    });
-					    return false;
-					}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-					}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-						location.href = "${conPath}/groupBoard/list.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-					}
-				}
-			});
-		$('#groupDetail_memberInfo').click(function(){
-			if(${empty member}){
-				Swal.fire({
-			        title: '로그인 후 이용 가능합니다',
-			        confirmButtonText: '확인',
-			        icon: 'warning',
-			    }).then((result) => {
-			        if (result.isConfirmed) {
-			        	location.href="${conPath}/member/login.do";
-			        }
-			    });
-			    return false;
-			}else if(${not empty member}){
-				if(${groupDetail.mid ne member.mid and joincheckCnt eq 0}){
-					Swal.fire({
-				        title: '그룹 가입 후 이용 가능합니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid ne member.mid and joincheck eq 0}){
-					Swal.fire({
-				        title: '퇴출/탈퇴 멤버는 이용할 수 없습니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid ne member.mid and joincheck eq 1}){
-					Swal.fire({
-				        title: '그룹 승인 대기 중입니다',
-				        confirmButtonText: '확인',
-				        icon: 'warning',
-				    }).then((result) => {
-				        if (result.isConfirmed) {
-				        	location.href = "${conPath}/group/detail.do?name=${param.name }&gid=${param.gid}&pageNum="+pageNum+"&mid=${member.mid}";
-				        }
-				    });
-				    return false;
-				}else if(${groupDetail.mid ne member.mid and joincheck eq 2}){
-					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&pageNum="+pageNum;
-				}else if(${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}){
-					location.href = "${conPath}/group/memberInfo.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum="+pageNum;
-				}
-			}
-		});
-	});
-	</script>
 	<script>
 		var pageNum = ${param.pageNum}
 		$(document).ready(function(){
@@ -264,7 +115,8 @@
 	</script>
 </c:if>
 	<jsp:include page="../main/header.jsp"/>
-<!-- ---------------------------------------------------추천글(사이드배너)-------------------------------------------------------------------- -->
+	<jsp:include page="groupDetailHeader.jsp"/>
+	<!-- ---------------------------------------------------추천글(사이드배너)-------------------------------------------------------------------- -->
 	<div id="sideBanner">
 		인기 그룹
 		<fieldset class="sideBanner_hitGroup_border">
@@ -278,90 +130,8 @@
 			</ol>
 		</fieldset>
 	</div>
-<!-----------------------------------------------------그룹 본문------------------------------------------------------------------->
 	<div id="main">
-		<div class="groupContent_detailHeader">
-			<div id="back">
-				<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
-			</div>
-				<div class="groupDetail_title">${groupDetail.gtitle }</div>
-<!-----------------------------------------------그룹리더 정보------------------------------------------------------------------->
-				<div class="groupDetail_writer">
-					<div class="mimage"><img src="${conPath}/memberFile/${groupDetail.mimage}" alt="사용자 이미지"></div><div class="mid">${groupDetail.mnickname } |</div>
-					<div class="grdate">작성일: ${groupDetail.grdate }</div>
-					<c:if test=" ${empty groupDetail.mimage}">
-						이미지 비어있음
-					</c:if>
-				</div>
-				<p style=clear:both;></p>
-<!-------------------------------------------------그룹 정보--------------------------------------------------------------------->
-				<div class="groupContent_detail">
-					<ul class="groupInfo_groupGrid">
-						<li>
-							<span class="groupInfo_title">모집 구분&nbsp;&nbsp; </span>
-							<span class="groupInfo_content">
-								<c:if test="${groupDetail.gcharacter eq 'P' }">
-									<b>프로젝트</b>
-								</c:if>
-								<c:if test="${groupDetail.gcharacter eq 'S'}">
-									<b>스터디</b>
-								</c:if>
-							</span>
-						</li>
-						<li>
-							<span class="groupInfo_title">모집 인원&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gpeople }명 </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">시작 예정&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gsdate }  </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">지역&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gloc } </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">완료 예정&nbsp;&nbsp;</span>
-							<span class="groupInfo_content">${groupDetail.gfdate } </span>
-						</li>
-						<li>
-							<span class="groupInfo_title">사용 언어&nbsp;&nbsp;</span>
-							<span class="groupInfo_content_lang">
-								<c:if test="${empty groupDetail.glanguage1 and empty groupDetail.glanguage2 and empty groupDetail.glanguage3}">
-									-
-								</c:if>
-								<c:if test="${not empty groupDetail.glanguage1 }">
-										<img class="language" src="${conPath }/logos/${groupDetail.glanguage1}.png" title="${groupDetail.glanguage1}" alt="${groupDetail.glanguage1}">
-								</c:if>
-								<c:if test="${not empty groupDetail.glanguage2 }">
-										<img class="language" src="${conPath }/logos/${groupDetail.glanguage2}.png" title="${groupDetail.glanguage2}" alt="${groupDetail.glanguage2}">
-								</c:if>
-								<c:if test="${not empty groupDetail.glanguage3 }">
-										<img class="language" src="${conPath }/logos/${groupDetail.glanguage3}.png" title="${groupDetail.glanguage3}" alt="${groupDetail.glanguage3}">
-								</c:if>
-							</span>
-						</li>
-					</ul>
-				<p style=clear:both;></p>
-				</div>
-				<nav id="mygroup_nav">
-					<ul>
-						<li>
-						<p class="mygroup_nav_p" id="groupDetail_info">
-								${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</p>
-						</li>
-						<li>
-							<p class="mygroup_nav_p" id="groupDetail_schedule"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
-						</li>
-						<li><p class="mygroup_nav_p" id="groupDetail_board">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판</p></li>
-						<c:if test="${groupDetail.mid eq member.mid }">
-							<li><p class="mygroup_nav_p" id="groupDetail_memberInfo">멤버 정보</p></li>
-						</c:if>
-					</ul>
-					<p style=clear:both;></p>
-				</nav>
-			</div>
-		<div class="groupContent_detailContentWrapper">
+	<div class="groupContent_detailContentWrapper">
 					<h2 class="groupContent_detailInfo">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 소개</h2>
 					<pre>${groupDetail.gcontent }</pre>
 		</div>
@@ -390,7 +160,6 @@
 				<button onclick="location='${conPath}/member/login.do'">참가 신청</button>
 			</c:if>
 		</div>
-	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 		<div class="studyContent_detailComment">
 			<div class="commentInput_commentText">
 				<hr>

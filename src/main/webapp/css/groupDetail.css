@@ -169,7 +169,7 @@ button{
 }
 .InsertScheduleDiv .emptySchedule {
 	text-align: center;
-	margin: 80px 10px;
+	margin: 10px 10px;
 }
 .InsertScheduleDiv .insertScheduleDiv button {
 	margin: 10px;
@@ -177,7 +177,6 @@ button{
 #main .InsertSchedule {
 	width: 300px;
 	margin: auto;
-	margin-top: 30px;
 }
 #main .InsertSchedule form {
 	width: 300px;

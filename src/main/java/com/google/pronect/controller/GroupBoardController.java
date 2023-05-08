@@ -33,20 +33,47 @@ public class GroupBoardController {
 		return "group/groupBoard/groupBoard";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detailGroupBoard(int gid, int group_bid, String boardPageNum, String commentPageNum, Model model) {
+	public String detailGroupBoard(int gid, String mid, int group_bid, String boardPageNum, String commentPageNum, Model model) {
+		if(mid != null) {
+			int joincheckCnt = groupService.joinCheckCnt(gid, mid);
+			model.addAttribute("joincheckCnt", joincheckCnt);
+			if(joincheckCnt != 0) {
+				model.addAttribute("joincheck", groupService.joinCheck(gid, mid));
+			}else if(joincheckCnt>0) {
+				model.addAttribute("msg","가입 이력 오류메세지");
+			}
+		}
 		model.addAttribute("groupBoardDetail", groupBoardService.detailGroupBoard(group_bid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		model.addAttribute("groupBoardComment", groupBoardReplyService.groupBoardCommentList(group_bid, commentPageNum, model));
 		return "group/groupBoard/groupBoardDetail";
 	}
 	@RequestMapping(value="write", method=RequestMethod.GET)
-	public String writeGroupBoardView(int gid, Model model) {
+	public String writeGroupBoardView(int gid, String mid, Model model) {
+		if(mid != null) {
+			int joincheckCnt = groupService.joinCheckCnt(gid, mid);
+			model.addAttribute("joincheckCnt", joincheckCnt);
+			if(joincheckCnt != 0) {
+				model.addAttribute("joincheck", groupService.joinCheck(gid, mid));
+			}else if(joincheckCnt>0) {
+				model.addAttribute("msg","가입 이력 오류메세지");
+			}
+		}
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
 		return "group/groupBoard/groupBoardWrite";
 	}
 	@RequestMapping(value="write", method=RequestMethod.POST)
-	public String writeGroupBoard(String pageNum, GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {
+	public String writeGroupBoard(String pageNum, String mid, GroupBoard groupboard, MultipartHttpServletRequest mRequest, HttpServletRequest request, Model model) {
 		model.addAttribute("writeResult", groupBoardService.writeGroupBoard(groupboard, mRequest, request));
+		if(mid != null) {
+			int joincheckCnt = groupService.joinCheckCnt(groupboard.getGid(), mid);
+			model.addAttribute("joincheckCnt", joincheckCnt);
+			if(joincheckCnt != 0) {
+				model.addAttribute("joincheck", groupService.joinCheck(groupboard.getGid(), mid));
+			}else if(joincheckCnt>0) {
+				model.addAttribute("msg","가입 이력 오류메세지");
+			}
+		}
 		return "forward:list.do";
 	}
 	@RequestMapping(value="modify", method=RequestMethod.GET)

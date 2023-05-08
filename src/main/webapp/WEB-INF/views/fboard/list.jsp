@@ -21,9 +21,16 @@
  		#listForm {text-align: right; width: 440px; float:right;}
  		#sch,#writeBtn {display:inline;}
  		#writeBtn{margin-left: 30px;}
- 		#schArea{margin-bottom:40px}
+ 		#schArea form{
+ 			margin-bottom:40px;
+ 			width: 500px;
+ 			float: right;
+ 		}
  		#sch[name=schItem]{width:150px; text-align: center;}
  		#sch[name=schWord]{width:200px;}
+ 		#searchBtn {
+ 			display: inline-block;
+ 		}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -152,7 +159,7 @@
 								>제목+내용+글쓴이</option>
 							</select>
 							<input id="sch" type="text" name="schWord" value="${param.schWord }">
-							<button type="submit"><i class="fa-solid fa-magnifying-glass fa-beat"></i> 검색</button>							
+							<button type="submit" id="searchBtn"><i class="fa-solid fa-magnifying-glass fa-beat"></i> 검색</button>							
 						</form>
 						<button id="writeBtn" type="button" onclick="location.href='${conPath}/fboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'"><i class="fa-solid fa-pen"></i> 글쓰기</button>
 					</div>
