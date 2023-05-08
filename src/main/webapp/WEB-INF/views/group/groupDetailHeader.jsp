@@ -243,6 +243,21 @@
 		    return false;
 		}
 	</script>
+	<script>
+	window.onclick = function(){
+		function clickEvent(e) {
+			  var nonClick = document.querySelectorAll(".mygroup_nav_p");
+			  nonClick.forEach(function (btn, i) {
+			    if (e.currentTarget == btn) {
+			      btn.classList.add("active");
+			    } else {
+			      btn.classList.remove("active");
+			    }
+			  });
+			  console.log(e.currentTarget);
+			}
+	};
+	</script>
 	<style>
 		.image{
 			width:30px;
@@ -329,20 +344,20 @@
 					</ul>
 				<p style=clear:both;></p>
 				</div>
-				<nav id="mygroup_nav">
+				<div id="mygroup_nav">
 					<ul>
 						<li>
-						<p class="mygroup_nav_p" id="groupDetail_info">
+						<p class="mygroup_nav_p" id="groupDetail_info" onclick="clickEvent(event)">
 								${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 정보</p>
 						</li>
 						<li>
-							<p class="mygroup_nav_p" id="groupDetail_schedule"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
+							<p class="mygroup_nav_p" id="groupDetail_schedule" onclick="clickEvent(event)"> ${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 일정</p>
 						</li>
-						<li><p class="mygroup_nav_p" id="groupDetail_board">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판</p></li>
-						<li><p class="mygroup_nav_p" id="groupDetail_memberInfo">멤버 정보</p></li>
+						<li><p class="mygroup_nav_p" id="groupDetail_board" onclick="clickEvent(event)">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 게시판</p></li>
+						<li><p class="mygroup_nav_p" id="groupDetail_memberInfo" onclick="clickEvent(event)">멤버 정보</p></li>
 					</ul>
 					<p style=clear:both;></p>
-				</nav>
+				</div>
 			</div>
 	</div>
 </body>

@@ -38,6 +38,9 @@
 		    FROM MYGROUP G
 		    INNER JOIN MEMBER M ON G.MID = M.MID 
 		    WHERE G.GCOMPLETE = 'N' 
+		<if test="searchGroup!=null">
+			AND G.GTITLE LIKE '%'||#{searchGroup}||'%'
+		</if>
 		    ORDER BY G.GID DESC) A
 		LEFT JOIN 
 		    (SELECT GID, COUNT(*) AS COMMENT_COUNT

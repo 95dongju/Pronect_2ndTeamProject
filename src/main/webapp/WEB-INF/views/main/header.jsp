@@ -74,8 +74,6 @@
 		<h2>Menu</h2>
 		<ul>
 			<li><a href="${conPath}/main.do"><i class="fa-solid fa-house-chimney fa-beat" style="--fa-animation-duration: 2s;"></i> Home</a></li>
-			<li><a href="../group/myStudy.jsp"><i class="fa-solid fa-graduation-cap fa-bounce" style="--fa-animation-duration: 2s;"></i> MyStudy</a></li>
-			<li><a href="../group/myProject.jsp"><i class="fa-solid fa-briefcase fa-bounce" style="--fa-animation-duration: 2s;"></i> MyProject</a></li>
 			<li><a href="${conPath }/fboard/list.do?pageNum=1"><i class="fa-solid fa-comment fa-beat-fade" style="--fa-beat-fade-opacity: 0.5; --fa-animation-duration: 2s;"></i> 자유게시판</a></li>
 			<li><a href="${conPath }/qboard/list.do?pageNum=1"><i class="fa-regular fa-circle-question fa-flip" style="--fa-animation-duration: 3s;"></i> 문의게시판</a></li>
 			<li><a href="${conPath }/nboard/list.do?pageNum=1"><i class="fa-solid fa-bullhorn fa-shake" style="--fa-animation-duration: 3s;"></i> 공지게시판</a></li>

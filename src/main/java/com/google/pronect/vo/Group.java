@@ -36,4 +36,5 @@ public class Group {
 	private int		gsid;
 	private int 	comment_count;
 	private int		gsstatus;
+	private String  searchGroup;
 }
