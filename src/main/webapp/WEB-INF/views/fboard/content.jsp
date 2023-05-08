@@ -8,7 +8,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/main.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
@@ -48,10 +47,28 @@
 	  		});
 	  		
 	  		$('.liked').click(function(){
-  				location.href = '${conPath}/fboard/likeDown.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+  				/* location.href = '${conPath}/fboard/likeDown.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'; */
+  				Swal.fire({
+  				  position: 'top-end',
+  				  icon: 'success',
+  				  title: '좋아요 취소하셨습니다',
+  				  showConfirmButton: false,
+  				  timer: 1000
+  				}).then((result) => {
+			        location.href = '${conPath}/fboard/likeDown.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+			    });
 			});
 			$('.unliked').click(function(){
-				location.href = '${conPath}/fboard/likeUp.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+				/* location.href = '${conPath}/fboard/likeUp.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'; */
+				Swal.fire({
+	  				  position: 'top-end',
+	  				  icon: 'success',
+	  				  title: '좋아요 하셨습니다!',
+	  				  showConfirmButton: false,
+	  				  timer: 1000
+	  				}).then((result) => {
+				        location.href = '${conPath}/fboard/likeUp.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}';
+				    });
 			});
 	  	});
 	  	
@@ -82,6 +99,7 @@
 		    return false;
 		}
 	</script>
+	<link href="${conPath }/css/boardContent.css" rel="stylesheet">
 </head>
 <body>
 	<c:set var="SUCCESS" value="1"/>
@@ -203,111 +221,133 @@
 	</c:if>
 	<!-- ${bDto } ${param.fid } ${param.pageNum } 들어옴 -->
 	<jsp:include page="../main/header.jsp"/>
-	<table>
-		<caption>글 내용</caption>
-		<tr><th>글번호</th><td>${fDto.fid}</td></tr>
-		<tr><th>글쓴이</th><td>${fDto.mid}</td></tr>
-		<tr><th>제목</th><td>${fDto.ftitle}</td></tr>
-		<tr>
-			<th>작성일</th>
-			<td><fmt:formatDate value="${fDto.frdate }" type="both" dateStyle="short"/></td>
-		</tr>
-		<tr><th>본문</th><td><pre>${fDto.fcontent }</pre></td></tr>
-		<tr>
-			<th>첨부파일</th>
-			<td>
-				<c:if test="${not empty fDto.ffile }">
-					<a href="${conPath }/fboardFile/${fDto.ffile}">${fDto.ffile}</a>
-				</c:if>
-				<c:if test="${empty fDto.ffile }">
-					첨부파일없음
-				</c:if>
-			</td>
-		</tr>
-		<tr><th>IP</th><td>${fDto.fip }</td></tr>
-		<tr><th>조회수</th><td>${fDto.fhit }</td></tr>
-		<tr><th>좋아요</th><td>${getLike }</td></tr>
-		<tr>
-			<td colspan="2">
-				<c:if test="${member.mid eq fDto.mid}">
+	<div class="board_wrap">
+        <div class="board_title">
+            <strong>자유게시판</strong>
+            <p>ProNect에서 자유롭게 ConNect</p>
+        </div>
+        <div class="board_view_wrap">
+            <div class="board_view">
+                <div class="title">
+                	${fDto.ftitle}
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>번호</dt>
+                        <dd>${fDto.fid}</dd>
+                    </dl>
+                    <dl>
+                        <dt>작성자</dt>
+                        <dd>${fDto.mid}</dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd><fmt:formatDate value="${fDto.frdate }" type="both" dateStyle="short"/></dd>
+                    </dl>
+                    <dl>
+                        <dt>조회</dt>
+                        <dd>${fDto.fhit }</dd>
+                    </dl>
+                    <dl>
+                        <dt>첨부파일</dt>
+                        <dd>
+                        	<c:if test="${not empty fDto.ffile }">
+								<a href="${conPath }/fboardFile/${fDto.ffile}">${fDto.ffile}</a>
+							</c:if>
+							<c:if test="${empty fDto.ffile }">
+								첨부파일없음
+							</c:if>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>좋아요</dt>
+                        <dd>${getLike }</dd>
+                    </dl>
+                    <dl>
+                        <dt>IP</dt>
+                        <dd>${fDto.fip }</dd>
+                    </dl>
+                </div>
+                <div class="cont">
+                	<pre>${fDto.fcontent }</pre>
+                </div>
+            </div>
+            <div class="bt_wrap">
+                <c:if test="${member.mid eq fDto.mid}">
 					<button onclick="location='${conPath}/fboard/modify.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">수정</button>
 				</c:if>
 				<c:if test="${member.mid eq fDto.mid or member.manager eq 'Y'}">
-					<%-- <form id="frm" action="${conPath}/fboard/delete.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}" onsubmit="return confirmSubmit();">
-						<input type="submit" value="삭제">
-					</form> --%>
 					<button type="button" id="deleteBtn">삭제</button>
 				</c:if>
 				<button onclick="location='${conPath}/fboard/reply.do?fid=${param.fid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">답변</button>
-				<button onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">목록</button>
-			</td>
-		</tr>
-	</table>
-		<c:if test="${like != 0}"><button  class="liked"><i class="fa-solid fa-thumbs-up fa-2xl"></i> 취소${getLike }</button></c:if>
-		<c:if test="${like eq 0}"><button  class="unliked"><i class="fa-regular fa-thumbs-up fa-2xl"></i> 좋아요${getLike }</button></c:if>
-	
-	
-	<h3>댓글</h3>
-	<form id="frm" action="${conPath }/fcomment/write.do" onsubmit="return confirmSubmit();">
-		<input type="hidden" name="fid" value="${param.fid }">
-		<input type="hidden" name="pageNum" value="${param.pageNum }">
-		<input type="hidden" name="mid" value="${member.mid }">
-		<textarea rows="2" cols="5" name="fccontent" style="width:50%; height:50px; float:left; margin: 5px;"></textarea>
-		<input type="submit" value="댓글 등록" class="btn" style="height:50px; float:left; margin: 5px;">
-	</form>
-	<p style="clear:both;"></p>
-	<c:if test="${empty fcommentList }">등록된 댓글이 없습니다</c:if>
-	<c:if test="${not empty fcommentList }">
-		<c:forEach items="${fcommentList }" var="comment">
-			<div class="reply${comment.fcid }" style="margin-left: 30px;">
-				<div>
-					<c:forEach var="i" begin="1" end="${comment.fcindent }">
-						<c:if test="${i==comment.fcindent }">
-				  			&nbsp; &nbsp; &nbsp; └
-				  		</c:if>
-						<c:if test="${i!=comment.fcindent }">
-				  			&nbsp; &nbsp; &nbsp; 
-				  		</c:if>
-					</c:forEach>
-					<span style="font-weight: blod; font-size: 1.3em; margin-right: 50px;">${comment.fccontent }</span> 
-					<i>작성자: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>&nbsp; &nbsp; 
-					<button onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})" type="button">댓글수정</button>
-					<%-- <span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span> --%>
-					<button onclick="Swal.fire({
-						  title: '삭제하시겠습니까?',
-						  text: '삭제된 댓글은 복구할 수 없습니다.',
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonText: '삭제',
-						  cancelButtonText: '취소'
-						}).then((result) => {
-						  if (result.isConfirmed) {
-						    location='${conPath}/fcomment/delete.do?fcid=${comment.fcid}&fid=${param.fid}&pageNum=${param.pageNum}&commentPageNum=${commentPaging.currentPage}';
-						  }
-						})" type="button">댓글삭제</button>
-					<button id="${comment.fcid }" class="replyView" type="button">대댓글</button>
+				<button onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">목록</button><br>
+				<c:if test="${like != 0}"><button  class="liked"><i class="fa-solid fa-thumbs-up fa-2xl"></i> 취소${getLike }</button></c:if>
+				<c:if test="${like eq 0}"><button  class="unliked"><i class="fa-regular fa-thumbs-up fa-2xl"></i> 좋아요${getLike }</button></c:if>
+            </div>
+        </div>
+        <br><br><br><br><br>
+		<h3>댓글</h3>
+		<form id="frm" action="${conPath }/fcomment/write.do" onsubmit="return confirmSubmit();">
+			<input type="hidden" name="fid" value="${param.fid }">
+			<input type="hidden" name="pageNum" value="${param.pageNum }">
+			<input type="hidden" name="mid" value="${member.mid }">
+			<textarea rows="2" cols="5" name="fccontent" style="width:50%; height:50px; float:left; margin: 5px;"></textarea>
+			<input type="submit" value="댓글 등록" class="btn" style="height:50px; float:left; margin: 5px;">
+		</form>
+		<p style="clear:both;"></p>
+		<c:if test="${empty fcommentList }">등록된 댓글이 없습니다</c:if>
+		<c:if test="${not empty fcommentList }">
+			<c:forEach items="${fcommentList }" var="comment">
+				<div class="reply${comment.fcid }" style="margin-left: 30px;">
+					<div>
+						<c:forEach var="i" begin="1" end="${comment.fcindent }">
+							<c:if test="${i==comment.fcindent }">
+					  			&nbsp; &nbsp; &nbsp; └
+					  		</c:if>
+							<c:if test="${i!=comment.fcindent }">
+					  			&nbsp; &nbsp; &nbsp; 
+					  		</c:if>
+						</c:forEach>
+						<span style="font-weight: blod; font-size: 1.3em; margin-right: 50px;">${comment.fccontent }</span> 
+						<i>작성자: ${comment.mid} - 작성일시: ${comment.fcrdate }</i>&nbsp; &nbsp; 
+						<i onclick="modifyComment(${comment.fcid}, ${param.pageNum}, ${fDto.fid}, ${commentPaging.currentPage})" class="fa-solid fa-eraser"></i>
+						<%-- <span onclick="location='${conPath}/fcomment/delete.do?fcid=${comment.fcid }&fid=${param.fid }&pageNum=${param.pageNum }&commentPageNum=${commentPaging.currentPage }'" class="btn">[ 삭제 ]</span> --%>
+						<i onclick="Swal.fire({
+							  title: '삭제하시겠습니까?',
+							  text: '삭제된 댓글은 복구할 수 없습니다.',
+							  icon: 'warning',
+							  showCancelButton: true,
+							  confirmButtonText: '삭제',
+							  cancelButtonText: '취소'
+							}).then((result) => {
+							  if (result.isConfirmed) {
+							    location='${conPath}/fcomment/delete.do?fcid=${comment.fcid}&fid=${param.fid}&pageNum=${param.pageNum}&commentPageNum=${commentPaging.currentPage}';
+							  }
+							})" class="fa-solid fa-trash-can"></i>
+						<i id="${comment.fcid }" class="replyView fa-solid fa-reply fa-flip-vertical"></i>
+					</div>
+					<div class="replySpace${comment.fcid }"></div>
 				</div>
-				<div class="replySpace${comment.fcid }"></div>
-			</div>
-			<br>
-		</c:forEach>
-	</c:if>
-	<div class="paging">
-		<c:if test="${commentPaging.startPage > commentPaging.blockSize }">
-			[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
+				<br>
+			</c:forEach>
 		</c:if>
-		<c:forEach var="i" begin="${commentPaging.startPage }" end="${commentPaging.endPage }">
-			<c:if test="${i eq commentPaging.currentPage }">
-				[ <b> ${i } </b> ]
+		<div class="paging">
+			<c:if test="${commentPaging.startPage > commentPaging.blockSize }">
+				[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.startPage-1}">이전</a> ]
 			</c:if>
-			<c:if test="${i != commentPaging.currentPage }">
-				[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${i}">${i }</a> ]
+			<c:forEach var="i" begin="${commentPaging.startPage }" end="${commentPaging.endPage }">
+				<c:if test="${i eq commentPaging.currentPage }">
+					[ <b> ${i } </b> ]
+				</c:if>
+				<c:if test="${i != commentPaging.currentPage }">
+					[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${i}">${i }</a> ]
+				</c:if>
+			</c:forEach>
+			<c:if test="${paging.endPage < paging.pageCnt }">
+				[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.endPage+1}">다음</a> ]
 			</c:if>
-		</c:forEach>
-		<c:if test="${paging.endPage < paging.pageCnt }">
-			[ <a href="${conPath }/fboard/content.do?fid=${param.fid}&pageNum=${param.pageNum }&commentPageNum=${commentPaging.endPage+1}">다음</a> ]
-		</c:if>
-	</div>
+		</div>
+    </div>
 	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
