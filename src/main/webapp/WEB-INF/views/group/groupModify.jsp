@@ -74,7 +74,10 @@
 					<th id="registerInfo" class="exception">모집 인원<b id="mandatory">*</b></th>
 					<td colspan="5">
 						<input type="number" autocomplete="off" name="gpeople" required="required" value="${groupDetail.gpeople}">명
-						<span id="peopleInfo"><c:if test="${groupDetail.gcurpeople>=2}"></c:if>최소  ${groupDetail.gcurpeople}명부터 입력 가능</span>
+						<span id="peopleInfo">
+							<c:if test="${groupDetail.gcurpeople>=2}">최소  ${groupDetail.gcurpeople}명부터 입력 가능</c:if>
+							<c:if test="${groupDetail.gcurpeople<=2}">최소  2명부터 입력 가능</c:if>
+							</span>
 					</td>
 				<tr>
 					<th id="registerInfo" class="exception" rowspan="2">사용 언어</th>
