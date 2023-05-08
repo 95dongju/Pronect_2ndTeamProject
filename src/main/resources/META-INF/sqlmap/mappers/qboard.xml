@@ -61,7 +61,7 @@
 		INSERT INTO QBOARD (QID, MID, QTITLE, QCONTENT, QFILE,
 		                    QGROUP, QSTEP, QINDENT)
 		            VALUES (QBOARD_SEQ.NEXTVAL, #{mid}, #{qtitle},#{qcontent}, #{qfile},
-		                    QBOARD_SEQ.CURRVAL,0,0,)
+		                    QBOARD_SEQ.CURRVAL,0,0)
 	</insert>
 	<!-- <selectKey resultType="Integer" keyProperty="qid" order="AFTER">
 		SELECT MAX(qid) FROM QBOARD

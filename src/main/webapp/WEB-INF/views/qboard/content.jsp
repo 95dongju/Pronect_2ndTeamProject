@@ -56,7 +56,12 @@
 					<th id="qnaInfo">첨부파일</th>
 					<td>
 						<c:if test="${not empty qDto.qfile }">
-							<a href="${conPath }/qboardFile/${qDto.qfile}">${qDto.qfile}</a>
+							<c:if test="${member.manager eq 'Y' }">
+								<a href="${conPath }/qboardFile/${qDto.qfile}">${qDto.qfile}</a>
+							</c:if>
+							<c:if test="${member.manager eq 'N'}">
+								${qDto.qfile}
+							</c:if>
 						</c:if>
 						<c:if test="${empty qDto.qfile }">
 							첨부파일없음

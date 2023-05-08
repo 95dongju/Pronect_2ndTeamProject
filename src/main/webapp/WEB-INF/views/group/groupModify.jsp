@@ -42,18 +42,18 @@
 		<input type="hidden" name="method" value="modify">
 		<input type="hidden" name="gid" value="${groupDetail.gid }">
 		<input type="hidden" name="mid" value="${groupDetail.mid }">
-			<table id="main">
+			<table id="main" class="groupTable">
 				<tr>
-					<th id="registerInfo" >제목<b id="mandatory">*</b></th>
-					<td><input type="text" autocomplete="off" name="gtitle" required="required" value="${groupDetail.gtitle}"></td>
+					<th id="registerInfo" class="exception">제목<b id="mandatory">*</b></th>
+					<td colspan="5"><input type="text" autocomplete="off" name="gtitle" required="required" value="${groupDetail.gtitle}"></td>
 				</tr>
 				<tr>
-					<th id="registerInfo" >내용<b id="mandatory">*</b></th>
-					<td><textarea rows="10" cols="10" autocomplete="off" spellcheck="false" name="gcontent" required="required">${groupDetail.gcontent}</textarea></td>
+					<th id="registerInfo" class="exception">내용<b id="mandatory">*</b></th>
+					<td colspan="5"><textarea rows="10" cols="10" autocomplete="off" spellcheck="false" name="gcontent" required="required">${groupDetail.gcontent}</textarea></td>
 				</tr>
 				<tr>
-					<th rowspan="2" id="registerInfo">모집 구분<b id="mandatory">*</b></th>
-					<td>
+					<th rowspan="2" id="registerInfo" class="exception">모집 구분<b id="mandatory">*</b></th>
+					<td colspan="5">
 						<select name="gcharacter" required="required">
 							<option value="S" <c:if test="${groupDetail.gcharacter eq 'S'}">selected="selected"</c:if>>스터디</option>						
 							<option value="P" <c:if test="${groupDetail.gcharacter eq 'P'}">selected="selected"</c:if>>프로젝트</option>						
@@ -61,7 +61,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="5">
 						<span>
 							<label id="checkbox"><input type="checkbox" class ="position" name="gdev" id="gdev-checkbox" value="Y" disabled="disabled">개발자</label>
 							<label id="checkbox"><input type="checkbox" class ="position" name="gdesign" id="gdesign-checkbox" value="Y" disabled="disabled">디자이너</label>
@@ -70,14 +70,14 @@
 					</td>
 				</tr>
 				<tr>
-					<th id="registerInfo" >모집 인원<b id="mandatory">*</b></th>
-					<td>
+					<th id="registerInfo" class="exception">모집 인원<b id="mandatory">*</b></th>
+					<td colspan="5">
 						<input type="number" autocomplete="off" name="gpeople" required="required" value="${groupDetail.gpeople}">명
 						<span id="peopleInfo"><c:if test="${groupDetail.gcurpeople>=2}"></c:if>최소  ${groupDetail.gcurpeople}명부터 입력 가능</span>
 					</td>
 				<tr>
-					<th id="registerInfo"  class="exception" rowspan="2">사용 언어</th>
-					<td>
+					<th id="registerInfo" class="exception" rowspan="2">사용 언어</th>
+					<td colspan="5">
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Python"
 							<c:if test="${groupDetail.glanguage1 eq 'Python' or
 														groupDetail.glanguage2 eq 'Python' or 
@@ -109,7 +109,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="5">
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="TypeScript"
 							<c:if test="${groupDetail.glanguage1 eq 'TypeScript' or
 														groupDetail.glanguage2 eq 'TypeScript' or 
@@ -136,17 +136,17 @@
 														groupDetail.glanguage3 eq 'Ruby'}"> checked="checked"</c:if>>Ruby</label>
 					</td>
 				</tr>
-				<tr><th id="registerInfo" >그룹 시작일<b id="mandatory">*</b></th>
-					<td><input type="text" id="sdate" class="sdate" autocomplete="off" name="gsdate" value="${groupDetail.gsdate}"></td>
+				<tr>
+					<th id="registerInfo" class="exception">그룹 시작일<b id="mandatory">*</b></th>
+					<td colspan="2"><input type="text" id="sdate" class="sdate" autocomplete="off" name="gsdate" value="${groupDetail.gsdate}"></td>
+					<th id="registerInfo" class="exception">그룹 완료일<b id="mandatory">*</b></th>
+					<td colspan="2"><input type="text" id="edate" class="edate" autocomplete="off" name="gfdate" value="${groupDetail.gfdate}"></td>
 				</tr>
-				<tr><th id="registerInfo" >그룹 완료일<b id="mandatory">*</b></th>
-					<td><input type="text" id="edate" class="edate" autocomplete="off" name="gfdate" value="${groupDetail.gfdate}"></td>
-				</tr>
-				<tr><th id="registerInfo" >지역</th>
-					<td><input type="text" autocomplete="off" name="gloc" value="${groupDetail.gloc}"></td>
+				<tr><th id="registerInfo" class="exception">지역</th>
+					<td colspan="5"><input type="text" autocomplete="off" name="gloc" value="${groupDetail.gloc}"></td>
 				</tr>
 				<tr>
-					<td id="btnContainer" colspan="2">
+					<td colspan="5" id="btnContainer" colspan="2">
 						<input id="btn" type="submit" value="등록">
 						<button id="btn" onclick="location='list.do?pageNum=${param.pageNum}'">목록</button>
 					</td>

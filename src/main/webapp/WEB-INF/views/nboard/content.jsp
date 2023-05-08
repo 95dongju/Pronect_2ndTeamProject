@@ -13,7 +13,7 @@
   <style>
   	.back{width : 30px; text-align: left;}
 		#content{width:1000px;	margin:0 auto;}
-  	table td #qnaInfo {
+  	table #qnaInfo {
 			width:150px;
 			font-size: 0.9em;
 			font-weight: 900;
@@ -28,6 +28,7 @@
 		.mimage{width:30px; margin-right:20px;}
 		.groupDetail_writer{display:flex; align-items: center;}
 		.groupDetail_title {display:flext; flex-direction: column;}
+		#content_pre {white-space: pre-wrap; word-break:break-all; overflow: auto;}
 	</style>
 </head>
 <body>
@@ -52,7 +53,7 @@
 				</div>
 				<p style=clear:both;></p>
 			<table>
-				<tr><th id="qnaInfo">본문</th><td><pre>${nDto.ncontent }</pre></td></tr>
+				<tr><th id="qnaInfo">본문</th><td><pre id="content_pre" style="word-break:keep-all;">${nDto.ncontent }</pre></td></tr>
 				<tr>
 					<th id="qnaInfo">첨부파일</th>
 					<td>
@@ -69,11 +70,8 @@
 						<c:if test="${member.mid eq nDto.mid}">
 							<button id="btn" onclick="location='${conPath}/nboard/modify.do?nid=${param.nid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">수정</button>
 						</c:if>
-						<c:if test="${member.mid eq nDto.mid or member.manager eq 'Y'}">
+						<c:if test="${member.mid eq nDto.mid}">
 							<button id="btn" onclick="location='${conPath}/nboard/delete.do?nid=${param.nid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">삭제</button>				
-							<c:if test="${member.manager eq 'Y'}">
-								<button id="btn" onclick="location='${conPath}/nboard/reply.do?nid=${param.nid }&pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">답변</button>
-							</c:if>
 						</c:if>
 						<button id="btn" onclick="location='${conPath}/nboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">목록</button>
 					</td>

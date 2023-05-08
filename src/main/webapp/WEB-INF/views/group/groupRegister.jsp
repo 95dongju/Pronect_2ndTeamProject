@@ -40,18 +40,18 @@
 	<div id="content">
 		<form action="${conPath }/group/register.do" method="post">
 			<input type="hidden" name="method" value="register">
-			<table>
+			<table class="groupTable">
 				<tr>
-					<th id="registerInfo">제목<b id="mandatory">*</b></th>
-					<td><input type="text" autocomplete="off" name="gtitle" required="required" maxlength="80"></td>
+					<th id="registerInfo" class="exception">제목<b id="mandatory">*</b></th>
+					<td colspan="5" ><input type="text" autocomplete="off" name="gtitle" required="required" maxlength="80"></td>
 				</tr>
 				<tr>
-					<th id="registerInfo">내용<b id="mandatory">*</b></th>
-					<td><textarea rows="10" autocomplete="off" spellcheck="false" cols="10" name="gcontent" required="required"></textarea></td>
+					<th id="registerInfo" class="exception">내용<b id="mandatory">*</b></th>
+					<td colspan="5"><textarea rows="10" autocomplete="off" spellcheck="false" cols="10" name="gcontent" required="required"></textarea></td>
 				</tr>
 				<tr>
-					<th rowspan="2" id="registerInfo">모집 구분<b id="mandatory">*</b></th>
-					<td>
+					<th rowspan="2" id="registerInfo" class="exception">모집 구분<b id="mandatory">*</b></th>
+					<td colspan="5">
 						<select name="gcharacter">
 							<option value="S" selected="selected">스터디</option>						
 							<option value="P">프로젝트</option>						
@@ -59,7 +59,7 @@
 					</td>
 				</tr>
 					<tr>
-						<td>
+						<td colspan="5">
 							<span>
 								<label id="checkbox"><input type="checkbox" class ="position" name="gdev" id="gdev-checkbox" value="Y" disabled="disabled">개발자</label>
 								<label id="checkbox"><input type="checkbox" class ="position" name="gdesign" id="gdesign-checkbox" value="Y" disabled="disabled">디자이너</label>
@@ -68,15 +68,15 @@
 						</td>
 					</tr>
 				<tr>
-					<th id="registerInfo">모집 인원<b id="mandatory">*</b></th>
-					<td>
+					<th id="registerInfo" class="exception">모집 인원<b id="mandatory">*</b></th>
+					<td colspan="5">
 						<input class="gpeople" type="number" autocomplete="off" min="2" name="gpeople" required="required" value=2>명
 						<span id="peopleInfo">최소 2명부터 입력 가능</span>
 					</td>
 				</tr>
 				<tr>
 					<th id="registerInfo" class="exception" rowspan="2">사용 언어</th>
-					<td>
+					<td colspan="5">
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Python">Python</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Java">Java</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="JavaScript">JavaScript</label>
@@ -87,7 +87,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="5">
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Node.js">Node.js</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="TypeScript">TypeScript</label>
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="C">C</label>
@@ -96,16 +96,16 @@
 						<label id="checkbox"><input type="checkbox" name="glanguage" value="Ruby">Ruby</label>
 					</td>
 				</tr>
-				<tr><th id="registerInfo">그룹 시작일<b id="mandatory">*</b></th>
-					<td><input type="text" id="sdate" autocomplete="off" class="sdate" name="gsdate" required="required"></td>
+				<tr>
+					<th id="registerInfo" class="exception">그룹 시작일<b id="mandatory">*</b></th>
+					<td><input style="width:200px;" type="text" id="sdate" autocomplete="off" class="sdate" name="gsdate" required="required"></td>
+					<th id="registerInfo" class="exception">그룹 완료일<b id="mandatory">*</b></th>
+					<td><input style="width:200px;" type="text" id="edate" autocomplete="off" class="edate" name="gfdate" required="required"></td>
 				</tr>
-				<tr><th id="registerInfo">그룹 완료일<b id="mandatory">*</b></th>
-					<td><input type="text" id="edate" autocomplete="off" class="edate" name="gfdate" required="required"></td>
+				<tr><th id="registerInfo" class="exception">지역</th>
+					<td colspan="5"><input type="text" autocomplete="off" name="gloc"></td>
 				</tr>
-				<tr><th id="registerInfo">지역</th>
-					<td><input type="text" autocomplete="off" name="gloc"></td>
-				</tr>
-				<tr><td id="btnContainer" colspan="2">
+				<tr><td id="btnContainer" colspan="4">
 					<input id="btn" type="submit" value="등록">
 					<button id="btn" onclick="location='groupList.do?pageNum=1'">목록</button>
 				</td></tr>
