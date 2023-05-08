@@ -377,11 +377,13 @@ public class GroupServiceImpl implements GroupService {
 	/////////////////////////complete.do //////////////////////////////////////////
 	@Override //특정 그룹 완료(신청자 삭제, 그룹 히스토리의 그룹원 상태 2->3로 변경, 그룹 gcomplete 'F' or 'N' -> 'C')//
 	public int completeGroup(int gid) {
+		int success = 1;
 		String gidTemp = Integer.toString(gid);
 		if(gidTemp != null) {
 			groupDao.joinDelete(gid);
 			groupDao.historyComplete(gid);
 			groupDao.completeGroup(gid);
+			return success;
 		}
 		System.out.println(gid);
 		System.out.println("completeGroup 오류");

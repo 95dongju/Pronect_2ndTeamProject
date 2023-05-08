@@ -10,6 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>Pronect</title>
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 	<link href="${conPath }/css/groupDetail.css" rel="stylesheet">
 	<!-- SweetAlert -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -169,6 +170,7 @@
 	});
 	</script>
 	<script>
+		var pageNum = ${param.pageNum}
 		$(document).ready(function(){
 	  		$('#deleteBtn').click(function(){
 	  			Swal.fire({
@@ -185,7 +187,23 @@
 			    return false;
 	  		});
 	  	});
-
+		$(document).ready(function(){
+	  		$('#completeBtn').click(function(){
+	  			Swal.fire({
+			        title: '그룹을 종료하시겠습니까?',
+			        showDenyButton: true,
+			        confirmButtonText: '종료',
+			        denyButtonText: '취소',
+			        icon: 'warning',
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			        	location.href = '${conPath}/group/delete.do?gid=${param.gid }&pageNum='+pageNum;
+			        	location.href = '${conPath}/group/complete.do?gid=${param.gid}&pageNum='+pageNum;
+			        }
+			    });
+			    return false;
+	  		});
+	  	});
 		function change_btn(e) {
 			var btns = document.getElementsByClassName("mygroup_nav_p");
 			  btns.forEach(function (btn, i) {
@@ -316,10 +334,10 @@
 										<img class="language" src="${conPath }/logos/${groupDetail.glanguage1}.png" title="${groupDetail.glanguage1}" alt="${groupDetail.glanguage1}">
 								</c:if>
 								<c:if test="${not empty groupDetail.glanguage2 }">
-										/ <img class="language" src="${conPath }/logos/${groupDetail.glanguage2}.png" title="${groupDetail.glanguage2}" alt="${groupDetail.glanguage2}">
+										<img class="language" src="${conPath }/logos/${groupDetail.glanguage2}.png" title="${groupDetail.glanguage2}" alt="${groupDetail.glanguage2}">
 								</c:if>
 								<c:if test="${not empty groupDetail.glanguage3 }">
-										/ <img class="language" src="${conPath }/logos/${groupDetail.glanguage3}.png" title="${groupDetail.glanguage3}" alt="${groupDetail.glanguage3}">
+										<img class="language" src="${conPath }/logos/${groupDetail.glanguage3}.png" title="${groupDetail.glanguage3}" alt="${groupDetail.glanguage3}">
 								</c:if>
 							</span>
 						</li>
@@ -343,17 +361,17 @@
 					<p style=clear:both;></p>
 				</nav>
 			</div>
-	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 		<div class="groupContent_detailContentWrapper">
 					<h2 class="groupContent_detailInfo">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 소개</h2>
 					<pre>${groupDetail.gcontent }</pre>
 		</div>
+	<!----------------------------------------------------- 참가 신청/취소 ------------------------------------------------------->
 		<div class="groupContent_btns">
 			<c:if test="${not empty member}">
 				<c:if test="${groupDetail.mid ne member.mid and joincheck eq 0}">
 					<p>퇴출/탈퇴 그룹원은 재참가 불가능합니다</p>
 				</c:if>
-				<c:if test="${groupDetail.mid ne member.mid and joincheckCnt eq 0}">
+				<c:if test="${groupDetail.mid ne member.mid and joincheckCnt eq 0 and member.manager eq 'N'}">
 					<button onclick="location='${conPath }/group/join.do?gid=${groupDetail.gid}&mid=${member.mid}&pageNum=${param.pageNum}'">참가 신청</button>
 				</c:if>
 				<c:if test="${groupDetail.mid ne member.mid and joincheck eq 1}">
@@ -365,13 +383,14 @@
 				<c:if test="${groupDetail.mid eq member.mid or (not empty member and member.manager eq 'Y')}">
 					<button onclick="location='${conPath }/group/modify.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">수정</button>
 					<button id="deleteBtn">삭제</button>
-					<button onclick="location='${conPath }/group/complete.do?gid=${groupDetail.gid}&pageNum=${param.pageNum}'">그룹 종료</button>
+					<button id="completeBtn">그룹 종료</button>
 				</c:if>
 			</c:if>
 			<c:if test="${empty member}">
 				<button onclick="location='${conPath}/member/login.do'">참가 신청</button>
 			</c:if>
 		</div>
+	<!----------------------------------------------------- 댓글 ------------------------------------------------------->
 		<div class="studyContent_detailComment">
 			<div class="commentInput_commentText">
 				<hr>

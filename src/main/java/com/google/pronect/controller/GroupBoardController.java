@@ -65,6 +65,6 @@ public class GroupBoardController {
 		groupBoardReplyService.deleteAllGroupBoardComment(group_bid);
 		model.addAttribute("deleteResult", groupBoardService.deleteGroupBoard(group_bid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		return "group/groupDetail2";
+		return "group/groupDetail";
 	}
 }

@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/main.css" rel="stylesheet">
+	<link href="${conPath }/css/boardContent.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
@@ -34,6 +34,7 @@
 	</script>
 </head>
 <body>
+	<jsp:include page="../main/header.jsp"/>
 	<form id="frm" action="${conPath }/fboard/reply.do" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmit();">		
 		<input type="hidden" name="mid" value="${member.mid }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
@@ -42,20 +43,37 @@
 		<input type="hidden" name="fgroup" value="${fDto.fgroup }">
 		<input type="hidden" name="fstep" value="${fDto.fstep }">
 		<input type="hidden" name="findent" value="${fDto.findent }">
-		<table>
-			<caption>글 작성</caption>
-			<tr><th>제목</th><td><input type="text" name="ftitle" required="required" value="[답]${fDto.ftitle }"></td></tr>
-			<tr><th>본문</th><td><textarea rows="5" cols="20" name="fcontent"></textarea></td></tr>
-			<tr><th>첨부파일</th><td><input type="file" name="tempFfile"></td></tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="글쓰기" class="btn">
-					<input type="reset" value="초기화" class="btn">
-					<input type="button" value="목록" onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'" class="btn">
-				</td>
-			</tr>
-		</table>
+		<div class="board_wrap">
+	        <div class="board_title">
+	            <strong>자유게시판</strong>
+	            <p>ProNect에서 자유롭게 ConNect</p>
+	        </div>
+	        <p>답글 작성</p>
+	        <div class="board_write_wrap">
+	            <div class="board_write">
+	                <div class="title">
+	                    <dl>
+	                        <dt>제목</dt><dd><input type="text" name="ftitle" required="required" value="[답]${fDto.ftitle }"></dd>
+	                    </dl>
+	                </div>
+	                <div class="info">
+	                    <dl>
+	                        <dt>첨부파일</dt><dd><input type="file" name="tempFfile"></dd>
+	                    </dl>
+	                </div>
+	                <div class="cont">
+	                	<textarea rows="5" cols="20" name="fcontent" placeholder="본문 입력"></textarea>
+	                </div>
+	            </div>
+	            <div class="bt_wrap">
+	                <button type="submit">글쓰기</button>
+					<button type="reset">초기화</button>
+					<button type="button" onclick="location='${conPath}/fboard/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'" >목록</button>
+	            </div>
+	        </div>
+	    </div>
 	</form>
+	<jsp:include page="../main/footer.jsp"/>
 </body>
 </html>
 

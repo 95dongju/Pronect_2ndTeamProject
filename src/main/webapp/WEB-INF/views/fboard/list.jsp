@@ -122,7 +122,10 @@
 			<div id="main">
 				<div id="inner">
 					<div id="titleBack">
-						<h2 id="listTitle"><i class="fa-solid fa-comment fa-beat"></i> 자유게시판</h2>
+						<h2 id="listTitle">
+							<i class="fa-solid fa-comment fa-beat" style="margin-top: 50px;"></i> 자유게시판<br><br>
+							ProNect에서 자유롭게 ConNect
+						</h2>
 					</div>
 					<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a><br>
 					<div id="schArea">
