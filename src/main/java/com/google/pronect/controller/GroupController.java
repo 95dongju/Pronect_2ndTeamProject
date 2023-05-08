@@ -102,6 +102,7 @@ public class GroupController {
 	public String delete(int gid, Model model){
 		groupService.deleteHistory(gid);
 		model.addAttribute("groupDeleteResult",groupService.deleteGroup(gid));
+		groupService.
 		return "forward:groupList.do";
 	}
 	@RequestMapping(value="join", method=RequestMethod.GET)
