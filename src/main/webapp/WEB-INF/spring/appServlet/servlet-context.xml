@@ -19,6 +19,8 @@
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/js/**" location="/js/" />
 	<resources mapping="/memberFile/**" location="/memberFile/" />
+	<resources mapping="/qFile/**" location="/qFile/" />
+	<resources mapping="/nFile/**" location="/nFile/" />
 	<resources mapping="/languageLogos/**" location="/languageLogos/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

@@ -222,7 +222,7 @@
 		UPDATE GSTATUS SET GSSTATUS = 3 WHERE GID = #{gid} AND GSSTATUS = 2
 	</update>
 	<update id="completeGroup" parameterType="int">
-		UPDATE MYGROUP SET GCOMPLETE = 'C' WHERE GID = #{gid} AND GSSTATUS = 3
+		UPDATE MYGROUP SET GCOMPLETE = 'Y' WHERE GID = #{gid}
 	</update>
 <!--//////////////////////////////달성도 insert용/////////////////////////  -->
 	<select id="getMemberId" parameterType="int" resultMap="GroupResult">

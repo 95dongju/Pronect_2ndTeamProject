@@ -149,6 +149,9 @@
 		});
 	</script>
 </c:if>
+<c:if test="${completeResult eq SUCCESS }">
+	<script>alert('보람찬 시간 보내셨나요? 다음 활동도 기대할게요 :D');</script>
+</c:if>
 <jsp:include page="header.jsp"/>
 <!-- Wrapper -->
 	<div id="wrapper">

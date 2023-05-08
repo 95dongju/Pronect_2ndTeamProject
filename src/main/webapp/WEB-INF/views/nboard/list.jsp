@@ -20,7 +20,7 @@
  		#listForm {text-align: right; width: 440px; float:right;}
  		#sch,#writeBtn {display:inline;}
  		#writeBtn{margin-left: 30px;}
- 		#schArea{margin-bottom:40px}
+ 		#schArea{margin-bottom:40px;  height:44.8px;}
  		#sch[name=schItem]{width:150px; text-align: center;}
  		#sch[name=schWord]{width:200px;}
 	</style>
@@ -83,7 +83,9 @@
 								<input id="sch" type="text" name="schWord" value="${param.schWord }">
 								<input type="submit" value="검색">
 							</form>
-							<button id="writeBtn" type="button" onclick="location.href='${conPath}/nboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">글쓰기</button>
+							<c:if test="${member.manager eq 'Y'}">
+								<button id="writeBtn" type="button" onclick="location.href='${conPath}/nboard/write.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}'">글쓰기</button>
+							</c:if>
 						</div>
 						<table>
 							<tr>

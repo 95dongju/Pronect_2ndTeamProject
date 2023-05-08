@@ -27,7 +27,7 @@ public class GroupBoardCommentController {
 	@RequestMapping(value = "modifyView", method = RequestMethod.GET)
 	public String modifyView(int group_cmtid, Model model) {
 		model.addAttribute("fcomment", gboardCommentService.detailGroupBoardComment(group_cmtid));
-		return "fboard/commentModify";
+		return "groupBoard/commentModify";
 	}
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String modify(GroupBoardComment gboard_comment, Model model) {

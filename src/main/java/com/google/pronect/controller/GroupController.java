@@ -79,7 +79,7 @@ public class GroupController {
 		model.addAttribute("pageNum",pageNum);
 		model.addAttribute("paging",new Paging(groupService.projectTotCnt(),pageNum,12,10));
 		model.addAttribute("hitGroup",groupService.hitGroup());
-		return "group/groupDetail2";
+		return "group/groupDetail";
 	}
 //		model.addAttribute("joinList",groupService.joinList(gid));
 //		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
@@ -133,7 +133,7 @@ public class GroupController {
 	@RequestMapping(value="complete", method=RequestMethod.GET)
 	public String complete(int gid, Model model){
 		model.addAttribute("completeResult", groupService.completeGroup(gid));
-		return "forward:detail.do";
+		return "forward:groupList.do";
 	}
 	@RequestMapping(value="memberInfo", method=RequestMethod.GET)
 	public String memberInfo(int gid, String mid,Model model, HttpSession session){
@@ -148,7 +148,7 @@ public class GroupController {
 		model.addAttribute("joincheck", groupService.joinCheck(gid, mid));
 		model.addAttribute("joinList",groupService.joinList(gid));
 		model.addAttribute("groupDetail",groupService.getGroupDetail(gid));
-		model.addAttribute("groupComment",gCommentService.commentContent(gid));
+//		model.addAttribute("groupComment",gCommentService.commentContent(gid));
 		model.addAttribute("joinList",groupService.joinList(gid));
 		return "group/groupInfo";
 	}
