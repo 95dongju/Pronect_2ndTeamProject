@@ -178,6 +178,15 @@
               <artifactId>commons-io</artifactId>
               <version>2.6</version>
           </dependency>
+          
+          <!-- Ojdbc6 - 배포를 위한 mvcrepository -->
+          <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc6 -->
+			<dependency>
+			    <groupId>com.oracle.database.jdbc</groupId>
+			    <artifactId>ojdbc6</artifactId>
+			    <version>11.2.0.4</version>
+			</dependency>
+          
 
 	</dependencies>
     <build>

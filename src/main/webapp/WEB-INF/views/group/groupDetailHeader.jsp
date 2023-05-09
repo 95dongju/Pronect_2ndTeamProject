@@ -204,18 +204,6 @@
 			    return false;
 	  		});
 	  	});
-		function change_btn(e) {
-			var btns = document.getElementsByClassName("mygroup_nav_p");
-			  btns.forEach(function (btn, i) {
-			    if (e.currentTarget == btn) {
-			      btn.classList.add("active");
-			    } else {
-			      btn.classList.remove("active");
-			    }
-			  });
-			  console.log(e.currentTarget);
-			}
-		
 		function modifyComment(gcid, pageNum, gid){
 			$.ajax({
 				url : '${conPath}/group/commentModify.do',
@@ -242,21 +230,6 @@
 		    });
 		    return false;
 		}
-	</script>
-	<script>
-	window.onclick = function(){
-		function clickEvent(e) {
-			  var nonClick = document.querySelectorAll(".mygroup_nav_p");
-			  nonClick.forEach(function (btn, i) {
-			    if (e.currentTarget == btn) {
-			      btn.classList.add("active");
-			    } else {
-			      btn.classList.remove("active");
-			    }
-			  });
-			  console.log(e.currentTarget);
-			}
-	};
 	</script>
 	<style>
 		.image{

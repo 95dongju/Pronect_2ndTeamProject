@@ -24,10 +24,10 @@
 			</section>
 			<section>
 				<ul class="icons">
-					<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="https://github.com/95dongju/Pronect_2ndTeamProject" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
-					<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
-					<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+					<li><a href="https://www.instagram.com/seulgiring/"><i class="fa-brands fa-instagram fa-2xl"></i></a></li>
+					<li><a href="https://github.com/95dongju/Pronect_2ndTeamProject"><i class="fa-brands fa-github fa-2xl"></i></a></li>
+					<li><a href="#"><i class="fa-solid fa-phone fa-2xl"></i></a></li>
+					<li><a href="#"><i class="fa-solid fa-envelope fa-2xl"></i></a></li>
 					
 				</ul>
 			</section>

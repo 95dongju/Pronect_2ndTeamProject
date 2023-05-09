@@ -131,7 +131,7 @@
 		</fieldset>
 	</div>
 	<div id="main">
-	<div class="groupContent_detailContentWrapper">
+		<div class="groupContent_detailContentWrapper">
 					<h2 class="groupContent_detailInfo">${groupDetail.gcharacter eq 'P'? '프로젝트':'스터디'} 소개</h2>
 					<pre>${groupDetail.gcontent }</pre>
 		</div>

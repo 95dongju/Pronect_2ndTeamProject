@@ -2049,13 +2049,17 @@ textarea {
 		cursor: default;
 		list-style: none;
 		padding-left: 0;
-		margin: -1em 0 2em -1em;
+		margin: 10px;
 	}
 
 		ul.icons li {
 			display: inline-block;
 			padding: 1em 0 0 1em;
 		}
+		
+			.icons li a {
+				padding: 20px;
+			}
 
 /* Form */
 
