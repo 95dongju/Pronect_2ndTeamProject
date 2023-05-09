@@ -29,10 +29,10 @@
 		$('#mid').keyup(function(){
 			var mid = $(this).val();
 			var patternMid = /^[a-zA-Z0-9_]+$/; // macth함수 사용
-			if(mid.length<2){
-				$('#idConfirmMsg').text('아이디는 2글자 이상');
+			if(mid.length<5){
+				$('#idConfirmMsg').text('아이디는 5글자 이상');
 			}else if(!mid.match(patternMid)){
-				$('#idConfirmMsg').text('아이디는 영문자와 숫자 만 들어갈 수 있음');
+				$('#idConfirmMsg').text('아이디는 영문자와 숫자만 가능합니다');
 			}else {
 				$.ajax({
 					url : '${conPath}/member/idConfirm.do',
