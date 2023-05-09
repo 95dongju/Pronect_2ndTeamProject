@@ -194,6 +194,7 @@ public class GroupServiceImpl implements GroupService {
 	public int deleteHistory(int gid) {
 		String gidTemp = Integer.toString(gid);
 		if(gidTemp != null) {
+			groupDao.joinDelete(gid);
 			return groupDao.deleteHistory(gid);
 		}
 		System.out.println(gid);
