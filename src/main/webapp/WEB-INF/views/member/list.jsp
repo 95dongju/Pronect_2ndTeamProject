@@ -8,12 +8,30 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/main.css" rel="stylesheet">
+	<link href="${conPath }/css/boardDetail.css" rel="stylesheet">
 	<style>
-		#content {width: 800px; height:1200px;margin: 50px auto; }
+		#content {width: 1000px; height:1200px;margin: 50px auto; }
 		img{width: 100px;}
 		a {text-decoration: none; color:black;}
 		b {color:red;}
+ 		.back{width : 30px; text-align: left; margin-bottom:20px;}
+ 		#center {text-align: center;}
+ 		#titleBack{height:236px; background-color:#75348C; }
+ 		#listTitle{font-size:1.6em; text-align: center; color:white; box-shadow: black 1px;}
+ 		#listForm {text-align: right; width: 440px; float:right;}
+ 		#sch,#writeBtn {display:inline;}
+ 		#writeBtn{margin-left: 30px;}
+ 		#schArea form{
+ 			margin-bottom:40px;
+ 			width: 500px;
+ 			float: right;
+ 		}
+ 		#sch[name=schItem]{width:150px; text-align: center;}
+ 		#sch[name=schWord]{width:200px;}
+ 		#searchBtn {
+ 			display: inline-block;
+ 		}
+ 		#paging{text-align: center;}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -59,9 +77,9 @@
 	</c:if>
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
-		<div>
-			<form action="${conPath }/member/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}"">
-				<select name="schItem">
+		<div id="schArea">
+			<form id="listForm" action="${conPath }/member/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}"">
+				<select id="sch" name="schItem">
 					<option value=""
 						<c:if test="${param.schItem eq '' }">selected="selected"</c:if>
 					>검색조건</option>
@@ -72,8 +90,8 @@
 						<c:if test="${param.schItem eq 'manager' }">selected="selected"</c:if>
 					>관리자(Y) 일반회원(N)</option>
 				</select>
-				<input type="text" name="schWord" value="${param.schWord }">
-				<input type="submit" value="검색">
+				<input id="sch" type="text" name="schWord" value="${param.schWord }">
+				<button type="button" id="searchBtn"><i class="fa-solid fa-magnifying-glass fa-beat"></i> 검색</button>
 			</form>
 		</div>
 		<table>
@@ -101,7 +119,7 @@
 				</tr>
 			</c:forEach>
 		</table><br>
-		<div>
+		<div id="paging">
 			<c:if test="${paging.startPage>paging.blockSize}">
 				[ <a href="${conPath }/member/list.do?pageNum=${paging.startPage-1 }&schItem=${param.schItem}&schWord=${param.schWord}">이전</a> ]
 			</c:if>	

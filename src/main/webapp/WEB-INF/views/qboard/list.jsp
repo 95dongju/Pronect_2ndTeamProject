@@ -16,13 +16,22 @@
 		b {color:red;}
  		.back{width : 30px; text-align: left; margin-bottom:20px;}
  		#center {text-align: center;}
- 		#listTitle{font-size:1.6em; text-align: center;}
+ 		#titleBack{height:236px; background-color:#75348C; } 		
+ 		#listTitle{font-size:1.6em; text-align: center; color:white; box-shadow: black 1px;}
  		#listForm {text-align: right; width: 440px; float:right;}
  		#sch,#writeBtn {display:inline;}
  		#writeBtn{margin-left: 30px;}
- 		#schArea{margin-bottom:40px;}
+ 		/* #schArea{margin-bottom:40px;} */
+		#schArea form{
+ 			margin-bottom:40px;
+ 			width: 500px;
+ 			float: right;
+ 		}
  		#sch[name=schItem]{width:150px; text-align: center;}
  		#sch[name=schWord]{width:200px;}
+ 		#searchBtn {
+ 			display: inline-block;
+ 		}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 	<script>
@@ -62,9 +71,13 @@
 		<div id="wrapper">
 			<div id="main">
 				<div class="inner">
-					<div id="content">
+					<div id="content" style="margin-top:0;">
 						<div id="titleBack">
-							<h2 id="listTitle">문의 게시판</h2>
+							<h2 id="listTitle" style="text-transform: none;">
+								<i class="fa-regular fa-circle-question fa-flip" style="margin-top: 50px; --fa-animation-duration: 6s;"></i>
+								문의 게시판<br><br>
+								ProNect에서 자유롭게 ConNect
+								</h2>
 						</div>
 						<a href="${conPath }/group/groupList.do?pageNum=${param.pageNum}"><img class = "back" src="${conPath}/images/back.png"></a><br>
 						<div id="schArea">
