@@ -13,7 +13,7 @@
   <style>
   	.back{width : 30px; text-align: left;}
 		#content{width:1000px;	margin:0 auto;}
-  	#qnaInfo {
+  	table tr #qnaInfo {
 			width:150px;
 			font-size: 0.9em;
 			font-weight: 900;
@@ -25,7 +25,10 @@
 		#btn{ margin:0 10px 0 10px;}
 		#title{font-size: 2em; margin: 15px auto;}
 		#mimage, #grdate, #mid{diplay:	inline}
-		#mimage{width:30px;}
+		.mimage{width:30px; margin-right:20px;}
+		.qboardDetail_writer{display:flex; align-items: center;}
+		.qboardDetail_title {display:flext; flex-direction: column;}
+		#content_pre {white-space: pre-wrap; word-break:break-all; overflow: auto;}
 	</style>
 </head>
 <body>
@@ -42,16 +45,15 @@
 			</c:if>
 			<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
 			<h2 id="title">${qDto.qtitle}</h2>
-				<div class="groupDetail_writer">
-					<div><img class="mimage" style="width:60px; display:inline-block; border-radius: 30px;" src="${conPath}/memberFile/${qDto.mimage}" alt="사용자 이미지"></div><div class="mid">${qDto.mnickname }</div>
-					<br><div class="grdate">작성일: ${qDto.qrdate }</div>
-					<c:if test=" ${empty qDto.mimage}">
-						이미지 비어있음
-					</c:if>
+				<div class="qboardDetail_writer"><img class="mimage" style="width:60px; display:inline-block; border-radius: 30px;" src="${conPath}/memberFile/${qDto.mimage}" alt="사용자 이미지">
+					<div class="qboardDetail_title">
+						<div class="qboardDetail_userNickname">${qDto.mnickname }</div>
+						<div class="qboardDetail_registerDate" class="grdate">작성일: ${qDto.qrdate }</div>
+					</div>
 				</div>
 				<p style=clear:both;></p>
 			<table>
-				<tr><th id="qnaInfo">본문</th><td><pre>${qDto.qcontent }</pre></td></tr>
+				<tr><th id="qnaInfo">본문</th><td><pre id="content_pre">${qDto.qcontent }</pre></td></tr>
 				<tr>
 					<th id="qnaInfo">첨부파일</th>
 					<td>
