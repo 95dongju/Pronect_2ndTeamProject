@@ -21,7 +21,7 @@
 	<div id="content">
 	<form action="${conPath }/member/searchPw.do" method="post">
 		<table>
-			<caption>아이디 찾기</caption>
+			<caption>비밀번호 찾기</caption>
 			<tr>
 				<th>이름</th>
 				<td><input type="text" name="mname" required="required" ></td>
