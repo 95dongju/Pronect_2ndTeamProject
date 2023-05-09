@@ -175,7 +175,9 @@
 					</c:if>
 				</ul>
 				<div class="search_div">
-					<input type="text" placeholder="스터디/프로젝트를 검색하세요" class="searchtxt"><img src="${conPath }/images/searchIcon.png" id="searchBtn">
+					<form action="${conPath}/group/groupList.do?mid=${member.mid}&pageNum=1">
+						<input type="text" name="searchGroup" placeholder="스터디/프로젝트를 검색하세요" class="searchtxt"><img src="${conPath }/images/searchIcon.png" id="searchBtn">
+					</form>
 				</div>
 			</nav>
 			<br>
