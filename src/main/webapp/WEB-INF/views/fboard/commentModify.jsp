@@ -47,7 +47,7 @@
 					&nbsp; &nbsp; &nbsp; 
 				</c:if>
 			</c:forEach>
-			<span style="display:block; height:30px; float:left; margin: 5px;">${fcomment.fcid }.</span>
+			<span style="display:block; height:30px; float:left; margin: 5px;"></span>
 			
 			<textarea rows="2" cols="5" name="fccontent" style="width:50%; height:30px; float:left; margin: 5px;">${fcomment.fccontent }</textarea>
 			<input type="submit" value="수정" class="btn" style="height:30px; float:left; margin: 5px;">

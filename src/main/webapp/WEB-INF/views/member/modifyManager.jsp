@@ -11,6 +11,9 @@
 <link href="${conPath }/css/main.css" rel="stylesheet">
 <style>
 	#content {width: 800px; height:800px;margin: 50px auto;}
+	table {
+		font-size: 0.8em;
+	}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
