@@ -60,7 +60,7 @@
 	<jsp:include page="../main/header.jsp"/>
 	<div id="content">
 		<div>
-			<form action="${conPath }/member/list.do">
+			<form action="${conPath }/member/list.do?pageNum=${param.pageNum }&schItem=${param.schItem}&schWord=${param.schWord}"">
 				<select name="schItem">
 					<option value=""
 						<c:if test="${param.schItem eq '' }">selected="selected"</c:if>
