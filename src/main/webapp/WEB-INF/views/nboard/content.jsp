@@ -27,8 +27,8 @@
 		#title{font-size: 2em; margin: 15px auto;}
 		#mimage, #grdate, #mid{diplay:	inline}
 		.mimage{width:30px; margin-right:20px;}
-		.groupDetail_writer{display:flex; align-items: center;}
-		.groupDetail_title {display:flext; flex-direction: column;}
+		.nboardDetail_writer{display:flex; align-items: center;}
+		.nboardDetail_title {display:flext; flex-direction: column;}
 		#content_pre {white-space: pre-wrap; word-break:break-all; overflow: auto;}
 	</style>
 </head>
@@ -46,10 +46,10 @@
 			</c:if>
 			<a href="javascript:history.back()"><img class = "back" src="${conPath}/images/back.png"></a>
 			<h2 id="title">${nDto.ntitle}</h2>
-				<div class="groupDetail_writer"><img class="mimage" style="width:60px; display:inline-block; border-radius: 30px;" src="${conPath}/memberFile/${nDto.mimage}" alt="사용자 이미지">
-					<div class="groupDetail_title">
-						<div class="groupDetail_userNickname">${nDto.mnickname } 님</div>
-						<div class="groupDetail_registerDate">작성일: ${nDto.nrdate }</div>
+				<div class="nboardDetail_writer"><img class="mimage" style="width:60px; display:inline-block; border-radius: 30px;" src="${conPath}/memberFile/${nDto.mimage}" alt="사용자 이미지">
+					<div class="nboardDetail_title">
+						<div class="nboardDetail_userNickname">${nDto.mnickname } 님</div>
+						<div class="nboardDetail_registerDate" class="grdate">작성일: ${nDto.nrdate }</div>
 					</div>
 				</div>
 				<p style=clear:both;></p>
