@@ -11,15 +11,15 @@
 - 프로젝트 소개: 스터디/프로젝트 그룹 형성을 편리하게 하고, 일정 및 그룹 관리를 직관적으로 할 수 있는 사이트입니다.
 
 ## 목차
-[1. 작업분할 구조도](https://github.com/95dongju/Camper/blob/main/README.md#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84)<br>
-[2. Gantt Chart](https://github.com/95dongju/Camper/blob/main/README.md#gantt-chard)<br>
-[3. 이용자 권한](https://github.com/95dongju/Camper/blob/main/README.md#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
-[4. Usecase Diagram](https://github.com/95dongju/Camper/blob/main/README.md#usecase-diagram)<br>
-[5. Sequence Diagram](https://github.com/95dongju/Camper/blob/main/README.md#sequence-diagram)<br>
-[6. 기능정의서](https://github.com/95dongju/Camper/blob/main/README.md#%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C)<br>
-[7. E-R Diagram](https://github.com/95dongju/Camper/blob/main/README.md#project-source-explorer)<br>
-[8. Project Source Explorer](https://github.com/95dongju/Camper/blob/main/README.md#project-source-explorer)<br>
-[9. 실행화면 설명](https://github.com/95dongju/Camper/blob/main/README.md#%EC%8B%A4%ED%96%89%ED%99%94%EB%A9%B4-%EC%84%A4%EB%AA%85)<br>
+[1. 작업분할 구조도](https://github.com/95dongju/Pronect_2ndTeamProject#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84)<br>
+[2. Gantt Chart](https://github.com/95dongju/Pronect_2ndTeamProject#gantt-chart)<br>
+[3. 이용자 권한](https://github.com/95dongju/Pronect_2ndTeamProject#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
+[4. Usecase Diagram](https://github.com/95dongju/Pronect_2ndTeamProject#usecase-diagram)<br>
+[5. Sequence Diagram](https://github.com/95dongju/Pronect_2ndTeamProject#sequence-diagram)<br>
+[6. 기능정의서](https://github.com/95dongju/Pronect_2ndTeamProject#%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C)<br>
+[7. E-R Diagram](https://github.com/95dongju/Pronect_2ndTeamProject#e-r-diagram)<br>
+[8. Project Source Explorer](https://github.com/95dongju/Pronect_2ndTeamProject#project-source-explorer)<br>
+[9. 실행화면 설명](https://github.com/95dongju/Pronect_2ndTeamProject#%EC%8B%A4%ED%96%89%ED%99%94%EB%A9%B4-%EC%84%A4%EB%AA%85)<br>
 
 
 <hr>
@@ -44,9 +44,24 @@
 ## Project Source Explorer
 ![슬라이드17](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/ce3e2fbe-3a77-4017-b4d1-8563a4a57651)
 ## 실행화면 설명
-![슬라이드19](https://user-images.githubusercontent.com/119286977/229388558-b3b4840b-9497-4e3b-85ac-349f39e79446.JPG)
-![슬라이드20](https://user-images.githubusercontent.com/119286977/229388560-f769242b-1749-4c81-a50f-011673f9d0f9.JPG)
-![슬라이드21](https://user-images.githubusercontent.com/119286977/229388561-98430a1f-0d19-4881-b1fd-3ec8f9925d2b.JPG)
-![슬라이드22](https://user-images.githubusercontent.com/119286977/229388563-7066e04d-c232-4606-ab58-0fd92bc8511a.JPG)
-![슬라이드23](https://user-images.githubusercontent.com/119286977/229388564-c1bc5f53-3917-4c56-9c05-0e5a73a0d54d.JPG)
-![슬라이드24](https://user-images.githubusercontent.com/119286977/229388566-5a968f62-6382-463b-b865-b040987de0af.JPG)
+![슬라이드18](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/5a5a2382-1552-4090-b485-a3a08f0b19d0)
+![슬라이드19](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/2e191221-2509-48d0-8079-47659277e5c3)
+![슬라이드20](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/ff761c08-3d46-4db6-bf28-0d03828eb6c8)
+![슬라이드21](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/cde3b4e4-db26-4610-91df-7946ea259953)
+![슬라이드22](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/7a3e14b8-18a6-4c52-af79-52300485cf21)
+![슬라이드23](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/9660326c-7c1b-4c55-b5cd-dfb6699456dc)
+![슬라이드24](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/e2adea36-66d2-4dde-9c4f-30591dfbcea4)
+![슬라이드25](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/bd351cb1-3c6a-4a40-b4c1-df47bd9425ec)
+![슬라이드26](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/8f10d440-eba1-4eb8-8ecd-71ce9bfae6c1)
+![슬라이드27](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/0c9330ce-430e-46f1-a76e-1f7555ca1832)
+![슬라이드28](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/1a56b74f-8cf8-4dd9-ba77-caa762be338f)
+![슬라이드29](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/a702b801-b930-4f8d-98c1-546be64e4956)
+![슬라이드30](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/61f097c1-7fee-405c-b700-5d031f09a46e)
+![슬라이드31](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/40053968-33b4-41c1-a893-00b14e5be72e)
+![슬라이드32](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/4b3d48a2-a440-4fb6-af8e-83da5c89bd7c)
+![슬라이드33](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/095f64f3-0b9c-4abe-b542-9b08e19ca6af)
+![슬라이드34](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/4f882112-8351-4aed-a3ba-10cb82ae8fa7)
+![슬라이드35](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/dd1a8565-b340-441d-ab91-a9bebb18e70e)
+![슬라이드36](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/ace71894-0de0-4f53-bc7b-4a8d62c492b7)
+![슬라이드37](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/c6ee7326-3eab-46db-89e7-d0c557f27cb0)
+![슬라이드38](https://github.com/95dongju/Pronect_2ndTeamProject/assets/119286977/d3a82cab-cf99-47f2-beae-4269193a8351)
